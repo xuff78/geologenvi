@@ -20,7 +20,7 @@ public final class SharedPreferencesUtil {
 
 	/** SharedPreferences对应xml文件的文件名 ,次配置文件只保持银行数据 */
 	private static final String SHARED_PREFERENCES_NAME = "data";// 这个数据退出时会清掉数据。
-	private static final String SHARED_PREFERENCES_XML_PARSE_PACKAGE = "environment.th.com.thenvi";
+	private static final String SHARED_PREFERENCES_XML_PARSE_PACKAGE = "com.sichuan.geologenvi";
 
 	/** 当<配置文件>中不存在你要取的值时，返回此int状态值 */
 	public static final int FAILURE_INT = Integer.MIN_VALUE;

@@ -3,10 +3,10 @@ package com.sichuan.geologenvi.http;
 import android.app.Activity;
 import android.app.Dialog;
 
-import environment.th.com.thenvi.bean.JsonMessage;
-import environment.th.com.thenvi.utils.DialogUtil;
-import environment.th.com.thenvi.utils.JsonUtil;
-import environment.th.com.thenvi.utils.LogUtil;
+import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
 
 
 /**
@@ -31,7 +31,7 @@ public class CallBack {
 	 */
 	public void onSuccess(String method, String jsonMessage){
 //		LogUtil.e(TAG, "onSuccess:"+jsonMessage);
-		JsonMessage msg=JsonUtil.getJsonMessage(jsonMessage);
+		JsonMessage msg= JsonUtil.getJsonMessage(jsonMessage);
 		if(msg.getCode()==null){
 			oServerException(method, jsonMessage);
 		}else if(msg.getCode().equals("9200"))

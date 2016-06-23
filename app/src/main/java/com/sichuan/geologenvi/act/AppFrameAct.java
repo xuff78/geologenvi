@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.utils.ActUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 
 
 /**
@@ -40,14 +41,12 @@ public abstract class AppFrameAct extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 //		StatusBarCompat.compat(this, getResources().getColor(R.color.hard_gray));
 
-		super.setContentView(R.layout.of_app_frame);
+		super.setContentView(R.layout.app_frame);
 		listener = new ClickListener();
 		btnHome=(ImageButton) findViewById(R.id.of_back_home_imagebtn);
 		btnHome.setOnClickListener(listener);
 		btnBack=(ImageButton)findViewById(R.id.of_back_imagebtn);
 		btnBack.setOnClickListener(listener);
-
-		ActUtil.initImageLoader(this);
 	}
 	
 	
@@ -69,7 +68,7 @@ public abstract class AppFrameAct extends AppCompatActivity {
 		public void onClick(View v) {
 			int id = v.getId();
 			if (id == R.id.of_back_home_imagebtn) {
-				
+
 			} else if (id == R.id.of_back_imagebtn) {
 				KeyBoardCancle();
 				finish();
@@ -159,7 +158,7 @@ public abstract class AppFrameAct extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ActUtil.initImageLoader(this);
+		ImageUtil.initImageLoader(this);
 	}
 	
 	public void KeyBoardCancle() {

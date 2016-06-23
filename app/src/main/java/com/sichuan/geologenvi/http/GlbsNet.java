@@ -7,6 +7,9 @@ import android.net.Proxy;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
+import com.sichuan.geologenvi.utils.LogUtil;
+import com.sichuan.geologenvi.utils.URLUtil;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,8 +22,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
 
-import environment.th.com.thenvi.utils.LogUtil;
-import environment.th.com.thenvi.utils.URLUtil;
 
 
 /**

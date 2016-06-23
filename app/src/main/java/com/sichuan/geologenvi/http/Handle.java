@@ -2,7 +2,7 @@ package com.sichuan.geologenvi.http;
 
 import android.content.Context;
 
-import environment.th.com.thenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.utils.ToastUtils;
 
 
 /**

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_header_layout_value"
+    android:layout_width="fill_parent"
+    android:layout_height="45dip"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/app_titleLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="@color/white" >
+
+        <ImageButton
+            android:id="@+id/of_back_imagebtn"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@mipmap/of_back" />
+
+        <TextView
+            android:id="@+id/of_header_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dip"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginLeft="60dip"
+            android:layout_marginRight="70dip"
+            android:textColor="@color/hard_gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/of_back_home_imagebtn"
+            android:visibility="gone"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dip"
+            android:background="@null"
+            android:src="@mipmap/of_homel" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:background="@color/light_gray" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -6,10 +6,11 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
+import com.sichuan.geologenvi.utils.ActUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
+
 import java.util.HashMap;
 
-import environment.th.com.thenvi.utils.ActUtil;
-import environment.th.com.thenvi.utils.LogUtil;
 
 /**
  * 要使用AsyncTask工作我们要提供三个泛型参数，并重载四个方法(至少重载一个)。<br>

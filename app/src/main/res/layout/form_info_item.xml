@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/nameTxt"
+        android:text="xxx"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:gravity="center"
+        android:layout_height="30dip"
+        style="@style/txt_white_11" />
+    <TextView
+        android:id="@+id/contentTxt"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="4dip"
+        android:paddingBottom="4dip"
+        android:text="xxx"
+        android:layout_toRightOf="@+id/nameTxt"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical|right"
+        android:layout_height="wrap_content"
+        android:minHeight="30dip"
+        style="@style/txt_white_11" />
+</RelativeLayout>

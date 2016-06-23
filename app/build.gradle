@@ -17,10 +17,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("D:\\android_self.jks")
+            storePassword "123456"
+            keyAlias "eric_ji"
+            keyPassword "123456"
+
+        }
+
+        release {
+            storeFile file("D:\\android_self.jks")
+            storePassword "123456"
+            keyAlias "eric_ji"
+            keyPassword "123456"
+        }
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile files('src/main/assets/tiandituapi2.2.2.jar')
+    compile files('src/main/libs/tiandituapi2.2.2.jar')
+    compile files('libs/tiandituapi2.2.2.jar')
 }
