@@ -22,6 +22,8 @@ public class FirstPage extends AppCompatActivity {
             public void run() {
                 Intent i=new Intent(FirstPage.this, MainActivity.class);
                 startActivity(i);
+                finish();
+                overridePendingTransition(0, R.anim.zoom_out);
             }
         }, 2000);
     }

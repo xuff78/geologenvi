@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:background="@color/whitesmoke"
     tools:context="com.sichuan.geologenvi.MainActivity">
     <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/bar_toptitle"
+            android:layout_width="160dp"
+            android:layout_height="45dp" />
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+        <com.sichuan.geologenvi.views.AutoScrollViewPager
+            android:id="@+id/galleryImgs"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/light_gray"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/menuLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/ic_launcher"
+        <View
+            android:background="@color/light_gray"
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
-        <LinearLayout
-            android:id="@+id/menuLayout"
-            android:layout_marginTop="40dp"
-            android:orientation="vertical"
+            android:layout_height="1px" />
+        <RelativeLayout
+            android:background="@color/whitesmoke"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="24dp">
+            <com.sichuan.geologenvi.views.ScrollPoints
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>
