@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="fill_parent" android:layout_height="50dip">
+
+        <EditText android:id="@+id/search_text"
+            android:layout_marginLeft="10dp"
+            android:hint="请输入关键字"
+            android:layout_width="fill_parent" android:layout_height="35dip"
+            android:textColor="@color/hard_gray" android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true" android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@+id/store_search_btn" android:paddingLeft="15dip"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:singleLine="true" android:background="@drawable/shape_nocorner_black" />
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:paddingTop="2dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/store_search_btn" android:layout_width="40dip"
+            android:layout_height="40dip" android:layout_marginTop="0dip"
+            android:layout_centerVertical="true"
+            android:textSize="16sp" android:src="@mipmap/mall_search_light_icon"
+            android:textColor="#ffffff"/>
+        <!--
+        <AutoCompleteTextView android:id="@+id/station_search_text"
+            android:layout_width="fill_parent" android:layout_height="30dip" android:hint="站名简拼查询"
+            android:textColor="#C5C5C5" android:textSize="14dip" android:textStyle="bold"
+            android:layout_centerVertical="true" android:layout_marginLeft="30dip" android:paddingLeft="20dip"
+            android:singleLine="true" android:layout_toLeftOf="@id/station_search_btn" android:background="@drawable/sosuokuang1" />
+         -->
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/frgFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

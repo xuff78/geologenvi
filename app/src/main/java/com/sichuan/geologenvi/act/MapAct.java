@@ -51,7 +51,7 @@ public class MapAct  extends AppFrameAct {
         List<Overlay> list = mMapView.getOverlays();
 
         Resources res = getResources();
-        Drawable marker = res.getDrawable(R.mipmap.app_home_cbs);
+        Drawable marker = res.getDrawable(R.mipmap.icon_location_target);
         ItemOverlay mOverlay = new ItemOverlay(marker, this, mMapView, mPopView.getPopView());
         list.add(mOverlay);
     }
