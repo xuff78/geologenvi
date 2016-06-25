@@ -19,6 +19,7 @@ import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
+import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
@@ -40,6 +41,8 @@ public class MainActivity extends AppFrameAct {
         _setHeaderGone();
         _setHeaderTitle(getResources().getString(R.string.app_name));
         initView();
+
+        FileUtil.verifyStoragePermissions(this);
     }
 
     private void initView() {

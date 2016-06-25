@@ -3,6 +3,7 @@ package com.sichuan.geologenvi.act;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,6 +27,8 @@ public class MapAct  extends AppFrameAct {
     private MapView mMapView = null;
     protected MapController mController = null;
     private MarkerSupportView  mPopView=null;
+
+    public final static String savePath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/scgeoev/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MapAct  extends AppFrameAct {
 
     private void initView() {
         TOfflineMapManager offlineMapMng = new TOfflineMapManager(null);
-        offlineMapMng.setMapPath("/sdcard/scgeoev/");
+        offlineMapMng.setMapPath(savePath);
         mMapView = (MapView)findViewById(R.id.mapview);
         mMapView.setMinZoomLevel(5);
         mMapView.setOfflineMaps(offlineMapMng.searchLocalMaps());
@@ -66,7 +69,6 @@ public class MapAct  extends AppFrameAct {
         mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
         mMapView.setSatellite(true);
         mMapView.setMapType(MapView.TMapType.MAP_TYPE_VEC);
-//        mMapView.setBuiltInZoomControls(true);
         mController = mMapView.getController();
         mController.setZoom(5);
         mController.setCenter(new GeoPoint((int)(30.67*1000000), (int)(104.06*1000000)));
