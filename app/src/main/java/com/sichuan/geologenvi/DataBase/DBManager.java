@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 
 import java.io.File;
@@ -22,9 +23,8 @@ import java.util.ArrayList;
 public class DBManager {
     private final int BUFFER_SIZE = 400000;
     public static final String DB_NAME = "countries.db"; //保存的数据库文件名
-    public static final String PACKAGE_NAME = "com.android.ImportDatabase";
-    public static final String DB_PATH = "/data"
-            + Environment.getDataDirectory().getAbsolutePath() + "/"
+    public static final String PACKAGE_NAME = "ttt";
+    public static final String DB_PATH = Environment.getExternalStorageDirectory() + "/"
             + PACKAGE_NAME;  //在手机里存放数据库的位置
 
     private SQLiteDatabase database;
@@ -32,41 +32,45 @@ public class DBManager {
 
     public DBManager(Context context, String DB_NAME) {
         this.context = context;
-        openDatabase(DB_PATH + "/" + DB_NAME);
+        openDatabase(DB_PATH+"/"+DB_NAME);
     }
 
     private void openDatabase(String dbfile) {
         try {
             if (!(new File(dbfile).exists())) {
-//                InputStream is = context.getResources().openRawResource(
-//                        R.raw.countries); //欲导入的数据库
-//                FileOutputStream fos = new FileOutputStream(dbfile);
-//                byte[] buffer = new byte[BUFFER_SIZE];
-//                int count = 0;
-//                while ((count = is.read(buffer)) > 0) {
-//                    fos.write(buffer, 0, count);
-//                }
-//                fos.close();
-//                is.close();
-                ToastUtils.displayTextShort(context, "请先同步数据");
-            }else {
-                database = SQLiteDatabase.openOrCreateDatabase(dbfile, null);
+                FileUtil.isExist(DB_PATH);
+
+                File file = new File(dbfile);
+                InputStream is = context.getResources().getAssets().open("db.db3");
+//                        R.raw.test); //欲导入的数据库
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int count = 0;
+                while ((count = is.read(buffer)) > 0) {
+                    fos.write(buffer, 0, count);
+                }
+                fos.close();
+                is.close();
+//                ToastUtils.displayTextShort(context, "请先同步数据");
             }
+//            else {
+                database = SQLiteDatabase.openOrCreateDatabase(dbfile, null);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
-            ToastUtils.displayTextShort(context, "数据库打开失败");
+//            ToastUtils.displayTextShort(context, "数据库打开失败");
         }
     }
 
     private synchronized SQLiteDatabase getDatebase(){
         if (database != null && database.isOpen()) {
             if(database.isReadOnly()){
-                ToastUtils.displayTextShort(context, "请稍后再试");
+//                ToastUtils.displayTextShort(context, "请稍后再试");
                 return null;
             }else
                 return database;
         }else{
-            ToastUtils.displayTextShort(context, "请先同步数据");
+//            ToastUtils.displayTextShort(context, "请先同步数据");
             return null;
         }
     }

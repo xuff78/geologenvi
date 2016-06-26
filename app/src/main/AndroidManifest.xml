@@ -29,6 +29,9 @@
         <activity
             android:name=".act.TitleListAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.contact.ActivityAddFriends" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
 
     </application>
 

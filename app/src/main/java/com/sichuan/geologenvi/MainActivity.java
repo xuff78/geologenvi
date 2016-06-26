@@ -15,10 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sichuan.geologenvi.DataBase.DBManager;
+import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
+import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
 import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
@@ -42,7 +45,7 @@ public class MainActivity extends AppFrameAct {
         _setHeaderTitle(getResources().getString(R.string.app_name));
         initView();
 
-        FileUtil.verifyStoragePermissions(this);
+//        FileUtil.verifyStoragePermissions(this);
     }
 
     private void initView() {
@@ -86,13 +89,23 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 1:
-                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.setClass(MainActivity.this, ActivityAddFriends.class);
                     i.putExtra("Title", "通讯录");
                     startActivity(i);
                     break;
                 case 2:
                     i.setClass(MainActivity.this, MapAct.class);
                     startActivity(i);
+                    break;
+                case 3:
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            super.run();
+                            SqlHandler handlr=new SqlHandler(MainActivity.this, "DBT.db");
+                            handlr.getPersonInfo();
+                        }
+                    }.start();
                     break;
                 case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);

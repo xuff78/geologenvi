@@ -18,13 +18,13 @@ public class SqlHandler {
     }
 
     public void getPersonInfo(){
-        Cursor c = dbManager.querySQL("SELECT * FROM person WHERE age >= ?", new String[]{});
+        Cursor c = dbManager.querySQL("SELECT * FROM USER_INFO", new String[]{});
         if(c!=null) {
+            c.moveToFirst();
             while (c.moveToNext()) {
-                int _id = c.getInt(c.getColumnIndex("_id"));
-                String name = c.getString(c.getColumnIndex("name"));
-                int age = c.getInt(c.getColumnIndex("age"));
-                LogUtil.i("db", "_id=>" + _id + ", name=>" + name + ", age=>" + age);
+                String _id = c.getString(c.getColumnIndex("USERNAME"));
+                String name = c.getString(c.getColumnIndex("USERCODE"));
+                LogUtil.i("db", "_id=>" + _id + ", name=>" + name);
             }
             c.close();
         }
