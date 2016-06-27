@@ -22,13 +22,7 @@ public class SqlHandler {
 
     public SqlHandler(final Activity con, final String dbName, final Runnable callback){
         act=con;
-        new Thread(){
-            @Override
-            public void run() {
-                dbManager=new DBManager(act, dbName);
-                act.runOnUiThread(callback);
-            }
-        }.start();
+        dbManager=new DBManager(act, dbName, callback);
     }
 
     public ArrayList<Contact> getPersonInfo(){

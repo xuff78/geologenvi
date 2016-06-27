@@ -1,5 +1,6 @@
 package com.sichuan.geologenvi.DataBase;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,17 +23,28 @@ import java.util.ArrayList;
  */
 public class DBManager {
     private final int BUFFER_SIZE = 400000;
-    public static final String DB_NAME = "countries.db"; //保存的数据库文件名
+    public String DB_NAME = "countries.db"; //保存的数据库文件名
     public static final String PACKAGE_NAME = "ttt";
     public static final String DB_PATH = Environment.getExternalStorageDirectory() + "/"
             + PACKAGE_NAME;  //在手机里存放数据库的位置
 
-    private SQLiteDatabase database;
+    private static SQLiteDatabase database=null;
     private Context context;
 
-    public DBManager(Context context, String DB_NAME) {
+    public DBManager(final Activity context, String dbName, final Runnable callback) {
         this.context = context;
-        openDatabase(DB_PATH+"/"+DB_NAME);
+        this.DB_NAME = dbName;
+        if(database==null)
+        new Thread(){
+            @Override
+            public void run() {
+                openDatabase(DB_PATH+"/"+DB_NAME);
+                context.runOnUiThread(callback);
+            }
+        }.start();
+        else{
+            callback.run();
+        }
     }
 
     private void openDatabase(String dbfile) {
@@ -54,19 +66,16 @@ public class DBManager {
             database = SQLiteDatabase.openOrCreateDatabase(dbfile, null);
         } catch (Exception e) {
             e.printStackTrace();
-//            ToastUtils.displayTextShort(context, "数据库打开失败");
         }
     }
 
     private synchronized SQLiteDatabase getDatebase(){
         if (database != null && database.isOpen()) {
             if(database.isReadOnly()){
-//                ToastUtils.displayTextShort(context, "请稍后再试");
                 return null;
             }else
                 return database;
         }else{
-//            ToastUtils.displayTextShort(context, "请先同步数据");
             return null;
         }
     }
