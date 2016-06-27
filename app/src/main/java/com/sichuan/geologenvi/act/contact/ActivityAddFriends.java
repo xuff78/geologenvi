@@ -17,8 +17,11 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.bean.Contact;
+import com.sichuan.geologenvi.views.ContactDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +37,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	private LinearLayout titleLayout;
 	private TextView title;
 	private TextView tvNofriends;
+	private SqlHandler handler;
 	/**
 	 * 上次第一个可见元素，用于滚动时记录标识。
 	 */
@@ -42,17 +46,27 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 * 汉字转换成拼音的类
 	 */
 	private CharacterParser characterParser;
-	private List<GroupMemberBean> SourceDateList;
+	private ArrayList<Contact> contacts;
 
 	/**
 	 * 根据拼音来排列ListView里面的数据类
 	 */
 	private PinyinComparator pinyinComparator;
+	private Runnable callback=new Runnable() {
+		@Override
+		public void run() {
+			contacts=handler.getPersonInfo();
+			setContacts();
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_friends);
+
+		handler=new SqlHandler(this, "info.db", callback);
+		_setHeaderTitle("通讯录");
 		initViews();
 	}
 
@@ -91,18 +105,18 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				Toast.makeText(
-						getApplication(),
-						((GroupMemberBean) adapter.getItem(position)).getName(),
-						Toast.LENGTH_SHORT).show();
+				ContactDialog contactDialog=new ContactDialog(ActivityAddFriends.this, (Contact) adapter.getItem(position));
+				contactDialog.show();
 			}
 		});
+	}
 
-		SourceDateList = filledData(getResources().getStringArray(R.array.date));
+	private void setContacts(){
+		filledData(contacts);
 
 		// 根据a-z进行排序源数据
-		Collections.sort(SourceDateList, pinyinComparator);
-		adapter = new SortGroupMemberAdapter(this, SourceDateList);
+		Collections.sort(contacts, pinyinComparator);
+		adapter = new SortGroupMemberAdapter(this, contacts);
 		sortListView.setAdapter(adapter);
 		sortListView.setOnScrollListener(new OnScrollListener() {
 			@Override
@@ -111,7 +125,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
+								 int visibleItemCount, int totalItemCount) {
 				int section = getSectionForPosition(firstVisibleItem);
 				int nextSection = getSectionForPosition(firstVisibleItem + 1);
 				int nextSecPosition = getPositionForSection(+nextSection);
@@ -120,7 +134,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 							.getLayoutParams();
 					params.topMargin = 0;
 					titleLayout.setLayoutParams(params);
-					title.setText(SourceDateList.get(
+					title.setText(contacts.get(
 							getPositionForSection(section)).getSortLetters());
 				}
 				if (nextSecPosition == firstVisibleItem + 1) {
@@ -152,7 +166,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+									  int count) {
 				// 这个时候不需要挤压效果 就把他隐藏掉
 				titleLayout.setVisibility(View.GONE);
 				// 当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
@@ -161,7 +175,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+										  int after) {
 
 			}
 
@@ -177,26 +191,21 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 * @param date
 	 * @return
 	 */
-	private List<GroupMemberBean> filledData(String[] date) {
-		List<GroupMemberBean> mSortList = new ArrayList<GroupMemberBean>();
+	private void filledData(ArrayList<Contact> datas) {
 
-		for (int i = 0; i < date.length; i++) {
-			GroupMemberBean sortModel = new GroupMemberBean();
-			sortModel.setName(date[i]);
+		for (int i = 0; i < datas.size(); i++) {
+			Contact contact=datas.get(i);
 			// 汉字转换成拼音
-			String pinyin = characterParser.getSelling(date[i]);
+			String pinyin = characterParser.getSelling(contact.getName());
 			String sortString = pinyin.substring(0, 1).toUpperCase();
 
 			// 正则表达式，判断首字母是否是英文字母
 			if (sortString.matches("[A-Z]")) {
-				sortModel.setSortLetters(sortString.toUpperCase());
+				contact.setSortLetters(sortString.toUpperCase());
 			} else {
-				sortModel.setSortLetters("#");
+				contact.setSortLetters("#");
 			}
-
-			mSortList.add(sortModel);
 		}
-		return mSortList;
 
 	}
 
@@ -206,14 +215,14 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 * @param filterStr
 	 */
 	private void filterData(String filterStr) {
-		List<GroupMemberBean> filterDateList = new ArrayList<GroupMemberBean>();
+		List<Contact> filterDateList = new ArrayList<>();
 
 		if (TextUtils.isEmpty(filterStr)) {
-			filterDateList = SourceDateList;
+			filterDateList = contacts;
 			tvNofriends.setVisibility(View.GONE);
 		} else {
 			filterDateList.clear();
-			for (GroupMemberBean sortModel : SourceDateList) {
+			for (Contact sortModel : contacts) {
 				String name = sortModel.getName();
 				if (name.indexOf(filterStr.toString()) != -1
 						|| characterParser.getSelling(name).startsWith(
@@ -240,15 +249,15 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 * 根据ListView的当前位置获取分类的首字母的Char ascii值
 	 */
 	public int getSectionForPosition(int position) {
-		return SourceDateList.get(position).getSortLetters().charAt(0);
+		return contacts.get(position).getSortLetters().charAt(0);
 	}
 
 	/**
 	 * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
 	 */
 	public int getPositionForSection(int section) {
-		for (int i = 0; i < SourceDateList.size(); i++) {
-			String sortStr = SourceDateList.get(i).getSortLetters();
+		for (int i = 0; i < contacts.size(); i++) {
+			String sortStr = contacts.get(i).getSortLetters();
 			char firstChar = sortStr.toUpperCase().charAt(0);
 			if (firstChar == section) {
 				return i;

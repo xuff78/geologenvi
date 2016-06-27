@@ -3,26 +3,22 @@ package com.sichuan.geologenvi;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sichuan.geologenvi.DataBase.DBManager;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
-import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
@@ -98,14 +94,7 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 3:
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            super.run();
-                            SqlHandler handlr=new SqlHandler(MainActivity.this, "DBT.db");
-                            handlr.getPersonInfo();
-                        }
-                    }.start();
+
                     break;
                 case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);

@@ -8,6 +8,7 @@
         android:id="@+id/filter_edit"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:paddingLeft="10dp"
         android:background="@drawable/shape_nocorner_black"
         android:drawableLeft="@mipmap/mall_search_light_icon"
         android:hint="请输入关键字"
@@ -50,7 +51,7 @@
                 android:layout_height="fill_parent"
                 android:background="@color/whitesmoke"
                 android:paddingBottom="3dip"
-                android:paddingLeft="3dip"
+                android:paddingLeft="10dip"
                 android:paddingTop="5dip"
                 android:textColor="#454545" />
         </LinearLayout>

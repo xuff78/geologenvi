@@ -1,5 +1,7 @@
 package com.sichuan.geologenvi.act.contact;
 
+import com.sichuan.geologenvi.bean.Contact;
+
 import java.util.Comparator;
 
 /**
@@ -7,9 +9,9 @@ import java.util.Comparator;
  * @author xiaanming
  *
  */
-public class PinyinComparator implements Comparator<GroupMemberBean> {
+public class PinyinComparator implements Comparator<Contact> {
 
-	public int compare(GroupMemberBean o1, GroupMemberBean o2) {
+	public int compare(Contact o1, Contact o2) {
 		if (o1.getSortLetters().equals("@")
 				|| o2.getSortLetters().equals("#")) {
 			return -1;

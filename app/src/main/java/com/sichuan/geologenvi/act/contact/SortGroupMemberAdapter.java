@@ -9,14 +9,15 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.bean.Contact;
 
 import java.util.List;
 
 public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexer {
-	private List<GroupMemberBean> list = null;
+	private List<Contact> list = null;
 	private Context mContext;
 
-	public SortGroupMemberAdapter(Context mContext, List<GroupMemberBean> list) {
+	public SortGroupMemberAdapter(Context mContext, List<Contact> list) {
 		this.mContext = mContext;
 		this.list = list;
 	}
@@ -26,7 +27,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 	 * 
 	 * @param list
 	 */
-	public void updateListView(List<GroupMemberBean> list) {
+	public void updateListView(List<Contact> list) {
 		this.list = list;
 		notifyDataSetChanged();
 	}
@@ -45,7 +46,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 
 	public View getView(final int position, View view, ViewGroup arg2) {
 		ViewHolder viewHolder = null;
-		final GroupMemberBean mContent = list.get(position);
+		final Contact mContent = list.get(position);
 		if (view == null) {
 			viewHolder = new ViewHolder();
 			view = LayoutInflater.from(mContext).inflate(R.layout.activity_group_member_item, null);

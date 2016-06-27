@@ -8,6 +8,15 @@
         <item name="colorAccent">@color/hard_gray</item>
     </style>
 
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <style name="txt_black_14">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

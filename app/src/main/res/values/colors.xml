@@ -5,6 +5,7 @@
     <color name="white">#ffffff</color>
     <color name="trans">#00000000</color>
     <color name="alphagray">#10000000</color>
+    <color name="transparent">#00000000</color>
 
 
     <color name="colorAccent">#FF4081</color>

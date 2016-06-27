@@ -42,7 +42,6 @@ public class DBManager {
 
                 File file = new File(dbfile);
                 InputStream is = context.getResources().getAssets().open("db.db3");
-//                        R.raw.test); //欲导入的数据库
                 FileOutputStream fos = new FileOutputStream(file);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int count = 0;
@@ -51,11 +50,8 @@ public class DBManager {
                 }
                 fos.close();
                 is.close();
-//                ToastUtils.displayTextShort(context, "请先同步数据");
             }
-//            else {
-                database = SQLiteDatabase.openOrCreateDatabase(dbfile, null);
-//            }
+            database = SQLiteDatabase.openOrCreateDatabase(dbfile, null);
         } catch (Exception e) {
             e.printStackTrace();
 //            ToastUtils.displayTextShort(context, "数据库打开失败");
