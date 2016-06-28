@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by Administrator on 2016/6/27.
@@ -30,6 +32,7 @@ public class AreaSelectorAct extends AppFrameAct {
     private ArrayList<AreaInfo> areas=new ArrayList<>();
     private String selectId=null;
     private AreaInfo selectedAreaInfo=null;
+    private LinkedList<String> selectedDistrict=new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,12 @@ public class AreaSelectorAct extends AppFrameAct {
 
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle("选择行政区");
+        _setLeftBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backList();
+            }
+        });
         initView();
         handler=new SqlHandler(this);
         requestArea();
@@ -85,12 +94,35 @@ public class AreaSelectorAct extends AppFrameAct {
         public void onClick(View view) {
             int tag=(int)view.getTag();
             AreaInfo temp=areas.get(tag);
+            selectedDistrict.add(temp.getId());
+            selectId = temp.getId();
             if(temp.getCode().length()<=9) {
                 selectedAreaInfo = temp;
                 selectArea.setText("选择区域:  " + selectedAreaInfo.getName());
-                selectId = selectedAreaInfo.getId();
             }
             requestArea();
         }
     };
+
+    private void backList(){
+        if(selectedDistrict.size()>0){
+            selectedDistrict.removeLast();
+            if(selectedDistrict.size()>0){
+                selectId=selectedDistrict.getLast();
+                requestArea();
+            }else{
+                selectId=null;
+                requestArea();
+            }
+        }else
+            finish();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { //按下的如果是BACK，同时没有重复
+            backList();
+        }
+
+        return true;
+    }
 }
