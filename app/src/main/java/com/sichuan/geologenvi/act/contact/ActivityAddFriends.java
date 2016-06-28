@@ -52,22 +52,19 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 * 根据拼音来排列ListView里面的数据类
 	 */
 	private PinyinComparator pinyinComparator;
-	private Runnable callback=new Runnable() {
-		@Override
-		public void run() {
-			contacts=handler.getPersonInfo();
-			setContacts();
-		}
-	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_friends);
 
-		handler=new SqlHandler(this, "info.db", callback);
+
 		_setHeaderTitle("通讯录");
 		initViews();
+		handler=new SqlHandler(this);
+		contacts=handler.getPersonInfo();
+		if(contacts.size()>0)
+			setContacts();
 	}
 
 	private void initViews() {

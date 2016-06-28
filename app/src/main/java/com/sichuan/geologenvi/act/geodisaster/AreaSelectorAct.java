@@ -22,14 +22,8 @@ import java.util.ArrayList;
  */
 public class AreaSelectorAct extends AppFrameAct {
 
-    private Runnable callback=new Runnable() {
-        @Override
-        public void run() {
-            requestArea();
-        }
-    };
-
     int type=0;
+    TextView selectArea;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     private SqlHandler handler;
@@ -45,7 +39,8 @@ public class AreaSelectorAct extends AppFrameAct {
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle("选择行政区");
         initView();
-        handler=new SqlHandler(this, "info.db", callback);
+        handler=new SqlHandler(this);
+        requestArea();
     }
 
     private void initView() {
@@ -54,6 +49,19 @@ public class AreaSelectorAct extends AppFrameAct {
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+        findViewById(R.id.selectHintLayout).setVisibility(View.VISIBLE);
+        selectArea= (TextView) findViewById(R.id.selectArea);
+        findViewById(R.id.confirmBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(selectedAreaInfo!=null) {
+                    Intent intent = new Intent();
+                    intent.putExtra("Area", selectedAreaInfo);
+                    setResult(0x22, intent);
+                    finish();
+                }
+            }
+        });
     }
 
     private void requestArea(){
@@ -76,8 +84,12 @@ public class AreaSelectorAct extends AppFrameAct {
         @Override
         public void onClick(View view) {
             int tag=(int)view.getTag();
-            selectedAreaInfo=areas.get(tag);
-            selectId=selectedAreaInfo.getId();
+            AreaInfo temp=areas.get(tag);
+            if(temp.getCode().length()<=9) {
+                selectedAreaInfo = temp;
+                selectArea.setText("选择区域:  " + selectedAreaInfo.getName());
+                selectId = selectedAreaInfo.getId();
+            }
             requestArea();
         }
     };

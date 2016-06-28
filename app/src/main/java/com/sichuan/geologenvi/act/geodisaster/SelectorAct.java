@@ -46,13 +46,13 @@ public class SelectorAct extends AppFrameAct {
     }
 
     private void initView() {
-        disasterType.add(new PopupInfoItem("斜坡", "0"));
-        disasterType.add(new PopupInfoItem("滑坡", "1"));
-        disasterType.add(new PopupInfoItem("泥石流", "2"));
-        disasterType.add(new PopupInfoItem("地名塌陷", "3"));
-        disasterType.add(new PopupInfoItem("地裂缝", "4"));
-        disasterType.add(new PopupInfoItem("地面沉降", "5"));
-        disasterType.add(new PopupInfoItem("其他", "6"));
+        disasterType.add(new PopupInfoItem("斜坡", "00"));
+        disasterType.add(new PopupInfoItem("滑坡", "01"));
+        disasterType.add(new PopupInfoItem("泥石流", "02"));
+        disasterType.add(new PopupInfoItem("地名塌陷", "03"));
+        disasterType.add(new PopupInfoItem("地裂缝", "04"));
+        disasterType.add(new PopupInfoItem("地面沉降", "05"));
+        disasterType.add(new PopupInfoItem("其他", "06"));
         disasterType.add(new PopupInfoItem("取消", ""));
 
         disasterSize.add(new PopupInfoItem("特大型", "A"));

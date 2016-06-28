@@ -11,6 +11,8 @@ import com.sichuan.geologenvi.bean.GeohazardBean;
 import com.sichuan.geologenvi.utils.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/6/24.
@@ -20,13 +22,13 @@ public class SqlHandler {
     private DBManager dbManager;
     private Activity act;
 
-    public SqlHandler(final Activity con, final String dbName, final Runnable callback){
+    public SqlHandler(final Activity con){
         act=con;
-        dbManager=new DBManager(act, dbName, callback);
+        dbManager=new DBManager(act);
     }
 
     public ArrayList<Contact> getPersonInfo(){
-        Cursor c = dbManager.querySQL("SELECT * FROM SL_JCBA05A WHERE JCBA05A090 is not null AND JCBA05A130 is not null", new String[]{});
+        Cursor c = dbManager.querySQL("SELECT * FROM SL_JCBA05A WHERE JCBA05A090 is not null OR JCBA05A130 is not null", new String[]{});
         ArrayList<Contact> contacts=new ArrayList<>();
         if(c!=null) {
             c.moveToFirst();
@@ -84,38 +86,78 @@ public class SqlHandler {
         return contacts;
     }
 
-    public ArrayList<GeohazardBean> getGeohazardInfo(int type, String name, String disasterTypeCode,
-                                                     String disasterSizeCode, String areaCode){
+    public ArrayList<Map<String, String>> getGeohazardInfo(int type, String name, String disasterTypeCode,
+                                                               String disasterSizeCode, String areaCode){
+        ArrayList<Map<String, String>> datas=new ArrayList<>();
         String typeStr="";
+        String formName="";
         switch (type){
             case 0:
                 typeStr=" where ZHAA01A020 is not null";
+                formName="SL_ZHAA01A";
                 break;
             case 1:
                 typeStr=" where ZHAA01A810 = 4";
+                formName="SL_ZHAA01A";
+                break;
+            case 2:
+                typeStr=" where ZHDD02A020 is not null";
+                formName="SL_ZHDD02A";
+                break;
+            case 3:
+                typeStr=" where ZHDD02A020 is not null";
+                formName="SL_ZHDD02A";
+                break;
+            case 4:
+                typeStr=" where DISASTERNAME is not null";
+                formName="SL_STATIONMETERS";
+                break;
+            case 5:
+                typeStr=" where ZHCA01A020 is not null";
+                formName="SL_ZHCA01A";
                 break;
             case 6:
                 typeStr=" where ZHAA01A875 = 1";
+                formName="SL_ZHAA01A";
                 break;
         }
-        if(name.length()>0)
-            typeStr=typeStr+" and ZHAA01A020 like '%"+name+"%'";
-//        if(disasterTypeCode.length()>0)
-//            typeStr=typeStr+" and ZHAA01A875 = '"+disasterTypeCode+"'";
-        Cursor c = dbManager.querySQL("select * from SL_ZHAA01A"+typeStr, new String[]{});
-        ArrayList<GeohazardBean> contacts=new ArrayList<>();
+        if(type==0||type==1||type==6) {
+            if (name.length() > 0)
+                typeStr = typeStr + " and ZHAA01A020 like '%" + name + "%'";
+            if (disasterTypeCode.length() > 0)
+                typeStr = typeStr + " and ZHAA01A210 = '" + disasterTypeCode + "'";
+            if (disasterSizeCode.length() > 0)
+                typeStr = typeStr + " and ZHAA01A370 = '" + disasterSizeCode + "'";
+            if (areaCode.length() == 6)
+                typeStr = typeStr + " and ZHAA01A110 = '" + areaCode + "'";
+            else if (areaCode.length() == 9)
+                typeStr = typeStr + " and ZHAA01A120 = '" + areaCode + "'";
+        }else if(type==5){
+            if (areaCode.length() == 6)
+                typeStr = typeStr + " and ZHCA01A040 = '" + areaCode + "'";
+            else if (areaCode.length() == 9)
+                typeStr = typeStr + " and ZHCA01A050 = '" + areaCode + "'";
+        }else if(type==2||type==3){
+            if (areaCode.length() == 6)
+                typeStr = typeStr + " and ZHDD02A040 = '" + areaCode + "'";
+            else if (areaCode.length() == 9)
+                typeStr = typeStr + " and ZHDD02A050 = '" + areaCode + "'";
+        }
+        Cursor c = dbManager.querySQL("select * from "+formName+typeStr, new String[]{});
         if(c!=null) {
             c.moveToFirst();
+            String columnNames[]=c.getColumnNames();
             while (c.moveToNext()) {
-                GeohazardBean contact=new GeohazardBean();
-                String NAME = c.getString(c.getColumnIndex("ZHAA01A020"));
-                if(NAME!=null) {
-                    contact.setName(NAME);
+                Map<String, String> maps=new HashMap<>();
+                for (int i=0;i<columnNames.length;i++) {
+                    String key = columnNames[i];
+                    String value = c.getString(c.getColumnIndex(key));
+                    maps.put(key, value);
                 }
-                contacts.add(contact);
+                datas.add(maps);
             }
             c.close();
         }
-        return contacts;
+        return datas;
     }
 }

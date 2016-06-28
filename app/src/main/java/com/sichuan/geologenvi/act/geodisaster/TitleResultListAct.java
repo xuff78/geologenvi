@@ -9,11 +9,14 @@ import android.view.View;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.act.ItemDetailAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.GeohazardBean;
+import com.sichuan.geologenvi.bean.MapBean;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/6/27.
@@ -22,16 +25,10 @@ public class TitleResultListAct  extends AppFrameAct {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
-    ArrayList<GeohazardBean> datalist=new ArrayList<>();
+    ArrayList<Map<String, String>> datalist=new ArrayList<>();
     int type=0;
 
     private SqlHandler handler;
-    private Runnable callback=new Runnable() {
-        @Override
-        public void run() {
-            requestInfo();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +38,34 @@ public class TitleResultListAct  extends AppFrameAct {
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
-        handler=new SqlHandler(this, "info.db", callback);
+        handler=new SqlHandler(this);
+        requestInfo();
     }
 
     private void requestInfo() {
-        switch (type){
-            case 0:
-            case 1:
-            case 6:
-                datalist=handler.getGeohazardInfo(type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
-                        getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"));
-                ArrayList<String> list = new ArrayList<>();
-                for (GeohazardBean info : datalist) {
-                    list.add(info.getName());
-                }
-                recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
-                break;
+        datalist=handler.getGeohazardInfo(type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"));
+        ArrayList<String> list = new ArrayList<>();
+        for (Map<String, String> info : datalist) {
+            switch (type) {
+                case 0:
+                case 1:
+                case 6:
+                    list.add(info.get("ZHAA01A020"));
+                    break;
+                case 5:
+                    list.add(info.get("ZHCA01A020"));
+                    break;
+                case 4:
+                    list.add(info.get("DISASTERNAME"));
+                    break;
+                case 2:
+                case 3:
+                    list.add(info.get("ZHDD02A020"));
+                    break;
+            }
         }
+        recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
 
     private void initView() {
@@ -72,9 +80,12 @@ public class TitleResultListAct  extends AppFrameAct {
         @Override
         public void onClick(View view) {
             int tag=(int)view.getTag();
-//            Intent i=new Intent(TitleResultListAct.this, SelectorAct.class);
-//            i.putExtra("Type", tag);
-//            startActivity(i);
+            Intent i=getIntent();
+            i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+            MapBean mapBean=new MapBean();
+            mapBean.setMap(datalist.get(tag));
+            i.putExtra("InfoMap",mapBean);
+            startActivity(i);
         }
     };
 }
