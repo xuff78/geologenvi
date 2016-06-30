@@ -32,6 +32,8 @@ public class ItemDetailAct   extends AppFrameAct {
     private void initView() {
         MapBean mapBean= (MapBean) getIntent().getSerializableExtra("InfoMap");
         ListView list=(ListView)findViewById(R.id.infoList);
-        list.setAdapter(new ActivityInfoAdapter(this, mapBean.getMap(),"SL_ZHAA01A"));
+
+
+        list.setAdapter(new ActivityInfoAdapter(this,mapBean.getMap(), getIntent().getStringExtra("TableName")));
     }
 }

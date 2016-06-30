@@ -15,6 +15,7 @@ import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
+import com.sichuan.geologenvi.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -30,7 +31,7 @@ public class AreaSelectorAct extends AppFrameAct {
     LinearLayoutManager layoutManager;
     private SqlHandler handler;
     private ArrayList<AreaInfo> areas=new ArrayList<>();
-    private String selectId=null;
+    private String selectId="";
     private AreaInfo selectedAreaInfo=null;
     private LinkedList<String> selectedDistrict=new LinkedList<>();
 
@@ -74,18 +75,17 @@ public class AreaSelectorAct extends AppFrameAct {
     }
 
     private void requestArea(){
-        areas=handler.getAreaInfo(selectId);
-        if(areas.size()==0&&selectId!=null){
-            Intent intent=new Intent();
-            intent.putExtra("Area", selectedAreaInfo);
-            setResult(0x22, intent);
-            finish();
-        }else if(areas.size()>0) {
+        ArrayList<AreaInfo> temps=handler.getAreaInfo(selectId);
+        if(temps.size()>0) {
+            areas=temps;
             ArrayList<String> list = new ArrayList<>();
             for (AreaInfo info : areas) {
                 list.add(info.getName());
             }
             recyclerView.setAdapter(new MenuListAdapter(AreaSelectorAct.this, list, listener));
+        }else {
+            selectedDistrict.removeLast();
+            ToastUtils.displayTextShort(AreaSelectorAct.this, "已经是最后一级");
         }
     }
 
@@ -94,9 +94,11 @@ public class AreaSelectorAct extends AppFrameAct {
         public void onClick(View view) {
             int tag=(int)view.getTag();
             AreaInfo temp=areas.get(tag);
-            selectedDistrict.add(temp.getId());
             selectId = temp.getId();
-            if(temp.getCode().length()<=9) {
+
+            selectedDistrict.add(selectId);
+
+            if (temp.getCode().length() <= 9) {
                 selectedAreaInfo = temp;
                 selectArea.setText("选择区域:  " + selectedAreaInfo.getName());
             }
@@ -105,13 +107,13 @@ public class AreaSelectorAct extends AppFrameAct {
     };
 
     private void backList(){
-        if(selectedDistrict.size()>0){
+        if(selectId.length()!=0){
             selectedDistrict.removeLast();
             if(selectedDistrict.size()>0){
                 selectId=selectedDistrict.getLast();
                 requestArea();
             }else{
-                selectId=null;
+                selectId="";
                 requestArea();
             }
         }else

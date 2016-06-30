@@ -58,7 +58,7 @@ public class SqlHandler {
 
     public ArrayList<AreaInfo> getAreaInfo(String parent){
         Cursor c;
-        if(parent==null)
+        if(parent.length()==0)
             c = dbManager.querySQL("select * from SL_TATTR_DZZH_XZQH where length(code) = 6", new String[]{});
         else
             c = dbManager.querySQL("select * from SL_TATTR_DZZH_XZQH where parentcodeid = ?", new String[]{parent});
@@ -87,7 +87,7 @@ public class SqlHandler {
     }
 
     public ArrayList<Map<String, String>> getGeohazardInfo(int type, String name, String disasterTypeCode,
-                                                               String disasterSizeCode, String areaCode){
+                                                           String disasterSizeCode, String areaCode, String avoidCode){
         ArrayList<Map<String, String>> datas=new ArrayList<>();
         String typeStr="";
         String formName="";
@@ -109,7 +109,7 @@ public class SqlHandler {
                 formName="SL_ZHDD02A";
                 break;
             case 4:
-                typeStr=" where DISASTERNAME is not null";
+                typeStr=" where METERTYPE is not null";
                 formName="SL_STATIONMETERS";
                 break;
             case 5:
@@ -142,8 +142,19 @@ public class SqlHandler {
                 typeStr = typeStr + " and ZHDD02A040 = '" + areaCode + "'";
             else if (areaCode.length() == 9)
                 typeStr = typeStr + " and ZHDD02A050 = '" + areaCode + "'";
+            if(avoidCode.length()>0){
+                typeStr = typeStr + " and ZHDD02A150 = '" + avoidCode + "'";
+            }
+        }else if(type==4){
+
         }
-        Cursor c = dbManager.querySQL("select * from "+formName+typeStr, new String[]{});
+        return getQueryResult(formName, typeStr);
+    }
+
+    public ArrayList<Map<String, String>> getQueryResult(String tableName, String typeStr){
+
+        ArrayList<Map<String, String>> datas=new ArrayList<>();
+        Cursor c = dbManager.querySQL("select * from "+tableName+typeStr, new String[]{});
         if(c!=null) {
             c.moveToFirst();
             String columnNames[]=c.getColumnNames();

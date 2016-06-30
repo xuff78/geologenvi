@@ -28,10 +28,11 @@ import java.util.ArrayList;
 public class SelectorAct extends AppFrameAct {
 
     private EditText nameEdt;
-    private TextView areaTxt, disasterTypeTxt, disasterSizeTxt;
+    private TextView areaTxt, disasterTypeTxt, disasterSizeTxt, avoidTxt;
     private ArrayList<PopupInfoItem> disasterType=new ArrayList<>();
     private ArrayList<PopupInfoItem> disasterSize=new ArrayList<>();
-    private String disasterTypeCode="", disasterSizeCode="", areaCode="";
+    private ArrayList<PopupInfoItem> avoidLevel=new ArrayList<>();
+    private String disasterTypeCode="", disasterSizeCode="", areaCode="", avoidCode="";
     private int type=0;
 
 
@@ -61,13 +62,22 @@ public class SelectorAct extends AppFrameAct {
         disasterSize.add(new PopupInfoItem("小型", "D"));
         disasterSize.add(new PopupInfoItem("取消", ""));
 
+        avoidLevel.add(new PopupInfoItem("A", "A"));
+        avoidLevel.add(new PopupInfoItem("B", "B"));
+        avoidLevel.add(new PopupInfoItem("C", "C"));
+        avoidLevel.add(new PopupInfoItem("D", "D"));
+        avoidLevel.add(new PopupInfoItem("E", "E"));
+        avoidLevel.add(new PopupInfoItem("取消", ""));
+
         nameEdt=(EditText)findViewById(R.id.nameEdt);
         areaTxt=(TextView)findViewById(R.id.areaTxt);
+        avoidTxt=(TextView)findViewById(R.id.avoidTxt);
         disasterTypeTxt=(TextView)findViewById(R.id.disasterTypeTxt);
         disasterSizeTxt=(TextView)findViewById(R.id.disasterSizeTxt);
         View disasterTypeLayout=findViewById(R.id.disasterTypeLayout);
         View areaLayout=findViewById(R.id.areaLayout);
         View disasterSizeLayout=findViewById(R.id.disasterSizeLayout);
+        View avoidLayout=findViewById(R.id.avoidLayout);
         findViewById(R.id.confirmBtn).setOnClickListener(listener);
 
         findViewById(R.id.areaLayout).setVisibility(View.VISIBLE);
@@ -76,10 +86,18 @@ public class SelectorAct extends AppFrameAct {
             case 1:
             case 6:
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
-                findViewById(R.id.disasterTypeLayout).setVisibility(View.VISIBLE);
-                findViewById(R.id.disasterSizeLayout).setVisibility(View.VISIBLE);
+                disasterTypeLayout.setVisibility(View.VISIBLE);
+                disasterSizeLayout.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                findViewById(R.id.areaLayout).setVisibility(View.GONE);
+                break;
+            case 2:
+            case 3:
+                avoidLayout.setVisibility(View.VISIBLE);
                 break;
         }
+        avoidLayout.setOnClickListener(listener);
         areaLayout.setOnClickListener(listener);
         disasterTypeLayout.setOnClickListener(listener);
         disasterSizeLayout.setOnClickListener(listener);
@@ -97,6 +115,7 @@ public class SelectorAct extends AppFrameAct {
                     intent.putExtra("disasterTypeCode", disasterTypeCode);
                     intent.putExtra("disasterSizeCode", disasterSizeCode);
                     intent.putExtra("areaCode", areaCode);
+                    intent.putExtra("avoidCode", avoidCode);
                     startActivity(intent);
                     break;
                 case R.id.areaLayout:
@@ -148,6 +167,29 @@ public class SelectorAct extends AppFrameAct {
                         }
                     });
                     builder2.create().show();
+                    break;
+                case R.id.avoidLayout:
+                    final String items3[]=new String[avoidLevel.size()];
+                    for (int i=0;i<avoidLevel.size();i++){
+                        items3[i]=avoidLevel.get(i).getName();
+                    }
+                    AlertDialog.Builder builder3=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
+                    builder3.setTitle("灾难规模"); //设置标题
+                    builder3.setItems(items3,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            PopupInfoItem item=avoidLevel.get(which);
+                            if(item.getContent().length()>0){
+                                avoidTxt.setText(item.getName());
+                                avoidCode=item.getContent();
+                            }else{
+                                avoidTxt.setText("点击选择");
+                                avoidCode="";
+                            }
+                        }
+                    });
+                    builder3.create().show();
                     break;
             }
         }

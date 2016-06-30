@@ -1,8 +1,8 @@
 package com.sichuan.geologenvi.act;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -34,7 +34,7 @@ public class SearchAct extends AppFrameAct {
     }
 
     private void openFragment(Fragment frg){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frgFrame, frg);
         ft.commit();
     }

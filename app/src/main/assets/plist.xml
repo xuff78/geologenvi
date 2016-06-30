@@ -137,7 +137,7 @@
     <string name="ZHAA01A938">市级国土资源部门意见</string>
 
   </dict>
-  <dict name="JCBA02A">
+  <dict name="SL_JCBA02A">
     <string name="JCBA02A005">唯一编号</string>
     <string name="JCBA02A010">灾害点编号</string>
     <string name="JCBA02A020">灾害点名称</string>
@@ -184,7 +184,7 @@
     <string name="JCBA02A430">防治建议</string>
     <string name="JCBA02A440">人员撤离路线图</string>
   </dict>
-  <dict name="JCBA03A">
+  <dict name="SL_JCBA03A">
     <string name="JCBA03A005">唯一编号</string>
     <string name="JCBA03A010">灾害点编号</string>
     <string name="JCBA03A020">灾害点名称</string>
@@ -228,7 +228,7 @@
     <string name="JCBA03A400">持卡人联系电话</string>
     <string name="JCBA03A410">持卡时间</string>
   </dict>
-  <dict name="JCBA04A">
+  <dict name="SL_JCBA04A">
     <string name="JCBA04A005">唯一编号</string>
     <string name="JCBA04A010">灾害点编号</string>
     <string name="JCBA04A020">灾害点名称</string>
@@ -294,7 +294,7 @@
     <string name="JCBA04A620">签字日期</string>
     <string name="JCBA04A680">灾害类型</string>
   </dict>
-  <dict name="JCBA05A">
+  <dict name="SL_JCBA05A">
     <string name="JCBA05A010">ID</string>
     <string name="JCBA05A020">省</string>
     <string name="JCBA05A030">区县</string>
@@ -318,7 +318,7 @@
     <string name="JCBA05A210">经度</string>
     <string name="JCBA05A220">纬度</string>
   </dict>
-  <dict name="ZHCA01A">
+  <dict name="SL_ZHCA01A">
     <string name="ZHCA01A010">唯一编号</string>
     <string name="ZHCA01A015">隐患点编号</string>
     <string name="ZHCA01A015">隐患点名称</string>
@@ -362,7 +362,7 @@
     <string name="ZHCA01A600">终验结束时间</string>
     <string name="ZHCA01A610">工程期数</string>
   </dict>
-  <dict name="YDSJ01A">
+  <dict name="SL_YDSJ01A">
     <string name="YDSJ01A010">唯一编号</string>
     <string name="YDSJ01A020">调查安排编号</string>
     <string name="YDSJ01A030">省</string>
@@ -454,7 +454,7 @@
     <string name="YDSJ01A722">小时最大降雨量</string>
     <string name="YDSJ01A723">10分钟最大降雨量</string>
   </dict>
-  <dict name="ZHDD04B">
+  <dict name="SL_ZHDD04B">
     <string name="ZHDD04B010">唯一编号</string>
     <string name="ZHDD04B013">年度</string>
     <string name="ZHDD04B015">搬迁避让工程编号</string>
@@ -488,7 +488,7 @@
     <string name="ZHDD04B360">经度</string>
     <string name="ZHDD04B370">纬度</string>
   </dict>
-  <dict name="ZHDD04B001">
+  <dict name="SL_ZHDD04B001">
     <string name="ZHDD04B001010">唯一编号</string>
     <string name="ZHDD04B001020">总站搬迁避让表编号</string>
     <string name="ZHDD04B001030">拟建房地址</string>
@@ -512,7 +512,7 @@
     <string name="ZHDD04B001210">区县国土资源局验收意见</string>
     <string name="ZHDD04B001220">验收日期</string>
   </dict>
-  <dict name="ZHDD02A">
+  <dict name="SL_ZHDD02A">
     <string name="ZHDD02A010">唯一编号</string>
     <string name="ZHDD02A020">场所名称</string>
     <string name="ZHDD02A030">省</string>
@@ -539,7 +539,7 @@
     <string name="ZHDD02A300">隐患点编号</string>
     <string name="ZHDD02A310">隐患点名称</string>
   </dict>
-  <dict name="PWAA01A">
+  <dict name="SL_PWAA01A">
     <string name="PWAA01A010">灾害体统一编号</string>
     <string name="PWAA01A020">灾害体名称</string>
     <string name="PWAA01A030">灾害类型</string>
@@ -596,7 +596,7 @@
     <string name="PWAA01A620">经度</string>
     <string name="PWAA01A630">纬度</string>
   </dict>
-  <dict name="YJIB12A">
+  <dict name="SL_YJIB12A">
     <string name="YJIB12A010">编号</string>
     <string name="YJIB12A020">宣传培训时间</string>
     <string name="YJIB12A025">省级行政区划编码</string>
@@ -613,7 +613,7 @@
     <string name="YJIB12A120">宣传培训级别</string>
     <string name="YJIB12A130">小计</string>
   </dict>
-  <dict name="YJIB13A">
+  <dict name="SL_YJIB13A">
     <string name="YJIB13A010">编号</string>
     <string name="YJIB13A020">避险演练时间</string>
     <string name="YJIB13A025">省级行政区划</string>
@@ -621,7 +621,7 @@
     <string name="YJIB13A040">参演人数（人）</string>
     <string name="YJIB13A050">避险演练级别</string>
   </dict>
-  <dict name="JCBA06A">
+  <dict name="SL_JCBA06A">
     <string name="JCBA06A005">唯一编号</string>
     <string name="JCBA06A010">群测群防监测点编号</string>
     <string name="JCBA06A020">灾害点编号</string>
@@ -646,7 +646,7 @@
     <string name="JCBA06A290">经度</string>
     <string name="JCBA06A300">纬度</string>
   </dict>
-  <dict name="YJIB10A">
+  <dict name="SL_YJIB10A">
     <string name="YJIB10A010">唯一编号</string>
     <string name="YJIB10A020">项目名称</string>
     <string name="YJIB10A030">省</string>
@@ -677,7 +677,7 @@
     <string name="YJIB10A420">治理期数</string>
     <string name="YJIB10A430">项目进展情况</string>
   </dict>
-  <dict name="YJIB11A">
+  <dict name="SL_YJIB11A">
     <string name="YJIB11A010">唯一编号</string>
     <string name="YJIB11A020">项目名称</string>
     <string name="YJIB11A030">省</string>
@@ -704,7 +704,7 @@
     <string name="YJIB11A370">治理期数</string>
     <string name="YJIB11A380">项目进展情况 </string>
   </dict>
-  <dict name="YJIB02A">
+  <dict name="SL_YJIB02A">
     <string name="YJIB02A010">唯一编号</string>
     <string name="YJIB02A020">发现时间</string>
     <string name="YJIB02A030">省</string>
@@ -771,7 +771,7 @@
     <string name="YJIB02A620">交通运输行业直接经济损失  </string>
     <string name="YJIB02A630">其他行业直接经济损失</string>
   </dict>
-  <dict name="YJIB01A">
+  <dict name="SL_YJIB01A">
     <string name="YJIB01A010">唯一编号</string>
     <string name="YJIB01A020">发现时间</string>
     <string name="YJIB01A030">省</string>
@@ -790,7 +790,7 @@
     <string name="YJIB01A130">成因和发展趋势</string>
     <string name="YJIB01A140">防灾措施</string>
   </dict>
-  <dict name="YJIB03A">
+  <dict name="SL_YJIB03A">
     <string name="YJIB03A010">唯一编号</string>
     <string name="YJIB03A020">省</string>
     <string name="YJIB03A030">区县</string>
@@ -807,7 +807,7 @@
     <string name="YJIB03A130">大于250毫米站点数</string>
     <string name="YJIB03A135">预警气象级别</string>
   </dict>
-  <dict name="YJIB05A">
+  <dict name="SL_YJIB05A">
     <string name="YJIB05A010">唯一编号</string>
     <string name="YJIB05A020">省</string>
     <string name="YJIB05A030">区县</string>
@@ -820,7 +820,7 @@
     <string name="YJIB05A090">其它防灾工作情况</string>
     <string name="YJIB05A100">备注</string>
   </dict>
-  <dict name="YJIB06A">
+  <dict name="SL_YJIB06A">
     <string name="YJIB06A005">灾情点编号</string>
     <string name="YJIB06A010">唯一编号</string>
     <string name="YJIB06A020">省</string>
@@ -837,7 +837,7 @@
     <string name="YJIB06A130">预报方法和避灾措施</string>
     <string name="YJIB06A140">成绩突出人员(或单位)</string>
   </dict>
-  <dict name="YJIB07A">
+  <dict name="SL_YJIB07A">
     <string name="YJIB07A010">唯一编号</string>
     <string name="YJIB07A020">省</string>
     <string name="YJIB07A030">区县</string>
@@ -854,7 +854,7 @@
     <string name="YJIB07A130">避险伤亡人员（人）</string>
     <string name="YJIB07A140">避免经济损失（万元）</string>
   </dict>
-  <dict name="YJIB08A">
+  <dict name="SL_YJIB08A">
     <string name="YJIB08A010">唯一编号</string>
     <string name="YJIB08A020">省</string>
     <string name="YJIB08A030">区县</string>

@@ -44,7 +44,8 @@ public class TitleResultListAct  extends AppFrameAct {
 
     private void requestInfo() {
         datalist=handler.getGeohazardInfo(type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
-                getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"));
+                getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
+                getIntent().getStringExtra("avoidCode"));
         ArrayList<String> list = new ArrayList<>();
         for (Map<String, String> info : datalist) {
             switch (type) {
@@ -79,12 +80,34 @@ public class TitleResultListAct  extends AppFrameAct {
     View.OnClickListener listener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            int tag=(int)view.getTag();
+            String tableName="";
             Intent i=getIntent();
-            i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+            switch (getIntent().getIntExtra("Type", 0)){
+                case 0:
+                case 1:
+                case 6:
+                    i.setClass(TitleResultListAct.this, YinhuandianDetail.class);
+                    tableName="SL_ZHAA01A";
+                    break;
+                case 2:
+                case 3:
+                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+                    tableName="SL_ZHDD02A";
+                    break;
+                case 4:
+                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+                    tableName="SL_ZHAA01A";
+                    break;
+                case 5:
+                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+                    tableName="SL_ZHCA01A";
+                    break;
+            }
             MapBean mapBean=new MapBean();
+            int tag=(int)view.getTag();
             mapBean.setMap(datalist.get(tag));
             i.putExtra("InfoMap",mapBean);
+            i.putExtra("TableName", tableName);
             startActivity(i);
         }
     };
