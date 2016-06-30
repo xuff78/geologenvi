@@ -56,7 +56,11 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position)
     {
         final TitleHolder holder = (TitleHolder)viewHolder;
-        holder.titleTxt.setText(datalist.get(position));
+        String name=datalist.get(position);
+        if(name!=null&&name.length()>0)
+            holder.titleTxt.setText(name);
+        else
+            holder.titleTxt.setText("缺省名称");
     }
 
     public int getItemCount() {

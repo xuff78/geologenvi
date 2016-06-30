@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.MainActivity;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
@@ -28,12 +29,13 @@ import java.util.ArrayList;
 public class SelectorAct extends AppFrameAct {
 
     private EditText nameEdt;
-    private TextView areaTxt, disasterTypeTxt, disasterSizeTxt, avoidTxt;
+    private TextView areaTxt, disasterTypeTxt, disasterSizeTxt, avoidTxt, watchingAreaTxt, equipmentTxt;
     private ArrayList<PopupInfoItem> disasterType=new ArrayList<>();
     private ArrayList<PopupInfoItem> disasterSize=new ArrayList<>();
     private ArrayList<PopupInfoItem> avoidLevel=new ArrayList<>();
     private String disasterTypeCode="", disasterSizeCode="", areaCode="", avoidCode="";
     private int type=0;
+    private SqlHandler handler;
 
 
     @Override
@@ -43,6 +45,7 @@ public class SelectorAct extends AppFrameAct {
 
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle("条件筛选");
+        handler=new SqlHandler(this);
         initView();
     }
 
@@ -72,12 +75,16 @@ public class SelectorAct extends AppFrameAct {
         nameEdt=(EditText)findViewById(R.id.nameEdt);
         areaTxt=(TextView)findViewById(R.id.areaTxt);
         avoidTxt=(TextView)findViewById(R.id.avoidTxt);
+        watchingAreaTxt=(TextView)findViewById(R.id.watchingAreaTxt);
+        equipmentTxt=(TextView)findViewById(R.id.equipmentTxt);
         disasterTypeTxt=(TextView)findViewById(R.id.disasterTypeTxt);
         disasterSizeTxt=(TextView)findViewById(R.id.disasterSizeTxt);
         View disasterTypeLayout=findViewById(R.id.disasterTypeLayout);
         View areaLayout=findViewById(R.id.areaLayout);
         View disasterSizeLayout=findViewById(R.id.disasterSizeLayout);
         View avoidLayout=findViewById(R.id.avoidLayout);
+        View equipmentLayout=findViewById(R.id.equipmentLayout);
+        View watchingAreaLayout=findViewById(R.id.watchingAreaLayout);
         findViewById(R.id.confirmBtn).setOnClickListener(listener);
 
         findViewById(R.id.areaLayout).setVisibility(View.VISIBLE);
@@ -90,6 +97,8 @@ public class SelectorAct extends AppFrameAct {
                 disasterSizeLayout.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                equipmentLayout.setVisibility(View.VISIBLE);
+                watchingAreaLayout.setVisibility(View.VISIBLE);
                 findViewById(R.id.areaLayout).setVisibility(View.GONE);
                 break;
             case 2:
@@ -97,6 +106,8 @@ public class SelectorAct extends AppFrameAct {
                 avoidLayout.setVisibility(View.VISIBLE);
                 break;
         }
+        equipmentLayout.setOnClickListener(listener);
+        watchingAreaLayout.setOnClickListener(listener);
         avoidLayout.setOnClickListener(listener);
         areaLayout.setOnClickListener(listener);
         disasterTypeLayout.setOnClickListener(listener);
@@ -174,7 +185,7 @@ public class SelectorAct extends AppFrameAct {
                         items3[i]=avoidLevel.get(i).getName();
                     }
                     AlertDialog.Builder builder3=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
-                    builder3.setTitle("灾难规模"); //设置标题
+                    builder3.setTitle("避难等级"); //设置标题
                     builder3.setItems(items3,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -190,6 +201,44 @@ public class SelectorAct extends AppFrameAct {
                         }
                     });
                     builder3.create().show();
+                    break;
+                case R.id.equipmentLayout:
+                    final String equipmentTypes[]=handler.getTypesQuery("SL_STATIONMETERS", "METERTYPE");
+                    AlertDialog.Builder builder4=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
+                    builder4.setTitle("设备类型"); //设置标题
+                    builder4.setItems(equipmentTypes,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if(which<equipmentTypes.length-1){
+                                equipmentTxt.setText(equipmentTypes[which]);
+                                disasterTypeCode=equipmentTypes[which];
+                            }else{
+                                equipmentTxt.setText("点击选择");
+                                disasterTypeCode="";
+                            }
+                        }
+                    });
+                    builder4.create().show();
+                    break;
+                case R.id.watchingAreaLayout:
+                    final String watchingAreas[]=handler.getTypesQuery("SL_STATIONMETERS", "CITY");
+                    AlertDialog.Builder builder5=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
+                    builder5.setTitle("行政区域"); //设置标题
+                    builder5.setItems(watchingAreas,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if(which<watchingAreas.length-1){
+                                watchingAreaTxt.setText(watchingAreas[which]);
+                                areaCode=watchingAreas[which];
+                            }else{
+                                watchingAreaTxt.setText("点击选择");
+                                areaCode="";
+                            }
+                        }
+                    });
+                    builder5.create().show();
                     break;
             }
         }

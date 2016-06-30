@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
+import com.sichuan.geologenvi.act.MineListAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
@@ -99,6 +100,18 @@ public class MainActivity extends AppFrameAct {
                 case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "地质灾害");
+                    startActivity(i);
+                    break;
+                case 7:
+                    i.setClass(MainActivity.this, MineListAct.class);
+                    i.putExtra("Title", "矿山地质");
+                    i.putExtra("TableName", "SL_KS_DZHJ_XX");
+                    startActivity(i);
+                    break;
+                case 8:
+                    i.setClass(MainActivity.this, MineListAct.class);
+                    i.putExtra("Title", "地质遗迹");
+                    i.putExtra("TableName", "SL_DZYJBH");
                     startActivity(i);
                     break;
             }

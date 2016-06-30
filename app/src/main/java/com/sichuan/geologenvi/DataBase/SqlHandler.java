@@ -97,7 +97,7 @@ public class SqlHandler {
                 formName="SL_ZHAA01A";
                 break;
             case 1:
-                typeStr=" where ZHAA01A810 = 4";
+                typeStr=" where ZHAA01A810 = 2";
                 formName="SL_ZHAA01A";
                 break;
             case 2:
@@ -146,7 +146,10 @@ public class SqlHandler {
                 typeStr = typeStr + " and ZHDD02A150 = '" + avoidCode + "'";
             }
         }else if(type==4){
-
+            if (areaCode.length()>0)
+                typeStr = typeStr + " and CITY = '" + areaCode + "'";
+            if (disasterTypeCode.length()>0)
+                typeStr = typeStr + " and METERTYPE = '" + disasterTypeCode + "'";
         }
         return getQueryResult(formName, typeStr);
     }
@@ -154,9 +157,11 @@ public class SqlHandler {
     public ArrayList<Map<String, String>> getQueryResult(String tableName, String typeStr){
 
         ArrayList<Map<String, String>> datas=new ArrayList<>();
-        Cursor c = dbManager.querySQL("select * from "+tableName+typeStr, new String[]{});
+        String sqlStr="select * from "+tableName+typeStr;
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
         if(c!=null) {
-            c.moveToFirst();
+            LogUtil.i("SQL", "result num---->:  "+c.getCount());
             String columnNames[]=c.getColumnNames();
             while (c.moveToNext()) {
                 Map<String, String> maps=new HashMap<>();
@@ -167,6 +172,27 @@ public class SqlHandler {
                 }
                 datas.add(maps);
             }
+            c.close();
+        }
+        return datas;
+    }
+
+    public String[] getTypesQuery(String tableName, String typeString){
+
+        String[] datas=null;
+        String sqlStr="SELECT DISTINCT "+typeString+" FROM "+tableName;
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+        if(c!=null) {
+            LogUtil.i("SQL", "result num---->:  "+c.getCount());
+            datas=new String[c.getCount()+1];
+            int i=0;
+            while (c.moveToNext()) {
+                String value = c.getString(0);
+                datas[i]=value;
+                i++;
+            }
+            datas[datas.length-1]="取消";
             c.close();
         }
         return datas;

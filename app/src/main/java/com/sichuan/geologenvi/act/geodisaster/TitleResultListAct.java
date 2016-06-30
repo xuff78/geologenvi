@@ -84,9 +84,12 @@ public class TitleResultListAct  extends AppFrameAct {
             Intent i=getIntent();
             switch (getIntent().getIntExtra("Type", 0)){
                 case 0:
+                    i.setClass(TitleResultListAct.this, YinhuandianDetail.class);
+                    tableName="SL_ZHAA01A";
+                    break;
                 case 1:
                 case 6:
-                    i.setClass(TitleResultListAct.this, YinhuandianDetail.class);
+                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
                     tableName="SL_ZHAA01A";
                     break;
                 case 2:
@@ -99,7 +102,7 @@ public class TitleResultListAct  extends AppFrameAct {
                     tableName="SL_ZHAA01A";
                     break;
                 case 5:
-                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+                    i.setClass(TitleResultListAct.this, ZhilidianweiDetail.class);
                     tableName="SL_ZHCA01A";
                     break;
             }
