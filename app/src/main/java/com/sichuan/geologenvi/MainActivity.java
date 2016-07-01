@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import com.sichuan.geologenvi.act.MineListAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
+import com.sichuan.geologenvi.act.report.ReportMenuList;
+import com.sichuan.geologenvi.adapter.TopImgAdapter;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
@@ -47,6 +50,9 @@ public class MainActivity extends AppFrameAct {
 
     private void initView() {
         viewPager= (AutoScrollViewPager) findViewById(R.id.galleryImgs);
+        TopImgAdapter adapter=new TopImgAdapter(this, new int[]{R.mipmap.test_pic1, R.mipmap.test_pic2});
+        viewPager.setAdapter(adapter);
+//        viewPager.startAutoScroll(2000);
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
         int paddtop = ImageUtil.dip2px(this,20);
         int itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;
@@ -100,6 +106,13 @@ public class MainActivity extends AppFrameAct {
                 case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "地质灾害");
+                    i.putExtra("Type", "Disaster");
+                    startActivity(i);
+                    break;
+                case 6:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "数据采集");
+                    i.putExtra("Type", "Report");
                     startActivity(i);
                     break;
                 case 7:

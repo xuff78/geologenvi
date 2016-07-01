@@ -23,12 +23,14 @@ public class TitleListAct  extends AppFrameAct {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<String> list=new ArrayList<>();
+    private String type="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frg_list);
 
+        type=getIntent().getStringExtra("Type");
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
     }
@@ -39,13 +41,22 @@ public class TitleListAct  extends AppFrameAct {
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        list.add("灾害隐患点基础数据查询");
-        list.add("市级监测点位基础数据查询");
-        list.add("隐患点避险场所基础数据查询");
-        list.add("重要点位避险场所基础数据查询");
-        list.add("专业监测点位基础数据查询");
-        list.add("治理点位基础数据查询");
-        list.add("销号点位基础数据查询");
+        if(type.equals("Disaster")) {
+            list.add("灾害隐患点基础数据查询");
+            list.add("市级监测点位基础数据查询");
+            list.add("隐患点避险场所基础数据查询");
+            list.add("重要点位避险场所基础数据查询");
+            list.add("专业监测点位基础数据查询");
+            list.add("治理点位基础数据查询");
+            list.add("销号点位基础数据查询");
+        }else if(type.equals("Report")) {
+            list.add("隐患点巡查");
+            list.add("治理点位巡查");
+            list.add("销号点位复核");
+            list.add("搬迁避让数据采集");
+            list.add("新增隐患点采集");
+            list.add("原有隐患点更新");
+        }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
 
@@ -53,10 +64,14 @@ public class TitleListAct  extends AppFrameAct {
         @Override
         public void onClick(View view) {
             int tag=(int)view.getTag();
-            Intent i=new Intent(TitleListAct.this, SelectorAct.class);
-            i.putExtra("Type", tag);
-            i.putExtra("Title", list.get(tag));
-            startActivity(i);
+            if(type.equals("Disaster")) {
+                Intent i=new Intent(TitleListAct.this, SelectorAct.class);
+                i.putExtra("Type", tag);
+                i.putExtra("Title", list.get(tag));
+                startActivity(i);
+            }else if(type.equals("Report")) {
+
+            }
         }
     };
 }

@@ -99,7 +99,7 @@ public class TitleResultListAct  extends AppFrameAct {
                     break;
                 case 4:
                     i.setClass(TitleResultListAct.this, ItemDetailAct.class);
-                    tableName="SL_ZHAA01A";
+                    tableName="SL_STATIONMETERS";
                     break;
                 case 5:
                     i.setClass(TitleResultListAct.this, ZhilidianweiDetail.class);

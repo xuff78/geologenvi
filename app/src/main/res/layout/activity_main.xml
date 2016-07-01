@@ -10,6 +10,7 @@
     <LinearLayout
         android:background="@color/white"
         android:orientation="vertical"
+        android:layout_above="@+id/menuLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView

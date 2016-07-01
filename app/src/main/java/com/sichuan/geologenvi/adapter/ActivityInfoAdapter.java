@@ -56,12 +56,19 @@ public class ActivityInfoAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        String name=XmlParse.getPapers(con, mapKeyList.get(position), xmlName);
+        String content=dataList.get(mapKeyList.get(position));
+        View v = null;
+        if((name!=null&&name.length()>16)||(content!=null&&content.length()>24))
+            v = mInflater.inflate(R.layout.listitem_info_inact2, null);
+        else
+            v = mInflater.inflate(R.layout.listitem_info_inact, null);
 
-        View v = mInflater.inflate(R.layout.listitem_info_inact, null);
         TextView title = (TextView)v.findViewById(R.id.nameTxt);
         TextView contentTxt = (TextView)v.findViewById(R.id.contentTxt);
-        title.setText(XmlParse.getPapers(con, mapKeyList.get(position), xmlName));
-        contentTxt.setText(dataList.get(mapKeyList.get(position)));
+        title.setText(name);
+        if(content!=null&&content.length()>0)
+            contentTxt.setText(content);
         return v;
     }
 }

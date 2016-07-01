@@ -860,4 +860,96 @@
     <string name="YJIB08A030">区县</string>
     <string name="YJIB08A040">上报说明</string>
   </dict>
+  <dict name="SL_STATIONMETERS">
+    <string name="STATIONNO">站号</string>
+    <string name="TABLENAME">表名，确定设备</string>
+    <string name="METERID">设备编号</string>
+    <string name="METERTYPE">设备类型</string>
+    <string name="CITY">市</string>
+    <string name="COUNTY">县</string>
+    <string name="TOWN">乡（镇）</string>
+    <string name="COUNTRY">村（庄）</string>
+    <string name="DISASTERNAME">灾害点名称</string>
+    <string name="LASTSTATUS">设备状态</string>
+    <string name="LASTSENDTIME">获取时间</string>
+    <string name="LONGITUDE">经度值</string>
+    <string name="LATITUDE">纬度值</string>
+    <string name="SERVERIP">服务器IP地址</string>
+    <string name="PORT">端口号</string>
+    <string name="RELAYIP">继电器IP地址</string>
+    <string name="PHONENUMBER">设备电话号码</string>
+
+    <string name="SBZT">设备状态</string>
+  </dict>
+  <dict name="SL_TATTR_DZZH_XCKP">
+    <string name="BZ">备注</string>
+    <string name="CZDZYWT">存在的主要问题</string>
+    <string name="DWLX">点位类型（安置点或者灾害点）</string>
+    <string name="ENDTIME">失效时间</string>
+    <string name="JCDZYJX">监测的主要迹象</string>
+    <string name="JCDZYSDHFF">监测的主要手段和方法</string>
+    <string name="JCFZR">监测负责人</string>
+    <string name="JCFZRLXDH">监测负责人联系电话</string>
+    <string name="JCFZRLXDHNFJT">监测负责人联系电话能否接通</string>
+    <string name="QPXDWZBDH">抢排险单位或负责人值班电话</string>
+    <string name="SFYQPXDWFZR">是否有抢排险单位或负责人</string>
+    <string name="SFYYDBZDD">是否有预定避灾地点</string>
+    <string name="SFYYDSSLX">是有有预定疏散路线</string>
+    <string name="SFYYLJHDWFZR">是否有医疗救护单位或负责人</string>
+    <string name="SFYZABWDWFZR">是否有治安保卫单位或负责人</string>
+    <string name="SSMLFBR">疏散命令发布人</string>
+    <string name="SSMLFBRZBDH">疏散命令发布人值班电话</string>
+    <string name="STARTTIME">生效时间</string>
+    <string name="SZHDGMDLJ">受灾威胁农户对规模的了解</string>
+    <string name="SZHDLXDLJ">受灾威胁农户对类型的了解</string>
+    <string name="SZHDWXHSDLJ">受灾威胁农户对威胁户数的了解</string>
+    <string name="SZHDWXRSDLJ">受灾威胁农户对威胁人数的了解</string>
+    <string name="SZHDYFYSDLJ">受灾威胁农户对诱发因素的了解</string>
+    <string name="WXGKQY">威胁工矿企业</string>
+    <string name="WXHS">威胁户数</string>
+    <string name="WXJTDL">威胁交通道路</string>
+    <string name="WXLYQ">威胁旅游区</string>
+    <string name="WXRKMJQ">威胁人口密集区</string>
+    <string name="WXRS">威胁人数</string>
+    <string name="WXSMXGC">威胁生命线工程</string>
+    <string name="WXZYSSJSD">威胁主要设施及水电</string>
+    <string name="XCR">巡查人</string>
+    <string name="XCSJ">巡查时间</string>
+    <string name="YDBJXH">预定报警信号</string>
+    <string name="YFYS">诱发因素</string>
+    <string name="YLJHDWFZRLXDH">医疗救护单位或负责人联系电话</string>
+    <string name="ZABWDWFZRLXDH">治安保卫单位或负责人联系电话</string>
+    <string name="ZGJY">整改建议</string>
+    <string name="ZHDBH">灾害点编号</string>
+    <string name="ZHDGM">灾害点规模</string>
+    <string name="ZHDLX">灾害点类型</string>
+    <string name="ZHDSFFSBH">灾害点是否发生变化</string>
+    <string name="ZHDWZ">灾害点位置</string>
+  </dict>
+
+  <dict name="SL_DZYJBH">
+    <string name="AREA">主要地质遗迹面积</string>
+    <string name="AREAUNIT">面积单位</string>
+    <string name="BHFL">地质遗迹保护分类（保护型；护开发型）</string>
+    <string name="BHFS">地质遗迹保护方式（建立保护区；建立矿山公园；建立地质公园）</string>
+    <string name="BHJB">保护级别（世界级、国家级、省级）</string>
+    <string name="COORDX">x坐标</string>
+    <string name="COORDY">y坐标</string>
+    <string name="GK">主要地质遗迹概况</string>
+    <string name="ID">ID号</string>
+    <string name="JLBHSJ">建立保护时间</string>
+    <string name="LB">地质遗迹类别（地质构造、剖面和形迹；古生物化石；地质地貌景观）</string>
+    <string name="LX">地质遗迹类型（地质公园；自然遗产；矿山公园；地质灾害遗迹；地貌景观）</string>
+    <string name="NAME">地质遗迹名称</string>
+    <string name="SPHQK_RW">受破坏情况（人为）</string>
+    <string name="SPHQK_ZR">受破坏情况（自然）</string>
+    <string name="XZQH">行政区划</string>
+  </dict>
+  <dict name="SL_KS_DZHJ_XX">
+    <string name="DZHJ_GK">矿山地质环境概况</string>
+    <string name="HFZL_GK">矿山地质环境恢复治理概况</string>
+    <string name="KS_CK_GUID">矿山ID</string>
+    <string name="KS_NAME">矿山名</string>
+    <string name="SFHJPG">是否已进行环境影响评估(已评估；未评估)</string>
+  </dict>
 </dicts>
