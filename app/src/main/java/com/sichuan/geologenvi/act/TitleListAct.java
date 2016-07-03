@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
+import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
+import com.sichuan.geologenvi.act.report.BanqianbirangList;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.views.MarkerSupportView;
 import com.tianditu.android.maps.MapController;
@@ -70,7 +72,11 @@ public class TitleListAct  extends AppFrameAct {
                 i.putExtra("Title", list.get(tag));
                 startActivity(i);
             }else if(type.equals("Report")) {
-
+                if(tag==3){
+                    Intent i=new Intent(TitleListAct.this, BanqianbirangList.class);
+                    i.putExtra("Title", list.get(tag));
+                    startActivity(i);
+                }
             }
         }
     };

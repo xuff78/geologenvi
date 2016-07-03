@@ -1,6 +1,7 @@
 package com.sichuan.geologenvi.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,8 @@ public class ActivityInfoAdapter extends BaseAdapter {
         title.setText(name);
         if(content!=null&&content.length()>0)
             contentTxt.setText(content);
+        else
+            contentTxt.setTextColor(Color.LTGRAY);
         return v;
     }
 }

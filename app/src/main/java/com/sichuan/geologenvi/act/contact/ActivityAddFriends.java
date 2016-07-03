@@ -1,6 +1,7 @@
 package com.sichuan.geologenvi.act.contact;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.act.geodisaster.AreaSelectorAct;
+import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.Contact;
 import com.sichuan.geologenvi.views.ContactDialog;
 
@@ -61,8 +64,17 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 		_setHeaderTitle("通讯录");
 		initViews();
+
+		_setRightHomeText("地区筛选", new View.OnClickListener(){
+
+			@Override
+			public void onClick(View view) {
+				Intent intent2=new Intent(ActivityAddFriends.this, AreaSelectorAct.class);
+				startActivityForResult(intent2, 0x11);
+			}
+		});
 		handler=new SqlHandler(this);
-		contacts=handler.getPersonInfo();
+		contacts=handler.getPersonInfo(" WHERE JCBA05A090 is not null OR JCBA05A130 is not null");
 		if(contacts.size()>0)
 			setContacts();
 	}
@@ -184,7 +196,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 	/**
 	 * 为ListView填充数据
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 */
@@ -208,7 +220,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 	/**
 	 * 根据输入框中的值来过滤数据并更新ListView
-	 * 
+	 *
 	 * @param filterStr
 	 */
 	private void filterData(String filterStr) {
@@ -261,5 +273,26 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			}
 		}
 		return -1;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==0x22){
+			AreaInfo area= (AreaInfo) data.getSerializableExtra("Area");
+			String areaCode=area.getCode();
+			String typeStr=" WHERE (JCBA05A090 is not null OR JCBA05A130 is not null)";
+			if (areaCode.length() == 6)
+				typeStr = typeStr + " and JCBA05A030 = '" + areaCode + "'";
+			else if (areaCode.length() == 9)
+				typeStr = typeStr + " and JCBA05A040 = '" + areaCode + "'";
+
+			List<Contact> filterDateList = handler.getPersonInfo(typeStr);
+
+			if (filterDateList.size()>0) {
+				Collections.sort(filterDateList, pinyinComparator);
+				adapter.updateListView(filterDateList);
+			}
+		}
 	}
 }

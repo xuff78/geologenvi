@@ -46,6 +46,19 @@
             android:layout_marginRight="3dip"
             android:background="@null"
             android:src="@mipmap/of_homel" />
+        <TextView
+            android:id="@+id/right_txt"
+            android:visibility="gone"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center"
+            android:textColor="@color/hard_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="45dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dip"
+            android:background="@null"/>
         <View
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"

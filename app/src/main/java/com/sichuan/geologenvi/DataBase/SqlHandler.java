@@ -27,11 +27,10 @@ public class SqlHandler {
         dbManager=new DBManager(act);
     }
 
-    public ArrayList<Contact> getPersonInfo(){
-        Cursor c = dbManager.querySQL("SELECT * FROM SL_JCBA05A WHERE JCBA05A090 is not null OR JCBA05A130 is not null", new String[]{});
+    public ArrayList<Contact> getPersonInfo(String str){
+        Cursor c = dbManager.querySQL("SELECT * FROM SL_JCBA05A"+str, new String[]{});
         ArrayList<Contact> contacts=new ArrayList<>();
         if(c!=null) {
-            c.moveToFirst();
             while (c.moveToNext()) {
                 Contact contact=new Contact();
                 String phone = c.getString(c.getColumnIndex("JCBA05A130"));
@@ -64,7 +63,6 @@ public class SqlHandler {
             c = dbManager.querySQL("select * from SL_TATTR_DZZH_XZQH where parentcodeid = ?", new String[]{parent});
         ArrayList<AreaInfo> contacts=new ArrayList<>();
         if(c!=null) {
-            c.moveToFirst();
             while (c.moveToNext()) {
                 AreaInfo contact=new AreaInfo();
                 String NAME = c.getString(c.getColumnIndex("NAME"));

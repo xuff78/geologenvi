@@ -29,7 +29,7 @@ public abstract class AppFrameAct extends AppCompatActivity {
 
 	public ImageButton btnHome, btnBack;
 	
-	public Button rightTxtBtn;
+	public TextView rightTxtBtn;
 	
 	public boolean flag;
 
@@ -47,6 +47,7 @@ public abstract class AppFrameAct extends AppCompatActivity {
 		btnHome.setOnClickListener(listener);
 		btnBack=(ImageButton)findViewById(R.id.of_back_imagebtn);
 		btnBack.setOnClickListener(listener);
+		rightTxtBtn=(TextView)findViewById(R.id.right_txt);
 	}
 	
 	
