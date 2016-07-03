@@ -20,7 +20,6 @@ public class FirstPage extends AppCompatActivity {
 
     private final int BUFFER_SIZE = 400000;
     private boolean ready=false;
-    private int i=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
