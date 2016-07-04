@@ -44,6 +44,7 @@ public class ContactDialog  extends Dialog {
         TextView nameTxt = (TextView) findViewById(R.id.nameTxt);
         TextView areaTxt = (TextView) findViewById(R.id.areaTxt);
 
+        areaTxt.setText(contact.getAddress());
         phoneTxt.setText(contact.getPhone());
         positionTxt.setText(contact.getPosition());
         nameTxt.setText(contact.getName());

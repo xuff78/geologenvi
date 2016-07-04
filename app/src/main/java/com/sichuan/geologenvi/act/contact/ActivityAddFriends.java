@@ -74,7 +74,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			}
 		});
 		handler=new SqlHandler(this);
-		contacts=handler.getPersonInfo(" WHERE JCBA05A090 is not null OR JCBA05A130 is not null");
+		contacts=handler.getPersonInfo(" and (JCBA05A090 is not null OR JCBA05A130 is not null)");
 		if(contacts.size()>0)
 			setContacts();
 	}
@@ -281,18 +281,19 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 		if(resultCode==0x22){
 			AreaInfo area= (AreaInfo) data.getSerializableExtra("Area");
 			String areaCode=area.getCode();
-			String typeStr=" WHERE (JCBA05A090 is not null OR JCBA05A130 is not null)";
+			String typeStr=" and (JCBA05A090 is not null OR JCBA05A130 is not null)";
 			if (areaCode.length() == 6)
 				typeStr = typeStr + " and JCBA05A030 = '" + areaCode + "'";
 			else if (areaCode.length() == 9)
 				typeStr = typeStr + " and JCBA05A040 = '" + areaCode + "'";
 
-			List<Contact> filterDateList = handler.getPersonInfo(typeStr);
+			ArrayList<Contact> filterDateList = handler.getPersonInfo(typeStr);
 
-			if (filterDateList.size()>0) {
-				Collections.sort(filterDateList, pinyinComparator);
-				adapter.updateListView(filterDateList);
-			}
+			filledData(filterDateList);
+
+			Collections.sort(filterDateList, pinyinComparator);
+			adapter.updateListView(filterDateList);
+
 		}
 	}
 }

@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.MineListAct;
+import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
@@ -122,6 +123,17 @@ public class MainActivity extends AppFrameAct {
                     i.setClass(MainActivity.this, MineListAct.class);
                     i.putExtra("Title", "地质遗迹");
                     i.putExtra("TableName", "SL_DZYJBH");
+                    startActivity(i);
+                    break;
+                case 9:
+                    i.setClass(MainActivity.this, MineListAct.class);
+                    i.putExtra("Title", "红层水晶");
+                    i.putExtra("TableName", "SL_TBLJING");
+                    startActivity(i);
+                    break;
+                case 11:
+                    i.setClass(MainActivity.this, RainAct.class);
+                    i.putExtra("Title", "红层水晶");
                     startActivity(i);
                     break;
             }

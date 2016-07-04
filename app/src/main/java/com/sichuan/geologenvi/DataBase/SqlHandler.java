@@ -12,6 +12,7 @@ import com.sichuan.geologenvi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -28,7 +29,15 @@ public class SqlHandler {
     }
 
     public ArrayList<Contact> getPersonInfo(String str){
-        Cursor c = dbManager.querySQL("SELECT * FROM SL_JCBA05A"+str, new String[]{});
+        String sqlStr="SELECT * FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A040=b.CODE ) WHERE  a.JCBA05A040 is not null" + str+
+                " union all "+
+                " SELECT * FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A030=b.CODE ) where a.JCBA05A040 is null "
+                +" and (JCBA05A090 is not null OR JCBA05A130 is not null)"+str;
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+//        Cursor c = dbManager.querySQL("SELECT * FROM SL_JCBA05A left join SL_TATTR_DZZH_XZQH on " +
+//                "(SL_JCBA05A.JCBA05A040=SL_TATTR_DZZH_XZQH.CODE or SL_JCBA05A.JCBA05A030=SL_TATTR_DZZH_XZQH.CODE)"+str, new String[]{});
         ArrayList<Contact> contacts=new ArrayList<>();
         if(c!=null) {
             while (c.moveToNext()) {
@@ -36,6 +45,7 @@ public class SqlHandler {
                 String phone = c.getString(c.getColumnIndex("JCBA05A130"));
                 String name = c.getString(c.getColumnIndex("JCBA05A090"));
                 String position = c.getString(c.getColumnIndex("JCBA05A180"));
+                String addr = c.getString(c.getColumnIndex("NAME"));
                 if(phone==null) {
                     contact.setName(name);
                     contact.setPhone("");
@@ -46,6 +56,7 @@ public class SqlHandler {
                     contact.setName(name);
                     contact.setPhone(phone);
                 }
+                contact.setAddress(addr);
                 if(position!=null)
                     contact.setPosition(position);
                 contacts.add(contact);
@@ -162,7 +173,29 @@ public class SqlHandler {
             LogUtil.i("SQL", "result num---->:  "+c.getCount());
             String columnNames[]=c.getColumnNames();
             while (c.moveToNext()) {
-                Map<String, String> maps=new HashMap<>();
+                LinkedHashMap<String, String> maps=new LinkedHashMap<>();
+                for (int i=0;i<columnNames.length;i++) {
+                    String key = columnNames[i];
+                    String value = c.getString(c.getColumnIndex(key));
+                    maps.put(key, value);
+                }
+                datas.add(maps);
+            }
+            c.close();
+        }
+        return datas;
+    }
+
+    public ArrayList<Map<String, String>> getQueryResult(String[] columnNames,String tableName, String typeStr){
+
+        ArrayList<Map<String, String>> datas=new ArrayList<>();
+        String sqlStr="select * from "+tableName+typeStr;
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+        if(c!=null) {
+            LogUtil.i("SQL", "result num---->:  "+c.getCount());
+            while (c.moveToNext()) {
+                LinkedHashMap<String, String> maps=new LinkedHashMap<>();
                 for (int i=0;i<columnNames.length;i++) {
                     String key = columnNames[i];
                     String value = c.getString(c.getColumnIndex(key));

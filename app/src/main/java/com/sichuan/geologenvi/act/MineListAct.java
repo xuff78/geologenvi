@@ -12,6 +12,7 @@ import com.sichuan.geologenvi.act.geodisaster.YinhuandianDetail;
 import com.sichuan.geologenvi.act.geodisaster.ZhilidianweiDetail;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.MapBean;
+import com.sichuan.geologenvi.utils.ConstantUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -41,13 +42,24 @@ public class MineListAct   extends AppFrameAct {
     }
 
     private void requestInfo() {
-        datalist=handler.getQueryResult(tableName, "");
+        if(tableName.equals("SL_KS_DZHJ_XX"))   //矿山的
+            datalist=handler.getQueryResult(ConstantUtil.Mine,
+                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+        else if(tableName.equals("SL_DZYJBH")) //地址遗迹
+            datalist=handler.getQueryResult(tableName, "");
+        else if(tableName.equals("SL_TBLJING")) //地址遗迹
+            datalist=handler.getQueryResult(tableName, "");
         ArrayList<String> list = new ArrayList<>();
+        String title="";
+        if(tableName.equals("SL_KS_DZHJ_XX"))
+            title="KSMC";
+        else if(tableName.equals("SL_DZYJBH"))
+            title="NAME";
+        else if(tableName.equals("SL_TBLJING"))
+            title="QUYU";
         for (Map<String, String> info : datalist) {
-            if(tableName.equals("SL_KS_DZHJ_XX"))
-                list.add(info.get("DZHJ_GK"));
-            else if(tableName.equals("SL_DZYJBH"))
-                list.add(info.get("NAME"));
+            list.add(info.get(title));
+
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
@@ -67,6 +79,8 @@ public class MineListAct   extends AppFrameAct {
             if(tableName.equals("SL_KS_DZHJ_XX"))
                 i.setClass(MineListAct.this, ItemDetailAct.class);
             else if(tableName.equals("SL_DZYJBH"))
+                i.setClass(MineListAct.this, ItemDetailAct.class);
+            else if(tableName.equals("SL_TBLJING"))
                 i.setClass(MineListAct.this, ItemDetailAct.class);
             MapBean mapBean=new MapBean();
             int tag=(int)view.getTag();
