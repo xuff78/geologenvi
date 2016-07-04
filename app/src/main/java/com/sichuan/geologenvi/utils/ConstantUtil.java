@@ -97,7 +97,7 @@ public class ConstantUtil {
 	public static final String method_warningList="1/tongliang/warningList";
 	public static final String method_warningChart="1/tongliang/warningChart";
 
-	public static final String[] Mine={"KS_NAME", "SFHJPG", "DZHJ_GK", "HFZL_GK", "KSMC", "DJQ", "XJQ", "BWQ",
-			"BQZ", "KCFS", "CKMJ", "SZXZQMC"};
+	public static final String[] Mine={"KS_NAME", "SFHJPG", "CKMJ", "SZXZQMC", "DZHJ_GK", "HFZL_GK", "KSMC", "DJQ", "XJQ", "BWQ",
+			"BQZ", "KCFS"};
 
 }
