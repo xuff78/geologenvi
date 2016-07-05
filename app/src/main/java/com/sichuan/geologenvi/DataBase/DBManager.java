@@ -24,15 +24,15 @@ import java.util.ArrayList;
 public class DBManager {
     public static final String DB_NAME = "info.db"; //保存的数据库文件名
     public static final String PACKAGE_NAME = "ttt";
-    public static final String DB_PATH = Environment.getExternalStorageDirectory() + "/"
-            + PACKAGE_NAME;  //在手机里存放数据库的位置
+//    public static final String DB_PATH = Environment.getExternalStorageDirectory() + "/"
+//            + PACKAGE_NAME;  //在手机里存放数据库的位置
 
     private SQLiteDatabase database=null;
     private Context context;
 
     public DBManager(final Activity context) {
         this.context = context;
-        openDatabase(DB_PATH+"/"+DB_NAME);
+        openDatabase(context.getExternalFilesDir(null)+"/"+DB_NAME);
     }
 
     private void openDatabase(String dbfile) {

@@ -38,7 +38,7 @@ public class FirstPage extends AppCompatActivity {
         new Thread(){
             @Override
             public void run() {
-                copyDBtoSDCard(DBManager.DB_PATH+"/"+DBManager.DB_NAME);
+                copyDBtoSDCard(getExternalFilesDir(null)+"/"+DBManager.DB_NAME);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -54,7 +54,7 @@ public class FirstPage extends AppCompatActivity {
     private void copyDBtoSDCard(String dbfile) {
         try {
             if (!(new File(dbfile).exists())) {
-                FileUtil.isExist(DBManager.DB_PATH);
+//                FileUtil.isExist(DBManager.DB_PATH);
 
                 File file = new File(dbfile);
                 InputStream is = getResources().getAssets().open("db.db3");

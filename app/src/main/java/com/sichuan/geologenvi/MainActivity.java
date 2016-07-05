@@ -127,13 +127,13 @@ public class MainActivity extends AppFrameAct {
                     break;
                 case 9:
                     i.setClass(MainActivity.this, MineListAct.class);
-                    i.putExtra("Title", "红层水晶");
+                    i.putExtra("Title", "红层水井");
                     i.putExtra("TableName", "SL_TBLJING");
                     startActivity(i);
                     break;
                 case 11:
                     i.setClass(MainActivity.this, RainAct.class);
-                    i.putExtra("Title", "红层水晶");
+                    i.putExtra("Title", "雨量监测");
                     startActivity(i);
                     break;
             }

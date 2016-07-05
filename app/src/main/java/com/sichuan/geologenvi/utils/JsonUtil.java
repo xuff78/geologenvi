@@ -4,6 +4,7 @@ import android.util.Log;
 
 
 import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.bean.RainBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +24,8 @@ public class JsonUtil {
             JSONObject json=new JSONObject(jsonStr);
             if(!json.isNull("code"))
                 jsonMsg.setCode(json.getString("code"));
-            if(!json.isNull("msg"))
-                jsonMsg.setMsg(json.getString("msg"));
+            if(!json.isNull("error"))
+                jsonMsg.setMsg(json.getString("error"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -65,6 +66,31 @@ public class JsonUtil {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public static ArrayList<RainBean> getRainInfo(String jsonStr) {
+        ArrayList<RainBean> infos=new ArrayList<>();
+        try {
+            JSONArray array=new JSONArray(jsonStr);
+                for(int i=0; i<array.length();i++){
+                    JSONObject item=array.getJSONObject(i);
+                    RainBean bean = new RainBean();
+                    if(!item.isNull("name"))
+                        bean.setName(item.getString("name"));
+                    if(!item.isNull("h1"))
+                        bean.setHour1(item.getString("h1"));
+                    if(!item.isNull("h3"))
+                        bean.setHour3(item.getString("h3"));
+                    if(!item.isNull("h12"))
+                        bean.setHour12(item.getString("h12"));
+                    if(!item.isNull("h24"))
+                        bean.setHour24(item.getString("h24"));
+                    infos.add(bean);
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return infos;
     }
 
 

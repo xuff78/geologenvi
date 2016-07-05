@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <TextView
-            android:background="@drawable/press_trans_to_white"
+            android:background="@color/light_trans_white"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -60,7 +60,6 @@
             android:id="@+id/hintTxt21"
             style="@style/txt_white_12" />
         <TextView
-            android:background="@drawable/press_trans_to_white"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -69,7 +68,6 @@
             android:id="@+id/hintTxt22"
             style="@style/txt_white_12" />
         <TextView
-            android:background="@drawable/press_trans_to_white"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -78,7 +76,6 @@
             android:id="@+id/hintTxt23"
             style="@style/txt_white_12" />
         <TextView
-            android:background="@drawable/press_trans_to_white"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="match_parent"

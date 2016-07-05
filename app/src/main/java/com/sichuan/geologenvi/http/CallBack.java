@@ -34,7 +34,7 @@ public class CallBack {
 		JsonMessage msg= JsonUtil.getJsonMessage(jsonMessage);
 		if(msg.getCode()==null){
 			oServerException(method, jsonMessage);
-		}else if(msg.getCode().equals("9200"))
+		}else if(msg.getCode().equals("200"))
 			doSuccess(method, JsonUtil.getJsonData(jsonMessage));
 		else{
 			onFailure(method, msg);
