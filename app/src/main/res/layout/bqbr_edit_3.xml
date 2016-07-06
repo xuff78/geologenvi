@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_above="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="户主姓名"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/nameEdt"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/yearLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="灾点名称"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/yearTxt"
+                    android:layout_toLeftOf="@+id/arrowRight0"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight0"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/districtLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="行政区划"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/districtTxt"
+                    android:layout_toLeftOf="@+id/arrowRight2"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight2"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="详细地址地址"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/addrEdt"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/nameLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="户主姓名"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/nameTxt"
+                    android:layout_toLeftOf="@+id/arrowRight1"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight1"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="家庭人口"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:maxLines="1"
+                        android:background="@null"
+                        style="@style/txt_black_12"
+                        android:inputType="numberSigned"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="旧房面积"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="拟建房面积"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:maxLines="1"
+                        android:background="@null"
+                        style="@style/txt_black_12"
+                        android:inputType="numberSigned"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="农户联系电话"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="公示情况"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="组（社）意见"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="村意见"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="村（组）意见"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="区（市）国土局意见"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/dateLayout1"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="申请时间"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/dataTxt1"
+                    android:layout_toLeftOf="@+id/arrowRight"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_gray"
+        android:paddingLeft="1px"
+        android:paddingTop="1px"
+        android:paddingBottom="1px"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/addDataBtn"
+            android:text="添加"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/updateDataBtn"
+            android:text="更新"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/delDataBtn"
+            android:text="删除"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

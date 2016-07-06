@@ -22,7 +22,7 @@ import java.util.Locale;
 /**
  * Created by Administrator on 2016/7/6.
  */
-public class BanqianshenqingFrg extends BaseFragment{
+public class BanqianyanshouFrg extends BaseFragment{
 
     DatePickerDialog datePickerDialog;
     TextView dataTxt1;
@@ -53,7 +53,7 @@ public class BanqianshenqingFrg extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bqbr_edit_3, container, false);
+        View view = inflater.inflate(R.layout.bqbr_edit_2, container, false);
 
 
         initView(view);
