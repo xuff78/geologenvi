@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
 
@@ -47,7 +48,53 @@ public final class GlbsNet {
 	 *            请求参数集
 	 * @return 返回服务器响应的json串。网络异常时，返回{@code null}。
 	 */
-	public static String doPostNew(String uri, HashMap<String, String> params) {
+//	public static String doPostNew(String uri, HashMap<String, String> params) {
+//		InputStreamReader isr = null;
+//		BufferedReader br = null;
+//		HttpURLConnection urlConn = null;
+//		String result="";
+//		try {
+//			urlConn = getURLConnection(uri);
+//			urlConn.setRequestMethod("POST");
+//			urlConn.setUseCaches(false);
+//			urlConn.setDoInput(true);
+//			urlConn.setDoOutput(true);
+//			//urlConn.setInstanceFollowRedirects(true);
+//			urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//			urlConn.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+//			urlConn.connect();
+//			//DataOutputStream流
+//			DataOutputStream out=new DataOutputStream(urlConn.getOutputStream());
+//			//要上传的参数
+//			String content= URLUtil.map2string(params);
+//			out.writeBytes(content);
+//			//刷新、关闭
+//			out.flush();
+//			out.close();
+//
+//			//得到读取的内容（流）
+//			result=getJsonStringFromGZIP(urlConn);
+//			LogUtil.d("TestDemo", result);
+//		} catch (Exception e) {
+//			result=HTTP_ERROR_MESSAGE;
+//			LogUtil.e("NetError", e.getMessage());
+//		} finally {
+//			try {
+//				if (isr != null)
+//					isr.close();
+//				if (br != null)
+//					br.close();
+//				if(urlConn!=null)
+//					urlConn.disconnect();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		return result;
+//	}
+
+	public static String doPostNew(String uri, String content) {
 		InputStreamReader isr = null;
 		BufferedReader br = null;
 		HttpURLConnection urlConn = null;
@@ -65,8 +112,7 @@ public final class GlbsNet {
 			//DataOutputStream流
 			DataOutputStream out=new DataOutputStream(urlConn.getOutputStream());
 			//要上传的参数
-			String content= URLUtil.map2string(params);
-			out.writeBytes(content);
+			out.writeBytes(URLEncoder.encode(content, "utf-8"));
 			//刷新、关闭
 			out.flush();
 			out.close();

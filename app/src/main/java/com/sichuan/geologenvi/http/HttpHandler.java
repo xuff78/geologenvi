@@ -34,7 +34,12 @@ public class HttpHandler extends Handle {
 	 * 
 	 */
 	public void getRainInfo() {
+		HashMap<String, String> params=new HashMap<>();
 		request(ConstantUtil.Method.TIMERAININFO, true);
+	}
+
+	public void addBangqianBaseInfo(String json) {
+		request(ConstantUtil.Method.ZHDD04B, json, true);
 	}
 
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
@@ -46,6 +51,14 @@ public class HttpHandler extends Handle {
 		LogUtil.i("HttpAsyncTask","url: "+url);
 		new HttpAsyncTask(mContext, this, showDialog)
 				.execute(url, method, params, progressInfo, false);
+	}
+
+	protected void request(String method, String json, boolean showDialog) {
+		String progressInfo = "";
+		String url= ConstantUtil.Api_Url+method;
+		LogUtil.i("HttpAsyncTask","url: "+url+"\n"+json);
+		new HttpAsyncTask(mContext, this, showDialog)
+				.execute(url, method, json, progressInfo, false);
 	}
 
 	protected void request(String method, boolean showDialog) {

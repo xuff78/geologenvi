@@ -88,7 +88,7 @@ public class HttpAsyncTask extends AsyncTask<Object, String, String> {
 		if((Boolean)params[4]){
 			return GlbsNet.doGet((String)params[0]);
 		}else{
-			return GlbsNet.doPostNew((String)params[0],(HashMap<String, String>)params[2]);
+			return GlbsNet.doPostNew((String)params[0],(String)params[2]);
 		}
 		
 	}

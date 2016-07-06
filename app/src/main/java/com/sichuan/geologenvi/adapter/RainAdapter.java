@@ -1,5 +1,6 @@
 package com.sichuan.geologenvi.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.sichuan.geologenvi.bean.RainBean;
 import com.sichuan.geologenvi.utils.XmlParse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,27 +26,27 @@ public class RainAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private Context con;
-    private ArrayList<RainBean> dataList;
     private int itemHeight = 0;
-    private List<String> mapKeyList;
-    private String xmlName;
+    private RainBean[] dataList;
     private int hour=1;
 
     public RainAdapter(Context context, ArrayList<RainBean> dataList) {
         this.mInflater = LayoutInflater.from(context);
-        this.dataList = dataList;
+        this.dataList = dataList.toArray(new RainBean[dataList.size()]);
         con = context;
+        setHours(1);
     }
 
     public void setHours(int hour){
         this.hour=hour;
+        Arrays.sort(dataList, new ComparatorValues());
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return dataList.size();
+        return dataList.length;
     }
 
     @Override
@@ -61,24 +64,32 @@ public class RainAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View  v = mInflater.inflate(R.layout.rain_item_layout, null);
-        RainBean bean=dataList.get(position);
+        RainBean bean=dataList[position];
         TextView title = (TextView)v.findViewById(R.id.hintTxt1);
         TextView contentTxt = (TextView)v.findViewById(R.id.hintTxt2);
         title.setText(bean.getName());
-        switch (hour){
-            case 1:
-                contentTxt.setText(bean.getHour1());
-                break;
-            case 3:
-                contentTxt.setText(bean.getHour3());
-                break;
-            case 12:
-                contentTxt.setText(bean.getHour12());
-                break;
-            case 24:
-                contentTxt.setText(bean.getHour24());
-                break;
-        }
+        contentTxt.setText(bean.getRainInfo(hour));
+
         return v;
+    }
+
+    public final class ComparatorValues implements Comparator<RainBean> {
+
+        @Override
+        public int compare(RainBean rain1, RainBean rian2) {
+            float m1=Float.valueOf(rain1.getRainInfo(hour));
+            float m2=Float.valueOf(rian2.getRainInfo(hour));
+            int result=0;
+            if(m1>m2)
+            {
+                result=-1;
+            }
+            if(m1<m2)
+            {
+                result=1;
+            }
+            return result;
+        }
+
     }
 }

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
+    android:layout_above="@+id/bottomLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,8 +21,9 @@
             android:text="隐患点名称"
             style="@style/txt_gray_12" />
         <EditText
+            android:id="@+id/nameEdt"
             android:background="@null"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp" />
@@ -35,12 +43,41 @@
             android:text="隐患点编号"
             style="@style/txt_gray_12" />
         <EditText
+            android:id="@+id/idEdt"
             android:background="@null"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp" />
     </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <RelativeLayout
+        android:id="@+id/yearLayout"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="年度"
+            style="@style/txt_gray_12" />
+        <TextView
+            android:id="@+id/yearTxt"
+            android:layout_toLeftOf="@+id/arrowRight0"
+            android:layout_centerVertical="true"
+            android:text=""
+            style="@style/txt_black_12" />
+        <View
+            android:id="@+id/arrowRight0"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
     <View
         android:background="@color/light_gray"
         android:layout_width="match_parent"
@@ -57,47 +94,39 @@
             style="@style/txt_gray_12" />
         <EditText
             android:hint="县区"
+            android:maxLines="1"
             android:textColorHint="@color/light_gray"
             android:background="@null"
             android:gravity="center"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_marginLeft="10dp"
             android:layout_width="70dp"
             android:layout_height="40dp" />
-        <View
-            android:background="@color/hard_gray"
-            android:layout_width="10dp"
-            android:layout_height="1px" />
         <EditText
             android:hint="乡镇"
+            android:maxLines="1"
             android:textColorHint="@color/light_gray"
             android:background="@null"
             android:gravity="center"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_width="70dp"
             android:layout_height="40dp" />
-        <View
-            android:background="@color/hard_gray"
-            android:layout_width="10dp"
-            android:layout_height="1px" />
         <EditText
             android:hint="村"
             android:textColorHint="@color/light_gray"
             android:background="@null"
             android:gravity="center"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_width="70dp"
             android:layout_height="40dp" />
-        <View
-            android:background="@color/hard_gray"
-            android:layout_width="10dp"
-            android:layout_height="1px" />
         <EditText
             android:hint="组"
+            android:maxLines="1"
+            android:maxEms="3"
             android:textColorHint="@color/light_gray"
             android:background="@null"
             android:gravity="center"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:inputType="numberSigned"
             android:layout_width="50dp"
             android:layout_height="40dp" />
@@ -115,14 +144,15 @@
         <LinearLayout
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_width="200dp"
+            android:layout_width="180dp"
             android:layout_height="45dp">
             <TextView
                 android:text="单户户主"
                 style="@style/txt_gray_12" />
             <EditText
+                android:maxLines="1"
                 android:background="@null"
-                style="@style/txt_black_14"
+                style="@style/txt_black_12"
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
@@ -137,12 +167,12 @@
                 android:text="单户搬迁人数"
                 style="@style/txt_gray_12" />
             <EditText
+                android:maxLength="3"
                 android:background="@null"
                 android:inputType="numberSigned"
-                android:gravity="center"
-                style="@style/txt_black_14"
+                style="@style/txt_black_12"
                 android:layout_marginLeft="10dp"
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp" />
         </LinearLayout>
     </LinearLayout>
@@ -164,7 +194,7 @@
             style="@style/txt_gray_12" />
         <EditText
             android:background="@null"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp" />
@@ -186,8 +216,7 @@
             style="@style/txt_gray_12" />
         <EditText
             android:background="@null"
-            android:gravity="center"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp" />
@@ -208,8 +237,7 @@
             style="@style/txt_gray_12" />
         <EditText
             android:background="@null"
-            android:gravity="center"
-            style="@style/txt_black_14"
+            style="@style/txt_black_12"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp" />
@@ -233,7 +261,7 @@
             android:layout_toLeftOf="@+id/arrowRight"
             android:layout_centerVertical="true"
             android:text=""
-            style="@style/txt_black_14" />
+            style="@style/txt_black_12" />
         <View
             android:id="@+id/arrowRight"
             android:layout_centerVertical="true"
@@ -246,4 +274,298 @@
         android:background="@color/light_gray"
         android:layout_width="match_parent"
         android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="原址是否拆除"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:background="@null"
+            style="@style/txt_black_12"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <RelativeLayout
+        android:id="@+id/dateLayout2"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="旧房拆除时间"
+            style="@style/txt_gray_12" />
+        <TextView
+            android:id="@+id/dataTxt2"
+            android:layout_toLeftOf="@+id/arrowRight2"
+            android:layout_centerVertical="true"
+            android:text=""
+            style="@style/txt_black_12" />
+        <View
+            android:id="@+id/arrowRight2"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <RelativeLayout
+        android:id="@+id/dateLayout3"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:text="集中或分散安置入住时间"
+            style="@style/txt_gray_12" />
+        <TextView
+            android:id="@+id/dataTxt3"
+            android:layout_toLeftOf="@+id/arrowRight3"
+            android:layout_centerVertical="true"
+            android:text=""
+            style="@style/txt_black_12" />
+        <View
+            android:id="@+id/arrowRight3"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp">
+            <TextView
+                android:text="是否完成"
+                style="@style/txt_gray_12" />
+            <EditText
+                android:maxLines="1"
+                android:background="@null"
+                style="@style/txt_black_12"
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp">
+            <TextView
+                android:text="是否验收"
+                style="@style/txt_gray_12" />
+            <EditText
+                android:maxLength="3"
+                android:background="@null"
+                android:inputType="numberSigned"
+                style="@style/txt_black_12"
+                android:layout_marginLeft="10dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="迁入地是否存在地灾隐患"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:background="@null"
+            style="@style/txt_black_12"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="迁入生产生活地条件改善情况"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:background="@null"
+            style="@style/txt_black_12"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="对搬迁工作对认同情况"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:background="@null"
+            style="@style/txt_black_12"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="认同情况原因"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:background="@null"
+            style="@style/txt_black_12"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="是否公示"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:background="@null"
+            style="@style/txt_black_12"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="15dp"
+            android:text="是否公示"
+            style="@style/txt_gray_12" />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:padding="8dp"
+            android:background="@drawable/shape_nocorner_black"
+            style="@style/txt_black_12"
+            android:gravity="left|top"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
 </LinearLayout>
+</ScrollView>
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_gray"
+        android:paddingLeft="1px"
+        android:paddingTop="1px"
+        android:paddingBottom="1px"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/addDataBtn"
+            android:text="添加"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/updateDataBtn"
+            android:text="更新"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/delDataBtn"
+            android:text="删除"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

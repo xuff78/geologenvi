@@ -3,6 +3,10 @@ package com.sichuan.geologenvi.utils;
 import android.app.Activity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,5 +30,19 @@ public class ActUtil {
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String str = formatter.format(curDate);
         return str;
+    }
+
+    public static String addStringContent(String columnName, EditText edt, String content){
+        JSONObject json= new JSONObject();
+        try {
+            if(content.length()>0)
+                json = new JSONObject(content);
+            String edtTxt=edt.getText().toString().trim();
+            if(edtTxt.length()>0)
+                json.put(columnName, edtTxt);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json.toString();
     }
 }

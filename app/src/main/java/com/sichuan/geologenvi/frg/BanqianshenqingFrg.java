@@ -7,22 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
-import com.sichuan.geologenvi.adapter.ActivityInfoAdapter;
-import com.sichuan.geologenvi.adapter.RainAdapter;
-import com.sichuan.geologenvi.bean.JsonMessage;
-import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.http.CallBack;
-import com.sichuan.geologenvi.http.GlbsNet;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
-import com.sichuan.geologenvi.utils.ConstantUtil;
-import com.sichuan.geologenvi.utils.DialogUtil;
-import com.sichuan.geologenvi.utils.JsonUtil;
-import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,9 +20,9 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by 可爱的蘑菇 on 2016/7/2.
+ * Created by Administrator on 2016/7/6.
  */
-public class BanqianbirangBase  extends BaseFragment{
+public class BanqianshenqingFrg extends BaseFragment{
 
     DatePickerDialog datePickerDialog;
     TextView dataTxt1;
@@ -99,7 +89,7 @@ public class BanqianbirangBase  extends BaseFragment{
 
     private String getInfoString() {
         String jsonContent="";
-        jsonContent=ActUtil.addStringContent("ZHDD04B020", nameEdt, jsonContent);
+        jsonContent= ActUtil.addStringContent("ZHDD04B020", nameEdt, jsonContent);
         return jsonContent;
     }
 

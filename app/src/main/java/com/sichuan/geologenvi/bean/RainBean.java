@@ -49,4 +49,23 @@ public class RainBean {
     public void setHour24(String hour24) {
         this.hour24 = hour24;
     }
+
+    public String getRainInfo(int hour){
+        String raininfo="0";
+        switch (hour){
+            case 1:
+                raininfo=getHour1();
+                break;
+            case 3:
+                raininfo=getHour3();
+                break;
+            case 12:
+                raininfo=getHour12();
+                break;
+            case 24:
+                raininfo=getHour24();
+                break;
+        }
+        return raininfo;
+    }
 }

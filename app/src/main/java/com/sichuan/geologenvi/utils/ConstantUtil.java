@@ -19,6 +19,7 @@ public class ConstantUtil {
 
 	public static final class Method{
 		public static final String TIMERAININFO="TIMERAININFO";
+		public static final String ZHDD04B="ZHDD04B";
 	}
 
 
