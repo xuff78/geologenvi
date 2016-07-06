@@ -12,6 +12,7 @@ import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.frg.BanqianbirangBase;
+import com.sichuan.geologenvi.frg.BanqianshenqingFrg;
 import com.sichuan.geologenvi.frg.FormInfoFrg;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class BanqianbirangEditMain extends AppFrameAct {
                     curfragment=new BanqianbirangBase();
                     break;
                 case 1:
-                    curfragment=new Fragment();
+                    curfragment=new BanqianshenqingFrg();
                     break;
                 case 2:
                     curfragment=new Fragment();
