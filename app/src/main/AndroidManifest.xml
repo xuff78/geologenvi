@@ -62,6 +62,9 @@
         <activity
             android:name=".act.report.BanqianbirangList" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.report.AreaInputAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
 
     </application>
 
