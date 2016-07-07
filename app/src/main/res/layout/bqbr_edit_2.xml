@@ -33,23 +33,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
             <RelativeLayout
-                android:id="@+id/yearLayout"
+                android:id="@+id/districtLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:id="@+id/hintArea"
                     android:layout_centerVertical="true"
                     android:text="行政区划"
                     style="@style/txt_gray_12" />
                 <TextView
-                    android:id="@+id/yearTxt"
-                    android:layout_toLeftOf="@+id/arrowRight0"
+                    android:id="@+id/districtTxt"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toRightOf="@+id/hintArea"
+                    android:layout_toLeftOf="@+id/arrowRight2"
                     android:layout_centerVertical="true"
                     android:text=""
+                    android:layout_marginLeft="8dp"
                     style="@style/txt_black_12" />
                 <View
-                    android:id="@+id/arrowRight0"
+                    android:id="@+id/arrowRight2"
                     android:layout_centerVertical="true"
                     android:background="@mipmap/icon_arrow_right"
                     android:layout_alignParentRight="true"

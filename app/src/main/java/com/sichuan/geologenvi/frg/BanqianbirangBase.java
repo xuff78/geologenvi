@@ -1,6 +1,7 @@
 package com.sichuan.geologenvi.frg;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.report.AreaInputAct;
 import com.sichuan.geologenvi.adapter.ActivityInfoAdapter;
 import com.sichuan.geologenvi.adapter.RainAdapter;
+import com.sichuan.geologenvi.bean.AreaInfo;
+import com.sichuan.geologenvi.bean.AreaInfos;
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.http.CallBack;
@@ -35,7 +39,7 @@ import java.util.Locale;
 public class BanqianbirangBase  extends BaseFragment{
 
     DatePickerDialog datePickerDialog;
-    TextView dataTxt1;
+    TextView dataTxt1, districtTxt;
     private EditText nameEdt, idEdt;
     private HttpHandler handler;
     private View.OnClickListener listener=new View.OnClickListener(){
@@ -56,6 +60,10 @@ public class BanqianbirangBase  extends BaseFragment{
                 case R.id.updateDataBtn:
                     break;
                 case R.id.delDataBtn:
+                    break;
+                case R.id.districtLayout:
+                    Intent selectIntent=new Intent(getActivity(), AreaInputAct.class);
+                    startActivityForResult(selectIntent, 0x11);
                     break;
             }
         }
@@ -84,6 +92,7 @@ public class BanqianbirangBase  extends BaseFragment{
     private void initView(View v) {
         nameEdt= (EditText) v.findViewById(R.id.nameEdt);
         idEdt= (EditText) v.findViewById(R.id.idEdt);
+        districtTxt= (TextView) v.findViewById(R.id.districtTxt);
 
         v.findViewById(R.id.dateLayout1).setOnClickListener(listener);
         Calendar mCalendar = Calendar.getInstance(Locale.CHINA);
@@ -95,6 +104,7 @@ public class BanqianbirangBase  extends BaseFragment{
         dataTxt1.setText(dateTxt);
         v.findViewById(R.id.addDataBtn).setOnClickListener(listener);
         v.findViewById(R.id.yearLayout).setOnClickListener(listener);
+        v.findViewById(R.id.districtLayout).setOnClickListener(listener);
     }
 
     private String getInfoString() {
@@ -110,4 +120,16 @@ public class BanqianbirangBase  extends BaseFragment{
             dataTxt1.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==0x11&&resultCode==0x10){
+            AreaInfos infos= (AreaInfos) data.getSerializableExtra(AreaInfos.Name);
+            String selectTxt="";
+            for(AreaInfo info:infos.getInfos()){
+                selectTxt=selectTxt+info.getName()+"  ";
+            }
+            districtTxt.setText(selectTxt);
+        }
+    }
 }

@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
             <RelativeLayout
-                android:id="@+id/yearLayout"
+                android:id="@+id/nameLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"
@@ -67,14 +67,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:id="@+id/hintArea"
                     android:layout_centerVertical="true"
                     android:text="行政区划"
                     style="@style/txt_gray_12" />
                 <TextView
                     android:id="@+id/districtTxt"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toRightOf="@+id/hintArea"
                     android:layout_toLeftOf="@+id/arrowRight2"
                     android:layout_centerVertical="true"
                     android:text=""
+                    android:layout_marginLeft="8dp"
                     style="@style/txt_black_12" />
                 <View
                     android:id="@+id/arrowRight2"
@@ -245,12 +249,71 @@
                 <TextView
                     android:text="公示情况"
                     style="@style/txt_gray_12" />
-                <EditText
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                <ImageView
+                    android:id="@+id/gongshi_yes_icon"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/gongshi_yes_txt"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="是"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gongshi_no_icon"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/gongshi_no_txt"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="否"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <ImageView
+                    android:id="@+id/jiancedian_city_icon"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/jiancedian_city_txt"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="市级监测点"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/jiancedian_quxian_icon"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/jiancedian_quxian_txt"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="区县监测点"
+                    style="@style/txt_gray_12" />
             </LinearLayout>
             <View
                 android:background="@color/light_gray"

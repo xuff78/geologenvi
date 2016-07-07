@@ -67,7 +67,7 @@ public class AreaInputAct  extends AppFrameAct {
                 if(selectedDistrict.size()>0) {
                     Intent intent = new Intent();
                     selectedAreaInfo.setInfos(selectedDistrict);
-                    intent.putExtra("Areas", selectedAreaInfo);
+                    intent.putExtra(AreaInfos.Name, selectedAreaInfo);
                     setResult(0x10, intent);
                     finish();
                 }else
@@ -89,7 +89,7 @@ public class AreaInputAct  extends AppFrameAct {
             if(selectedDistrict.size()>0) {
                 Intent intent = new Intent();
                 selectedAreaInfo.setInfos(selectedDistrict);
-                intent.putExtra("Areas", selectedAreaInfo);
+                intent.putExtra(AreaInfos.Name, selectedAreaInfo);
                 setResult(0x10, intent);
                 finish();
             }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
@@ -31,6 +32,7 @@ public class BanqianshenqingFrg extends BaseFragment{
     DatePickerDialog datePickerDialog;
     TextView dataTxt1,districtTxt;
     private EditText nameEdt, addrEdt;
+    private ImageView gongshi_yes_icon, gongshi_no_icon, jiancedian_city_icon, jiancedian_quxian_icon;
     private HttpHandler handler;
     private View.OnClickListener listener=new View.OnClickListener(){
 
@@ -54,6 +56,26 @@ public class BanqianshenqingFrg extends BaseFragment{
                 case R.id.districtLayout:
                     Intent selectIntent=new Intent(getActivity(), AreaInputAct.class);
                     startActivityForResult(selectIntent, 0x12);
+                    break;
+                case R.id.gongshi_yes_txt:
+                case R.id.gongshi_yes_icon:
+                    gongshi_yes_icon.setImageResource(R.mipmap.app_login_remember_sel);
+                    gongshi_no_icon.setImageResource(R.mipmap.app_login_remember_unsel);
+                    break;
+                case R.id.gongshi_no_txt:
+                case R.id.gongshi_no_icon:
+                    gongshi_yes_icon.setImageResource(R.mipmap.app_login_remember_unsel);
+                    gongshi_no_icon.setImageResource(R.mipmap.app_login_remember_sel);
+                    break;
+                case R.id.jiancedian_city_txt:
+                case R.id.jiancedian_city_icon:
+                    jiancedian_city_icon.setImageResource(R.mipmap.app_login_remember_sel);
+                    jiancedian_quxian_icon.setImageResource(R.mipmap.app_login_remember_unsel);
+                    break;
+                case R.id.jiancedian_quxian_txt:
+                case R.id.jiancedian_quxian_icon:
+                    jiancedian_city_icon.setImageResource(R.mipmap.app_login_remember_unsel);
+                    jiancedian_quxian_icon.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
             }
         }
@@ -83,6 +105,19 @@ public class BanqianshenqingFrg extends BaseFragment{
         nameEdt= (EditText) v.findViewById(R.id.nameEdt);
         addrEdt= (EditText) v.findViewById(R.id.addrEdt);
         districtTxt= (TextView) v.findViewById(R.id.districtTxt);
+        gongshi_yes_icon= (ImageView) v.findViewById(R.id.gongshi_yes_icon);
+        gongshi_no_icon= (ImageView) v.findViewById(R.id.gongshi_no_icon);
+        jiancedian_city_icon= (ImageView) v.findViewById(R.id.jiancedian_city_icon);
+        jiancedian_quxian_icon= (ImageView) v.findViewById(R.id.jiancedian_quxian_icon);
+
+        gongshi_yes_icon.setOnClickListener(listener);
+        gongshi_no_icon.setOnClickListener(listener);
+        jiancedian_city_icon.setOnClickListener(listener);
+        jiancedian_quxian_icon.setOnClickListener(listener);
+        v.findViewById(R.id.gongshi_yes_txt).setOnClickListener(listener);
+        v.findViewById(R.id.gongshi_no_txt).setOnClickListener(listener);
+        v.findViewById(R.id.jiancedian_city_txt).setOnClickListener(listener);
+        v.findViewById(R.id.jiancedian_quxian_txt).setOnClickListener(listener);
 
         v.findViewById(R.id.dateLayout1).setOnClickListener(listener);
         Calendar mCalendar = Calendar.getInstance(Locale.CHINA);
@@ -93,7 +128,7 @@ public class BanqianshenqingFrg extends BaseFragment{
         dataTxt1= (TextView) v.findViewById(R.id.dataTxt1);
         dataTxt1.setText(dateTxt);
         v.findViewById(R.id.addDataBtn).setOnClickListener(listener);
-        v.findViewById(R.id.yearLayout).setOnClickListener(listener);
+        v.findViewById(R.id.nameLayout).setOnClickListener(listener);
         v.findViewById(R.id.districtLayout).setOnClickListener(listener);
     }
 

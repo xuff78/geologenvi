@@ -82,55 +82,34 @@
         android:background="@color/light_gray"
         android:layout_width="match_parent"
         android:layout_height="1px" />
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/districtLayout"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:paddingRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp">
         <TextView
-            android:text="所在地区"
+            android:id="@+id/hintArea"
+            android:layout_centerVertical="true"
+            android:text="行政区划"
             style="@style/txt_gray_12" />
-        <EditText
-            android:hint="县区"
-            android:maxLines="1"
-            android:textColorHint="@color/light_gray"
-            android:background="@null"
-            android:gravity="center"
-            style="@style/txt_black_12"
-            android:layout_marginLeft="10dp"
-            android:layout_width="70dp"
-            android:layout_height="40dp" />
-        <EditText
-            android:hint="乡镇"
-            android:maxLines="1"
-            android:textColorHint="@color/light_gray"
-            android:background="@null"
-            android:gravity="center"
-            style="@style/txt_black_12"
-            android:layout_width="70dp"
-            android:layout_height="40dp" />
-        <EditText
-            android:hint="村"
-            android:textColorHint="@color/light_gray"
-            android:background="@null"
-            android:gravity="center"
-            style="@style/txt_black_12"
-            android:layout_width="70dp"
-            android:layout_height="40dp" />
-        <EditText
-            android:hint="组"
-            android:maxLines="1"
-            android:maxEms="3"
-            android:textColorHint="@color/light_gray"
-            android:background="@null"
-            android:gravity="center"
-            style="@style/txt_black_12"
-            android:inputType="numberSigned"
-            android:layout_width="50dp"
-            android:layout_height="40dp" />
-    </LinearLayout>
+        <TextView
+            android:id="@+id/districtTxt"
+            android:lineSpacingExtra="3dp"
+            android:layout_toRightOf="@+id/hintArea"
+            android:layout_toLeftOf="@+id/arrowRight2"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:layout_marginLeft="8dp"
+            style="@style/txt_black_12" />
+        <View
+            android:id="@+id/arrowRight2"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
     <View
         android:background="@color/light_gray"
         android:layout_width="match_parent"
@@ -509,7 +488,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:layout_marginTop="15dp"
-            android:text="是否公示"
+            android:text="备注"
             style="@style/txt_gray_12" />
         <EditText
             android:layout_marginTop="10dp"
