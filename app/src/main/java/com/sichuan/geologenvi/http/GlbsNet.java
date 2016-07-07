@@ -10,12 +10,23 @@ import android.text.TextUtils;
 import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.URLUtil;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
@@ -94,25 +105,27 @@ public final class GlbsNet {
 //		return result;
 //	}
 
-	public static String doPostNew(String uri, String content) {
+	public static String doPost(String uri, String content) {
 		InputStreamReader isr = null;
 		BufferedReader br = null;
 		HttpURLConnection urlConn = null;
 		String result="";
 		try {
+			String questStr=URLEncoder.encode(content, "utf-8");
+			LogUtil.i("HttpAsyncTask","content: "+questStr);
 			urlConn = getURLConnection(uri);
 			urlConn.setRequestMethod("POST");
 			urlConn.setUseCaches(false);
 			urlConn.setDoInput(true);
 			urlConn.setDoOutput(true);
 			//urlConn.setInstanceFollowRedirects(true);
-			urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			urlConn.setRequestProperty("Content-Type", "application/json");
 			urlConn.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
 			urlConn.connect();
 			//DataOutputStream流
 			DataOutputStream out=new DataOutputStream(urlConn.getOutputStream());
 			//要上传的参数
-			out.writeBytes(URLEncoder.encode(content, "utf-8"));
+			out.writeBytes(questStr);
 			//刷新、关闭
 			out.flush();
 			out.close();
@@ -251,6 +264,34 @@ public final class GlbsNet {
 		 * 当网络中断时，执行此方法。
 		 */
 		void onNetDisconnected();
+	}
+
+	public static String doPostNew(String uri, String content){  // If you want to use post method to hit server
+
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost httpPost = new HttpPost(uri);
+		httpPost.setHeader("Content-Type", "application/json");
+		HttpResponse response = null;
+		String result = "";
+		try {
+			StringEntity entity = new StringEntity(content, HTTP.UTF_8);
+			httpPost.setEntity(entity);
+			response = httpClient.execute(httpPost);
+			HttpEntity entity1 = response.getEntity();
+			result = EntityUtils.toString(entity1);
+			return result;
+			//Toast.makeText(MainPage.this, result, Toast.LENGTH_LONG).show();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
