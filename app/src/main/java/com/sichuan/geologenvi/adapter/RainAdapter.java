@@ -67,6 +67,11 @@ public class RainAdapter extends BaseAdapter {
         RainBean bean=dataList[position];
         TextView title = (TextView)v.findViewById(R.id.hintTxt1);
         TextView contentTxt = (TextView)v.findViewById(R.id.hintTxt2);
+        TextView num = (TextView)v.findViewById(R.id.hintTxt3);
+        TextView area = (TextView)v.findViewById(R.id.hintTxt4);
+
+        num.setText((position+1)+"");
+        area.setText(bean.getArea());
         title.setText(bean.getName());
         contentTxt.setText(bean.getRainInfo(hour));
 

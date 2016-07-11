@@ -9,6 +9,15 @@ public class RainBean {
     private String hour3="0";
     private String hour12="0";
     private String hour24="0";
+    private String area="";
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 
     public String getName() {
         return name;

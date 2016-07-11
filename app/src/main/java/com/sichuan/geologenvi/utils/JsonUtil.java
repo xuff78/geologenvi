@@ -85,6 +85,8 @@ public class JsonUtil {
                         bean.setHour12(item.getString("h12"));
                     if(!item.isNull("h24"))
                         bean.setHour24(item.getString("h24"));
+                    if(!item.isNull("area"))
+                        bean.setArea(item.getString("area"));
                     infos.add(bean);
                 }
         } catch (JSONException e) {

@@ -27,8 +27,8 @@ import com.sichuan.geologenvi.views.AutoScrollViewPager;
 
 public class MainActivity extends AppFrameAct {
 
-    private String[] names={"法律法规","通讯录","地图","数据同步","地质灾害","统计分析","数据采集","矿山地质","地址遗迹",
-            "红层水井","水土地质","雨量监测"};
+    private String[] names={"法律法规","通讯录","地图","数据同步","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+            "地下水","水土地质","雨量监测"};
     private int[] ress={R.mipmap.icon_menu_1,R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_4,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12};
