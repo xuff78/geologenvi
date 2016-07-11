@@ -3,6 +3,7 @@ package com.sichuan.geologenvi.act;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -97,9 +98,19 @@ public class MapAct  extends AppFrameAct {
         mMapView.getOverlays().add(myLocation);
 
         LocationManager m_locationManager = ( LocationManager ) getSystemService( Context.LOCATION_SERVICE );
-        if(m_locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            m_locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                    1000, 0, myLocation);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        String provider = m_locationManager.getBestProvider(criteria, true);
+
+
+        if(provider!=null) {
+            m_locationManager.requestLocationUpdates(provider, 1000, 0, myLocation);
+            Location location = m_locationManager.getLastKnownLocation(provider);
+            myLocation.onLocationChanged(location);
         }
 
     }
