@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/applogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".GEApplication"
@@ -65,6 +65,11 @@
         <activity
             android:name=".act.report.AreaInputAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="8UZCSfnnDH0pIQADr31H1TpNvPfSaXDM" />
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
 
     </application>
 

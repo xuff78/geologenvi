@@ -101,10 +101,6 @@ public class SqlHandler {
         String typeStr="";
         String formName="";
         switch (type){
-            case 0:
-                typeStr=" where ZHAA01A020 is not null";
-                formName="SL_ZHAA01A";
-                break;
             case 1:
                 typeStr=" where ZHAA01A810 = 2";
                 formName="SL_ZHAA01A";
@@ -125,7 +121,15 @@ public class SqlHandler {
                 typeStr=" where ZHCA01A020 is not null";
                 formName="SL_ZHCA01A";
                 break;
-            case 6:
+            case 7:
+                typeStr=" where ZHAA01A382 = 0";
+                formName="SL_ZHAA01A";
+                break;
+            case 8:
+                typeStr=" where ZHAA01A382 = 1";
+                formName="SL_ZHAA01A";
+                break;
+            case 9:
                 typeStr=" where ZHAA01A875 = 1";
                 formName="SL_ZHAA01A";
                 break;

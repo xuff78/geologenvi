@@ -48,6 +48,8 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         LogUtil.i("totp", "create: "+position);
         RecyclerView.ViewHolder holder=null;
         View convertView = listInflater.inflate(R.layout.listitem_simple_txt, null);
+        RecyclerView.LayoutParams rlp=new RecyclerView.LayoutParams(-1, RecyclerView.LayoutParams.WRAP_CONTENT);
+        convertView.setLayoutParams(rlp);
         holder = new TitleHolder(convertView, position);
         return holder;
     }
@@ -79,8 +81,8 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         {
             super(v);
             titleTxt = (TextView) v.findViewById(R.id.titleTxt);
-            v.setTag(position);
-            v.setOnClickListener(itemListener);
+            titleTxt.setTag(position);
+            titleTxt.setOnClickListener(itemListener);
         }
     }
 }

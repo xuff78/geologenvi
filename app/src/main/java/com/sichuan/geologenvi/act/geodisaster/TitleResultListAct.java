@@ -49,20 +49,23 @@ public class TitleResultListAct  extends AppFrameAct {
         ArrayList<String> list = new ArrayList<>();
         for (Map<String, String> info : datalist) {
             switch (type) {
-                case 0:
                 case 1:
-                case 6:
+                case 7:
+                case 8:
+                case 9:
                     list.add(info.get("ZHAA01A020"));
                     break;
-                case 5:
+                case 3:
                     list.add(info.get("ZHCA01A020"));
                     break;
-                case 4:
+                case 2:
                     list.add(info.get("DISASTERNAME"));
                     break;
-                case 2:
-                case 3:
+                case 4:
+                case 5:
                     list.add(info.get("ZHDD02A020"));
+                    break;
+                case 6:
                     break;
             }
         }

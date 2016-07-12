@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
+import com.sichuan.geologenvi.utils.ActUtil;
+import com.sichuan.geologenvi.utils.ViewUtil;
 import com.sichuan.geologenvi.views.MarkerSupportView;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.MapView;
@@ -45,12 +50,20 @@ public class TitleListAct  extends AppFrameAct {
         recyclerView.setLayoutManager(layoutManager);
         if(type.equals("Disaster")) {
             list.add("灾害隐患点基础数据查询");
-            list.add("市级监测点位基础数据查询");
-            list.add("隐患点避险场所基础数据查询");
-            list.add("重要点位避险场所基础数据查询");
+            list.add("重点监测隐患点位基础数据查询");
             list.add("专业监测点位基础数据查询");
-            list.add("治理点位基础数据查询");
-            list.add("销号点位基础数据查询");
+            list.add("工程治理点位基础数据查询");
+            list.add("隐患点避险场所基础数据查询");
+            list.add("重点位避险场所基础数据查询");
+            list.add("避险搬迁基础数据查询");
+
+//            list.add("灾害隐患点基础数据查询");
+//            list.add("市级监测点位基础数据查询");
+//            list.add("隐患点避险场所基础数据查询");
+//            list.add("重要点位避险场所基础数据查询");
+//            list.add("专业监测点位基础数据查询");
+//            list.add("治理点位基础数据查询");
+//            list.add("销号点位基础数据查询");
         }else if(type.equals("Report")) {
             list.add("隐患点巡查");
             list.add("治理点位巡查");
@@ -67,16 +80,49 @@ public class TitleListAct  extends AppFrameAct {
         public void onClick(View view) {
             int tag=(int)view.getTag();
             if(type.equals("Disaster")) {
-                Intent i=new Intent(TitleListAct.this, SelectorAct.class);
-                i.putExtra("Type", tag);
-                i.putExtra("Title", list.get(tag));
-                startActivity(i);
+                switch (tag) {
+                    case 0:
+                        LinearLayout subLayout= (LinearLayout) ((View)(view.getParent())).findViewById(R.id.subLayout);
+                        if(subLayout.getChildCount()==0) {
+                            subLayout.addView(ViewUtil.getGrayLine(TitleListAct.this));
+                            addTextView(subLayout, "主管部门", 40, 7);
+                            addTextView(subLayout, "其他部门", 20, 8);
+                            addTextView(subLayout, "销号点位", 40, 9);
+                        }else{
+                            subLayout.removeAllViews();
+                        }
+                        break;
+                    default:
+                        Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                        i.putExtra("Type", tag);
+                        i.putExtra("Title", list.get(tag));
+                        startActivity(i);
+                        break;
+                }
             }else if(type.equals("Report")) {
                 if(tag==3){
                     Intent i=new Intent(TitleListAct.this, BanqianbirangList.class);
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
                 }
+            }
+        }
+
+        private void addTextView(LinearLayout subLayout, String title, int height, int type) {
+            TextView txt = ViewUtil.getLinearTextView(title, height, TitleListAct.this);
+            txt.setTag(type);
+            txt.setOnClickListener(subListener);
+            subLayout.addView(txt);
+        }
+    };
+
+    View.OnClickListener subListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int tag = (int) view.getTag();
+            switch (tag) {
+                case 0:
+                    break;
             }
         }
     };

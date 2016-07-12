@@ -59,7 +59,7 @@ public class MarkerSupportView{
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                (int) (display.getWidth() * 0.5), (int) (display.getHeight() * 0.3));
+                (int) (display.getWidth() * 0.6), (int) (display.getHeight() * 0.25));
         infoList.setLayoutParams(layoutParams);
     }
 

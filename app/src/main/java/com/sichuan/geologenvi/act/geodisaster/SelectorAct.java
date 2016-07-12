@@ -85,25 +85,32 @@ public class SelectorAct extends AppFrameAct {
         View avoidLayout=findViewById(R.id.avoidLayout);
         View equipmentLayout=findViewById(R.id.equipmentLayout);
         View watchingAreaLayout=findViewById(R.id.watchingAreaLayout);
+        View yearLayout=findViewById(R.id.yearLayout);
+        yearLayout.setOnClickListener(listener);
         findViewById(R.id.confirmBtn).setOnClickListener(listener);
 
         findViewById(R.id.areaLayout).setVisibility(View.VISIBLE);
         switch (type){
-            case 0:
             case 1:
-            case 6:
+            case 7:
+            case 8:
+            case 9:
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
                 disasterTypeLayout.setVisibility(View.VISIBLE);
                 disasterSizeLayout.setVisibility(View.VISIBLE);
                 break;
-            case 4:
+            case 2:
                 equipmentLayout.setVisibility(View.VISIBLE);
                 watchingAreaLayout.setVisibility(View.VISIBLE);
                 findViewById(R.id.areaLayout).setVisibility(View.GONE);
                 break;
-            case 2:
-            case 3:
+            case 4:
+            case 5:
                 avoidLayout.setVisibility(View.VISIBLE);
+            case 6:
+                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+                yearLayout.setVisibility(View.VISIBLE);
+            case 3:
                 break;
         }
         equipmentLayout.setOnClickListener(listener);
@@ -239,6 +246,8 @@ public class SelectorAct extends AppFrameAct {
                         }
                     });
                     builder5.create().show();
+                    break;
+                case R.id.yearLayout:
                     break;
             }
         }
