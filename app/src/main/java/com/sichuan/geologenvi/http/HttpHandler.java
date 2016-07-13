@@ -34,12 +34,15 @@ public class HttpHandler extends Handle {
 	 * 
 	 */
 	public void getRainInfo() {
-		HashMap<String, String> params=new HashMap<>();
-		request(ConstantUtil.Method.TIMERAININFO, true);
+		requestGet(ConstantUtil.Method.TIMERAININFO, "", true);
+	}
+
+	public void checkVersion(int version) {
+		requestGet(ConstantUtil.Method.Version, "?v="+version, true);
 	}
 
 	public void addBangqianBaseInfo(String json) {
-		request(ConstantUtil.Method.ZHDD04B, json, true);
+		requestPost(ConstantUtil.Method.ZHDD04B, json, true);
 	}
 
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
@@ -53,7 +56,7 @@ public class HttpHandler extends Handle {
 				.execute(url, method, params, progressInfo, false);
 	}
 
-	protected void request(String method, String json, boolean showDialog) {
+	protected void requestPost(String method, String json, boolean showDialog) {
 		String progressInfo = "";
 		String url= ConstantUtil.Api_Url+method;
 		LogUtil.i("HttpAsyncTask","url: "+url+"\n"+json);
@@ -61,9 +64,9 @@ public class HttpHandler extends Handle {
 				.execute(url, method, json, progressInfo, false);
 	}
 
-	protected void request(String method, boolean showDialog) {
+	protected void requestGet(String method, String param, boolean showDialog) {
 		String progressInfo = "";
-		String url= ConstantUtil.Api_Url+method;
+		String url= ConstantUtil.Api_Url+method+param;
 		LogUtil.i("HttpAsyncTask","url: "+url);
 		new HttpAsyncTask(mContext, this, showDialog)
 				.execute(url, null, null, progressInfo, true);

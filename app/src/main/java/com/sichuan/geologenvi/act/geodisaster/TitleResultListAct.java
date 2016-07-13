@@ -100,6 +100,8 @@ public class TitleResultListAct  extends AppFrameAct {
         public void onClick(View view) {
             String tableName="";
             Intent i=getIntent();
+            int tag=(int)view.getTag();
+            Map<String, String> map=datalist.get(tag);
             switch (getIntent().getIntExtra("Type", 0)){
                 case 1:
                 case 9:
@@ -112,6 +114,8 @@ public class TitleResultListAct  extends AppFrameAct {
                     tableName="SL_ZHAA01A";
                     break;
                 case 6:
+                    map.put("ZHDD04B040", handler.getDistrictName(map.get("ZHDD04B040")));
+                    map.put("ZHDD04B060", handler.getDistrictName(map.get("ZHDD04B060")));
                     i.setClass(TitleResultListAct.this, BixianbanqianDetail.class);
                     tableName="SL_ZHDD04B";
                     break;
@@ -150,8 +154,7 @@ public class TitleResultListAct  extends AppFrameAct {
                     break;
             }
             MapBean mapBean=new MapBean();
-            int tag=(int)view.getTag();
-            mapBean.setMap(datalist.get(tag));
+            mapBean.setMap(map);
             i.putExtra("InfoMap",mapBean);
             i.putExtra("TableName", tableName);
             startActivity(i);

@@ -70,7 +70,7 @@ public class BixianbanqianDetail extends AppFrameAct {
             Bundle b=new Bundle();
             MapBean mBean=new MapBean();
             String tableName="";
-            String id=mapBean.getMap().get("ZHCA01A015"); //隐患点ID
+            String id=mapBean.getMap().get("ZHDD04B010"); //隐患点ID
             curfragment = new FormInfoFrg();
             ArrayList<Map<String, String>> maps;
             switch (arg0){
@@ -79,22 +79,24 @@ public class BixianbanqianDetail extends AppFrameAct {
                     mBean=mapBean;
                     b.putSerializable("InfoMap", mBean);
                     break;
-//                case 1:
-//                    tableName="SL_ZHAA01A";
-//                    maps=handler.getQueryResult("SL_ZHAA01A", " where ZHAA01A010 = '"+id+"'");
-//                    if(maps.size()>0) {
-//                        mBean.setMap(maps.get(0));
-//                        b.putSerializable("InfoMap", mBean);
-//                    }
-//                    break;
-//                case 2:
-//                    tableName="SL_JCBA02A";
-//                    maps=handler.getQueryResult("SL_JCBA02A", " where JCBA02A010 = '"+id+"'");
-//                    if(maps.size()>0) {
-//                        mBean.setMap(maps.get(0));
-//                        b.putSerializable("InfoMap", mBean);
-//                    }
-//                    break;
+                case 1:
+                    tableName="SL_ZHDD04B001";
+                    maps=handler.getQueryResult(new String[]{"ZHDD04B001020", "ZHDD04B001030", "ZHDD04B001040", "ZHDD04B001050", "ZHDD04B001060", "ZHDD04B001070", "ZHDD04B001080", "ZHDD04B001090","ZHDD04B001100",
+                    "ZHDD04B001110","ZHDD04B001120","ZHDD04B001130","ZHDD04B001140"}, "SL_ZHDD04B001", " where ZHDD04B001010 = '"+id+"'");
+                    if(maps.size()>0) {
+                        mBean.setMap(maps.get(0));
+                        b.putSerializable("InfoMap", mBean);
+                    }
+                    break;
+                case 2:
+                    tableName="SL_ZHDD04B001";
+                    maps=handler.getQueryResult(new String[]{"ZHDD04B001150", "ZHDD04B001160", "ZHDD04B001170", "ZHDD04B001180", "ZHDD04B001190", "ZHDD04B001200", "ZHDD04B001210", "ZHDD04B001220"},
+                            "SL_ZHDD04B001", " where ZHDD04B001010 = '"+id+"'");
+                    if(maps.size()>0) {
+                        mBean.setMap(maps.get(0));
+                        b.putSerializable("InfoMap", mBean);
+                    }
+                    break;
             }
             b.putString("TableName", tableName);
             curfragment.setArguments(b);

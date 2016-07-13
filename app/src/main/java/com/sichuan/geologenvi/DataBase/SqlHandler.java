@@ -244,4 +244,15 @@ public class SqlHandler {
         }
         return datas;
     }
+
+
+    public String getDistrictName(String code) {
+        Cursor c = dbManager.querySQL("select * from SL_TATTR_DZZH_XZQH where CODE = "+code, new String[]{});
+        if (c != null) {
+            while (c.moveToNext()) {
+                return c.getString(c.getColumnIndex("NAME"));
+            }
+        }
+        return "未知";
+    }
 }

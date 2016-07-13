@@ -11,6 +11,7 @@ public class ConstantUtil {
 	/** 当前地址 */
 	public static final String current_addr="current_addr";
 	public static final String rain_info="rain_info";
+	public static final String Version="version";
 
 	public static final String AreaInfo="AreaInfo";
 	public static final String TongliangMap="TongliangMap";
@@ -20,6 +21,7 @@ public class ConstantUtil {
 	public static final class Method{
 		public static final String TIMERAININFO="TIMERAININFO";
 		public static final String ZHDD04B="ZHDD04B";
+		public static final String Version="version";
 	}
 
 

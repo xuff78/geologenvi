@@ -20,9 +20,18 @@ import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
+import com.sichuan.geologenvi.adapter.RainAdapter;
 import com.sichuan.geologenvi.adapter.TopImgAdapter;
+import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.http.CallBack;
+import com.sichuan.geologenvi.http.GlbsNet;
+import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
+import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
 
 public class MainActivity extends AppFrameAct {
@@ -33,12 +42,24 @@ public class MainActivity extends AppFrameAct {
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12};
     private AutoScrollViewPager viewPager;
+    private HttpHandler handler;
+
+    private void initHandler() {
+        handler=new HttpHandler(this, new CallBack(this){
+
+            @Override
+            public void doSuccess(String method, String jsonData) {
+                SharedPreferencesUtil.setString(MainActivity.this, ConstantUtil.Version, jsonData);
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initHandler();
         _setHeaderGone();
         _setHeaderTitle(getResources().getString(R.string.app_name));
         initView();
@@ -99,7 +120,7 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 3:
-
+                    handler.checkVersion(1);
                     break;
                 case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);
