@@ -29,11 +29,11 @@ import java.util.ArrayList;
 public class SelectorAct extends AppFrameAct {
 
     private EditText nameEdt;
-    private TextView areaTxt, disasterTypeTxt, disasterSizeTxt, avoidTxt, watchingAreaTxt, equipmentTxt;
+    private TextView areaTxt, disasterTypeTxt, disasterSizeTxt, avoidTxt, watchingAreaTxt, equipmentTxt, yearTxt;
     private ArrayList<PopupInfoItem> disasterType=new ArrayList<>();
     private ArrayList<PopupInfoItem> disasterSize=new ArrayList<>();
     private ArrayList<PopupInfoItem> avoidLevel=new ArrayList<>();
-    private String disasterTypeCode="", disasterSizeCode="", areaCode="", avoidCode="";
+    private String disasterTypeCode="", disasterSizeCode="", areaCode="", avoidCode="", yearCode="";
     private int type=0;
     private SqlHandler handler;
 
@@ -79,6 +79,7 @@ public class SelectorAct extends AppFrameAct {
         equipmentTxt=(TextView)findViewById(R.id.equipmentTxt);
         disasterTypeTxt=(TextView)findViewById(R.id.disasterTypeTxt);
         disasterSizeTxt=(TextView)findViewById(R.id.disasterSizeTxt);
+        yearTxt=(TextView)findViewById(R.id.yearTxt);
         View disasterTypeLayout=findViewById(R.id.disasterTypeLayout);
         View areaLayout=findViewById(R.id.areaLayout);
         View disasterSizeLayout=findViewById(R.id.disasterSizeLayout);
@@ -134,6 +135,7 @@ public class SelectorAct extends AppFrameAct {
                     intent.putExtra("disasterSizeCode", disasterSizeCode);
                     intent.putExtra("areaCode", areaCode);
                     intent.putExtra("avoidCode", avoidCode);
+                    intent.putExtra("yearCode", yearCode);
                     startActivity(intent);
                     break;
                 case R.id.areaLayout:
@@ -248,6 +250,23 @@ public class SelectorAct extends AppFrameAct {
                     builder5.create().show();
                     break;
                 case R.id.yearLayout:
+                    final String years[]=handler.getTypesQuery("SL_ZHDD04B", "ZHDD04B013");
+                    AlertDialog.Builder builder6=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
+                    builder6.setTitle("年份"); //设置标题
+                    builder6.setItems(years,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if(which<years.length-1){
+                                yearTxt.setText(years[which]);
+                                yearCode=years[which];
+                            }else{
+                                yearTxt.setText("点击选择");
+                                yearCode="";
+                            }
+                        }
+                    });
+                    builder6.create().show();
                     break;
             }
         }

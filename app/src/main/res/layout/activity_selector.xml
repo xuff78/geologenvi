@@ -241,7 +241,7 @@
         <TextView
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:text="行政区域"
+            android:text="年份"
             style="@style/txt_gray_14" />
         <TextView
             android:layout_toLeftOf="@+id/arrowRight8"

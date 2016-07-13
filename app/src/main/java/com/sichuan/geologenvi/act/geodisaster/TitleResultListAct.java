@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -14,8 +16,10 @@ import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.GeohazardBean;
 import com.sichuan.geologenvi.bean.MapBean;
+import com.sichuan.geologenvi.utils.ViewUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,6 +30,7 @@ public class TitleResultListAct  extends AppFrameAct {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
+    Map<String, ArrayList<Map<String, String>>>  stations=new HashMap<>();
     int type=0;
 
     private SqlHandler handler;
@@ -45,7 +50,7 @@ public class TitleResultListAct  extends AppFrameAct {
     private void requestInfo() {
         datalist=handler.getGeohazardInfo(type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
                 getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
-                getIntent().getStringExtra("avoidCode"));
+                getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
         ArrayList<String> list = new ArrayList<>();
         for (Map<String, String> info : datalist) {
             switch (type) {
@@ -59,13 +64,23 @@ public class TitleResultListAct  extends AppFrameAct {
                     list.add(info.get("ZHCA01A020"));
                     break;
                 case 2:
-                    list.add(info.get("DISASTERNAME"));
+                    String key=info.get("DISASTERNAME");
+                    if(stations.containsKey(key)) {
+                        ArrayList<Map<String, String>> data=stations.get(key);
+                        data.add(info);
+                    }else{
+                        list.add(key);
+                        ArrayList<Map<String, String>> data=new ArrayList<>();
+                        data.add(info);
+                        stations.put(key, data);
+                    }
                     break;
                 case 4:
                 case 5:
                     list.add(info.get("ZHDD02A020"));
                     break;
                 case 6:
+                    list.add(info.get("ZHDD04B020"));
                     break;
             }
         }
@@ -86,25 +101,50 @@ public class TitleResultListAct  extends AppFrameAct {
             String tableName="";
             Intent i=getIntent();
             switch (getIntent().getIntExtra("Type", 0)){
-                case 0:
+                case 1:
+                case 9:
+                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+                    tableName="SL_ZHAA01A";
+                    break;
+                case 7:
+                case 8:
                     i.setClass(TitleResultListAct.this, YinhuandianDetail.class);
                     tableName="SL_ZHAA01A";
                     break;
-                case 1:
                 case 6:
-                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
-                    tableName="SL_ZHAA01A";
+                    i.setClass(TitleResultListAct.this, BixianbanqianDetail.class);
+                    tableName="SL_ZHDD04B";
                     break;
-                case 2:
-                case 3:
+                case 4:
+                case 5:
                     i.setClass(TitleResultListAct.this, ItemDetailAct.class);
                     tableName="SL_ZHDD02A";
                     break;
-                case 4:
-                    i.setClass(TitleResultListAct.this, ItemDetailAct.class);
-                    tableName="SL_STATIONMETERS";
-                    break;
-                case 5:
+                case 2:
+                    String title=((TextView)view).getText().toString();
+                    ArrayList<Map<String, String>> points=stations.get(title);
+                    if(points.size()>0){
+                        LinearLayout subLayout= (LinearLayout) ((View)(view.getParent())).findViewById(R.id.subLayout);
+                        if(subLayout.getChildCount()==0) {
+                            subLayout.addView(ViewUtil.getGrayLine(TitleResultListAct.this));
+                            for (Map<String, String> point:points) {
+                                addTextView(subLayout, point.get("METERTYPE")+"  "+point.get("METERID"), 40, point);
+                            }
+                        }else{
+                            subLayout.removeAllViews();
+                        }
+                    }
+//                    else if(points.size()==1){
+//                        i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+//                        tableName = "SL_STATIONMETERS";
+//                        MapBean mapBean=new MapBean();
+//                        mapBean.setMap(points.get(0));
+//                        i.putExtra("InfoMap", mapBean);
+//                        i.putExtra("TableName", tableName);
+//                        startActivity(i);
+//                    }
+                    return;
+                case 3:
                     i.setClass(TitleResultListAct.this, ZhilidianweiDetail.class);
                     tableName="SL_ZHCA01A";
                     break;
@@ -117,4 +157,21 @@ public class TitleResultListAct  extends AppFrameAct {
             startActivity(i);
         }
     };
+
+    private void addTextView(LinearLayout subLayout, final String title, int height, final Map<String, String> point) {
+        TextView txt = ViewUtil.getLinearTextView(title, height, TitleResultListAct.this);
+        txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=getIntent();
+                i.setClass(TitleResultListAct.this, ItemDetailAct.class);
+                MapBean mapBean=new MapBean();
+                mapBean.setMap(point);
+                i.putExtra("InfoMap", mapBean);
+                i.putExtra("TableName", "SL_STATIONMETERS");
+                startActivity(i);
+            }
+        });
+        subLayout.addView(txt);
+    }
 }

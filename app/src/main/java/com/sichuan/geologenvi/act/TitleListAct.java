@@ -120,10 +120,22 @@ public class TitleListAct  extends AppFrameAct {
         @Override
         public void onClick(View view) {
             int tag = (int) view.getTag();
+            String title="";
             switch (tag) {
-                case 0:
+                case 7:
+                    title="主管部门";
+                    break;
+                case 8:
+                    title="其他部门";
+                    break;
+                case 9:
+                    title="销号点位";
                     break;
             }
+            Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+            i.putExtra("Type", tag);
+            i.putExtra("Title", title);
+            startActivity(i);
         }
     };
 }
