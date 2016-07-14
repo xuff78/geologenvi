@@ -14,24 +14,26 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.DBManager;
+import com.sichuan.geologenvi.act.DownloadInterface;
 
 /**
  * 异步下载数据
  */
 public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 
-	private HttpURLConnection urlConn;
 	private Activity act;
 	private TextView onLoadingSize;
 	private boolean cancel=false;
-	private int Version=0, fileSize=0;
+	private int Version=-1, fileSize=0;
 	private ProgressBar progressBar;
+	private DownloadInterface callback;
 
-	public DownloadAsyncTask(Activity act, int Version, TextView onLoadingSize, ProgressBar progressBar) {
+	public DownloadAsyncTask(Activity act, int Version, TextView onLoadingSize, ProgressBar progressBar, DownloadInterface callback) {
 		this.Version=Version;
 		this.act=act;
 		this.onLoadingSize=onLoadingSize;
 		this.progressBar=progressBar;
+		this.callback=callback;
 	}
 
 	@Override
@@ -102,6 +104,7 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
+		callback.onComplete();
 		if(result.equals("success")) {
 			ToastUtils.displayTextShort(act, "同步完成");
 			progressBar.setProgress(100);
@@ -112,6 +115,8 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 	@Override
 	protected void onCancelled() {
 		cancel=true;
+		callback.onComplete();
+		ToastUtils.displayTextShort(act, "已取消");
 		super.onCancelled();
 	}
 	

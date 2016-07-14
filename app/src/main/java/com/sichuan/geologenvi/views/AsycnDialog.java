@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.DBManager;
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.DownloadInterface;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
 import com.sichuan.geologenvi.http.CallBack;
@@ -32,13 +33,18 @@ import java.net.InetSocketAddress;
 import java.net.URL;
 
 
-public class AsycnDialog extends Dialog {
+public class AsycnDialog extends Dialog implements DownloadInterface {
 
 	private View.OnClickListener ok=null;
 	private Activity act;
-	private TextView app_update_tv_progress, app_update_tv_file_size;
+	private TextView app_update_tv_progress, app_update_tv_file_size, dataAsycn, offlineMap, docDownload;
 	private HttpHandler httpHandler;
 	private ProgressBar app_update_pb_progress;
+	private int Status=0;
+	public final static int IDLE=0;
+	public final static int DataInfo=1;
+	public final static int OfflineMap=2;
+	public final static int DocDownload=3;
 	private void initHandler() {
 		httpHandler=new HttpHandler(act, new CallBack(act){
 
@@ -50,12 +56,16 @@ public class AsycnDialog extends Dialog {
 					String url=JsonUtil.getString(jsonData, "DownloadUrl");
 					int size = Integer.valueOf(JsonUtil.getString(jsonData, "Size"));
 					app_update_tv_file_size.setText(size/1000+"KB");
-					new DownloadAsyncTask(act, version, app_update_tv_progress, app_update_pb_progress).execute(url);
+					downloadAsyncTask=new DownloadAsyncTask(act, version, app_update_tv_progress, app_update_pb_progress, AsycnDialog.this);
+					downloadAsyncTask.execute(url);
+					dataAsycn.setText("取消");
+					Status=DataInfo;
 				}else
 					ToastUtils.displayTextShort(getContext(), "数据已是最新");
 			}
 		});
 	}
+	private DownloadAsyncTask downloadAsyncTask;
 
 	public AsycnDialog(Activity act){
 		super(act, R.style.dialog);
@@ -73,6 +83,7 @@ public class AsycnDialog extends Dialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.asyc_dialog);
+		setCancelable(false);
 		initView();
 	}
 
@@ -81,9 +92,13 @@ public class AsycnDialog extends Dialog {
 		app_update_tv_file_size= (TextView) findViewById(R.id.app_update_tv_file_size);
 		app_update_pb_progress= (ProgressBar) findViewById(R.id.app_update_pb_progress);
 		app_update_pb_progress.setMax(100);
-		findViewById(R.id.dataAsycn).setOnClickListener(listener);
-		findViewById(R.id.offlineMap).setOnClickListener(listener);
-		findViewById(R.id.docDownload).setOnClickListener(listener);
+		dataAsycn= (TextView) findViewById(R.id.dataAsycn);
+		dataAsycn.setOnClickListener(listener);
+		offlineMap= (TextView) findViewById(R.id.dataAsycn);
+		offlineMap.setOnClickListener(listener);
+		docDownload= (TextView) findViewById(R.id.docDownload);
+		docDownload.setOnClickListener(listener);
+		findViewById(R.id.okBtn).setOnClickListener(listener);
 	}
 
 	View.OnClickListener listener=new View.OnClickListener() {
@@ -91,14 +106,34 @@ public class AsycnDialog extends Dialog {
 		public void onClick(View view) {
 			switch (view.getId()) {
 				case R.id.dataAsycn:
-					int curVersion = SharedPreferencesUtil.getInt(getContext(), ConstantUtil.Version, 0);
-					httpHandler.checkVersion(0);
+					if(Status==IDLE){
+						int curVersion = SharedPreferencesUtil.getInt(getContext(), ConstantUtil.Version, 0);
+						httpHandler.checkVersion(0);
+					}else if(Status==DataInfo){
+						downloadAsyncTask.cancel(true);
+					}
 					break;
 				case R.id.offlineMap:
 					break;
 				case R.id.docDownload:
 					break;
+				case R.id.okBtn:
+					if(Status!=IDLE){
+						ToastUtils.displayTextShort(act, "请先停止下载");
+					}else
+						dismiss();
+					break;
 			}
 		}
 	};
+
+	@Override
+	public void onComplete() {
+		switch (Status){
+			case DataInfo:
+				dataAsycn.setText("同步");
+				break;
+		}
+		Status=IDLE;
+	}
 }
