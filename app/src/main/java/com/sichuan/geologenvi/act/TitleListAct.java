@@ -13,6 +13,7 @@ import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
+import com.sichuan.geologenvi.act.statistics.ChatAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ViewUtil;
@@ -71,6 +72,10 @@ public class TitleListAct  extends AppFrameAct {
             list.add("搬迁避让数据采集");
             list.add("新增隐患点采集");
             list.add("原有隐患点更新");
+        }else if(type.equals("Statistics")){
+            list.add("隐患点统计");
+            list.add("地下水统计");
+            list.add("避险搬迁统计");
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
@@ -105,6 +110,11 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
                 }
+            }else if(type.equals("Statistics")) {
+                Intent i = new Intent(TitleListAct.this, ChatAct.class);
+                i.putExtra("Type", tag);
+                i.putExtra("Title", list.get(tag));
+                startActivity(i);
             }
         }
 
@@ -112,6 +122,7 @@ public class TitleListAct  extends AppFrameAct {
             TextView txt = ViewUtil.getLinearTextView(title, height, TitleListAct.this);
             txt.setTag(type);
             txt.setOnClickListener(subListener);
+            txt.setBackgroundResource(R.drawable.press_trans_to_gray);
             subLayout.addView(txt);
         }
     };
@@ -119,23 +130,19 @@ public class TitleListAct  extends AppFrameAct {
     View.OnClickListener subListener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            int tag = (int) view.getTag();
-            String title="";
-            switch (tag) {
-                case 7:
-                    title="主管部门";
-                    break;
-                case 8:
-                    title="其他部门";
-                    break;
-                case 9:
-                    title="销号点位";
-                    break;
+            if (type.equals("Disaster")) {
+                int tag = (int) view.getTag();
+                Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                i.putExtra("Type", tag);
+                i.putExtra("Title", ((TextView)view).getText().toString());
+                startActivity(i);
+            }else if (type.equals("Statistics")) {
+//                int tag = (int) view.getTag();
+//                Intent i = new Intent(TitleListAct.this, ChatAct.class);
+//                i.putExtra("Type", tag);
+//                i.putExtra("Title", ((TextView)view).getText().toString());
+//                startActivity(i);
             }
-            Intent i = new Intent(TitleListAct.this, SelectorAct.class);
-            i.putExtra("Type", tag);
-            i.putExtra("Title", title);
-            startActivity(i);
         }
     };
 }

@@ -122,6 +122,12 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "Disaster");
                     startActivity(i);
                     break;
+                case 5:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "统计分析");
+                    i.putExtra("Type", "Statistics");
+                    startActivity(i);
+                    break;
                 case 6:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "数据采集");

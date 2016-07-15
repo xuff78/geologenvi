@@ -29,4 +29,11 @@ public class DialogUtil {
         //参数都设置完成了，创建并显示出来
         builder.create().show();
     }
+
+    public static void showSelectDialog(Context con, String title, String[] item, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder4=new AlertDialog.Builder(con);  //先得到构造器
+        builder4.setTitle(title); //设置标题
+        builder4.setItems(item, listener);
+        builder4.create().show();
+    }
 }
