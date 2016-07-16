@@ -111,10 +111,12 @@ public class TitleListAct  extends AppFrameAct {
                     startActivity(i);
                 }
             }else if(type.equals("Statistics")) {
-                Intent i = new Intent(TitleListAct.this, ChatAct.class);
-                i.putExtra("Type", tag);
-                i.putExtra("Title", list.get(tag));
-                startActivity(i);
+                if(tag==0) {
+                    Intent i = new Intent(TitleListAct.this, ChatAct.class);
+                    i.putExtra("Type", tag);
+                    i.putExtra("Title", list.get(tag));
+                    startActivity(i);
+                }
             }
         }
 

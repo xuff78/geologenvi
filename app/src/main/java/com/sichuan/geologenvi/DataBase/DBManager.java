@@ -23,6 +23,7 @@ import java.util.ArrayList;
  */
 public class DBManager {
     public static final String DB_NAME = "info.db"; //保存的数据库文件名
+    public static final String TMP_DB_NAME = "tmpinfo.db"; //保存的数据库文件名
     public static final String PACKAGE_NAME = "ttt";
 //    public static final String DB_PATH = Environment.getExternalStorageDirectory() + "/"
 //            + PACKAGE_NAME;  //在手机里存放数据库的位置

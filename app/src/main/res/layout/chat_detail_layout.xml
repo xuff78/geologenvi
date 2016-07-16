@@ -57,7 +57,7 @@
                 android:layout_marginTop="3dp"
                 android:gravity="center"
                 style="@style/txt_black_14"
-                android:text="规模等级"
+                android:text="统计类别"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -109,7 +109,7 @@
                 android:layout_marginTop="3dp"
                 android:gravity="center"
                 style="@style/txt_black_14"
-                android:text="否"
+                android:text="全部"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -123,5 +123,5 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_width="match_parent"
-        android:layout_height="290dip"/>
+        android:layout_height="330dip"/>
 </LinearLayout>

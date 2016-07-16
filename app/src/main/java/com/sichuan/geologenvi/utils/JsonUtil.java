@@ -95,5 +95,4 @@ public class JsonUtil {
         return infos;
     }
 
-
 }

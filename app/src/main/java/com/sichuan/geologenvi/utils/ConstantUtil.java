@@ -1,5 +1,7 @@
 package com.sichuan.geologenvi.utils;
 
+import android.os.Environment;
+
 public class ConstantUtil {
 
 	/** 经度 */
@@ -12,6 +14,9 @@ public class ConstantUtil {
 	public static final String current_addr="current_addr";
 	public static final String rain_info="rain_info";
 	public static final String Version="version";
+	public static final String map_open="map_open";
+	public static final String map_download="map_download";
+	public static final String OfflinePath= "/sdcard/tianditu/offlinemap/"; //Environment.getExternalStorageDirectory().getAbsolutePath()+"/TianDiTu/offline/";
 
 	public static final String AreaInfo="AreaInfo";
 	public static final String TongliangMap="TongliangMap";

@@ -8,11 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.Contact;
 import com.sichuan.geologenvi.bean.GeohazardBean;
+import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -224,6 +226,29 @@ public class SqlHandler {
         return datas;
     }
 
+    public ArrayList<Map<String, String>> getQueryResult(String selectStr, String tableName, String typeStr){
+
+        ArrayList<Map<String, String>> datas=new ArrayList<>();
+        String sqlStr="select "+selectStr+" from "+tableName+typeStr;
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+        if(c!=null) {
+            LogUtil.i("SQL", "result num---->:  "+c.getCount());
+            String columnNames[]=c.getColumnNames();
+            while (c.moveToNext()) {
+                LinkedHashMap<String, String> maps=new LinkedHashMap<>();
+                for (int i=0;i<columnNames.length;i++) {
+                    String key = columnNames[i];
+                    String value = c.getString(c.getColumnIndex(key));
+                    maps.put(key, value);
+                }
+                datas.add(maps);
+            }
+            c.close();
+        }
+        return datas;
+    }
+
     public String[] getTypesQuery(String tableName, String typeString){
 
         String[] datas=null;
@@ -240,6 +265,24 @@ public class SqlHandler {
                 i++;
             }
             datas[datas.length-1]="取消";
+            c.close();
+        }
+        return datas;
+    }
+
+    public LinkedList<PopupInfoItem> getTypesQueryWithCode(String tableName, String typeString, String codeName, String where){
+
+        LinkedList<PopupInfoItem> datas=new LinkedList<>();
+        String sqlStr="SELECT DISTINCT "+typeString+","+codeName+" FROM "+tableName;
+        if(where!=null&&where.length()>0)
+            sqlStr=sqlStr+" WHERE "+where;
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+        if(c!=null) {
+            LogUtil.i("SQL", "result num---->:  "+c.getCount());
+            while (c.moveToNext()) {
+                datas.add(new PopupInfoItem(c.getString(c.getColumnIndex(codeName)), c.getString(c.getColumnIndex(typeString))));
+            }
             c.close();
         }
         return datas;

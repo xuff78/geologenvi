@@ -19,7 +19,9 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
+import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
+import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.views.ItemOverlay;
 import com.sichuan.geologenvi.views.MarkerSupportView;
@@ -47,7 +49,6 @@ public class MapAct  extends AppFrameAct {
     private Location lct;
     private String addr="";
 
-    public final static String savePath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/scgeoev/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class MapAct  extends AppFrameAct {
         setContentView(R.layout.activity_map);
 
         _setHeaderTitle("地图");
+        SharedPreferencesUtil.setInt(this, ConstantUtil.map_open, 1);
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener( myListener );    //注册监听函数
         initView();
@@ -94,7 +96,7 @@ public class MapAct  extends AppFrameAct {
             }
         });
         TOfflineMapManager offlineMapMng = new TOfflineMapManager(null);
-        offlineMapMng.setMapPath(savePath);
+        offlineMapMng.setMapPath(ConstantUtil.OfflinePath);
         mMapView = (MapView)findViewById(R.id.mapview);
         mMapView.setMinZoomLevel(5);
         mMapView.setOfflineMaps(offlineMapMng.searchLocalMaps());
@@ -104,6 +106,7 @@ public class MapAct  extends AppFrameAct {
         mMapView.setMapType(MapView.TMapType.MAP_TYPE_IMG);
         mController = mMapView.getController();
         mController.setZoom(8);
+        mMapView.setOfflineMaps(offlineMapMng.searchLocalMaps());
 //        mController.setCenter(new GeoPoint((int)(30.67*1000000), (int)(104.06*1000000)));
 
 

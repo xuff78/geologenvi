@@ -60,7 +60,7 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 				String[] info = header.split("filename=");
 				fileName = info[1];
 			}
-			File file = new File(act.getExternalFilesDir(null)+"/"+ DBManager.DB_NAME);
+			File file = new File(act.getExternalFilesDir(null)+"/"+ DBManager.TMP_DB_NAME);
 			if (file != null && !file.exists())
 				file.createNewFile();
 			fos = new FileOutputStream(file);
@@ -106,6 +106,10 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 		super.onPostExecute(result);
 		callback.onComplete();
 		if(result.equals("success")) {
+			File file = new File(act.getExternalFilesDir(null)+"/"+ DBManager.DB_NAME);
+			file.delete();
+			File filetmp = new File(act.getExternalFilesDir(null)+"/"+ DBManager.TMP_DB_NAME);
+			filetmp.renameTo(file);
 			ToastUtils.displayTextShort(act, "同步完成");
 			progressBar.setProgress(100);
 			SharedPreferencesUtil.setInt(act, ConstantUtil.Version, Version);
