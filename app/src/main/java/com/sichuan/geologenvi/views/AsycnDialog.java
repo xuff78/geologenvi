@@ -226,7 +226,8 @@ public class AsycnDialog extends Dialog implements DownloadInterface, TOfflineMa
 				case 1:
 					TOfflineMapInfo info = offlineMapMng.getDownloadInfo("成都", MapView.TMapType.MAP_TYPE_IMG);
 					if(info != null) {
-						int progress=info.getDownloadedSize() * 100 / info.getSize();
+						int progress= (int) ((long)info.getDownloadedSize() * 100 / info.getSize());
+						LogUtil.i("download", "d: "+info.getDownloadedSize()+"  t:  "+info.getSize()+ "   progress:  "+progress);
 						app_update_pb_progress.setProgress(progress);
 						app_update_tv_progress.setText(info.getDownloadedSize()/1000+"KB");
 						app_update_tv_file_size.setText(info.getSize()/1000+"KB");

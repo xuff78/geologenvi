@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="@color/whitesmoke"
+        android:orientation="vertical"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="区县"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="斜坡"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="滑坡"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="崩塌"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:text="泥石流"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="地面塌陷"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="地裂缝"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="地面沉降"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="其他"
+            style="@style/txt_gray_11" />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="全部"
+            style="@style/txt_gray_11" />
+    </LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="1px"
+        android:layout_height="match_parent" />
+    <com.sichuan.geologenvi.views.VRecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+</LinearLayout>

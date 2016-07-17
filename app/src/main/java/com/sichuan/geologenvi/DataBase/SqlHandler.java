@@ -97,7 +97,7 @@ public class SqlHandler {
         return contacts;
     }
 
-    public ArrayList<Map<String, String>> getGeohazardInfo(int type, String name, String disasterTypeCode,String disasterSizeCode,
+    public ArrayList<Map<String, String>> getGeohazardInfo(String queryStr, int type, String name, String disasterTypeCode,String disasterSizeCode,
                                                            String areaCode, String avoidCode, String yearCode){
         String typeStr="";
         String formName="";
@@ -178,7 +178,10 @@ public class SqlHandler {
             else if (areaCode.length() == 9)
                 typeStr = typeStr + " and ZHDD04B060 = '" + areaCode + "'";
         }
-        return getQueryResult(formName, typeStr);
+        if(queryStr!=null&&queryStr.length()>0)
+            return getQueryResult(queryStr, formName, typeStr);
+        else
+            return getQueryResult(formName, typeStr);
     }
 
     public ArrayList<Map<String, String>> getQueryResult(String tableName, String typeStr){
@@ -226,10 +229,10 @@ public class SqlHandler {
         return datas;
     }
 
-    public ArrayList<Map<String, String>> getQueryResult(String selectStr, String tableName, String typeStr){
+    public ArrayList<Map<String, String>> getQueryResult(String queryStry, String tableName, String typeStr){
 
         ArrayList<Map<String, String>> datas=new ArrayList<>();
-        String sqlStr="select "+selectStr+" from "+tableName+typeStr;
+        String sqlStr="select "+queryStry+" from "+tableName+typeStr;
         LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
         Cursor c = dbManager.querySQL(sqlStr, new String[]{});
         if(c!=null) {

@@ -6,6 +6,7 @@
     <ImageView
         android:id="@+id/startImg"
         android:src="@mipmap/start_img"
-        android:layout_width="160dip"
-        android:layout_height="160dip" />
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

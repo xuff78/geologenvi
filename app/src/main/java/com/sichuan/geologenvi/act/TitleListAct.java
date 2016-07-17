@@ -14,6 +14,7 @@ import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
 import com.sichuan.geologenvi.act.statistics.ChatAct;
+import com.sichuan.geologenvi.act.statistics.FormAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ViewUtil;
@@ -73,7 +74,8 @@ public class TitleListAct  extends AppFrameAct {
             list.add("新增隐患点采集");
             list.add("原有隐患点更新");
         }else if(type.equals("Statistics")){
-            list.add("隐患点统计");
+            list.add("隐患点统计图");
+            list.add("隐患点统计表格");
             list.add("地下水统计");
             list.add("避险搬迁统计");
         }
@@ -116,6 +118,13 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
+                }else{
+                    if(tag!=2) {
+                        Intent i = new Intent(TitleListAct.this, FormAct.class);
+                        i.putExtra("Type", tag);
+                        i.putExtra("Title", list.get(tag));
+                        startActivity(i);
+                    }
                 }
             }
         }

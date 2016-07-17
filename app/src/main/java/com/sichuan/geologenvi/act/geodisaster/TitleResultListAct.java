@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sichuan.geologenvi.DataBase.QueryStr;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
@@ -48,9 +49,37 @@ public class TitleResultListAct  extends AppFrameAct {
     }
 
     private void requestInfo() {
-        datalist=handler.getGeohazardInfo(type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
-                getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
-                getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
+        switch (type) {
+            case 1:
+            case 7:
+            case 8:
+            case 9:
+                datalist=handler.getGeohazardInfo(QueryStr.yinhuandian, type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                        getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
+                        getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
+                break;
+            case 3:
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                        getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
+                        getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
+                break;
+            case 2:
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                        getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
+                        getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
+                break;
+            case 4:
+            case 5:
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                        getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
+                        getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
+                break;
+            case 6:
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                        getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
+                        getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
+                break;
+        }
         ArrayList<String> list = new ArrayList<>();
         for (Map<String, String> info : datalist) {
             switch (type) {

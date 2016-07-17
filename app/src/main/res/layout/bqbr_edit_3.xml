@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
             <RelativeLayout
-                android:id="@+id/nameLayout"
+                android:id="@+id/nameLayout2"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"

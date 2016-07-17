@@ -48,6 +48,7 @@ public class MapAct  extends AppFrameAct {
     private MyOverlay myLocation;
     private Location lct;
     private String addr="";
+    private boolean firstMove=false;
 
 
     @Override
@@ -211,6 +212,15 @@ public class MapAct  extends AppFrameAct {
             lct.setLongitude(location.getLongitude()-0.008774687519);
             myLocation.onLocationChanged(lct);
             addr=location.getAddrStr();
+
+            if(!firstMove) {
+                GeoPoint point = myLocation.getMyLocation();
+                if (point != null) {
+                    mMapView.getController().animateTo(point);
+                    firstMove = true;
+                }
+            }
+
             LogUtil.i("Location", "location: "+location.getLatitude()+"   "+location.getLongitude());
             StringBuffer sb = new StringBuffer(256);
             sb.append("time : ");

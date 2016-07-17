@@ -71,6 +71,9 @@
         <activity
             android:name=".act.statistics.ChatAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.statistics.FormAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="8UZCSfnnDH0pIQADr31H1TpNvPfSaXDM" />

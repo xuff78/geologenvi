@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:layout_marginLeft="10dp"
+            android:scaleType="fitStart"
             android:src="@mipmap/bar_toptitle"
-            android:layout_width="160dp"
-            android:layout_height="45dp" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
         <View
             android:background="@color/light_gray"
             android:layout_width="match_parent"
