@@ -112,7 +112,7 @@ public class SqlHandler {
                 break;
             case 5:
                 typeStr=" where ZHDD02A020 is not null";
-                formName="SL_ZHDD02A";
+                formName="SL_ZHDD02A as a left join SL_ZHAA01A as c on a.ZHDD02A300=c.ZHAA01A010";
                 break;
             case 2:
                 typeStr=" where METERTYPE is not null";
@@ -163,6 +163,8 @@ public class SqlHandler {
             if(avoidCode.length()>0){
                 typeStr = typeStr + " and ZHDD02A150 = '" + avoidCode + "'";
             }
+            if(type==5)
+                typeStr = typeStr + " and c.ZHAA01A810 = 2";
         }else if(type==2){
             if (areaCode.length()>0)
                 typeStr = typeStr + " and CITY = '" + areaCode + "'";

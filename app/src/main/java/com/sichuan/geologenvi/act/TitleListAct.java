@@ -56,7 +56,7 @@ public class TitleListAct  extends AppFrameAct {
             list.add("专业监测点位基础数据查询");
             list.add("工程治理点位基础数据查询");
             list.add("隐患点避险场所基础数据查询");
-            list.add("重点位避险场所基础数据查询");
+            list.add("重点避险场所基础数据查询");
             list.add("避险搬迁基础数据查询");
 
 //            list.add("灾害隐患点基础数据查询");
