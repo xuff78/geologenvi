@@ -21,10 +21,12 @@ public class FormBQBRAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Activity act;
     private LayoutInflater listInflater;
     private ArrayList<Map<String, String>> datalist;
+    private int type=2;
     //    private LinearLayout.LayoutParams imgLp;
 
-    public FormBQBRAdapter(Activity act, ArrayList<Map<String, String>> datalist) {
+    public FormBQBRAdapter(Activity act, ArrayList<Map<String, String>> datalist, int type) {
         this.datalist = datalist;
+        this.type=type;
         this.act = act;
         listInflater = LayoutInflater.from(act);
     }
@@ -44,10 +46,17 @@ public class FormBQBRAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         final DisasterHolder holder = (DisasterHolder) viewHolder;
         Map<String, String> infoMap=datalist.get(position);
-        holder.txt1.setText(infoMap.get("NAME"));
-        holder.txt2.setText(infoMap.get("ZongGong"));
-        holder.txt3.setText(infoMap.get("WanCheng"));
-        holder.txt4.setText(infoMap.get("YanShou"));
+        if(type==2){
+            holder.txt1.setText(infoMap.get("QUXIAN"));
+            holder.txt2.setText(infoMap.get("ShuLiang"));
+            holder.txt3.setText(infoMap.get("QIYONG"));
+            holder.txt4.setVisibility(View.GONE);
+        }else if(type==3) {
+            holder.txt1.setText(infoMap.get("NAME"));
+            holder.txt2.setText(infoMap.get("ZongGong"));
+            holder.txt3.setText(infoMap.get("WanCheng"));
+            holder.txt4.setText(infoMap.get("YanShou"));
+        }
     }
 
     public int getItemCount() {

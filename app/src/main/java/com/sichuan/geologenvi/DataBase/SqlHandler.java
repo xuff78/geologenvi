@@ -30,11 +30,7 @@ public class SqlHandler {
         dbManager=new DBManager(act);
     }
 
-    public ArrayList<Contact> getPersonInfo(String str){
-        String sqlStr="SELECT * FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A040=b.CODE ) WHERE  a.JCBA05A040 is not null" + str+
-                " union all "+
-                " SELECT * FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A030=b.CODE ) where a.JCBA05A040 is null "
-                +" and (JCBA05A090 is not null OR JCBA05A130 is not null)"+str;
+    public ArrayList<Contact> getPersonInfo(String sqlStr){
         Cursor c = dbManager.querySQL(sqlStr, new String[]{});
 
         LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
@@ -42,12 +38,26 @@ public class SqlHandler {
 //                "(SL_JCBA05A.JCBA05A040=SL_TATTR_DZZH_XZQH.CODE or SL_JCBA05A.JCBA05A030=SL_TATTR_DZZH_XZQH.CODE)"+str, new String[]{});
         ArrayList<Contact> contacts=new ArrayList<>();
         if(c!=null) {
+            boolean hasAddr=false;
+            boolean hasOtherInfo=false;
+            String[] columnNames=c.getColumnNames();
+            for (int i=0;i<columnNames.length;i++){
+                String name=columnNames[i];
+                if(name.equals("otherinfo"))
+                    hasOtherInfo=true;
+                if(name.equals("addr"))
+                    hasAddr=true;
+            }
             while (c.moveToNext()) {
                 Contact contact=new Contact();
-                String phone = c.getString(c.getColumnIndex("JCBA05A130"));
-                String name = c.getString(c.getColumnIndex("JCBA05A090"));
-                String position = c.getString(c.getColumnIndex("JCBA05A180"));
-                String addr = c.getString(c.getColumnIndex("NAME"));
+                String phone = c.getString(c.getColumnIndex("phone"));
+                String name = c.getString(c.getColumnIndex("name"));
+                String otherinfo="";
+                if(hasOtherInfo)
+                    otherinfo = c.getString(c.getColumnIndex("otherinfo"));
+                String addr="";
+                if(hasAddr)
+                    addr = c.getString(c.getColumnIndex("addr"));
                 if(phone==null) {
                     contact.setName(name);
                     contact.setPhone("");
@@ -59,8 +69,7 @@ public class SqlHandler {
                     contact.setPhone(phone);
                 }
                 contact.setAddress(addr);
-                if(position!=null)
-                    contact.setPosition(position);
+                contact.setPosition(otherinfo);
                 contacts.add(contact);
             }
             c.close();

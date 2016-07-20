@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
@@ -78,6 +79,15 @@ public class TitleListAct  extends AppFrameAct {
             list.add("隐患点统计表格");
             list.add("地下水统计");
             list.add("避险搬迁统计");
+        }else if(type.equals("Contact")){
+            list.add("通讯录");
+            list.add("四川省地质灾害防治工作责任单位通讯录");
+            list.add("成都市地质灾害防治工作责任单位通讯录");
+            list.add("成都市国土资源局通讯录");
+            list.add("成都市地质环境监测站通讯录");
+            list.add("地质灾害防治片区分工通讯录");
+            list.add("地环站站长通讯录");
+            list.add("成都市专职监测人员通讯录");
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
@@ -119,13 +129,16 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
                 }else{
-                    if(tag!=2) {
-                        Intent i = new Intent(TitleListAct.this, FormAct.class);
-                        i.putExtra("Type", tag);
-                        i.putExtra("Title", list.get(tag));
-                        startActivity(i);
-                    }
+                    Intent i = new Intent(TitleListAct.this, FormAct.class);
+                    i.putExtra("Type", tag);
+                    i.putExtra("Title", list.get(tag));
+                    startActivity(i);
                 }
+            }else if(type.equals("Contact")) {
+                Intent i = new Intent(TitleListAct.this, ActivityAddFriends.class);
+                i.putExtra("Type", tag);
+                i.putExtra("Title", list.get(tag));
+                startActivity(i);
             }
         }
 

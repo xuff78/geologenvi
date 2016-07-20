@@ -55,6 +55,8 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 * 根据拼音来排列ListView里面的数据类
 	 */
 	private PinyinComparator pinyinComparator;
+	private String sqlStr="";
+	private String otherStr="";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,21 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			}
 		});
 		handler=new SqlHandler(this);
-		contacts=handler.getPersonInfo(" and (JCBA05A090 is not null OR JCBA05A130 is not null)");
+		switch (getIntent().getIntExtra("Type", 0)){
+			case 0:
+				sqlStr="SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr " +
+						"FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A040=b.CODE ) WHERE  a.JCBA05A040 is not null" +
+						" and (JCBA05A090 is not null OR JCBA05A130 is not null)"+
+						" union all "+
+						" SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr " +
+						"FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A030=b.CODE ) where a.JCBA05A040 is null "+
+						" and (JCBA05A090 is not null OR JCBA05A130 is not null)";
+				break;
+			case 1:
+				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHENG";
+				break;
+		}
+		contacts=handler.getPersonInfo(sqlStr);
 		if(contacts.size()>0)
 			setContacts();
 	}
@@ -286,6 +302,13 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 				typeStr = typeStr + " and JCBA05A030 = '" + areaCode + "'";
 			else if (areaCode.length() == 9)
 				typeStr = typeStr + " and JCBA05A040 = '" + areaCode + "'";
+
+			sqlStr="SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr" +
+					" FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A040=b.CODE ) WHERE  a.JCBA05A040 is not null" + typeStr+
+					" union all "+
+					" SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr" +
+					" FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A030=b.CODE ) where a.JCBA05A040 is null "
+					+" and (JCBA05A090 is not null OR JCBA05A130 is not null)"+typeStr;
 
 			ArrayList<Contact> filterDateList = handler.getPersonInfo(typeStr);
 

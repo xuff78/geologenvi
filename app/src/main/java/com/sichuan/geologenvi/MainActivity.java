@@ -104,8 +104,9 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 1:
-                    i.setClass(MainActivity.this, ActivityAddFriends.class);
+                    i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "通讯录");
+                    i.putExtra("Type", "Contact");
                     startActivity(i);
                     break;
                 case 2:

@@ -61,11 +61,11 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(new FormAdapter(this, datalist));
                 break;
             case 2:
-                String queryStr="select NAME,\n" +
-                        "SUM(CASE WHEN QIYONG = '0' THEN 1 ELSE 0 END) as QiYong,\n" +
-                        "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
-                        "SUM(CASE WHEN ZHAA01A210 = '02' THEN 1 ELSE 0 END) as BengTa\n" +
-                        "from SL_TBLJING as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE) group by ZHAA01A110;";
+                datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +
+                                " SUM(CASE WHEN QIYONG = '01' THEN 1 ELSE 0 END) as QIYONG ",
+                        " SL_TBLJING group by QUXIAN",
+                        "");
+                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 2));
                 break;
             case 3:
                 datalist=handler.getQueryResult("NAME,\n" +
@@ -74,13 +74,30 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHDD04B240 = '1' THEN 1 ELSE 0 END) as YanShou ",
                         "SL_ZHDD04B as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD04B040=b.CODE) group by ZHDD04B040",
                         "");
-                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist));
+                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
                 break;
         }
 
     }
 
     private void initView() {
+        TextView title1= (TextView) findViewById(R.id.title1);
+        TextView title2= (TextView) findViewById(R.id.title2);
+        TextView title3= (TextView) findViewById(R.id.title3);
+        TextView title4= (TextView) findViewById(R.id.title4);
+        if(type==2){
+            title2.setText("数量");
+            title3.setText("弃用");
+            title4.setVisibility(View.GONE);
+        }
+        recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        if(type==1)
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        else
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

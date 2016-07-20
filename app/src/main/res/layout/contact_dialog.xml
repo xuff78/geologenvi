@@ -48,6 +48,31 @@
             style="@style/txt_black_16"/>
     </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/dialPhone2"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_transwhite_withcorner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <ImageView
+                android:id="@+id/phoneIcon2"
+                android:src="@mipmap/of_icon_phone"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_toRightOf="@+id/phoneIcon2"
+                android:id="@+id/phoneTxt2"
+                android:paddingLeft="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="@style/txt_black_16"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/otherInfoLayout"
             android:layout_width="match_parent"
             android:layout_height="45dp">
             <TextView
@@ -68,6 +93,7 @@
                 android:background="@color/light_gray" />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/addrLayout"
             android:layout_width="match_parent"
             android:layout_height="45dp">
             <TextView
@@ -89,7 +115,7 @@
         </RelativeLayout>
         <Button
             android:id="@+id/confirmBtn"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:text="确定"
             style="@style/txt_white_14"
             android:background="@mipmap/of_blue_btn"

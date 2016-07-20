@@ -23,6 +23,7 @@ import java.util.TimerTask;
 public class ContactDialog  extends Dialog {
 
     private Contact contact;
+    private String[] phones;
 
     public ContactDialog(Context context, Contact contact) {
         super(context, R.style.dialog);
@@ -40,20 +41,46 @@ public class ContactDialog  extends Dialog {
 
     private void initView() {
         TextView phoneTxt = (TextView) findViewById(R.id.phoneTxt);
+        TextView phoneTxt2 = (TextView) findViewById(R.id.phoneTxt2);
         TextView positionTxt = (TextView) findViewById(R.id.positionTxt);
         TextView nameTxt = (TextView) findViewById(R.id.nameTxt);
         TextView areaTxt = (TextView) findViewById(R.id.areaTxt);
+        View phone2Lyout=findViewById(R.id.dialPhone2);
+        View otherInfoLayout=findViewById(R.id.otherInfoLayout);
+        View addrLayout=findViewById(R.id.addrLayout);
+        if(contact.getPhone().contains(",")){
+            phone2Lyout.setVisibility(View.VISIBLE);
+            phones=contact.getPhone().split(",");
+            phoneTxt.setText(phones[0]);
+            phoneTxt2.setText(phones[1]);
+        }else
+            phoneTxt.setText(contact.getPhone());
 
-        areaTxt.setText(contact.getAddress());
-        phoneTxt.setText(contact.getPhone());
-        positionTxt.setText(contact.getPosition());
+        if(contact.getAddress()!=null&&contact.getAddress().length()>0)
+            areaTxt.setText(contact.getAddress());
+        else
+            addrLayout.setVisibility(View.GONE);
+        if(contact.getPosition()!=null&&contact.getPosition().length()>0)
+            positionTxt.setText(contact.getPosition());
+        else
+            otherInfoLayout.setVisibility(View.GONE);
         nameTxt.setText(contact.getName());
         findViewById(R.id.dialPhone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(contact.getPhone().length()>0) {
                     Intent call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
-                            + contact.getPhone()));
+                            + phones[0]));
+                    getContext().startActivity(call);
+                }
+            }
+        });
+        phone2Lyout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(contact.getPhone().length()>0) {
+                    Intent call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+                            + phones[1]));
                     getContext().startActivity(call);
                 }
             }
