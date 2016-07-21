@@ -24,10 +24,17 @@ public class ContactDialog  extends Dialog {
 
     private Contact contact;
     private String[] phones;
+    private String otherInfoName;
 
     public ContactDialog(Context context, Contact contact) {
         super(context, R.style.dialog);
         this.contact=contact;
+    }
+
+    public ContactDialog(Context context, Contact contact, String otherInfoName) {
+        super(context, R.style.dialog);
+        this.contact=contact;
+        this.otherInfoName=otherInfoName;
     }
 
     @Override
@@ -45,6 +52,9 @@ public class ContactDialog  extends Dialog {
         TextView positionTxt = (TextView) findViewById(R.id.positionTxt);
         TextView nameTxt = (TextView) findViewById(R.id.nameTxt);
         TextView areaTxt = (TextView) findViewById(R.id.areaTxt);
+        TextView hintOtherInfo = (TextView) findViewById(R.id.hintOtherInfo);
+        if(otherInfoName!=null)
+            hintOtherInfo.setText(otherInfoName);
         View phone2Lyout=findViewById(R.id.dialPhone2);
         View otherInfoLayout=findViewById(R.id.otherInfoLayout);
         View addrLayout=findViewById(R.id.addrLayout);

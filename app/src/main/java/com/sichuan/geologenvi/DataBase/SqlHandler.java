@@ -1,13 +1,10 @@
 package com.sichuan.geologenvi.DataBase;
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.Contact;
-import com.sichuan.geologenvi.bean.GeohazardBean;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.utils.LogUtil;
 
@@ -77,6 +74,67 @@ public class SqlHandler {
         return contacts;
     }
 
+    public ArrayList<Contact> getPersonInfo2(String sqlStr){
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        ArrayList<Contact> contacts=new ArrayList<>();
+        if(c!=null) {
+            while (c.moveToNext()) {
+                Contact contact=new Contact();
+                String QX = c.getString(c.getColumnIndex("QX"));
+                contact.setName(QX);
+                Map<String, String> infoMaps=new HashMap<>();
+                String FZRNAME = c.getString(c.getColumnIndex("FZRNAME"));
+                infoMaps.put("FZRNAME", FZRNAME);
+                String FZRPHONE = c.getString(c.getColumnIndex("FZRPHONE"));
+                infoMaps.put("FZRPHONE", FZRPHONE);
+
+                String CYRNAME1 = c.getString(c.getColumnIndex("CYNAME1"));
+                infoMaps.put("CYNAME1", CYRNAME1);
+                String CYPHONE1 = c.getString(c.getColumnIndex("CYPHONE1"));
+                infoMaps.put("CYPHONE1", CYPHONE1);
+
+                String CYRNAME2 = c.getString(c.getColumnIndex("CYNAME2"));
+                infoMaps.put("CYNAME2", CYRNAME2);
+                String CYPHONE2 = c.getString(c.getColumnIndex("CYPHONE2"));
+                infoMaps.put("CYPHONE2", CYPHONE2);
+                contact.setMaps(infoMaps);
+                contacts.add(contact);
+            }
+            c.close();
+        }
+        return contacts;
+    }
+
+    public ArrayList<Contact> getPersonInfo3(String sqlStr){
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        ArrayList<Contact> contacts=new ArrayList<>();
+        if(c!=null) {
+            while (c.moveToNext()) {
+                Contact contact=new Contact();
+                String QX = c.getString(c.getColumnIndex("QX"));
+                contact.setName(QX);
+                Map<String, String> infoMaps=new HashMap<>();
+                String DHZZZNAME = c.getString(c.getColumnIndex("DHZZZNAME"));
+                infoMaps.put("DHZZZNAME", DHZZZNAME);
+
+
+                infoMaps.put("DHZZZPHONE", c.getString(c.getColumnIndex("DHZZZPHONE")));
+                infoMaps.put("DHZKZPHONE", c.getString(c.getColumnIndex("DHZKZPHONE")));
+                infoMaps.put("DHZZBSPHONE", c.getString(c.getColumnIndex("DHZZBSPHONE")));
+                infoMaps.put("CHUANZHEN", c.getString(c.getColumnIndex("CHUANZHEN")));
+
+                contact.setMaps(infoMaps);
+                contacts.add(contact);
+            }
+            c.close();
+        }
+        return contacts;
+    }
+
     public ArrayList<AreaInfo> getAreaInfo(String parent){
         Cursor c;
         if(parent.length()==0)
@@ -106,7 +164,7 @@ public class SqlHandler {
         return contacts;
     }
 
-    public ArrayList<Map<String, String>> getGeohazardInfo(String queryStr, int type, String name, String disasterTypeCode,String disasterSizeCode,
+    public ArrayList<Map<String, String>> getGeohazardInfo(String queryStr, int type, String name, String disasterName, String disasterTypeCode,String disasterSizeCode,
                                                            String areaCode, String avoidCode, String yearCode){
         String typeStr="";
         String formName="";
@@ -171,6 +229,9 @@ public class SqlHandler {
                 typeStr = typeStr + " and ZHDD02A050 = '" + areaCode + "'";
             if(avoidCode.length()>0){
                 typeStr = typeStr + " and ZHDD02A150 = '" + avoidCode + "'";
+            }
+            if(disasterName.length()>0){
+                typeStr = typeStr + " and ZHDD02A310 like '%" + disasterName + "%'";
             }
             if(type==5)
                 typeStr = typeStr + " and c.ZHAA01A810 = 2";

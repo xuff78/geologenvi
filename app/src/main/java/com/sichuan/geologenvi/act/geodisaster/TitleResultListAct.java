@@ -54,28 +54,33 @@ public class TitleResultListAct  extends AppFrameAct {
             case 7:
             case 8:
             case 9:
-                datalist=handler.getGeohazardInfo(QueryStr.yinhuandian, type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                datalist=handler.getGeohazardInfo(QueryStr.yinhuandian, type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterName"),
+                        getIntent().getStringExtra("disasterTypeCode"),
                         getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;
             case 3:
-                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterName"),
+                        getIntent().getStringExtra("disasterTypeCode"),
                         getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;
             case 2:
-                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterName"),
+                        getIntent().getStringExtra("disasterTypeCode"),
                         getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;
             case 4:
             case 5:
-                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterName"),
+                        getIntent().getStringExtra("disasterTypeCode"),
                         getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;
             case 6:
-                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterTypeCode"),
+                datalist=handler.getGeohazardInfo("", type, getIntent().getStringExtra("Name"), getIntent().getStringExtra("disasterName"),
+                        getIntent().getStringExtra("disasterTypeCode"),
                         getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;

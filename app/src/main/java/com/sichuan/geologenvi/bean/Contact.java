@@ -1,5 +1,8 @@
 package com.sichuan.geologenvi.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2016/6/27.
  */
@@ -10,6 +13,15 @@ public class Contact {
     private String position="";
     private String sortLetters="";
     private String address="";
+    private Map<String, String> maps=null;
+
+    public Map<String, String> getMaps() {
+        return maps;
+    }
+
+    public void setMaps(Map<String, String> maps) {
+        this.maps = maps;
+    }
 
     public String getAddress() {
         return address;

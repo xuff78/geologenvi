@@ -24,32 +24,54 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/light_gray" />
+
         <RelativeLayout
-            android:id="@+id/dialPhone"
+            android:id="@+id/phoneLayout1"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/shape_transwhite_withcorner"
             android:layout_width="match_parent"
             android:layout_height="45dp">
-        <ImageView
-            android:id="@+id/phoneIcon"
-            android:src="@mipmap/of_icon_phone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"/>
-        <TextView
-            android:layout_toRightOf="@+id/phoneIcon"
-            android:id="@+id/phoneTxt"
-            android:paddingLeft="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            style="@style/txt_black_16"/>
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/phoneIcon"
+                android:src="@mipmap/of_icon_phone"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_toRightOf="@+id/phoneIcon"
+                android:id="@+id/phone1"
+                android:paddingLeft="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="@style/txt_black_16"/>
+        </RelativeLayout>
+
         <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/dialPhone2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:id="@+id/hintTxt1"
+                android:text="负责人"
+                android:paddingLeft="20dp"
+                android:layout_centerVertical="true"
+                style="@style/txt_gray_12"/>
+            <TextView
+                android:id="@+id/phoneTxt1"
+                android:paddingRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="@style/txt_black_12"/>
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/light_gray" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/phoneLayout2"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -65,24 +87,23 @@
                 android:layout_centerVertical="true"/>
             <TextView
                 android:layout_toRightOf="@+id/phoneIcon2"
-                android:id="@+id/phoneTxt2"
+                android:id="@+id/phone2"
                 android:paddingLeft="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 style="@style/txt_black_16"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/otherInfoLayout"
             android:layout_width="match_parent"
             android:layout_height="45dp">
             <TextView
-                android:id="@+id/hintOtherInfo"
-                android:text="职位"
+                android:id="@+id/hintTxt2"
+                android:text="成员1"
                 android:paddingLeft="20dp"
                 android:layout_centerVertical="true"
                 style="@style/txt_gray_12"/>
             <TextView
-                android:id="@+id/positionTxt"
+                android:id="@+id/phoneTxt2"
                 android:paddingRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -93,17 +114,41 @@
                 android:layout_height="1px"
                 android:background="@color/light_gray" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:id="@+id/addrLayout"
+            android:id="@+id/phoneLayout3"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_transwhite_withcorner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <ImageView
+                android:id="@+id/phoneIcon3"
+                android:src="@mipmap/of_icon_phone"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_toRightOf="@+id/phoneIcon3"
+                android:id="@+id/phone3"
+                android:paddingLeft="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                style="@style/txt_black_16"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp">
             <TextView
-                android:text="所在地"
+                android:id="@+id/hintTxt3"
+                android:text="成员2"
                 android:paddingLeft="20dp"
                 android:layout_centerVertical="true"
                 style="@style/txt_gray_12"/>
             <TextView
-                android:id="@+id/areaTxt"
+                android:id="@+id/phoneTxt3"
                 android:paddingRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"

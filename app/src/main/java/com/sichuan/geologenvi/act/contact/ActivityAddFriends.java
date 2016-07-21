@@ -1,6 +1,5 @@
 package com.sichuan.geologenvi.act.contact;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -25,6 +23,8 @@ import com.sichuan.geologenvi.act.geodisaster.AreaSelectorAct;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.Contact;
 import com.sichuan.geologenvi.views.ContactDialog;
+import com.sichuan.geologenvi.views.ContactDialog2;
+import com.sichuan.geologenvi.views.ContactDialog3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,13 +50,13 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 	 */
 	private CharacterParser characterParser;
 	private ArrayList<Contact> contacts;
-
 	/**
 	 * 根据拼音来排列ListView里面的数据类
 	 */
 	private PinyinComparator pinyinComparator;
 	private String sqlStr="";
 	private String otherStr="";
+	private int type=0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +65,9 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 
 		_setHeaderTitle("通讯录");
+		type=getIntent().getIntExtra("Type", 0);
 		initViews();
-
+		if(type==0)
 		_setRightHomeText("地区筛选", new View.OnClickListener(){
 
 			@Override
@@ -76,7 +77,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			}
 		});
 		handler=new SqlHandler(this);
-		switch (getIntent().getIntExtra("Type", 0)){
+		switch (type){
 			case 0:
 				sqlStr="SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr " +
 						"FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A040=b.CODE ) WHERE  a.JCBA05A040 is not null" +
@@ -85,12 +86,38 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 						" SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr " +
 						"FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A030=b.CODE ) where a.JCBA05A040 is null "+
 						" and (JCBA05A090 is not null OR JCBA05A130 is not null)";
+
+				contacts=handler.getPersonInfo(sqlStr);
 				break;
 			case 1:
 				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHENG";
+				contacts=handler.getPersonInfo(sqlStr);
+				break;
+			case 2:
+				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHI";
+				contacts=handler.getPersonInfo(sqlStr);
+				break;
+			case 3:
+				sqlStr="SELECT BANGONGDIANHUA as phone, ZHIWU as name FROM SL_TXL_SHIGUOTUJU";
+				contacts=handler.getPersonInfo(sqlStr);
+				break;
+			case 4:
+				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHIDHZ";
+				contacts=handler.getPersonInfo(sqlStr);
+				break;
+			case 5:
+				sqlStr="SELECT * FROM SL_TXL_DZZHFZPQFG";
+				contacts=handler.getPersonInfo2(sqlStr);
+				break;
+			case 6:
+				sqlStr="SELECT * FROM SL_TXL_SHILD";
+				contacts=handler.getPersonInfo3(sqlStr);
+				break;
+			case 7:
+				sqlStr="SELECT ZHAA01A735 as phone, ZHAA01A020 as name, ZHAA01A740 as otherinfo FROM SL_ZHAA01A WHERE ZHAA01A735 is not null OR ZHAA01A740 is not null";
+				contacts=handler.getPersonInfo(sqlStr);
 				break;
 		}
-		contacts=handler.getPersonInfo(sqlStr);
 		if(contacts.size()>0)
 			setContacts();
 	}
@@ -130,8 +157,16 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				ContactDialog contactDialog=new ContactDialog(ActivityAddFriends.this, (Contact) adapter.getItem(position));
-				contactDialog.show();
+				if(type==5){
+					ContactDialog2 contactDialog2 = new ContactDialog2(ActivityAddFriends.this, (Contact) adapter.getItem(position));
+					contactDialog2.show();
+				}else if(type==6){
+					ContactDialog3 contactDialog3 = new ContactDialog3(ActivityAddFriends.this, (Contact) adapter.getItem(position));
+					contactDialog3.show();
+				}else {
+					ContactDialog contactDialog = new ContactDialog(ActivityAddFriends.this, (Contact) adapter.getItem(position), "名称");
+					contactDialog.show();
+				}
 			}
 		});
 	}

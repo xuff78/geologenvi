@@ -28,7 +28,7 @@ import java.util.ArrayList;
  */
 public class SelectorAct extends AppFrameAct {
 
-    private EditText nameEdt;
+    private EditText nameEdt, disasterNameEdt;
     private TextView areaTxt, disasterTypeTxt, disasterSizeTxt, avoidTxt, watchingAreaTxt, equipmentTxt, yearTxt;
     private ArrayList<PopupInfoItem> disasterType=new ArrayList<>();
     private ArrayList<PopupInfoItem> disasterSize=new ArrayList<>();
@@ -73,6 +73,7 @@ public class SelectorAct extends AppFrameAct {
         avoidLevel.add(new PopupInfoItem("取消", ""));
 
         nameEdt=(EditText)findViewById(R.id.nameEdt);
+        disasterNameEdt=(EditText)findViewById(R.id.disasterNameEdt);
         areaTxt=(TextView)findViewById(R.id.areaTxt);
         avoidTxt=(TextView)findViewById(R.id.avoidTxt);
         watchingAreaTxt=(TextView)findViewById(R.id.watchingAreaTxt);
@@ -107,6 +108,7 @@ public class SelectorAct extends AppFrameAct {
                 break;
             case 4:
             case 5:
+                findViewById(R.id.disasterNameLayout).setVisibility(View.VISIBLE);
                 avoidLayout.setVisibility(View.VISIBLE);
             case 6:
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
@@ -128,9 +130,11 @@ public class SelectorAct extends AppFrameAct {
             switch (view.getId()){
                 case R.id.confirmBtn:
                     String name=nameEdt.getText().toString();
+                    String disasterName=disasterNameEdt.getText().toString();
                     Intent intent=getIntent();
                     intent.setClass(SelectorAct.this, TitleResultListAct.class);
                     intent.putExtra("Name", name);
+                    intent.putExtra("disasterName", disasterName);
                     intent.putExtra("disasterTypeCode", disasterTypeCode);
                     intent.putExtra("disasterSizeCode", disasterSizeCode);
                     intent.putExtra("areaCode", areaCode);
