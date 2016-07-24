@@ -140,7 +140,11 @@ public class SelectorAct extends AppFrameAct {
                     intent.putExtra("areaCode", areaCode);
                     intent.putExtra("avoidCode", avoidCode);
                     intent.putExtra("yearCode", yearCode);
-                    startActivity(intent);
+                    if(getIntent().hasExtra("Report")){
+                        setResult(0x11, intent);
+                        finish();
+                    }else
+                        startActivity(intent);
                     break;
                 case R.id.areaLayout:
                     Intent intent2=new Intent(SelectorAct.this, AreaSelectorAct.class);

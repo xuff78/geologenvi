@@ -42,7 +42,7 @@ public class MenuList2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         LogUtil.i("totp", "create: "+position);
         RecyclerView.ViewHolder holder=null;
-        if(position+1<datalist.size()){
+        if(position==datalist.size()){
             RecyclerView.LayoutParams rlp=new RecyclerView.LayoutParams(-1, ImageUtil.dip2px(act, 40));
             footer=new TextView(act);
             footer.setLayoutParams(rlp);
@@ -61,7 +61,7 @@ public class MenuList2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position)
     {
-        if(position+1<datalist.size()) {
+        if(position<datalist.size()) {
             final TitleHolder holder = (TitleHolder) viewHolder;
             MenuListItem2 info = datalist.get(position);
             if (info.getTitle() != null && info.getTitle().length() > 0)

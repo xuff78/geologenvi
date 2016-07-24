@@ -10,6 +10,7 @@ import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.ItemDetailAct;
+import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.utils.ConstantUtil;
@@ -52,9 +53,24 @@ public class ReportTitleList extends AppFrameAct {
         switch (type) {
             case 3:
                 datalist = handler.getQueryResult(ConstantUtil.Mine,
-                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+                        "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
                 titleKey="KSMC";
                 break;
+            case 4:
+                datalist=handler.getQueryResult("SL_TBLJING", "");
+                titleKey="QUYU";
+                break;
+            case 5:
+                datalist=handler.getQueryResult("SL_DZYJBH", "");
+                titleKey="NAME";
+                break;
+            case 6:
+                Intent i = new Intent(ReportTitleList.this, SelectorAct.class);
+                i.putExtra("Type", 6);
+                i.putExtra("Title", getIntent().getStringExtra("Title"));
+                i.putExtra("Report", true);
+                startActivityForResult(i, 0x10);
+                return;
         }
         for (Map<String, String> info : datalist) {
             list.add(info.get(titleKey));
@@ -73,9 +89,40 @@ public class ReportTitleList extends AppFrameAct {
                     i.putExtra("Title", datalist.get(tag).get(titleKey));
                     i.putExtra("Id", datalist.get(tag).get("CK_GUID"));
                     break;
+                case 4:
+                    i.setClass(ReportTitleList.this, ReportHistoryList.class);
+                    i.putExtra("Title", datalist.get(tag).get(titleKey));
+                    i.putExtra("Id", datalist.get(tag).get("JINGID"));
+                    break;
+                case 5:
+                    i.setClass(ReportTitleList.this, ReportHistoryList.class);
+                    i.putExtra("Title", datalist.get(tag).get(titleKey));
+                    i.putExtra("Id", datalist.get(tag).get("ID"));
+                    break;
+                case 6:
+                    i.setClass(ReportTitleList.this, ReportHistoryList.class);
+                    i.putExtra("Title", datalist.get(tag).get(titleKey));
+                    i.putExtra("Id", datalist.get(tag).get("ID"));
+                    break;
             }
             i.putExtra("Type", type);
             startActivity(i);
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==0x11){
+            datalist=handler.getGeohazardInfo("", 6, data.getStringExtra("Name"), data.getStringExtra("disasterName"),
+                    data.getStringExtra("disasterTypeCode"),
+                    data.getStringExtra("disasterSizeCode"), data.getStringExtra("areaCode"),
+                    data.getStringExtra("avoidCode"), data.getStringExtra("yearCode"));
+            titleKey="ZHDD04B020";
+            for (Map<String, String> info : datalist) {
+                list.add(info.get(titleKey));
+            }
+            recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
+        }
+    }
 }
