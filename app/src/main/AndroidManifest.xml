@@ -66,8 +66,24 @@
             android:name=".act.report.BanqianbirangList" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
+            android:name=".act.report.ReportTitleList" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.report.ReportHistoryList" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.report.HistoryDetailAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
             android:name=".act.report.AreaInputAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.report.ReportCreateAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.report.SelectPicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogStyleBottom" />
         <activity
             android:name=".act.statistics.ChatAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />

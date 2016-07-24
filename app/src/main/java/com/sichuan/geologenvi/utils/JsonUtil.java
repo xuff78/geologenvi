@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.RainBean;
+import com.sichuan.geologenvi.bean.ReportBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,31 +69,76 @@ public class JsonUtil {
         return data;
     }
 
+    public static boolean getJsonBoolean(String jsonStr, String key) {
+        boolean data=false;
+        try {
+            JSONObject json=new JSONObject(jsonStr);
+            if(!json.isNull(key))
+                data=json.getBoolean(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     public static ArrayList<RainBean> getRainInfo(String jsonStr) {
         ArrayList<RainBean> infos=new ArrayList<>();
         try {
-            JSONArray array=new JSONArray(jsonStr);
-                for(int i=0; i<array.length();i++){
-                    JSONObject item=array.getJSONObject(i);
+            JSONObject object=new JSONObject(jsonStr);
+            if(!object.isNull("name")) {
+                JSONArray array = object.getJSONArray("data");
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject item = array.getJSONObject(i);
                     RainBean bean = new RainBean();
-                    if(!item.isNull("name"))
+                    if (!item.isNull("name"))
                         bean.setName(item.getString("name"));
-                    if(!item.isNull("h1"))
+                    if (!item.isNull("h1"))
                         bean.setHour1(item.getString("h1"));
-                    if(!item.isNull("h3"))
+                    if (!item.isNull("h3"))
                         bean.setHour3(item.getString("h3"));
-                    if(!item.isNull("h12"))
+                    if (!item.isNull("h12"))
                         bean.setHour12(item.getString("h12"));
-                    if(!item.isNull("h24"))
+                    if (!item.isNull("h24"))
                         bean.setHour24(item.getString("h24"));
-                    if(!item.isNull("area"))
+                    if (!item.isNull("area"))
                         bean.setArea(item.getString("area"));
                     infos.add(bean);
                 }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return infos;
     }
 
+    public static ArrayList<ReportBean> getMSRecords(String jsonStr) {
+        ArrayList<ReportBean> infos=new ArrayList<>();
+        try {
+            JSONObject obj=new JSONObject(jsonStr);
+            if(!obj.isNull("data")) {
+                JSONArray array = obj.getJSONArray("data");
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject item = array.getJSONObject(i);
+                    ReportBean bean = new ReportBean();
+                    if (!item.isNull("ID"))
+                        bean.setID(item.getString("ID"));
+                    if (!item.isNull("KS_ID"))
+                        bean.setKS_ID(item.getString("KS_ID"));
+                    if (!item.isNull("DATETIME"))
+                        bean.setDATETIME(item.getString("DATETIME"));
+                    if (!item.isNull("MS"))
+                        bean.setMS(item.getString("MS"));
+                    if (!item.isNull("TYPE"))
+                        bean.setTYPE(item.getString("TYPE"));
+                    if (!item.isNull("PATH"))
+                        bean.setPATH(item.getString("PATH"));
+                    infos.add(bean);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return infos;
+    }
 }

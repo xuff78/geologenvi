@@ -45,6 +45,15 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.ZHDD04B, json, true);
 	}
 
+	public void addCJ_GZJL_KS(String id, String desc, String type, String path) {
+		String jsonContent=ActUtil.addStringContent(new String[]{"KS_ID", "MS","TYPE","PATH"}, new Object[]{id, desc, type, path});
+		requestPost(ConstantUtil.Method.CJ_GZJL_KS, jsonContent, true);
+	}
+
+	public void getCJ_GZJL_KS(int page) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_KS, "?pageIndex="+page, true);
+	}
+
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
 		String progressInfo = "";
 		String url= ConstantUtil.Api_Url+method;

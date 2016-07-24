@@ -45,4 +45,22 @@ public class ActUtil {
         }
         return json.toString();
     }
+
+    public static String addStringContent(String[] columnName, Object[] values){
+        JSONObject json= new JSONObject();
+        try {
+            for (int i=0;i<columnName.length;i++) {
+                Object item=values[i];
+                if(item!=null)
+                    json.put(columnName[i], item);
+//                if(item instanceof String) {
+//                    String value=String.valueOf(item) ;
+//                    json.put(columnName[i], value);
+//                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json.toString();
+    }
 }

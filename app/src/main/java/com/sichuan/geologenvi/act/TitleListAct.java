@@ -14,6 +14,7 @@ import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
+import com.sichuan.geologenvi.act.report.ReportTitleList;
 import com.sichuan.geologenvi.act.statistics.ChatAct;
 import com.sichuan.geologenvi.act.statistics.FormAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
@@ -69,11 +70,12 @@ public class TitleListAct  extends AppFrameAct {
 //            list.add("销号点位基础数据查询");
         }else if(type.equals("Report")) {
             list.add("隐患点巡查");
-            list.add("治理点位巡查");
-            list.add("销号点位复核");
-            list.add("搬迁避让数据采集");
-            list.add("新增隐患点采集");
-            list.add("原有隐患点更新");
+            list.add("工程治理点位巡查");
+            list.add("避险场所检查");
+            list.add("矿山工作记录");
+            list.add("地下水工作记录");
+            list.add("地质遗迹工作记录");
+            list.add("避险搬迁工作记录");
         }else if(type.equals("Statistics")){
             list.add("隐患点统计图");
             list.add("隐患点统计表格");
@@ -117,11 +119,10 @@ public class TitleListAct  extends AppFrameAct {
                         break;
                 }
             }else if(type.equals("Report")) {
-                if(tag==3){
-                    Intent i=new Intent(TitleListAct.this, BanqianbirangList.class);
-                    i.putExtra("Title", list.get(tag));
-                    startActivity(i);
-                }
+                Intent i=new Intent(TitleListAct.this, ReportTitleList.class);
+                i.putExtra("Title", list.get(tag));
+                i.putExtra("Type", tag);
+                startActivity(i);
             }else if(type.equals("Statistics")) {
                 if(tag==0) {
                     Intent i = new Intent(TitleListAct.this, ChatAct.class);

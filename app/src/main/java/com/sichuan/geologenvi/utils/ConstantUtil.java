@@ -16,6 +16,7 @@ public class ConstantUtil {
 	public static final String Version="version";
 	public static final String map_open="map_open";
 	public static final String map_download="map_download";
+	public static final String Photo_Path="photo_path";
 	public static final String OfflinePath= "/sdcard/tianditu/offlinemap/"; //Environment.getExternalStorageDirectory().getAbsolutePath()+"/TianDiTu/offline/";
 
 	public static final String AreaInfo="AreaInfo";
@@ -27,10 +28,11 @@ public class ConstantUtil {
 		public static final String TIMERAININFO="TIMERAININFO";
 		public static final String ZHDD04B="ZHDD04B";
 		public static final String Version="version";
+		public static final String CJ_GZJL_KS="CJ_GZJL_KS";
 	}
 
 
 	public static final String[] Mine={"KSMC", "SFHJPG", "CKMJ", "SZXZQMC", "DZHJ_GK", "HFZL_GK", "DJQ", "XJQ", "BWQ",
-			"BQZ", "KCFS"};
+			"BQZ", "KCFS", "CK_GUID"};
 
 }
