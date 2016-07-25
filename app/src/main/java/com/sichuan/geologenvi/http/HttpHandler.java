@@ -81,6 +81,10 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.CJ_GZJL_BXBQ, "?pageIndex="+page, true);
 	}
 
+	public void getFiles() {
+		requestGet(ConstantUtil.Method.Files, "", true);
+	}
+
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
 		String progressInfo = "";
 		String url= ConstantUtil.Api_Url+method;

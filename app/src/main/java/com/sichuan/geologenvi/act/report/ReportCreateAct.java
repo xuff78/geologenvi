@@ -3,11 +3,15 @@ package com.sichuan.geologenvi.act.report;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +29,11 @@ import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.utils.UploadUtil;
 import com.sichuan.geologenvi.views.Photo9Layout;
 
 import java.io.File;
@@ -37,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -51,14 +59,16 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
     Photo9Layout photo9Layout;
     int type=0;
     private int imgItemWidth = 0;
-    private ArrayList<String> imgs=new ArrayList<>();
+    private LinkedHashMap<String, String> imgs=new LinkedHashMap<>();
+    private String videoUrl="";
     private LinearLayout photoLayout;
     private View addIconView;
     private LayoutInflater inflater;
-    private SqlHandler handler;
+    private SqlHandler sqlHandler;
     private HttpHandler httpHandler;
     private DatePickerDialog datePickerDialog;
     private String id="";
+    private ProgressDialog dialog;
 
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(ReportCreateAct.this){
@@ -87,24 +97,31 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
 
                 String imgUrls="";
                 String urlStr="";
-                for (String url:imgs){
-                    imgUrls=imgUrls+url+"_";
-                    typesTmp=typesTmp+"0_";
+                for (String url:imgs.values()){
+                    imgUrls=imgUrls+url+" ";
+                    typesTmp=typesTmp+"0 ";
+                }
+                if(videoUrl!=null&&videoUrl.length()>0){
+                    imgUrls=imgUrls+videoUrl+" ";
+                    typesTmp=typesTmp+"1 ";
                 }
                 if(imgUrls.length()>0)
                     urlStr=imgUrls.substring(0, imgUrls.length()-1);
                 if(typesTmp.length()>0)
-                    types=typesTmp.substring(0, imgUrls.length()-1);
+                    types=typesTmp.substring(0, typesTmp.length()-1);
                 if(txt.length()>0){
                     switch (type){
                         case 3:
-                            httpHandler.addCJ_GZJL_KS(id, txt, null, null);
+                            httpHandler.addCJ_GZJL_KS(id, txt, types, urlStr);
+                            break;
                         case 4:
-                            httpHandler.addCJ_GZJL_DXS(id, txt, null, null);
+                            httpHandler.addCJ_GZJL_DXS(id, txt, types, urlStr);
+                            break;
                         case 5:
-                            httpHandler.addCJ_GZJL_DZYJ(id, txt, null, null);
+                            httpHandler.addCJ_GZJL_DZYJ(id, txt, types, urlStr);
+                            break;
                         case 6:
-                            httpHandler.addCJ_GZJL_BXBQ(id, txt, null, null);
+                            httpHandler.addCJ_GZJL_BXBQ(id, txt, types, urlStr);
                             break;
                     }
                 }else{
@@ -120,7 +137,7 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
         imgItemWidth = (scrennWidth - ImageUtil.dip2px(this, 20) - 6) / 4;
         type=getIntent().getIntExtra("Type", 0);
         initView();
-        handler=new SqlHandler(this);
+        sqlHandler=new SqlHandler(this);
     }
 
     private void initView() {
@@ -184,13 +201,13 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
         });
     }
 
-    private void seImageView(Bitmap bmp) {
+    private void seImageView(Bitmap bmp, final String imgkey) {
 //        urls.add(imgUrl);
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
         llp.rightMargin = 2;
         photoLayout.removeView(addIconView);
         final View v = inflater.inflate(R.layout.bill_image_item, null);
-        ImageView img = (ImageView) v.findViewById(R.id.img);
+        final ImageView img = (ImageView) v.findViewById(R.id.img);
 //        img.setImageResource(R.mipmap.zhaopian);
 //        imageloader.displayImage(imgUrl, img);
         img.setImageBitmap(bmp);
@@ -202,9 +219,10 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 // TODO Auto-generated method stub
-                DialogUtil.showInfoDialog(ReportCreateAct.this, "确认删除?", "认识" , new DialogInterface.OnClickListener() {
+                DialogUtil.showInfoDialog(ReportCreateAct.this, "确认删除?", "确定" , new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        imgs.remove(imgkey);
                         removeImage(v, imgItemWidth, 0);
                     }
                 });
@@ -271,25 +289,28 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
 //            initSearch(lat, lng);
         }else if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
             final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
-            imgs.add(picPath);
+//            imgs.add(picPath);
             Log.i("Upload", "最终选择的图片=" + picPath);
             final Bitmap bitmap=ImageUtil.getSmallBitmap(picPath);
-            seImageView(bitmap);
+            final String imgkey= String.valueOf(System.currentTimeMillis());
+            seImageView(bitmap, imgkey);
 
+            dialog=ProgressDialog.show(ReportCreateAct.this, "", "处理中");
+            dialog.setCancelable(false);
             new Thread(){
                 @Override
                 public void run() {
                     super.run();
                     int bitmapSize=getBitmapSize(bitmap);
-                    if(bitmapSize>300000) {
-                        try {
-                            FileOutputStream out = new FileOutputStream(new File(picPath));
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, out);
-//                            bitmap.compress(Bitmap.CompressFormat.JPEG, (int)(100*scale), out);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
+//                        String result=UploadUtil.uploadFile(new File(picPath), ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String result=UploadUtil.uploadBitmap(bitmap, "upload.jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String url=JsonUtil.getString(result, "data");
+                    if(url.length()>0){
+                        imgs.put(imgkey, url);
+                        handler.sendEmptyMessage(1);
+                    }else
+                        handler.sendEmptyMessage(0);
+                    LogUtil.i("Upload", "size: " + bitmapSize + "Response: "+result);
                 }
             }.start();
 
@@ -306,4 +327,23 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
         }
         return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
     }
+
+    Handler handler=new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    ToastUtils.displayTextShort(ReportCreateAct.this, "上传图片失败");
+                    break;
+                case 1:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 }

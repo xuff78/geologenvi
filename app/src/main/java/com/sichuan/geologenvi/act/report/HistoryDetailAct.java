@@ -49,8 +49,8 @@ public class HistoryDetailAct extends AppFrameAct {
         descTxt.setText(bean.getMS());
         videoFileTxt= (TextView) findViewById(R.id.videoFileTxt);
         photo9Layout= (Photo9Layout) findViewById(R.id.photoLayout);
-        String[] paths=bean.getPATH().split("_");
-        String[] types=bean.getTYPE().split("_");
+        String[] paths=bean.getPATH().split(" ");
+        String[] types=bean.getTYPE().split(" ");
         ArrayList<String> imgUrls=new ArrayList<>();
         for (int i=0;i<paths.length;i++){
             if(types[i].equals("0")){

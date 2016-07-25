@@ -59,19 +59,27 @@ public class ReportHistoryList extends AppFrameAct {
                 page=Integer.valueOf(JsonUtil.getString(jsonData, "pageIndex"));
                 hasMore=JsonUtil.getJsonBoolean(jsonData, "hasMore");
                 if(beans.size()>0) {
-                    infos.addAll(beans);
-                    for(ReportBean bean:beans){
-                        MenuListItem2 item=new MenuListItem2();
-                        item.setTitle(bean.getMS());
-                        item.setSubTxtL(bean.getDATETIME());
-                        datalist.add(item);
-                    }
                     if (page == 1) {
+                        infos=beans;
+                        datalist.clear();
+                        for(ReportBean bean:beans){
+                            MenuListItem2 item=new MenuListItem2();
+                            item.setTitle(bean.getMS());
+                            item.setSubTxtL(bean.getDATETIME());
+                            datalist.add(item);
+                        }
                         adapter = new MenuList2Adapter(ReportHistoryList.this, datalist, listener);
                         recyclerView.setAdapter(adapter);
                         if (datalist.size() > 5)
                             recyclerView.setOnScrollListener(scrollListener);
                     } else {
+                        infos.addAll(beans);
+                        for(ReportBean bean:beans){
+                            MenuListItem2 item=new MenuListItem2();
+                            item.setTitle(bean.getMS());
+                            item.setSubTxtL(bean.getDATETIME());
+                            datalist.add(item);
+                        }
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -113,10 +121,13 @@ public class ReportHistoryList extends AppFrameAct {
         switch (type) {
             case 3:
                 httpHandler.getCJ_GZJL_KS(page+1);
+                break;
             case 4:
                 httpHandler.getCJ_GZJL_DXS(page+1);
+                break;
             case 5:
                 httpHandler.getCJ_GZJL_DZYJ(page+1);
+                break;
             case 6:
                 httpHandler.getCJ_GZJL_BXBQ(page+1);
                 break;
@@ -166,10 +177,13 @@ public class ReportHistoryList extends AppFrameAct {
                     switch (type) {
                         case 3:
                             httpHandler.getCJ_GZJL_KS(page+1);
+                            break;
                         case 4:
                             httpHandler.getCJ_GZJL_DXS(page+1);
+                            break;
                         case 5:
                             httpHandler.getCJ_GZJL_DZYJ(page+1);
+                            break;
                         case 6:
                             httpHandler.getCJ_GZJL_BXBQ(page+1);
                             break;
@@ -193,7 +207,20 @@ public class ReportHistoryList extends AppFrameAct {
         if(resultCode==0x11){
             page=0;
             onloading=true;
-            httpHandler.getCJ_GZJL_KS(page+1);
+            switch (type) {
+                case 3:
+                    httpHandler.getCJ_GZJL_KS(page + 1);
+                    break;
+                case 4:
+                    httpHandler.getCJ_GZJL_DXS(page + 1);
+                    break;
+                case 5:
+                    httpHandler.getCJ_GZJL_DZYJ(page + 1);
+                    break;
+                case 6:
+                    httpHandler.getCJ_GZJL_BXBQ(page + 1);
+                    break;
+            }
         }
     }
 }

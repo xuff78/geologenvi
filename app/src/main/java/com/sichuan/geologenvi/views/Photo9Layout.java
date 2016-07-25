@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,6 +60,7 @@ public class Photo9Layout extends LinearLayout {
             }
             TouchGrayImageView img = new TouchGrayImageView(getContext());
             img.setLayoutParams(llp);
+            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
             img.setBackgroundResource(R.color.whitesmoke);
             itemLayout.addView(img);
             loader.displayImage(urls.get(i), img);
