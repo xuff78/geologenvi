@@ -54,6 +54,33 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.CJ_GZJL_KS, "?pageIndex="+page, true);
 	}
 
+	public void addCJ_GZJL_DXS(String id, String desc, String type, String path) {
+		String jsonContent=ActUtil.addStringContent(new String[]{"DXS_ID", "MS","TYPE","PATH"}, new Object[]{id, desc, type, path});
+		requestPost(ConstantUtil.Method.CJ_GZJL_DXS, jsonContent, true);
+	}
+
+	public void getCJ_GZJL_DXS(int page) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_DXS, "?pageIndex="+page, true);
+	}
+
+	public void addCJ_GZJL_DZYJ(String id, String desc, String type, String path) {
+		String jsonContent=ActUtil.addStringContent(new String[]{"DZYJ_ID", "MS","TYPE","PATH"}, new Object[]{id, desc, type, path});
+		requestPost(ConstantUtil.Method.CJ_GZJL_DZYJ, jsonContent, true);
+	}
+
+	public void getCJ_GZJL_DZYJ(int page) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_DZYJ, "?pageIndex="+page, true);
+	}
+
+	public void addCJ_GZJL_BXBQ(String id, String desc, String type, String path) {
+		String jsonContent=ActUtil.addStringContent(new String[]{"BXBQ_ID", "MS","TYPE","PATH"}, new Object[]{id, desc, type, path});
+		requestPost(ConstantUtil.Method.CJ_GZJL_BXBQ, jsonContent, true);
+	}
+
+	public void getCJ_GZJL_BXBQ(int page) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_BXBQ, "?pageIndex="+page, true);
+	}
+
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
 		String progressInfo = "";
 		String url= ConstantUtil.Api_Url+method;

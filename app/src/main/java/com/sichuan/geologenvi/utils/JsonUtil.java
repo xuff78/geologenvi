@@ -124,6 +124,12 @@ public class JsonUtil {
                         bean.setID(item.getString("ID"));
                     if (!item.isNull("KS_ID"))
                         bean.setKS_ID(item.getString("KS_ID"));
+                    if (!item.isNull("DXS_ID"))
+                        bean.setKS_ID(item.getString("DXS_ID"));
+                    if (!item.isNull("DZYJ_ID"))
+                        bean.setKS_ID(item.getString("DZYJ_ID"));
+                    if (!item.isNull("BXBQ_ID"))
+                        bean.setKS_ID(item.getString("BXBQ_ID"));
                     if (!item.isNull("DATETIME"))
                         bean.setDATETIME(item.getString("DATETIME"));
                     if (!item.isNull("MS"))

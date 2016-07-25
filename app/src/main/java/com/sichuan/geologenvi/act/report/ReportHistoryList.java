@@ -113,6 +113,12 @@ public class ReportHistoryList extends AppFrameAct {
         switch (type) {
             case 3:
                 httpHandler.getCJ_GZJL_KS(page+1);
+            case 4:
+                httpHandler.getCJ_GZJL_DXS(page+1);
+            case 5:
+                httpHandler.getCJ_GZJL_DZYJ(page+1);
+            case 6:
+                httpHandler.getCJ_GZJL_BXBQ(page+1);
                 break;
         }
     }
@@ -128,12 +134,14 @@ public class ReportHistoryList extends AppFrameAct {
     View.OnClickListener listener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String tableName="";
             Intent i=getIntent();
             int tag=(int)view.getTag();
             switch (getIntent().getIntExtra("Type", 0)){
 
                 case 3:
+                case 4:
+                case 5:
+                case 6:
                     i.setClass(ReportHistoryList.this, HistoryDetailAct.class);
                     i.putExtra(ReportBean.Name, infos.get(tag));
                     break;
@@ -158,6 +166,12 @@ public class ReportHistoryList extends AppFrameAct {
                     switch (type) {
                         case 3:
                             httpHandler.getCJ_GZJL_KS(page+1);
+                        case 4:
+                            httpHandler.getCJ_GZJL_DXS(page+1);
+                        case 5:
+                            httpHandler.getCJ_GZJL_DZYJ(page+1);
+                        case 6:
+                            httpHandler.getCJ_GZJL_BXBQ(page+1);
                             break;
                     }
                 }

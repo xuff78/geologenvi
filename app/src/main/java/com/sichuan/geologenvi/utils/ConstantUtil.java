@@ -29,6 +29,9 @@ public class ConstantUtil {
 		public static final String ZHDD04B="ZHDD04B";
 		public static final String Version="version";
 		public static final String CJ_GZJL_KS="CJ_GZJL_KS";
+		public static final String CJ_GZJL_DXS="CJ_GZJL_DXS";
+		public static final String CJ_GZJL_DZYJ="CJ_GZJL_DZYJ";
+		public static final String CJ_GZJL_BXBQ="CJ_GZJL_BXBQ";
 	}
 
 

@@ -82,8 +82,31 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 String txt=publishTxt.getText().toString();
+                String typesTmp="";
+                String types="";
+
+                String imgUrls="";
+                String urlStr="";
+                for (String url:imgs){
+                    imgUrls=imgUrls+url+"_";
+                    typesTmp=typesTmp+"0_";
+                }
+                if(imgUrls.length()>0)
+                    urlStr=imgUrls.substring(0, imgUrls.length()-1);
+                if(typesTmp.length()>0)
+                    types=typesTmp.substring(0, imgUrls.length()-1);
                 if(txt.length()>0){
-                    httpHandler.addCJ_GZJL_KS(id, txt, null, null);
+                    switch (type){
+                        case 3:
+                            httpHandler.addCJ_GZJL_KS(id, txt, null, null);
+                        case 4:
+                            httpHandler.addCJ_GZJL_DXS(id, txt, null, null);
+                        case 5:
+                            httpHandler.addCJ_GZJL_DZYJ(id, txt, null, null);
+                        case 6:
+                            httpHandler.addCJ_GZJL_BXBQ(id, txt, null, null);
+                            break;
+                    }
                 }else{
                     ToastUtils.displayTextShort(ReportCreateAct.this, "请输入内容");
                 }
