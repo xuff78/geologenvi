@@ -3,12 +3,14 @@ package com.sichuan.geologenvi.act.report;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.bean.ReportBean;
+import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.views.Photo9Layout;
@@ -42,6 +44,12 @@ public class HistoryDetailAct extends AppFrameAct {
     }
 
     private void initView() {
+        findViewById(R.id.videoLayout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActUtil.playVideoByUrl(HistoryDetailAct.this, videoPath);
+            }
+        });
         titleTxt= (TextView) findViewById(R.id.titleTxt);
         timeDate= (TextView) findViewById(R.id.timeDate);
         timeDate.setText(bean.getDATETIME());
@@ -49,8 +57,8 @@ public class HistoryDetailAct extends AppFrameAct {
         descTxt.setText(bean.getMS());
         videoFileTxt= (TextView) findViewById(R.id.videoFileTxt);
         photo9Layout= (Photo9Layout) findViewById(R.id.photoLayout);
-        String[] paths=bean.getPATH().split(" ");
-        String[] types=bean.getTYPE().split(" ");
+        String[] paths=bean.getPATH().split("\\|");
+        String[] types=bean.getTYPE().split("\\|");
         ArrayList<String> imgUrls=new ArrayList<>();
         for (int i=0;i<paths.length;i++){
             if(types[i].equals("0")){

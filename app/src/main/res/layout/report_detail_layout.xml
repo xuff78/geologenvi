@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <View
-            android:background="@mipmap/icon_location_target"
+            android:background="@mipmap/icon_video"
             android:layout_width="20dp"
             android:layout_height="20dp" />
         <TextView

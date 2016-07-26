@@ -102,7 +102,7 @@ public class ReportTitleList extends AppFrameAct {
                 case 6:
                     i.setClass(ReportTitleList.this, ReportHistoryList.class);
                     i.putExtra("Title", datalist.get(tag).get(titleKey));
-                    i.putExtra("Id", datalist.get(tag).get("ID"));
+                    i.putExtra("Id", datalist.get(tag).get("ZHDD04B010"));
                     break;
             }
             i.putExtra("Type", type);

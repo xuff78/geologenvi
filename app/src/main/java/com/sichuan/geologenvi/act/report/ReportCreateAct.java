@@ -7,16 +7,19 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +29,7 @@ import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
@@ -60,7 +64,7 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
     int type=0;
     private int imgItemWidth = 0;
     private LinkedHashMap<String, String> imgs=new LinkedHashMap<>();
-    private String videoUrl="";
+    private String videoUrl=null;
     private LinearLayout photoLayout;
     private View addIconView;
     private LayoutInflater inflater;
@@ -69,6 +73,8 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
     private DatePickerDialog datePickerDialog;
     private String id="";
     private ProgressDialog dialog;
+    private HorizontalScrollView horiScroller;
+    private File videoFile = null;
 
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(ReportCreateAct.this){
@@ -98,12 +104,12 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
                 String imgUrls="";
                 String urlStr="";
                 for (String url:imgs.values()){
-                    imgUrls=imgUrls+url+" ";
-                    typesTmp=typesTmp+"0 ";
+                    imgUrls=imgUrls+url+"|";
+                    typesTmp=typesTmp+"0|";
                 }
                 if(videoUrl!=null&&videoUrl.length()>0){
-                    imgUrls=imgUrls+videoUrl+" ";
-                    typesTmp=typesTmp+"1 ";
+                    imgUrls=imgUrls+videoUrl+"|";
+                    typesTmp=typesTmp+"1|";
                 }
                 if(imgUrls.length()>0)
                     urlStr=imgUrls.substring(0, imgUrls.length()-1);
@@ -138,9 +144,11 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
         type=getIntent().getIntExtra("Type", 0);
         initView();
         sqlHandler=new SqlHandler(this);
+        videoFile=getVideoFile();
     }
 
     private void initView() {
+        horiScroller= (HorizontalScrollView) findViewById(R.id.horiScroller);
         titleTxt= (TextView) findViewById(R.id.titleTxt);
         timeDate= (TextView) findViewById(R.id.timeDate);
         publishTxt= (TextView) findViewById(R.id.publishTxt);
@@ -155,6 +163,7 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
         photoLayout= (LinearLayout) findViewById(R.id.photoLayout);
         findViewById(R.id.dateLayout1).setOnClickListener(this);
         findViewById(R.id.videoLayout).setOnClickListener(this);
+        findViewById(R.id.cancelVideoBtn).setOnClickListener(this);
         setAddView();
     }
 
@@ -170,12 +179,33 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.videoLayout:
+                if(videoUrl!=null){
+                    ActUtil.playVideo(ReportCreateAct.this, videoFile.getAbsolutePath());
+                }else {
+                    try {
+                        videoFile.delete();
+                        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30000);
+                        Uri uri = Uri.fromFile(videoFile);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                        startActivityForResult(intent, TO_SELECT_VIDEO);
+                    } catch (Exception e) {
+                        ToastUtils.displayTextShort(ReportCreateAct.this, "暂不支持");
+                    }
+                }
                 break;
             case R.id.dateLayout1:
                 String[] dateStart=dataTxt1.getText().toString().split("-");
                 datePickerDialog=new DatePickerDialog(ReportCreateAct.this, mDateSetListener, Integer.valueOf(dateStart[0]),
                         Integer.valueOf(dateStart[1])-1, Integer.valueOf(dateStart[2]));
                 datePickerDialog.show();
+                break;
+            case R.id.cancelVideoBtn:
+                if(videoUrl!=null&&videoUrl.length()>0){
+                    videoUrl=null;
+                    videoFileTxt.setText("点击上传视频");
+                }
                 break;
         }
     }
@@ -280,6 +310,7 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
 
     public static final int RequestAddress=0x11;
     public static final int TO_SELECT_PHOTO=0x12;
+    public static final int TO_SELECT_VIDEO=0x13;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -294,7 +325,7 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
             final Bitmap bitmap=ImageUtil.getSmallBitmap(picPath);
             final String imgkey= String.valueOf(System.currentTimeMillis());
             seImageView(bitmap, imgkey);
-
+            horiScroller.scrollBy(imgItemWidth,0);
             dialog=ProgressDialog.show(ReportCreateAct.this, "", "处理中");
             dialog.setCancelable(false);
             new Thread(){
@@ -304,7 +335,9 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
                     int bitmapSize=getBitmapSize(bitmap);
 //                        String result=UploadUtil.uploadFile(new File(picPath), ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
                     String result=UploadUtil.uploadBitmap(bitmap, "upload.jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
-                    String url=JsonUtil.getString(result, "data");
+                    String url="";
+                    if(result!=null)
+                        url=JsonUtil.getString(result, "data");
                     if(url.length()>0){
                         imgs.put(imgkey, url);
                         handler.sendEmptyMessage(1);
@@ -313,7 +346,36 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
                     LogUtil.i("Upload", "size: " + bitmapSize + "Response: "+result);
                 }
             }.start();
+        }else if (resultCode == RESULT_OK && requestCode == TO_SELECT_VIDEO) {
+            if(videoFile!=null&&videoFile.exists()){
+                final String name=videoFile.getName();
+                final Double videoSize=Double.valueOf(videoFile.length());
+                String videoSizeString=ActUtil.twoDecimal(videoSize/1000000);
+                if(videoSize<30000000) {
+                    ToastUtils.displayTextShort(ReportCreateAct.this, "视频大小："+videoSizeString+"MB");
+                    dialog = ProgressDialog.show(this, "", "处理中。。");
+                    dialog.show();
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            super.run();
+                            String result=UploadUtil.uploadFile(videoFile, ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                            String url="";
+                            if(result!=null)
+                                url=JsonUtil.getString(result, "data");
+                            if(url.length()>0){
+                                videoUrl=url;
+                                handler.sendEmptyMessage(2);
+                            }else
+                                handler.sendEmptyMessage(0);
+                            LogUtil.i("Upload", "size: " + videoSize + "Response: "+result);
+                        }
+                    }.start();
 
+                }else{
+                    ToastUtils.displayTextShort(ReportCreateAct.this, "视频大小："+videoSizeString+"MB, 超过30MB");
+                }
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -336,14 +398,30 @@ public class ReportCreateAct extends AppFrameAct implements View.OnClickListener
                 case 0:
                     if(dialog!=null)
                         dialog.dismiss();
-                    ToastUtils.displayTextShort(ReportCreateAct.this, "上传图片失败");
+                    ToastUtils.displayTextShort(ReportCreateAct.this, "上传失败");
                     break;
                 case 1:
                     if(dialog!=null)
                         dialog.dismiss();
                     break;
+                case 2:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    videoFileTxt.setText(videoUrl);
+                    break;
             }
             super.handleMessage(msg);
         }
     };
+
+    protected File getVideoFile() {
+        String fileName = new SimpleDateFormat("yyyyMMddHHmmss")
+                .format(new Date()) + ".mp4";
+        File out = new File(ConstantUtil.OfflinePath);
+        if (!out.exists()) {
+            out.mkdirs();
+        }
+
+        return new File(ConstantUtil.OfflinePath+fileName);
+    }
 }
