@@ -85,12 +85,16 @@ public class HttpAsyncTask extends AsyncTask<Object, String, String> {
 	protected String doInBackground(Object... params) {
 		mReqMethod = (String) params[1];
 		
-		if((Boolean)params[4]){
-			return GlbsNet.doGet((String)params[0]);
-		}else{
-			return GlbsNet.doPostNew((String)params[0],(String)params[2]);
+		switch ((int)params[4]){
+			case 0:
+				return GlbsNet.doGet((String)params[0]);
+			case 1:
+				return GlbsNet.doDelete((String)params[0]);
+			case 2:
+				return GlbsNet.doPostNew((String)params[0],(String)params[2]);
+			default:
+				return null;
 		}
-		
 	}
 
 	@Override

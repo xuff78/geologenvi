@@ -50,8 +50,12 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_GZJL_KS, jsonContent, true);
 	}
 
-	public void getCJ_GZJL_KS(int page) {
-		requestGet(ConstantUtil.Method.CJ_GZJL_KS, "?pageIndex="+page, true);
+	public void getCJ_GZJL_KS(int page, String id) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_KS, "?pageIndex="+page+"&ksid="+id, true);
+	}
+
+	public void delCJ_GZJL_KS(String id) {
+		requestDelete(ConstantUtil.Method.CJ_GZJL_KS, "/"+id, true);
 	}
 
 	public void addCJ_GZJL_DXS(String id, String desc, String type, String path) {
@@ -59,8 +63,12 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_GZJL_DXS, jsonContent, true);
 	}
 
-	public void getCJ_GZJL_DXS(int page) {
-		requestGet(ConstantUtil.Method.CJ_GZJL_DXS, "?pageIndex="+page, true);
+	public void getCJ_GZJL_DXS(int page, String id) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_DXS, "?pageIndex="+page+"&dxsid="+id, true);
+	}
+
+	public void delCJ_GZJL_DXS(String id) {
+		requestDelete(ConstantUtil.Method.CJ_GZJL_DXS, "/"+id, true);
 	}
 
 	public void addCJ_GZJL_DZYJ(String id, String desc, String type, String path) {
@@ -68,8 +76,12 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_GZJL_DZYJ, jsonContent, true);
 	}
 
-	public void getCJ_GZJL_DZYJ(int page) {
-		requestGet(ConstantUtil.Method.CJ_GZJL_DZYJ, "?pageIndex="+page, true);
+	public void getCJ_GZJL_DZYJ(int page, String id) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_DZYJ, "?pageIndex="+page+"&dzyjid="+id, true);
+	}
+
+	public void delCJ_GZJL_DZYJ(String id) {
+		requestDelete(ConstantUtil.Method.CJ_GZJL_DZYJ, "/"+id, true);
 	}
 
 	public void addCJ_GZJL_BXBQ(String id, String desc, String type, String path) {
@@ -77,9 +89,14 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_GZJL_BXBQ, jsonContent, true);
 	}
 
-	public void getCJ_GZJL_BXBQ(int page) {
-		requestGet(ConstantUtil.Method.CJ_GZJL_BXBQ, "?pageIndex="+page, true);
+	public void getCJ_GZJL_BXBQ(int page, String id) {
+		requestGet(ConstantUtil.Method.CJ_GZJL_BXBQ, "?pageIndex="+page+"&bxbqid="+id, true);
 	}
+
+	public void delCJ_GZJL_BXBQ(String id) {
+		requestDelete(ConstantUtil.Method.CJ_GZJL_BXBQ, "/"+id, true);
+	}
+
 
 	public void getFiles() {
 		requestGet(ConstantUtil.Method.Files, "", true);
@@ -101,7 +118,7 @@ public class HttpHandler extends Handle {
 		String url= ConstantUtil.Api_Url+method;
 		LogUtil.i("HttpAsyncTask","url: "+url+"\n"+json);
 		new HttpAsyncTask(mContext, this, showDialog)
-				.execute(url, method, json, progressInfo, false);
+				.execute(url, method, json, progressInfo, 2);
 	}
 
 	protected void requestGet(String method, String param, boolean showDialog) {
@@ -109,6 +126,14 @@ public class HttpHandler extends Handle {
 		String url= ConstantUtil.Api_Url+method+param;
 		LogUtil.i("HttpAsyncTask","url: "+url);
 		new HttpAsyncTask(mContext, this, showDialog)
-				.execute(url, null, null, progressInfo, true);
+				.execute(url, null, null, progressInfo, 0);
+	}
+
+	protected void requestDelete(String method, String param, boolean showDialog) {
+		String progressInfo = "";
+		String url= ConstantUtil.Api_Url+method+param;
+		LogUtil.i("HttpAsyncTask","url: "+url);
+		new HttpAsyncTask(mContext, this, showDialog)
+				.execute(url, null, null, progressInfo, 1);
 	}
 }

@@ -256,6 +256,31 @@ public final class GlbsNet {
 		return result;
 	}
 
+	public static String doDelete(String uri) {
+		HttpURLConnection urlConn = null;
+		String result="";
+		try {
+			urlConn = getURLConnection(uri);
+			urlConn.setRequestMethod("DELETE");
+			//urlConn.setInstanceFollowRedirects(true);
+			urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			urlConn.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+			urlConn.connect();
+
+			//得到读取的内容（流）
+			result=getJsonStringFromGZIP(urlConn);
+			LogUtil.d("TestDemo", result);
+		} catch (Exception e) {
+			result=HTTP_ERROR_MESSAGE;
+			LogUtil.e("NetError", e.getMessage());
+		} finally {
+			if(urlConn!=null)
+				urlConn.disconnect();
+		}
+
+		return result;
+	}
+
 	/**
 	 * 网络中断监听。
 	 */

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.utils.ImageUtil;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,7 @@ public class Photo9Layout extends LinearLayout {
             img.setScaleType(ImageView.ScaleType.CENTER_CROP);
             img.setBackgroundResource(R.color.whitesmoke);
             itemLayout.addView(img);
-            loader.displayImage(urls.get(i), img);
+            loader.displayImage(urls.get(i), img, ImageUtil.getImageOption(0));
             img.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {

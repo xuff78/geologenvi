@@ -5,32 +5,19 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.sichuan.geologenvi.DataBase.QueryStr;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
-import com.sichuan.geologenvi.act.ItemDetailAct;
-import com.sichuan.geologenvi.act.geodisaster.BixianbanqianDetail;
-import com.sichuan.geologenvi.act.geodisaster.YinhuandianDetail;
-import com.sichuan.geologenvi.act.geodisaster.ZhilidianweiDetail;
 import com.sichuan.geologenvi.adapter.MenuList2Adapter;
-import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
-import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.bean.MenuListItem2;
 import com.sichuan.geologenvi.bean.ReportBean;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.JsonUtil;
-import com.sichuan.geologenvi.utils.ToastUtils;
-import com.sichuan.geologenvi.utils.ViewUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by 可爱的蘑菇 on 2016/7/23.
@@ -47,6 +34,7 @@ public class ReportHistoryList extends AppFrameAct {
     private int page=0;
     private MenuList2Adapter adapter;
     int lastVisibleItem=0;
+    private String id="";
     boolean onloading=false, hasMore=true;
 
     private void initHandler() {
@@ -104,6 +92,7 @@ public class ReportHistoryList extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frg_list);
 
+        id=getIntent().getStringExtra("Id");
         type=getIntent().getIntExtra("Type", 0);
         _setRightHomeText("添加记录", new View.OnClickListener() {
             @Override
@@ -120,16 +109,16 @@ public class ReportHistoryList extends AppFrameAct {
         onloading=true;
         switch (type) {
             case 3:
-                httpHandler.getCJ_GZJL_KS(page+1);
+                httpHandler.getCJ_GZJL_KS(page+1, id);
                 break;
             case 4:
-                httpHandler.getCJ_GZJL_DXS(page+1);
+                httpHandler.getCJ_GZJL_DXS(page+1, id);
                 break;
             case 5:
-                httpHandler.getCJ_GZJL_DZYJ(page+1);
+                httpHandler.getCJ_GZJL_DZYJ(page+1, id);
                 break;
             case 6:
-                httpHandler.getCJ_GZJL_BXBQ(page+1);
+                httpHandler.getCJ_GZJL_BXBQ(page+1, id);
                 break;
         }
     }
@@ -157,7 +146,7 @@ public class ReportHistoryList extends AppFrameAct {
                     i.putExtra(ReportBean.Name, infos.get(tag));
                     break;
             }
-            startActivity(i);
+            startActivityForResult(i, 0x20);
         }
     };
 
@@ -176,16 +165,16 @@ public class ReportHistoryList extends AppFrameAct {
                     onloading=true;
                     switch (type) {
                         case 3:
-                            httpHandler.getCJ_GZJL_KS(page+1);
+                            httpHandler.getCJ_GZJL_KS(page+1, id);
                             break;
                         case 4:
-                            httpHandler.getCJ_GZJL_DXS(page+1);
+                            httpHandler.getCJ_GZJL_DXS(page+1, id);
                             break;
                         case 5:
-                            httpHandler.getCJ_GZJL_DZYJ(page+1);
+                            httpHandler.getCJ_GZJL_DZYJ(page+1, id);
                             break;
                         case 6:
-                            httpHandler.getCJ_GZJL_BXBQ(page+1);
+                            httpHandler.getCJ_GZJL_BXBQ(page+1, id);
                             break;
                     }
                 }
@@ -209,16 +198,16 @@ public class ReportHistoryList extends AppFrameAct {
             onloading=true;
             switch (type) {
                 case 3:
-                    httpHandler.getCJ_GZJL_KS(page + 1);
+                    httpHandler.getCJ_GZJL_KS(page + 1, id);
                     break;
                 case 4:
-                    httpHandler.getCJ_GZJL_DXS(page + 1);
+                    httpHandler.getCJ_GZJL_DXS(page + 1, id);
                     break;
                 case 5:
-                    httpHandler.getCJ_GZJL_DZYJ(page + 1);
+                    httpHandler.getCJ_GZJL_DZYJ(page + 1, id);
                     break;
                 case 6:
-                    httpHandler.getCJ_GZJL_BXBQ(page + 1);
+                    httpHandler.getCJ_GZJL_BXBQ(page + 1, id);
                     break;
             }
         }
