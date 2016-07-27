@@ -84,9 +84,7 @@ public class JsonUtil {
     public static ArrayList<RainBean> getRainInfo(String jsonStr) {
         ArrayList<RainBean> infos=new ArrayList<>();
         try {
-            JSONObject object=new JSONObject(jsonStr);
-            if(!object.isNull("name")) {
-                JSONArray array = object.getJSONArray("data");
+                JSONArray array = new JSONArray(jsonStr);
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject item = array.getJSONObject(i);
                     RainBean bean = new RainBean();
@@ -104,7 +102,6 @@ public class JsonUtil {
                         bean.setArea(item.getString("area"));
                     infos.add(bean);
                 }
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

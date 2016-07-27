@@ -87,7 +87,10 @@ public class HistoryDetailAct extends AppFrameAct {
         findViewById(R.id.videoLayout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActUtil.playVideoByUrl(HistoryDetailAct.this, videoPath);
+
+                if(video) {
+                    ActUtil.playVideoByUrl(HistoryDetailAct.this, videoPath);
+                }
             }
         });
         titleTxt= (TextView) findViewById(R.id.titleTxt);
@@ -111,12 +114,10 @@ public class HistoryDetailAct extends AppFrameAct {
         photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
             @Override
             public void onClick(View v, int position) {
-                if(video) {
                     Intent intent = new Intent(HistoryDetailAct.this, ViewPagerExampleActivity.class);
                     intent.putExtra("Images", imgUrls);
                     intent.putExtra("pos", position);
                     startActivity(intent);
-                }
             }
         });
         if(videoPath!=null&&videoPath.length()>0) {

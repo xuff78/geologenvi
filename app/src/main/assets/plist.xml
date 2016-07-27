@@ -1079,6 +1079,7 @@
     <string name="TANTOUCODE">探头编号</string>
     <string name="SIMKAHAO">SIM卡号</string>
     <string name="TANTOUMAISHEN">探头埋深</string>
+    <string name="QUXIAN">区县</string>
 
     <string name="TANTOULEIXING">探头类型</string>
     <string name="JIAOZHENGLIANG">校正量</string>
