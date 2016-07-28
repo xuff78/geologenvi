@@ -12,7 +12,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/9/7.
@@ -136,6 +139,30 @@ public class JsonUtil {
                     if (!item.isNull("PATH"))
                         bean.setPATH(item.getString("PATH"));
                     infos.add(bean);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return infos;
+    }
+
+    public static ArrayList<Map<String, String>> getDataMap(String jsonStr) {
+        ArrayList<Map<String, String>> infos=new ArrayList<>();
+        try {
+            JSONObject obj=new JSONObject(jsonStr);
+            if(!obj.isNull("data")) {
+                JSONArray array = obj.getJSONArray("data");
+                for (int i = 0; i < array.length(); i++) {
+                    Map<String, String> infomap=new HashMap<>();
+                    JSONObject item = array.getJSONObject(i);
+                    Iterator<String> keys=item.keys();
+                    while (keys.hasNext()){
+                        String key=keys.next();
+                        infomap.put(key, item.getString(key));
+                    }
+                    infos.add(infomap);
                 }
             }
         } catch (JSONException e) {

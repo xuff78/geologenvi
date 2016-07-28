@@ -69,9 +69,9 @@ public class TitleListAct  extends AppFrameAct {
 //            list.add("治理点位基础数据查询");
 //            list.add("销号点位基础数据查询");
         }else if(type.equals("Report")) {
-            list.add("隐患点巡查");
-            list.add("工程治理点位巡查");
-            list.add("避险场所检查");
+            list.add("地质灾害防治工作检查");
+            list.add("重大地质灾害防治工程项目现场检查");
+            list.add("应急避险场所检查");
             list.add("矿山工作记录");
             list.add("地下水工作记录");
             list.add("地质遗迹工作记录");
@@ -119,10 +119,17 @@ public class TitleListAct  extends AppFrameAct {
                         break;
                 }
             }else if(type.equals("Report")) {
-                Intent i=new Intent(TitleListAct.this, ReportTitleList.class);
-                i.putExtra("Title", list.get(tag));
-                i.putExtra("Type", tag);
-                startActivity(i);
+                if(tag>2) {
+                    Intent i = new Intent(TitleListAct.this, ReportTitleList.class);
+                    i.putExtra("Title", list.get(tag));
+                    i.putExtra("Type", tag);
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                    i.putExtra("Title", list.get(tag));
+                    i.putExtra("Type", tag+10);
+                    startActivity(i);
+                }
             }else if(type.equals("Statistics")) {
                 if(tag==0) {
                     Intent i = new Intent(TitleListAct.this, ChatAct.class);

@@ -34,6 +34,9 @@ public class ConstantUtil {
 		public static final String CJ_GZJL_BXBQ="CJ_GZJL_BXBQ";
 		public static final String Files="Files";
 		public static final String Upload="Upload";
+		public static final String CJ_DZZHD_XCKP="CJ_DZZHD_XCKP";
+		public static final String CJ_GCZL_XCKP="CJ_GCZL_XCKP";
+		public static final String CJ_BXCS_XCKP="CJ_BXCS_XCKP";
 	}
 
 

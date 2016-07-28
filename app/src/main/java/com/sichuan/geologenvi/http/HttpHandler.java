@@ -10,6 +10,7 @@ import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,6 +99,57 @@ public class HttpHandler extends Handle {
 	}
 
 
+
+
+	public void addCJ_DZZHD_XCKP(ArrayList<String> columnName, ArrayList<Object> values) {
+		String jsonContent=ActUtil.addStringContent(columnName, values);
+		requestPost(ConstantUtil.Method.CJ_DZZHD_XCKP, jsonContent, true);
+	}
+
+	public void getCJ_DZZHD_XCKP(int page, String name) {
+		String require="";
+		if(name.length()>0)
+			require=require+"&zdmc="+name;
+		requestGet(ConstantUtil.Method.CJ_DZZHD_XCKP, "?pageIndex="+page+require, true);
+	}
+
+	public void delCJ_DZZHD_XCKP(String id) {
+		requestDelete(ConstantUtil.Method.CJ_DZZHD_XCKP, "/"+id, true);
+	}
+
+	public void addCJ_GCZL_XCKP(ArrayList<String> columnName, ArrayList<Object> values) {
+		String jsonContent=ActUtil.addStringContent(columnName, values);
+		requestPost(ConstantUtil.Method.CJ_GCZL_XCKP, jsonContent, true);
+	}
+
+	public void getCJ_GCZL_XCKP(int page, String name) {
+		String require="";
+		if(name.length()>0)
+			require=require+"&gczlGuid="+name;
+		requestGet(ConstantUtil.Method.CJ_GCZL_XCKP, "?pageIndex="+page+require, true);
+	}
+
+	public void delCJ_GCZL_XCKP(String id) {
+		requestDelete(ConstantUtil.Method.CJ_GCZL_XCKP, "/"+id, true);
+	}
+
+	public void addCJ_BXCS_XCKP(ArrayList<String> columnName, ArrayList<Object> values) {
+		String jsonContent=ActUtil.addStringContent(columnName, values);
+		requestPost(ConstantUtil.Method.CJ_BXCS_XCKP, jsonContent, true);
+	}
+
+	public void getCJ_BXCS_XCKP(int page, String name) {
+		String require="";
+		if(name.length()>0)
+			require=require+"&bxcsGuid="+name;
+		requestGet(ConstantUtil.Method.CJ_BXCS_XCKP, "?pageIndex="+page+require, true);
+	}
+
+	public void delCJ_BXCS_XCKP(String id) {
+		requestDelete(ConstantUtil.Method.CJ_BXCS_XCKP, "/"+id, true);
+	}
+
+
 	public void getFiles() {
 		requestGet(ConstantUtil.Method.Files, "", true);
 	}
@@ -126,7 +178,7 @@ public class HttpHandler extends Handle {
 		String url= ConstantUtil.Api_Url+method+param;
 		LogUtil.i("HttpAsyncTask","url: "+url);
 		new HttpAsyncTask(mContext, this, showDialog)
-				.execute(url, null, null, progressInfo, 0);
+				.execute(url, method, null, progressInfo, 0);
 	}
 
 	protected void requestDelete(String method, String param, boolean showDialog) {
@@ -134,6 +186,6 @@ public class HttpHandler extends Handle {
 		String url= ConstantUtil.Api_Url+method+param;
 		LogUtil.i("HttpAsyncTask","url: "+url);
 		new HttpAsyncTask(mContext, this, showDialog)
-				.execute(url, null, null, progressInfo, 1);
+				.execute(url, method, null, progressInfo, 1);
 	}
 }

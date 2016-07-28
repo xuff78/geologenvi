@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -79,6 +80,20 @@ public class ActUtil {
 //                    String value=String.valueOf(item) ;
 //                    json.put(columnName[i], value);
 //                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json.toString();
+    }
+
+    public static String addStringContent(ArrayList<String> columnName, ArrayList<Object> values){
+        JSONObject json= new JSONObject();
+        try {
+            for (int i=0;i<columnName.size();i++) {
+                Object item=values.get(i);
+                if(item!=null)
+                    json.put(columnName.get(i), item);
             }
         } catch (JSONException e) {
             e.printStackTrace();

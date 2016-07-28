@@ -15,6 +15,7 @@ import com.sichuan.geologenvi.MainActivity;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.SearchAct;
+import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.views.MarkerSupportView;
@@ -115,6 +116,19 @@ public class SelectorAct extends AppFrameAct {
                 yearLayout.setVisibility(View.VISIBLE);
             case 3:
                 break;
+
+            case 10:
+                findViewById(R.id.areaLayout).setVisibility(View.GONE);
+                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+                break;
+            case 11:
+                findViewById(R.id.areaLayout).setVisibility(View.GONE);
+                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+                break;
+            case 12:
+                findViewById(R.id.areaLayout).setVisibility(View.GONE);
+                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+                break;
         }
         equipmentLayout.setOnClickListener(listener);
         watchingAreaLayout.setOnClickListener(listener);
@@ -132,7 +146,11 @@ public class SelectorAct extends AppFrameAct {
                     String name=nameEdt.getText().toString();
                     String disasterName=disasterNameEdt.getText().toString();
                     Intent intent=getIntent();
-                    intent.setClass(SelectorAct.this, TitleResultListAct.class);
+                    if(type<10)
+                        intent.setClass(SelectorAct.this, TitleResultListAct.class); //查看线下数据库内容
+                    else
+                        intent.setClass(SelectorAct.this, ReportEditListAct.class); //编辑线上数据库内容
+
                     intent.putExtra("Name", name);
                     intent.putExtra("disasterName", disasterName);
                     intent.putExtra("disasterTypeCode", disasterTypeCode);

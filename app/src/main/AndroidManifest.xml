@@ -84,6 +84,9 @@
             android:name=".act.report.ReportCreateAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
+            android:name=".act.report.ReportEditListAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
             android:name=".act.report.SelectPicActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DialogStyleBottom" />
