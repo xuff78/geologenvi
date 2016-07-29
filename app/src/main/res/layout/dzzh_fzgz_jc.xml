@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_above="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="灾点名称"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/zdmc"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="诱发因素"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/yfys"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/lxjqgmLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="类型及其规模"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/lxjqgm"
+                    android:layout_toLeftOf="@+id/arrowRight"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/zdwzLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="灾点位置"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/zdwz"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toLeftOf="@+id/arrowRight2"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight2"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/wxdxLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="威胁对象"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/wxdx"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toLeftOf="@+id/arrowRight3"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight3"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/ljcdLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/hintArea"
+                    android:layout_centerVertical="true"
+                    android:text="受灾害威胁农户\n对灾害了解程度调查"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/ljcd"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toRightOf="@+id/hintArea"
+                    android:layout_toLeftOf="@+id/arrowRight4"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight4"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="监测负责人"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/jcfzr"
+                        android:maxLines="1"
+                        android:background="@null"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="联系电话"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/jcfzrlxdh"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="能否接通"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/jcfzrlxdhkt_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="是"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/jcfzrlxdhkt_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="否"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="监测的主要迹象"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/jczyjx"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="监测的主要手段和方法"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/jczysdff"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <View
+                android:background="@color/whitesmoke"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="预定避灾地点"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/ydpzdd_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/ydpzdd_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="预定疏散路线"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/ydsslx_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/ydsslx_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="否"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="预定报警信号"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/ydbjxh"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="疏散命令发布人"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/ssmlfbr"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="值班电话"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/ssmlfbrzbdh"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="抢、排险单位、负责人"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/qpxdwfzr_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/qpxdwfzr_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="值班电话"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/qpxdwfzrzbdh"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="治安保卫单位、负责人"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/zabwdwfzr_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/zabwdwfzr_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="值班电话"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/zabwddfzrzbdh"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="医疗救护单位、负责人"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/yljhdwfzr_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/yljhdwfzr_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="值班电话"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/yljhdwfzrzbdh"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="存在的问题"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/czzywt"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="整改建议"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/zgyj"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="备注"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/remark"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="8dp"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="巡查人员"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/xcry"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <RelativeLayout
+                android:id="@+id/yearLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="巡查日期"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/jcrq"
+                    android:layout_toLeftOf="@+id/arrowRight5"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight5"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_gray"
+        android:paddingLeft="1px"
+        android:paddingTop="1px"
+        android:paddingBottom="1px"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/updateDataBtn"
+            android:text="更新"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/delDataBtn"
+            android:text="删除"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

@@ -160,7 +160,11 @@ public class JsonUtil {
                     Iterator<String> keys=item.keys();
                     while (keys.hasNext()){
                         String key=keys.next();
-                        infomap.put(key, item.getString(key));
+                        String value=item.getString(key);
+                        if(!value.equals("null"))
+                            infomap.put(key, value);
+                        else
+                            infomap.put(key, "");
                     }
                     infos.add(infomap);
                 }

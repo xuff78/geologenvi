@@ -98,10 +98,13 @@ public class ReportEditListAct extends AppFrameAct {
             Map<String, String> map=datalist.get(tag);
             switch (getIntent().getIntExtra("Type", 0)) {
                 case 10:
-                    i.setClass(ReportEditListAct.this, ItemDetailAct.class);
+                    i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
                     break;
                 case 11:
-                    i.setClass(ReportEditListAct.this, ItemDetailAct.class);
+                    i.setClass(ReportEditListAct.this, CJ_GCZL_XCKP_edit.class);
+                    break;
+                case 12:
+                    i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
                     break;
             }
             MapBean mapBean=new MapBean();
