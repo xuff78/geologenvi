@@ -1,15 +1,19 @@
 package com.sichuan.geologenvi.act.report;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +21,7 @@ import java.util.Map;
  */
 public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
-    ArrayList<Map<String, String>> datalist=new ArrayList<>();
+    private Map<String, String> infoMap=new HashMap<>();
 
     private SqlHandler handler;
     private HttpHandler httpHandler;
@@ -34,18 +38,36 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         });
     }
 
+    private TextView  updateDataBtn, delDataBtn, addDataBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dzzh_fzgz_jc);
+        setContentView(R.layout.bxcs_xckp_jc);
+
 
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
+        if(getIntent().hasExtra("InfoMap")) {
+            infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
+            initData();
+            addDataBtn.setVisibility(View.GONE);
+        }else{
+            updateDataBtn.setVisibility(View.GONE);
+            delDataBtn.setVisibility(View.GONE);
+        }
         initHandler();
         handler=new SqlHandler(this);
     }
 
+    private void initData() {
+
+    }
+
     private void initView() {
 
+        updateDataBtn=(TextView) findViewById(R.id.updateDataBtn);
+        delDataBtn=(TextView) findViewById(R.id.delDataBtn);
+        addDataBtn=(TextView) findViewById(R.id.addDataBtn);
     }
 }

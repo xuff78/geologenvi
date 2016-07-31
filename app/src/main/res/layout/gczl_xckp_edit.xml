@@ -1,0 +1,1346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_above="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center"
+                android:background="@color/whitesmoke"
+                android:text="基本信息"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="项目名称"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="施工单位"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="监理单位"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="设计单位"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/districtLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/hintArea"
+                    android:layout_centerVertical="true"
+                    android:text="地理位置"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/districtTxt"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toRightOf="@+id/hintArea"
+                    android:layout_toLeftOf="@+id/arrowRight"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="海拔(m)"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:inputType="numberSigned"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="坐标X"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/jhazrs"
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="坐标Y"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/sjrnrs"
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="东经"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/dj1"
+                    android:inputType="numberSigned"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:text="°"
+                    android:layout_marginLeft="10dp"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/dj2"
+                    android:inputType="numberSigned"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="’"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/dj3"
+                    android:inputType="numberSigned"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="”"
+                    style="@style/txt_black_16" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="北纬"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/bw1"
+                    android:inputType="numberSigned"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:text="°"
+                    android:layout_marginLeft="10dp"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/bw2"
+                    android:inputType="numberSigned"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="’"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/bw3"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:inputType="numberSigned"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="”"
+                    style="@style/txt_black_16" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center"
+                android:background="@color/whitesmoke"
+                android:text="合同履行"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="是否存在违法分包、转包"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sfczwffbzb_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="是"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sfczwffbzb_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="否"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="单位资质 施工单位"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/dwzz_sgdw_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/dwzz_sgdw_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="单位资质 监理单位"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/dwzz_jldw_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/dwzz_jldw_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="项目经理是否\n有相应技术职称"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/xmjlsfyxyjszc_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/xmjlsfyxyjszc_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="监理人员资格证书"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/jlryzgzs_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/jlryzgzs_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/xgrydgcsxcdLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="相关人员对工程熟悉程度"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/xgrydgcsxcd"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toLeftOf="@+id/arrowRight3"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight3"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="特殊工作人员(安全员、\n质检员)上岗证（执业证）"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/tsgzry_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/tsgzry_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="是否设置“五牌一图”"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sfszwpyt_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sfszwpyt_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="质检员是否到位"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/zjysfdw_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/zjysfdw_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="是否有质量控制文件"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sfyzlkzwj_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sfyzlkzwj_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center"
+                android:background="@color/whitesmoke"
+                android:text="质量控制"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="钢筋"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="钢筋长度 是否与设计相符"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_cd_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_cd_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="钢筋直径 是否与设计相符"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_zj_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_zj_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="钢筋间距 是否与设计相符"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_jj_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_jj_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="钢筋出厂合格证"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_cchgz_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_cchgz_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="钢筋现场抽检"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_xccj_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gj_xccj_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/gj_bz"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:padding="8dp"
+                android:hint="备注"
+                android:background="@drawable/shape_nocorner_black"
+                style="@style/txt_black_12"
+                android:gravity="left|top"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="水泥"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="水泥长度 是否与设计相符"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sy_sfysjxfsnbh_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sy_sfysjxfsnbh_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="水泥 出厂合格证"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sy_cchgz_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sy_cchgz_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="水泥 现场抽检"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sy_xccj_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/sy_xccj_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/sn_bz"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:padding="8dp"
+                android:hint="备注"
+                android:background="@drawable/shape_nocorner_black"
+                style="@style/txt_black_12"
+                android:gravity="left|top"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="骨料"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="骨料 大小"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_dx_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="符合要求"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_dx_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="不符合要求"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="骨料 均匀度"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_jyd_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="符合要求"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_jyd_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="不符合要求"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="骨料 实验合格报告"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_syhgbg_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="有"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_syhgbg_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="无"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="骨料 含泥量"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_hnl_yes"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="符合要求"
+                    style="@style/txt_gray_12" />
+                <ImageView
+                    android:id="@+id/gl_hnl_no"
+                    android:src="@mipmap/app_login_remember_unsel"
+                    android:layout_marginLeft="20dp"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="不符合要求"
+                    style="@style/txt_gray_12" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/gl_bz"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:padding="8dp"
+                android:hint="备注"
+                android:background="@drawable/shape_nocorner_black"
+                style="@style/txt_black_12"
+                android:gravity="left|top"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <TextView
+                style="@style/txt_gray_12"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="砂浆(混泥土)配合比"
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_gray"
+        android:paddingLeft="1px"
+        android:paddingTop="1px"
+        android:paddingBottom="1px"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/addDataBtn"
+            android:text="添加"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/updateDataBtn"
+            android:text="更新"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@drawable/press_trans_to_gray"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/delDataBtn"
+            android:text="删除"
+            android:layout_marginRight="1px"
+            style="@style/txt_gray_14"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

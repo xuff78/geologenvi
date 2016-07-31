@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -14,9 +16,13 @@ import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.frg.BanqianbirangBase;
 import com.sichuan.geologenvi.frg.BanqianshenqingFrg;
 import com.sichuan.geologenvi.frg.BanqianyanshouFrg;
+import com.sichuan.geologenvi.frg.CJ_GCZL_XCKP1;
+import com.sichuan.geologenvi.frg.CJ_GCZL_XCKP2;
+import com.sichuan.geologenvi.frg.CJ_GCZL_XCKP3;
 import com.sichuan.geologenvi.frg.FormInfoFrg;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,6 +35,8 @@ public class BanqianbirangEditMain extends AppFrameAct {
     private TabAdapter mAdapter;
     private MapBean mapBean;
     private SqlHandler handler;
+    private TextView updateDataBtn, delDataBtn, addDataBtn;
+    private Map<String, String> infoMap=new HashMap<>();
 
 
     @Override
@@ -37,12 +45,24 @@ public class BanqianbirangEditMain extends AppFrameAct {
         setContentView(R.layout.info_muti_detal_main);
 
 
-        _setHeaderTitle("搬迁避让数据采集");
+        _setHeaderTitle(getIntent().getStringExtra("Title"));
+        initView();
+        if(getIntent().hasExtra("InfoMap")) {
+            infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
+            addDataBtn.setVisibility(View.GONE);
+        }else{
+            updateDataBtn.setVisibility(View.GONE);
+            delDataBtn.setVisibility(View.GONE);
+        }
+        _setHeaderTitle("成都市重大地质灾害防治工程项目现场检查记录表");
         handler=new SqlHandler(this);
         initView();
     }
 
     private void initView() {
+        updateDataBtn=(TextView) findViewById(R.id.updateDataBtn);
+        delDataBtn=(TextView) findViewById(R.id.delDataBtn);
+        addDataBtn=(TextView) findViewById(R.id.addDataBtn);
         mIndicator = (PagerTabStrip) findViewById(R.id.pagertab);
         mIndicator.setTabIndicatorColorResource(R.color.normal_gray);
         mIndicator.setBackgroundResource(R.color.whitesmoke);
@@ -56,7 +76,7 @@ public class BanqianbirangEditMain extends AppFrameAct {
     {
 
         Fragment curfragment;
-        public String[] TITLES = new String[] { "基本信息", "搬迁户申请表", "建房验收表" };
+        public String[] TITLES = new String[] { "基本信息", "质量控制", "安全措施" };
 
 
         public TabAdapter(FragmentManager fm)
@@ -72,13 +92,13 @@ public class BanqianbirangEditMain extends AppFrameAct {
             Bundle b=new Bundle();
             switch (arg0){
                 case 0:
-                    curfragment=new BanqianbirangBase();
+                    curfragment=new CJ_GCZL_XCKP1();
                     break;
                 case 1:
-                    curfragment=new BanqianshenqingFrg();
+                    curfragment=new CJ_GCZL_XCKP2();
                     break;
                 case 2:
-                    curfragment=new BanqianyanshouFrg();
+                    curfragment=new CJ_GCZL_XCKP3();
                     break;
             }
             curfragment.setArguments(b);

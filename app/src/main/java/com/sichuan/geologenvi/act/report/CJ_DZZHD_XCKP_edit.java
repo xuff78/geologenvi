@@ -3,6 +3,7 @@ package com.sichuan.geologenvi.act.report;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
     private SqlHandler handler;
     private HttpHandler httpHandler;
     private EditText zdmc, yfys, jcfzr, jcfzrlxdh, jczyjx, jczysdff, ydbjxh, ssmlfbr, ssmlfbrzbdh, qpxdwfzrzbdh, zabwddfzrzbdh, yljhdwfzrzbdh, czzywt, zgyj, remark, xcry;
-    private TextView updateDataBtn, delDataBtn, lxjqgm, zdwz, wxdx, ljcd, jcrq;
+    private TextView updateDataBtn, delDataBtn, addDataBtn, lxjqgm, zdwz, wxdx, ljcd, jcrq;
     private ImageView jcfzrlxdhkt_yes, jcfzrlxdhkt_no, ydpzdd_yes, ydpzdd_no, ydsslx_yes, ydsslx_no,qpxdwfzr_yes, qpxdwfzr_no,
             zabwdwfzr_yes, zabwdwfzr_no, yljhdwfzr_yes, yljhdwfzr_no;
 
@@ -52,11 +53,16 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dzzh_fzgz_jc);
 
-        infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
-        if(infoMap.size()>0)
+        if(getIntent().hasExtra("InfoMap")) {
+            infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
+            addDataBtn.setVisibility(View.GONE);
+        }else{
+            updateDataBtn.setVisibility(View.GONE);
+            delDataBtn.setVisibility(View.GONE);
+        }
         initHandler();
         handler=new SqlHandler(this);
     }
@@ -133,6 +139,10 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         wxdx= (TextView) findViewById(R.id.wxdx);
         ljcd= (TextView) findViewById(R.id.ljcd);
         jcrq= (TextView) findViewById(R.id.jcrq);
+
+        updateDataBtn=(TextView) findViewById(R.id.updateDataBtn);
+        delDataBtn=(TextView) findViewById(R.id.delDataBtn);
+        addDataBtn=(TextView) findViewById(R.id.addDataBtn);
 
         jcfzrlxdhkt_yes= (ImageView) findViewById(R.id.jcfzrlxdhkt_yes);
         jcfzrlxdhkt_no= (ImageView) findViewById(R.id.jcfzrlxdhkt_no);

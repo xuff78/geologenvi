@@ -48,8 +48,12 @@ public class ReportEditListAct extends AppFrameAct {
 
             @Override
             public void doSuccess(String method, String jsonData) {
+                datalist.addAll(JsonUtil.getDataMap(jsonData));
                 if(method.equals(ConstantUtil.Method.CJ_DZZHD_XCKP)){
-                    datalist.addAll(JsonUtil.getDataMap(jsonData));
+                    recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
+                }else if(method.equals(ConstantUtil.Method.CJ_GCZL_XCKP)){
+                    recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
+                }else if(method.equals(ConstantUtil.Method.CJ_BXCS_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
                 }
             }
@@ -67,6 +71,24 @@ public class ReportEditListAct extends AppFrameAct {
         initHandler();
         handler=new SqlHandler(this);
         requestInfo();
+        _setRightHomeText("添加", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=getIntent();
+                switch (type) {
+                    case 10:
+                        i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
+                        break;
+                    case 11:
+                        i.setClass(ReportEditListAct.this, BanqianbirangEditMain.class);
+                        break;
+                    case 12:
+                        i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
+                        break;
+                }
+                startActivity(i);
+            }
+        });
     }
 
     private void initView() {
@@ -83,8 +105,10 @@ public class ReportEditListAct extends AppFrameAct {
                 httpHandler.getCJ_DZZHD_XCKP(1, "");
                 break;
             case 11:
+                httpHandler.getCJ_GCZL_XCKP(1, "");
                 break;
             case 12:
+                httpHandler.getCJ_BXCS_XCKP(1, "");
                 break;
         }
     }
@@ -101,7 +125,7 @@ public class ReportEditListAct extends AppFrameAct {
                     i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
                     break;
                 case 11:
-                    i.setClass(ReportEditListAct.this, CJ_GCZL_XCKP_edit.class);
+                    i.setClass(ReportEditListAct.this, BanqianbirangEditMain.class);
                     break;
                 case 12:
                     i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);

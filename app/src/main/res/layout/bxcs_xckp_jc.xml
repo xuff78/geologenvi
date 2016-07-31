@@ -18,32 +18,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:text="灾点名称"
+                    android:text="避险场所名称"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/zdmc"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="诱发因素"
-                    style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/yfys"
+                    android:id="@+id/nameEdt"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -55,20 +33,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
             <RelativeLayout
-                android:id="@+id/lxjqgmLayout"
+                android:id="@+id/districtLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:id="@+id/hintArea"
                     android:layout_centerVertical="true"
-                    android:text="类型及其规模"
+                    android:text="行政区划"
                     style="@style/txt_gray_12" />
                 <TextView
-                    android:id="@+id/lxjqgm"
+                    android:id="@+id/districtTxt"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toRightOf="@+id/hintArea"
                     android:layout_toLeftOf="@+id/arrowRight"
                     android:layout_centerVertical="true"
                     android:text=""
+                    android:layout_marginLeft="8dp"
                     style="@style/txt_black_12" />
                 <View
                     android:id="@+id/arrowRight"
@@ -82,139 +64,6 @@
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
-            <RelativeLayout
-                android:id="@+id/zdwzLayout"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:text="灾点位置"
-                    style="@style/txt_gray_12" />
-                <TextView
-                    android:id="@+id/zdwz"
-                    android:lineSpacingExtra="3dp"
-                    android:layout_toLeftOf="@+id/arrowRight2"
-                    android:layout_centerVertical="true"
-                    android:text=""
-                    android:layout_marginLeft="8dp"
-                    style="@style/txt_black_12" />
-                <View
-                    android:id="@+id/arrowRight2"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/icon_arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-            </RelativeLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <RelativeLayout
-                android:id="@+id/wxdxLayout"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:text="威胁对象"
-                    style="@style/txt_gray_12" />
-                <TextView
-                    android:id="@+id/wxdx"
-                    android:lineSpacingExtra="3dp"
-                    android:layout_toLeftOf="@+id/arrowRight3"
-                    android:layout_centerVertical="true"
-                    android:text=""
-                    android:layout_marginLeft="8dp"
-                    style="@style/txt_black_12" />
-                <View
-                    android:id="@+id/arrowRight3"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/icon_arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-            </RelativeLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <RelativeLayout
-                android:id="@+id/ljcdLayout"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:id="@+id/hintArea"
-                    android:layout_centerVertical="true"
-                    android:text="受灾害威胁农户\n对灾害了解程度调查"
-                    style="@style/txt_gray_12" />
-                <TextView
-                    android:id="@+id/ljcd"
-                    android:lineSpacingExtra="3dp"
-                    android:layout_toLeftOf="@+id/arrowRight4"
-                    android:layout_centerVertical="true"
-                    android:text=""
-                    android:layout_marginLeft="8dp"
-                    style="@style/txt_black_12" />
-                <View
-                    android:id="@+id/arrowRight4"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/icon_arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-            </RelativeLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="180dp"
-                    android:layout_height="45dp">
-                    <TextView
-                        android:text="监测负责人"
-                        style="@style/txt_gray_12" />
-                    <EditText
-                        android:id="@+id/jcfzr"
-                        android:maxLines="1"
-                        android:background="@null"
-                        style="@style/txt_black_12"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp">
-                    <TextView
-                        android:text="联系电话"
-                        style="@style/txt_gray_12" />
-                    <EditText
-                        android:id="@+id/jcfzrlxdh"
-                        android:background="@null"
-                        android:inputType="numberSigned"
-                        style="@style/txt_black_12"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp" />
-                </LinearLayout>
-            </LinearLayout>
             <LinearLayout
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -223,57 +72,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:text="能否接通"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/jcfzrlxdhkt_yes"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="是"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/jcfzrlxdhkt_no"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:padding="10dp"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="否"
-                    style="@style/txt_gray_12" />
-            </LinearLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <LinearLayout
-
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="监测的主要迹象"
+                    android:text="东经"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/jczyjx"
-                    android:background="@null"
+                    android:id="@+id/dj1"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:text="°"
+                    android:layout_marginLeft="10dp"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/dj2"
+                    android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="’"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/dj3"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="”"
+                    style="@style/txt_black_16" />
             </LinearLayout>
-
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
@@ -286,15 +120,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:text="监测的主要手段和方法"
+                    android:text="北纬"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/jczysdff"
-                    android:background="@null"
+                    android:id="@+id/bw1"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:text="°"
+                    android:layout_marginLeft="10dp"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/bw2"
+                    android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="’"
+                    style="@style/txt_black_16" />
+                <EditText
+                    android:id="@+id/bw3"
+                    android:background="@drawable/shape_nocorner_black"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="”"
+                    style="@style/txt_black_16" />
             </LinearLayout>
             <View
                 android:background="@color/light_gray"
@@ -317,10 +177,339 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:text="预定避灾地点"
+                    android:text="安置人员所属隐患点名称"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/azryssyhdname"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="计划安置人数"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/jhazrs"
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="实际容纳人数"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/sjrnrs"
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="非常住人员安置措施"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/fczryazcs"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="适宜性评价"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/syxpj"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="地质灾害评估建议"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/dzzhpgjy"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="险场所负责人"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/fzr"
+                        android:maxLines="1"
+                        android:background="@null"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:text="联系电话"
+                        style="@style/txt_gray_12" />
+                    <EditText
+                        android:id="@+id/fzrphone"
+                        android:maxLength="3"
+                        android:background="@null"
+                        android:inputType="numberSigned"
+                        style="@style/txt_black_12"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" /><LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="180dp"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="避险场所现\n场管理人员"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/glry"
+                    android:maxLines="1"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="联系电话"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/glryphone"
+                    android:maxLength="3"
+                    android:background="@null"
+                    android:inputType="numberSigned"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+        </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="180dp"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="组织转移人"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/zzzyr"
+                    android:maxLines="1"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="联系电话"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/zzzyrphone"
+                    android:maxLength="3"
+                    android:background="@null"
+                    android:inputType="numberSigned"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="是否开展地质灾害提前避让转移、安置演练"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/sfkztqbr"
+                    android:background="@null"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="演练开展次数"
+                    style="@style/txt_gray_12" />
+                <EditText
+                    android:id="@+id/ylkzcs"
+                    android:maxLength="3"
+                    android:background="@null"
+                    android:inputType="numberSigned"
+                    style="@style/txt_black_12"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <LinearLayout
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+                <TextView
+                    android:text="信息公示牌"
                     style="@style/txt_gray_12" />
                 <ImageView
-                    android:id="@+id/ydpzdd_yes"
+                    android:id="@+id/xxgsp_yes"
                     android:src="@mipmap/app_login_remember_unsel"
                     android:layout_marginLeft="20dp"
                     android:layout_width="40dp"
@@ -332,7 +521,7 @@
                     android:text="有"
                     style="@style/txt_gray_12" />
                 <ImageView
-                    android:id="@+id/ydpzdd_no"
+                    android:id="@+id/xxgsp_no"
                     android:src="@mipmap/app_login_remember_unsel"
                     android:layout_marginLeft="20dp"
                     android:padding="10dp"
@@ -357,10 +546,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:text="预定疏散路线"
+                    android:text="线路指示牌"
                     style="@style/txt_gray_12" />
                 <ImageView
-                    android:id="@+id/ydsslx_yes"
+                    android:id="@+id/xlzsp_yes"
                     android:src="@mipmap/app_login_remember_unsel"
                     android:layout_marginLeft="20dp"
                     android:layout_width="40dp"
@@ -372,112 +561,7 @@
                     android:text="有"
                     style="@style/txt_gray_12" />
                 <ImageView
-                    android:id="@+id/ydsslx_no"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:padding="10dp"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="否"
-                    style="@style/txt_gray_12" />
-            </LinearLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="预定报警信号"
-                    style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/ydbjxh"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-            android:layout_height="1px" />
-
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="疏散命令发布人"
-                    style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/ssmlfbr"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="值班电话"
-                    style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/ssmlfbrzbdh"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-
-
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="抢、排险单位、负责人"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/qpxdwfzr_yes"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="有"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/qpxdwfzr_no"
+                    android:id="@+id/xlzsp_no"
                     android:src="@mipmap/app_login_remember_unsel"
                     android:layout_marginLeft="20dp"
                     android:padding="10dp"
@@ -489,144 +573,97 @@
                     android:text="无"
                     style="@style/txt_gray_12" />
             </LinearLayout>
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="值班电话"
-                    style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/qpxdwfzrzbdh"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-
-
-            <View
-                android:background="@color/light_gray"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="治安保卫单位、负责人"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/zabwdwfzr_yes"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="有"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/zabwdwfzr_no"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:padding="10dp"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="无"
-                    style="@style/txt_gray_12" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-                <TextView
-                    android:text="值班电话"
-                    style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/zabwddfzrzbdh"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/yjsbssLayout"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:paddingRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="45dp">
+                android:layout_height="50dp">
                 <TextView
-                    android:text="医疗救护单位、负责人"
+                    android:layout_centerVertical="true"
+                    android:text="应急设备、设施\n使用状况"
                     style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/yljhdwfzr_yes"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="match_parent" />
                 <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="有"
-                    style="@style/txt_gray_12" />
-                <ImageView
-                    android:id="@+id/yljhdwfzr_no"
-                    android:src="@mipmap/app_login_remember_unsel"
-                    android:layout_marginLeft="20dp"
-                    android:padding="10dp"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent"
-                    android:text="无"
-                    style="@style/txt_gray_12" />
-            </LinearLayout>
-            <LinearLayout
+                    android:id="@+id/yjsbss"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toLeftOf="@+id/arrowRight2"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight2"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/shwzcbLayout"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:paddingRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="45dp">
+                android:layout_height="50dp">
                 <TextView
-                    android:text="值班电话"
+                    android:layout_centerVertical="true"
+                    android:text="生活物资储备"
                     style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/yljhdwfzrzbdh"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-
-
+                <TextView
+                    android:id="@+id/shwzcb"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toLeftOf="@+id/arrowRight3"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight3"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+            <RelativeLayout
+                android:id="@+id/spcbLayout"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:text="食品储备"
+                    style="@style/txt_gray_12" />
+                <TextView
+                    android:id="@+id/spcb"
+                    android:lineSpacingExtra="3dp"
+                    android:layout_toLeftOf="@+id/arrowRight4"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_marginLeft="8dp"
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight4"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
@@ -642,7 +679,7 @@
                     android:text="存在的问题"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/czzywt"
+                    android:id="@+id/czwt"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
                     android:padding="8dp"
@@ -668,7 +705,7 @@
                     android:text="整改建议"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/zgyj"
+                    android:id="@+id/zgjy"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
                     android:padding="8dp"
@@ -694,7 +731,7 @@
                     android:text="备注"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/remark"
+                    android:id="@+id/bz"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
                     android:padding="8dp"
@@ -716,10 +753,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp">
                 <TextView
-                    android:text="巡查人员"
+                    android:text="检查人员"
                     style="@style/txt_gray_12" />
                 <EditText
-                    android:id="@+id/xcry"
+                    android:id="@+id/jcry"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -739,10 +776,10 @@
                 android:layout_height="50dp">
                 <TextView
                     android:layout_centerVertical="true"
-                    android:text="巡查日期"
+                    android:text="检查日期"
                     style="@style/txt_gray_12" />
                 <TextView
-                    android:id="@+id/jcrq"
+                    android:id="@+id/jcdate"
                     android:layout_toLeftOf="@+id/arrowRight5"
                     android:layout_centerVertical="true"
                     android:text=""
@@ -771,7 +808,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="45dp">
-
         <TextView
             android:background="@drawable/press_trans_to_gray"
             android:layout_weight="1"
