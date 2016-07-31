@@ -16,7 +16,9 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by 可爱的蘑菇 on 2016/3/13.
@@ -147,4 +149,14 @@ public class ActUtil {
         ResolveInfo info = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return !"android".equals(info.activityInfo.packageName);
     }
+
+    public static String getDate() {
+        Calendar mCalendar = Calendar.getInstance(Locale.CHINA);
+        long todayL=mCalendar.getTimeInMillis();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date curDate = new Date(todayL);//获取当
+        String dateTxt = formatter.format(curDate);
+        return dateTxt;
+    }
+
 }

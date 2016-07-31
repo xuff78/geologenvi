@@ -84,6 +84,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         remark.setText(infoMap.get("remark".toUpperCase()));
         zgyj.setText(infoMap.get("zgyj".toUpperCase()));
         xcry.setText(infoMap.get("xcry".toUpperCase()));
+
         lxjqgm.setText(infoMap.get("lxjqgm".toUpperCase()));
         zdwz.setText(infoMap.get("zdwz".toUpperCase()));
         wxdx.setText(infoMap.get("wxdx".toUpperCase()));

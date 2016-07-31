@@ -51,6 +51,8 @@ public class CJ_GCZL_XCKP3 extends BaseFragment{
         }
     };
 
+    private EditText jcrxm;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gczl_xckp3, container, false);

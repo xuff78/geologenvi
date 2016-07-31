@@ -78,6 +78,9 @@
                     android:id="@+id/dj1"
                     android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
+                    android:gravity="center"
+                    android:maxLength="3"
+                    android:inputType="numberSigned"
                     android:layout_marginLeft="20dp"
                     android:layout_width="50dp"
                     android:layout_height="35dp" />
@@ -89,6 +92,8 @@
                     android:id="@+id/dj2"
                     android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
+                    android:maxLength="3"
+                    android:inputType="numberSigned"
                     android:layout_marginLeft="10dp"
                     android:layout_width="50dp"
                     android:layout_height="35dp" />
@@ -100,6 +105,8 @@
                     android:id="@+id/dj3"
                     android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
+                    android:maxLength="3"
+                    android:inputType="numberSigned"
                     android:layout_marginLeft="10dp"
                     android:layout_width="50dp"
                     android:layout_height="35dp" />
@@ -124,6 +131,8 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/bw1"
+                    android:maxLength="3"
+                    android:inputType="numberSigned"
                     android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="20dp"
@@ -135,6 +144,8 @@
                     style="@style/txt_black_16" />
                 <EditText
                     android:id="@+id/bw2"
+                    android:maxLength="3"
+                    android:inputType="numberSigned"
                     android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -146,6 +157,8 @@
                     style="@style/txt_black_16" />
                 <EditText
                     android:id="@+id/bw3"
+                    android:maxLength="3"
+                    android:inputType="numberSigned"
                     android:background="@drawable/shape_nocorner_black"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -342,7 +355,7 @@
                         style="@style/txt_gray_12" />
                     <EditText
                         android:id="@+id/fzrphone"
-                        android:maxLength="3"
+                        android:maxLength="15"
                         android:background="@null"
                         android:inputType="numberSigned"
                         style="@style/txt_black_12"
@@ -388,7 +401,7 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/glryphone"
-                    android:maxLength="3"
+                    android:maxLength="15"
                     android:background="@null"
                     android:inputType="numberSigned"
                     style="@style/txt_black_12"
@@ -435,7 +448,7 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/zzzyrphone"
-                    android:maxLength="3"
+                    android:maxLength="15"
                     android:background="@null"
                     android:inputType="numberSigned"
                     style="@style/txt_black_12"
@@ -769,7 +782,7 @@
                 android:layout_height="1px" />
 
             <RelativeLayout
-                android:id="@+id/yearLayout"
+                android:id="@+id/jcdateLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"
