@@ -209,6 +209,7 @@
                 style="@style/txt_gray_12" />
             <EditText
                 android:id="@+id/dj1"
+                android:gravity="center"
                 android:inputType="numberSigned"
                 android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
@@ -220,6 +221,7 @@
                 android:layout_marginLeft="10dp"
                 style="@style/txt_black_16" />
             <EditText
+                android:gravity="center"
                 android:id="@+id/dj2"
                 android:inputType="numberSigned"
                 android:background="@drawable/shape_nocorner_black"
@@ -233,6 +235,7 @@
                 style="@style/txt_black_16" />
             <EditText
                 android:id="@+id/dj3"
+                android:gravity="center"
                 android:inputType="numberSigned"
                 android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
@@ -260,6 +263,7 @@
                 style="@style/txt_gray_12" />
             <EditText
                 android:id="@+id/bw1"
+                android:gravity="center"
                 android:inputType="numberSigned"
                 android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
@@ -272,6 +276,7 @@
                 style="@style/txt_black_16" />
             <EditText
                 android:id="@+id/bw2"
+                android:gravity="center"
                 android:inputType="numberSigned"
                 android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
@@ -284,6 +289,7 @@
                 style="@style/txt_black_16" />
             <EditText
                 android:id="@+id/bw3"
+                android:gravity="center"
                 android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
                 android:inputType="numberSigned"
