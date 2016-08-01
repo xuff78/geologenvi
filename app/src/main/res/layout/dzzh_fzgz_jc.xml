@@ -10,24 +10,30 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/zdmcLayout"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:paddingRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="45dp">
+                android:layout_height="50dp">
                 <TextView
+                    android:layout_centerVertical="true"
                     android:text="灾点名称"
                     style="@style/txt_gray_12" />
-                <EditText
+                <TextView
                     android:id="@+id/zdmc"
-                    android:background="@null"
-                    style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-            </LinearLayout>
+                    android:layout_toLeftOf="@+id/arrowRight6"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    style="@style/txt_black_12" />
+                <View
+                    android:id="@+id/arrowRight6"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </RelativeLayout>
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
@@ -732,7 +738,7 @@
                 android:layout_height="1px" />
 
             <RelativeLayout
-                android:id="@+id/yearLayout"
+                android:id="@+id/jcrqLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:layout_width="match_parent"

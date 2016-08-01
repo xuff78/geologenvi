@@ -191,7 +191,11 @@ public class TitleResultListAct  extends AppFrameAct {
             mapBean.setMap(map);
             i.putExtra("InfoMap",mapBean);
             i.putExtra("TableName", tableName);
-            startActivity(i);
+            if(getIntent().hasExtra("TakeDataBack")){  //给数据采集选择灾害点
+                setResult(0x21, i);
+                finish();
+            }else
+                startActivity(i);
         }
     };
 
