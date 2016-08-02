@@ -60,10 +60,11 @@
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/lxjqgmLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
@@ -71,27 +72,21 @@
                     android:text="类型及其规模"
                     style="@style/txt_gray_12" />
                 <TextView
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/lxjqgm"
-                    android:layout_toLeftOf="@+id/arrowRight"
                     android:layout_centerVertical="true"
                     android:text=""
                     style="@style/txt_black_12" />
-                <View
-                    android:id="@+id/arrowRight"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/icon_arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-            </RelativeLayout>
+            </LinearLayout>
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/zdwzLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
@@ -101,27 +96,20 @@
                 <TextView
                     android:id="@+id/zdwz"
                     android:lineSpacingExtra="3dp"
-                    android:layout_toLeftOf="@+id/arrowRight2"
                     android:layout_centerVertical="true"
                     android:text=""
                     android:layout_marginLeft="8dp"
                     style="@style/txt_black_12" />
-                <View
-                    android:id="@+id/arrowRight2"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/icon_arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-            </RelativeLayout>
+            </LinearLayout>
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/wxdxLayout"
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
@@ -131,19 +119,11 @@
                 <TextView
                     android:id="@+id/wxdx"
                     android:lineSpacingExtra="3dp"
-                    android:layout_toLeftOf="@+id/arrowRight3"
                     android:layout_centerVertical="true"
                     android:text=""
                     android:layout_marginLeft="8dp"
                     style="@style/txt_black_12" />
-                <View
-                    android:id="@+id/arrowRight3"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/icon_arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
-            </RelativeLayout>
+            </LinearLayout>
             <View
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"

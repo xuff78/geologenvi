@@ -65,6 +65,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         setContentView(R.layout.dzzh_fzgz_jc);
 
         _setHeaderTitle(getIntent().getStringExtra("Title"));
+        handler=new SqlHandler(this);
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
@@ -75,7 +76,6 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             delDataBtn.setVisibility(View.GONE);
         }
         initHandler();
-        handler=new SqlHandler(this);
     }
 
     private void initData() {
@@ -97,7 +97,10 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         xcry.setText(infoMap.get("xcry".toUpperCase()));
 
         lxjqgm.setText(infoMap.get("lxjqgm".toUpperCase()));
-        zdwz.setText(handler.getDistrictName(infoMap.get("zdwz".toUpperCase())));
+        String wzString=infoMap.get("zdwz".toUpperCase());
+        if(wzString!=null) {
+            zdwz.setText(handler.getDistrictName(wzString));
+        }
         wxdx.setText(infoMap.get("wxdx".toUpperCase()));
         ljcd.setText(infoMap.get("ljcd".toUpperCase()));
         jcrq.setText(infoMap.get("jcrq".toUpperCase()));
@@ -298,6 +301,9 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         }
     };
 
+    String[] disasterNames={"斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
+    String[] sizeName={"特大型", "大型", "中型", "小型"};
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -310,6 +316,25 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         }else if(resultCode==0x21) {
             MapBean mapBean= (MapBean) data.getSerializableExtra("InfoMap");
             zdmc.setText(mapBean.getMap().get("ZHAA01A020"));
+            yfys.setText(mapBean.getMap().get("ZHAA01A830"));
+            zdwz.setText(mapBean.getMap().get("ZHAA01A150"));
+            String type=mapBean.getMap().get("ZHAA01A210");
+            String size=mapBean.getMap().get("ZHAA01A890");
+            if(type!=null)
+                type=disasterNames[Integer.valueOf(type)];
+            if(size!=null) {
+                if(size.equals("A"))
+                    size="特大型";
+                else if(size.equals("B"))
+                    size="大型";
+                else if(size.equals("C"))
+                    size="中型";
+                else if(size.equals("D"))
+                    size="小型";
+
+            }
+            lxjqgm.setText(type+"  "+size);
+
         }else if(resultCode==0x22){
             AreaInfo area= (AreaInfo) data.getSerializableExtra("Area");
             zdwz.setText(area.getName());

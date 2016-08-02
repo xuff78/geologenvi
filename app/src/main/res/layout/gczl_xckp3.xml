@@ -548,7 +548,7 @@
                 android:text="是"
                 style="@style/txt_gray_12" />
             <ImageView
-                android:id="@+id/jljcsfjsl_no"
+                android:id="@+id/jljcsfjs_no"
                 android:src="@mipmap/app_login_remember_unsel"
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
