@@ -27,6 +27,9 @@ import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.ToastUtils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,10 +45,14 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
     private SqlHandler handler;
     private HttpHandler httpHandler;
     private DatePickerDialog datePickerDialog;
-    private EditText yfys, jcfzr, jcfzrlxdh, jczyjx, jczysdff, ydbjxh, ssmlfbr, ssmlfbrzbdh, qpxdwfzrzbdh, zabwddfzrzbdh, yljhdwfzrzbdh, czzywt, zgyj, remark, xcry;
-    private TextView updateDataBtn, delDataBtn, addDataBtn, lxjqgm, zdwz, wxdx, ljcd, jcrq, zdmc;
+    private EditText jcfzr, jcfzrlxdh, jczyjx, jczysdff, ydbjxh, ssmlfbr, ssmlfbrzbdh, qpxdwfzrzbdh, zabwddfzrzbdh, yljhdwfzrzbdh, czzywt, zgyj, remark, xcry;
+    private TextView yfys,updateDataBtn, delDataBtn, addDataBtn, lxjqgm, zdwz, wxdx, ljcd, jcrq, zdmc;
     private ImageView jcfzrlxdhkt_yes, jcfzrlxdhkt_no, ydpzdd_yes, ydpzdd_no, ydsslx_yes, ydsslx_no,qpxdwfzr_yes, qpxdwfzr_no,
             zabwdwfzr_yes, zabwdwfzr_no, yljhdwfzr_yes, yljhdwfzr_no;
+    private String zdid="";
+    private String jcfzrlxdhkt="", ydpzdd="", ydsslx="", qpxdwfzr="", zabwdwfzr="", yljhdwfzr="";
+    private String requesType="";
+    private String Update="update", Delete="delete", Add="add";
 
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(CJ_DZZHD_XCKP_edit.this){
@@ -53,7 +60,12 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             @Override
             public void doSuccess(String method, String jsonData) {
                 if(method.equals(ConstantUtil.Method.CJ_DZZHD_XCKP)){
+                    if(requesType.equals(Add)){
 
+                    }
+                    ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "记录已添加");
+                    setResult(0x99);
+                    finish();
                 }
             }
         });
@@ -64,14 +76,17 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dzzh_fzgz_jc);
 
-        _setHeaderTitle(getIntent().getStringExtra("Title"));
+        _setHeaderTitle("添加记录");
         handler=new SqlHandler(this);
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
             addDataBtn.setVisibility(View.GONE);
+            updateDataBtn.setVisibility(View.GONE);
+            findViewById(R.id.arrowRight6).setVisibility(View.INVISIBLE);
         }else{
+            findViewById(R.id.zdmcLayout).setOnClickListener(listener);
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
         }
@@ -99,41 +114,53 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         lxjqgm.setText(infoMap.get("lxjqgm".toUpperCase()));
         String wzString=infoMap.get("zdwz".toUpperCase());
         if(wzString!=null) {
-            zdwz.setText(handler.getDistrictName(wzString));
+//            zdwz.setText(handler.getDistrictName(wzString));
+            zdwz.setText(wzString);
         }
         wxdx.setText(infoMap.get("wxdx".toUpperCase()));
         ljcd.setText(infoMap.get("ljcd".toUpperCase()));
         jcrq.setText(infoMap.get("jcrq".toUpperCase()));
 
-        if(infoMap.get("jcfzrlxdhkt".toUpperCase()).equals("是"))
+        jcfzrlxdhkt=infoMap.get("jcfzrlxdhkt".toUpperCase());
+        if(jcfzrlxdhkt.equals("是")) {
             jcfzrlxdhkt_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else
+        }else if(jcfzrlxdhkt.equals("否")) {
             jcfzrlxdhkt_no.setImageResource(R.mipmap.app_login_remember_sel);
-        if(infoMap.get("ydpzdd".toUpperCase()).equals("有"))
+        }
+        ydpzdd=infoMap.get("ydpzdd".toUpperCase());
+        if(ydpzdd.equals("有"))
             ydpzdd_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else
+        else  if(ydpzdd.equals("无"))
             ydpzdd_no.setImageResource(R.mipmap.app_login_remember_sel);
-        if(infoMap.get("ydsslx".toUpperCase()).equals("有"))
+
+        ydsslx=infoMap.get("ydsslx".toUpperCase());
+        if(ydsslx.equals("有"))
             ydsslx_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else
+        else  if(ydsslx.equals("无"))
             ydsslx_no.setImageResource(R.mipmap.app_login_remember_sel);
-        if(infoMap.get("qpxdwfzr".toUpperCase()).equals("有"))
+
+        qpxdwfzr=infoMap.get("qpxdwfzr".toUpperCase());
+        if(qpxdwfzr.equals("有"))
             qpxdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else
+        else if(qpxdwfzr.equals("无"))
             qpxdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
-        if(infoMap.get("zabwdwfzr".toUpperCase()).equals("有"))
+
+        zabwdwfzr=infoMap.get("zabwdwfzr".toUpperCase());
+        if(zabwdwfzr.equals("有"))
             zabwdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else
+        else if(zabwdwfzr.equals("无"))
             zabwdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
-        if(infoMap.get("yljhdwfzr".toUpperCase()).equals("有"))
+
+        yljhdwfzr=infoMap.get("yljhdwfzr".toUpperCase());
+        if(yljhdwfzr.equals("有"))
             yljhdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else
+        else if(yljhdwfzr.equals("无"))
             yljhdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
     }
 
     private void initView() {
         zdmc= (TextView) findViewById(R.id.zdmc);
-        yfys= (EditText) findViewById(R.id.yfys);
+        yfys= (TextView) findViewById(R.id.yfys);
         jcfzr= (EditText) findViewById(R.id.jcfzr);
         jcfzrlxdh= (EditText) findViewById(R.id.jcfzrlxdh);
         jczyjx= (EditText) findViewById(R.id.jczyjx);
@@ -189,11 +216,9 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         yljhdwfzr_no.setOnClickListener(listener);
 
         findViewById(R.id.lxjqgmLayout).setOnClickListener(listener);
-        findViewById(R.id.zdwzLayout).setOnClickListener(listener);
         findViewById(R.id.wxdxLayout).setOnClickListener(listener);
         findViewById(R.id.ljcdLayout).setOnClickListener(listener);
         findViewById(R.id.jcrqLayout).setOnClickListener(listener);
-        findViewById(R.id.zdmcLayout).setOnClickListener(listener);
 
     }
 
@@ -209,62 +234,120 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                     datePickerDialog.show();
                     break;
                 case R.id.addDataBtn:
+                    if(zdid==null||zdid.length()==0){
+                        ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请选择一个灾点");
+                    }else if(xcry.getText().toString().length()==0){
+                        ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请输入检查人员姓名");
+                    }else if(jcrq.getText().toString().length()==0) {
+                        ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请输入检查日期");
+                    }else{
+                        JSONObject jsonObj=new JSONObject();
+                        JsonUtil.addJsonData(jsonObj, "zdid", zdid);
+                        JsonUtil.addJsonData(jsonObj, "zdmc", zdmc.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "yfys", yfys.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "lxjqgm", lxjqgm.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zdwz", zdwz.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "wxdx", wxdx.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ljcd", ljcd.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcfzr", jcfzr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcfzrlxdh", jcfzrlxdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jczyjx", jczyjx.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jczysdff", jczysdff.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcfzrlxdhkt", jcfzrlxdhkt);  //
+                        JsonUtil.addJsonData(jsonObj, "ydpzdd", ydpzdd);  //
+                        JsonUtil.addJsonData(jsonObj, "ydsslx", ydsslx);  //
+                        JsonUtil.addJsonData(jsonObj, "qpxdwfzr", qpxdwfzr);  //
+                        JsonUtil.addJsonData(jsonObj, "zabwdwfzr", zabwdwfzr);  //
+                        JsonUtil.addJsonData(jsonObj, "yljhdwfzr", yljhdwfzr);  //
+                        JsonUtil.addJsonData(jsonObj, "ydbjxh", ydbjxh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ssmlfbr", ssmlfbr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ssmlfbrzbdh", ssmlfbrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "qpxdwfzrzbdh", qpxdwfzrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zabwddfzrzbdh", zabwddfzrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "yljhdwfzrzbdh", yljhdwfzrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "czzywt", czzywt.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zgyj", zgyj.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "remark", remark.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "xcry", xcry.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcrq", jcrq.getText().toString());
+                        requesType=Add;
+                        httpHandler.addCJ_DZZHD_XCKP(jsonObj.toString());
+                    }
 //                    String jsonContent=getInfoString();
 //                    handler.addBangqianBaseInfo(jsonContent);
                     break;
                 case R.id.updateDataBtn:
                     break;
                 case R.id.delDataBtn:
+                    DialogUtil.showActionDialog(CJ_DZZHD_XCKP_edit.this, "提示", "确认要删除", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            requesType=Delete;
+                            httpHandler.delCJ_DZZHD_XCKP(infoMap.get("ID"));
+                        }
+                    });
                     break;
                 case R.id.districtLayout:
                     Intent selectIntent=new Intent(CJ_DZZHD_XCKP_edit.this, AreaInputAct.class);
                     startActivityForResult(selectIntent, 0x11);
                     break;
                 case R.id.jcfzrlxdhkt_yes:
+                    jcfzrlxdhkt="是";
                     jcfzrlxdhkt_yes.setImageResource(R.mipmap.app_login_remember_sel);
                     jcfzrlxdhkt_no.setImageResource(R.mipmap.app_login_remember_unsel);
                     break;
                 case R.id.jcfzrlxdhkt_no:
+                    jcfzrlxdhkt="否";
                     jcfzrlxdhkt_yes.setImageResource(R.mipmap.app_login_remember_unsel);
                     jcfzrlxdhkt_no.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
                 case R.id.ydpzdd_yes:
+                    ydpzdd="有";
                     ydpzdd_yes.setImageResource(R.mipmap.app_login_remember_sel);
                     ydpzdd_no.setImageResource(R.mipmap.app_login_remember_unsel);
                     break;
                 case R.id.ydpzdd_no:
+                    ydpzdd="无";
                     ydpzdd_yes.setImageResource(R.mipmap.app_login_remember_unsel);
                     ydpzdd_no.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
                 case R.id.ydsslx_yes:
+                    ydsslx="有";
                     ydsslx_yes.setImageResource(R.mipmap.app_login_remember_sel);
                     ydsslx_no.setImageResource(R.mipmap.app_login_remember_unsel);
                     break;
                 case R.id.ydsslx_no:
+                    ydsslx="无";
                     ydsslx_yes.setImageResource(R.mipmap.app_login_remember_unsel);
                     ydsslx_no.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
                 case R.id.zabwdwfzr_yes:
+                    zabwdwfzr="有";
                     zabwdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
                     zabwdwfzr_no.setImageResource(R.mipmap.app_login_remember_unsel);
                     break;
                 case R.id.zabwdwfzr_no:
+                    zabwdwfzr="无";
                     zabwdwfzr_yes.setImageResource(R.mipmap.app_login_remember_unsel);
                     zabwdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
                 case R.id.qpxdwfzr_yes:
+                    qpxdwfzr="有";
                     qpxdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
                     qpxdwfzr_no.setImageResource(R.mipmap.app_login_remember_unsel);
                     break;
                 case R.id.qpxdwfzr_no:
+                    qpxdwfzr="无";
                     qpxdwfzr_yes.setImageResource(R.mipmap.app_login_remember_unsel);
                     qpxdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
                 case R.id.yljhdwfzr_yes:
+                    yljhdwfzr="有";
                     yljhdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
                     yljhdwfzr_no.setImageResource(R.mipmap.app_login_remember_unsel);
                     break;
                 case R.id.yljhdwfzr_no:
+                    yljhdwfzr="无";
                     yljhdwfzr_yes.setImageResource(R.mipmap.app_login_remember_unsel);
                     yljhdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
                     break;
@@ -334,6 +417,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 
             }
             lxjqgm.setText(type+"  "+size);
+            zdid=mapBean.getMap().get("ZHAA01A010");
 
         }else if(resultCode==0x22){
             AreaInfo area= (AreaInfo) data.getSerializableExtra("Area");

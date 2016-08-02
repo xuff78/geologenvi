@@ -101,8 +101,7 @@ public class HttpHandler extends Handle {
 
 
 
-	public void addCJ_DZZHD_XCKP(ArrayList<String> columnName, ArrayList<Object> values) {
-		String jsonContent=ActUtil.addStringContent(columnName, values);
+	public void addCJ_DZZHD_XCKP(String jsonContent) {
 		requestPost(ConstantUtil.Method.CJ_DZZHD_XCKP, jsonContent, true);
 	}
 

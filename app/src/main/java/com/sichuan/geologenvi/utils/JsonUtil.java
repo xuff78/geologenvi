@@ -59,6 +59,17 @@ public class JsonUtil {
         }
         return data;
     }
+    public static void addJsonData(JSONObject jsonStr, String key, Object value) {
+
+        try {
+            if (key != null && value != null) {
+                jsonStr.put(key.toUpperCase(), value).toString();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static int getJsonInt(String jsonStr, String key) {
         int data=0;

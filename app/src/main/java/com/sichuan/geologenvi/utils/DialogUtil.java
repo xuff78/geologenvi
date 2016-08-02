@@ -36,4 +36,19 @@ public class DialogUtil {
         builder4.setItems(item, listener);
         builder4.create().show();
     }
+
+    public static void showActionDialog(Context con, String title, String content, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder4=new AlertDialog.Builder(con);  //先得到构造器
+        builder4.setTitle(title); //设置标题
+        builder4.setMessage(content);
+        builder4.setPositiveButton("确定", listener);
+        builder4.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder4.create().show();
+    }
 }

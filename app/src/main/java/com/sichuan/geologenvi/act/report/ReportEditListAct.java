@@ -74,7 +74,7 @@ public class ReportEditListAct extends AppFrameAct {
         _setRightHomeText("添加", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=getIntent();
+                Intent i=new Intent();
                 switch (type) {
                     case 10:
                         i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
@@ -86,7 +86,7 @@ public class ReportEditListAct extends AppFrameAct {
                         i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
                         break;
                 }
-                startActivity(i);
+                startActivityForResult(i, 0x82);
             }
         });
     }
@@ -135,7 +135,16 @@ public class ReportEditListAct extends AppFrameAct {
             mapBean.setMap(map);
             i.putExtra("InfoMap",mapBean);
             i.putExtra("TableName", tableName);
-            startActivity(i);
+            startActivityForResult(i, 0x81);
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==0x99) {
+            datalist.clear();
+            requestInfo();
+        }
+    }
 }

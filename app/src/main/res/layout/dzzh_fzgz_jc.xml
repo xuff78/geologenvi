@@ -48,13 +48,13 @@
                 <TextView
                     android:text="诱发因素"
                     style="@style/txt_gray_12" />
-                <EditText
+                <TextView
                     android:id="@+id/yfys"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
             <View
                 android:background="@color/light_gray"
@@ -193,6 +193,7 @@
                         style="@style/txt_gray_12" />
                     <EditText
                         android:id="@+id/jcfzrlxdh"
+                        android:singleLine="true"
                         android:background="@null"
                         android:inputType="numberSigned"
                         style="@style/txt_black_12"
@@ -367,7 +368,7 @@
                 <TextView
                     android:gravity="center_vertical"
                     android:layout_height="match_parent"
-                    android:text="否"
+                    android:text="无"
                     style="@style/txt_gray_12" />
             </LinearLayout>
             <View
@@ -428,6 +429,7 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/ssmlfbrzbdh"
+                    android:inputType="numberSigned"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -487,6 +489,7 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/qpxdwfzrzbdh"
+                    android:inputType="numberSigned"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -546,6 +549,7 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/zabwddfzrzbdh"
+                    android:inputType="numberSigned"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"
@@ -605,6 +609,7 @@
                     style="@style/txt_gray_12" />
                 <EditText
                     android:id="@+id/yljhdwfzrzbdh"
+                    android:inputType="numberSigned"
                     android:background="@null"
                     style="@style/txt_black_12"
                     android:layout_marginLeft="10dp"

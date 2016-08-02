@@ -373,6 +373,6 @@ public class SqlHandler {
                 }
             }
         }
-        return "";
+        return code;
     }
 }
