@@ -159,4 +159,25 @@ public class ActUtil {
         return dateTxt;
     }
 
+    private String getDisasterType(String typeStr){
+        if(typeStr.equals("00"))
+            return "斜坡";
+        else if(typeStr.equals("01"))
+            return "滑坡";
+        else if(typeStr.equals("02"))
+            return "崩塌";
+        else if(typeStr.equals("03"))
+            return "泥石流";
+        else if(typeStr.equals("04"))
+            return "地面塌陷";
+        else if(typeStr.equals("05"))
+            return "地裂缝";
+        else if(typeStr.equals("06"))
+            return "地面沉降";
+        else if(typeStr.equals("07"))
+            return "其它";
+        else
+            return "未知";
+    }
+
 }

@@ -63,7 +63,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                     if(requesType.equals(Add)){
 
                     }
-                    ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "记录已添加");
+                    ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "操作成功");
                     setResult(0x99);
                     finish();
                 }

@@ -111,7 +111,7 @@ public class TitleResultListAct  extends AppFrameAct {
                     break;
                 case 4:
                 case 5:
-                    list.add(info.get("ZHDD02A020"));
+                    list.add(info.get("ZHDD02A020")+"\n"+info.get("ZHDD02A310"));
                     break;
                 case 6:
                     list.add(info.get("ZHDD04B020"));

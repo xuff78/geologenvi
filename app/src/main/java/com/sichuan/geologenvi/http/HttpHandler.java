@@ -132,8 +132,7 @@ public class HttpHandler extends Handle {
 		requestDelete(ConstantUtil.Method.CJ_GCZL_XCKP, "/"+id, true);
 	}
 
-	public void addCJ_BXCS_XCKP(ArrayList<String> columnName, ArrayList<Object> values) {
-		String jsonContent=ActUtil.addStringContent(columnName, values);
+	public void addCJ_BXCS_XCKP(String jsonContent) {
 		requestPost(ConstantUtil.Method.CJ_BXCS_XCKP, jsonContent, true);
 	}
 
