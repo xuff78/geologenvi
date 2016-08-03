@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -157,6 +158,23 @@ public class ActUtil {
         Date curDate = new Date(todayL);//获取当
         String dateTxt = formatter.format(curDate);
         return dateTxt;
+    }
+
+    public static String getFormatDate(String dateStr) {
+        if(dateStr!=null&&dateStr.length()>0) {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+            String dateStr2 = "";
+            if (dateStr.contains("T"))
+                dateStr2 = dateStr.replace("T", " ");
+            try {
+                Date date = formatter.parse(dateStr2);
+                return formatter2.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 
     private String getDisasterType(String typeStr){

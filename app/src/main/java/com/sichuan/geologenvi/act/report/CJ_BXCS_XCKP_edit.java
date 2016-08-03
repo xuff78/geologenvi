@@ -74,6 +74,7 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
             addDataBtn.setVisibility(View.GONE);
+            updateDataBtn.setVisibility(View.GONE);
             arrowRight9.setVisibility(View.GONE);
         }else{
             updateDataBtn.setVisibility(View.GONE);
@@ -84,6 +85,12 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
     }
 
     private void initData() {
+        bxcs_name.setText(infoMap.get("bxcs_name".toUpperCase()));
+        bxcs_xzqh.setText(infoMap.get("bxcs_xzqh".toUpperCase()));
+        lat=infoMap.get("lat".toUpperCase());
+        lon=infoMap.get("lon".toUpperCase());
+        setLoaction(lon, lat);
+
         azryssyhdname.setText(infoMap.get("azryssyhdname".toUpperCase()));
         jhazrs.setText(infoMap.get("jhazrs".toUpperCase()));
         sjrnrs.setText(infoMap.get("sjrnrs".toUpperCase()));
@@ -106,7 +113,8 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         yjsbss.setText(infoMap.get("yjsbss".toUpperCase()));
         shwzcb.setText(infoMap.get("shwzcb".toUpperCase()));
         spcb.setText(infoMap.get("spcb".toUpperCase()));
-        jcdate.setText(infoMap.get("jcdate".toUpperCase()));
+        String dataStr=infoMap.get("jcdate".toUpperCase());
+        jcdate.setText(ActUtil.getFormatDate(dataStr));
 
         xxgsp=infoMap.get("xxgsp".toUpperCase());
         if(xxgsp.equals("有")) {
@@ -144,6 +152,7 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
                         ToastUtils.displayTextShort(CJ_BXCS_XCKP_edit.this, "请输入检查日期");
                     }else{
                         JSONObject jsonObj=new JSONObject();
+                        JsonUtil.addJsonData(jsonObj, "bxcs_guid", bxcs_guid);
                         JsonUtil.addJsonData(jsonObj, "bxcs_name", bxcs_name.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "bxcs_xzqh", bxcs_xzqh.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "lon", lon);
@@ -337,40 +346,10 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
             bxcs_xzqh.setText(mapBean.getMap().get("ZHDD02A080"));
             String lon=mapBean.getMap().get("ZHDD02A120");
             this.lon=lon;
-            if(lon!=null&&lon.contains(".")) {
-                String[] lons=lon.split("\\.");
-                lon1.setText(lons[0]);
-                if(lons[1]!=null){
-                    if(lons[1].length()>2){
-                        lon2.setText(lons[1].substring(0,2));
-                        lon3.setText(lons[1].substring(2,lons[1].length()));
-                    }else{
-                        lon2.setText(lons[1]);
-                        lon3.setText("00");
-                    }
-                }else{
-                    lon2.setText("00");
-                    lon3.setText("00");
-                }
-            }
             String lat=mapBean.getMap().get("ZHDD02A130");
             this.lat=lat;
-            if(lat!=null&&lat.contains(".")) {
-                String[] lats=lat.split("\\.");
-                lat1.setText(lats[0]);
-                if(lats[1]!=null){
-                    if(lats[1].length()>2){
-                        lat2.setText(lats[1].substring(0,2));
-                        lat3.setText(lats[1].substring(2,lats[1].length()));
-                    }else{
-                        lat2.setText(lats[1]);
-                        lat3.setText("00");
-                    }
-                }else{
-                    lat2.setText("00");
-                    lat3.setText("00");
-                }
-            }
+            setLoaction(lon, lat);
+
 //            String size = mapBean.getMap().get("ZHAA01A890");
 //            if (type != null)
 //                type = disasterNames[Integer.valueOf(type)];
@@ -390,4 +369,40 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
         }
     }
+
+    private void setLoaction(String lon, String lat){
+        if(lon!=null&&lon.contains(".")) {
+            String[] lons=lon.split("\\.");
+            lon1.setText(lons[0]);
+            if(lons[1]!=null){
+                if(lons[1].length()>2){
+                    lon2.setText(lons[1].substring(0,2));
+                    lon3.setText(lons[1].substring(2,lons[1].length()));
+                }else{
+                    lon2.setText(lons[1]);
+                    lon3.setText("00");
+                }
+            }else{
+                lon2.setText("00");
+                lon3.setText("00");
+            }
+        }
+        if(lat!=null&&lat.contains(".")) {
+            String[] lats=lat.split("\\.");
+            lat1.setText(lats[0]);
+            if(lats[1]!=null){
+                if(lats[1].length()>2){
+                    lat2.setText(lats[1].substring(0,2));
+                    lat3.setText(lats[1].substring(2,lats[1].length()));
+                }else{
+                    lat2.setText(lats[1]);
+                    lat3.setText("00");
+                }
+            }else{
+                lat2.setText("00");
+                lat3.setText("00");
+            }
+        }
+    }
+
 }

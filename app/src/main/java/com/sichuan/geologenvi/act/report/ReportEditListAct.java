@@ -54,7 +54,7 @@ public class ReportEditListAct extends AppFrameAct {
                 }else if(method.equals(ConstantUtil.Method.CJ_GCZL_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
                 }else if(method.equals(ConstantUtil.Method.CJ_BXCS_XCKP)){
-                    recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
+                    recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "BXCS_NAME", listener));
                 }
             }
         });

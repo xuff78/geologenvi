@@ -45,11 +45,12 @@ public class BanqianbirangEditMain extends AppFrameAct {
         setContentView(R.layout.info_muti_detal_main);
 
 
-        _setHeaderTitle(getIntent().getStringExtra("Title"));
+        _setHeaderTitle("添加记录");
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             addDataBtn.setVisibility(View.GONE);
+            updateDataBtn.setVisibility(View.GONE);
         }else{
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);

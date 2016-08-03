@@ -11,92 +11,8 @@
             android:background="@color/light_gray"
             android:layout_width="match_parent"
             android:layout_height="1px" />
-        <LinearLayout
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="项目名称"
-                style="@style/txt_gray_12" />
-            <EditText
-                android:background="@null"
-                style="@style/txt_black_12"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-        </LinearLayout>
-        <View
-            android:background="@color/light_gray"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-        <LinearLayout
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="施工单位"
-                style="@style/txt_gray_12" />
-            <EditText
-                android:background="@null"
-                style="@style/txt_black_12"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-        </LinearLayout>
-        <View
-            android:background="@color/light_gray"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-        <LinearLayout
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="监理单位"
-                style="@style/txt_gray_12" />
-            <EditText
-                android:background="@null"
-                style="@style/txt_black_12"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-        </LinearLayout>
-        <View
-            android:background="@color/light_gray"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
-        <LinearLayout
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <TextView
-                android:text="设计单位"
-                style="@style/txt_gray_12" />
-            <EditText
-                android:background="@null"
-                style="@style/txt_black_12"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-        </LinearLayout>
-        <View
-            android:background="@color/light_gray"
-            android:layout_width="match_parent"
-            android:layout_height="1px" />
         <RelativeLayout
-            android:id="@+id/districtLayout"
+            android:id="@+id/projectNameLayout"
             android:paddingLeft="20dp"
             android:paddingRight="10dp"
             android:layout_width="match_parent"
@@ -104,10 +20,10 @@
             <TextView
                 android:id="@+id/hintArea"
                 android:layout_centerVertical="true"
-                android:text="地理位置"
+                android:text="项目名称"
                 style="@style/txt_gray_12" />
             <TextView
-                android:id="@+id/districtTxt"
+                android:id="@+id/projectName"
                 android:lineSpacingExtra="3dp"
                 android:layout_toRightOf="@+id/hintArea"
                 android:layout_toLeftOf="@+id/arrowRight"
@@ -135,10 +51,111 @@
             android:layout_width="match_parent"
             android:layout_height="45dp">
             <TextView
+                android:text="施工单位"
+                style="@style/txt_gray_12" />
+            <TextView
+                android:id="@+id/sgdw"
+                android:gravity="center_vertical"
+                android:background="@null"
+                style="@style/txt_black_12"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:text="监理单位"
+                style="@style/txt_gray_12" />
+            <TextView
+                android:id="@+id/jldw"
+                android:gravity="center_vertical"
+                style="@style/txt_black_12"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:text="设计单位"
+                style="@style/txt_gray_12" />
+            <TextView
+                android:id="@+id/sjdw"
+                android:gravity="center_vertical"
+                style="@style/txt_black_12"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+        <RelativeLayout
+            android:id="@+id/districtLayout"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/hintArea11"
+                android:layout_centerVertical="true"
+                android:text="地理位置"
+                style="@style/txt_gray_12" />
+            <TextView
+                android:id="@+id/dlwz"
+                android:lineSpacingExtra="3dp"
+                android:layout_toRightOf="@+id/hintArea11"
+                android:layout_toLeftOf="@+id/arrowRight11"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:layout_marginLeft="8dp"
+                style="@style/txt_black_12" />
+            <View
+                android:visibility="invisible"
+                android:id="@+id/arrowRight11"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/icon_arrow_right"
+                android:layout_alignParentRight="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        </RelativeLayout>
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+        <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+            <TextView
                 android:text="海拔(m)"
                 style="@style/txt_gray_12" />
-            <EditText
-                android:inputType="numberSigned"
+            <TextView
+                android:id="@+id/hb"
+                android:gravity="center_vertical"
                 android:background="@null"
                 style="@style/txt_black_12"
                 android:layout_marginLeft="10dp"
@@ -163,8 +180,8 @@
                 <TextView
                     android:text="坐标X"
                     style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/jhazrs"
+                <TextView
+                    android:gravity="center_vertical"
                     android:maxLength="3"
                     android:background="@null"
                     android:inputType="numberSigned"
@@ -182,8 +199,8 @@
                 <TextView
                     android:text="坐标Y"
                     style="@style/txt_gray_12" />
-                <EditText
-                    android:id="@+id/sjrnrs"
+                <TextView
+                    android:gravity="center_vertical"
                     android:maxLength="3"
                     android:background="@null"
                     android:inputType="numberSigned"
@@ -207,12 +224,10 @@
             <TextView
                 android:text="东经"
                 style="@style/txt_gray_12" />
-            <EditText
-                android:id="@+id/dj1"
-                android:gravity="center"
-                android:inputType="numberSigned"
-                android:background="@drawable/shape_nocorner_black"
+            <TextView
+                android:id="@+id/lon1"
                 style="@style/txt_black_12"
+                android:gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_width="50dp"
                 android:layout_height="35dp" />
@@ -220,11 +235,9 @@
                 android:text="°"
                 android:layout_marginLeft="10dp"
                 style="@style/txt_black_16" />
-            <EditText
+            <TextView
+                android:id="@+id/lon2"
                 android:gravity="center"
-                android:id="@+id/dj2"
-                android:inputType="numberSigned"
-                android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
                 android:layout_marginLeft="10dp"
                 android:layout_width="50dp"
@@ -233,11 +246,9 @@
                 android:layout_marginLeft="10dp"
                 android:text="’"
                 style="@style/txt_black_16" />
-            <EditText
-                android:id="@+id/dj3"
+            <TextView
+                android:id="@+id/lon3"
                 android:gravity="center"
-                android:inputType="numberSigned"
-                android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
                 android:layout_marginLeft="10dp"
                 android:layout_width="50dp"
@@ -261,11 +272,9 @@
             <TextView
                 android:text="北纬"
                 style="@style/txt_gray_12" />
-            <EditText
-                android:id="@+id/bw1"
+            <TextView
+                android:id="@+id/lat1"
                 android:gravity="center"
-                android:inputType="numberSigned"
-                android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
                 android:layout_marginLeft="20dp"
                 android:layout_width="50dp"
@@ -274,11 +283,9 @@
                 android:text="°"
                 android:layout_marginLeft="10dp"
                 style="@style/txt_black_16" />
-            <EditText
-                android:id="@+id/bw2"
+            <TextView
+                android:id="@+id/lat2"
                 android:gravity="center"
-                android:inputType="numberSigned"
-                android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
                 android:layout_marginLeft="10dp"
                 android:layout_width="50dp"
@@ -287,12 +294,10 @@
                 android:layout_marginLeft="10dp"
                 android:text="’"
                 style="@style/txt_black_16" />
-            <EditText
-                android:id="@+id/bw3"
+            <TextView
+                android:id="@+id/lat3"
                 android:gravity="center"
-                android:background="@drawable/shape_nocorner_black"
                 style="@style/txt_black_12"
-                android:inputType="numberSigned"
                 android:layout_marginLeft="10dp"
                 android:layout_width="50dp"
                 android:layout_height="35dp" />

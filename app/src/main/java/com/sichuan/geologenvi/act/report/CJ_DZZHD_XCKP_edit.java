@@ -119,7 +119,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         }
         wxdx.setText(infoMap.get("wxdx".toUpperCase()));
         ljcd.setText(infoMap.get("ljcd".toUpperCase()));
-        jcrq.setText(infoMap.get("jcrq".toUpperCase()));
+        jcrq.setText(ActUtil.getFormatDate(infoMap.get("jcrq".toUpperCase())));
 
         jcfzrlxdhkt=infoMap.get("jcfzrlxdhkt".toUpperCase());
         if(jcfzrlxdhkt.equals("是")) {
