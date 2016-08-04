@@ -153,8 +153,8 @@
             <TextView
                 android:text="海拔(m)"
                 style="@style/txt_gray_12" />
-            <TextView
-                android:id="@+id/hb"
+            <EditText
+                android:id="@+id/hbz"
                 android:gravity="center_vertical"
                 android:background="@null"
                 style="@style/txt_black_12"
@@ -180,9 +180,10 @@
                 <TextView
                     android:text="坐标X"
                     style="@style/txt_gray_12" />
-                <TextView
+                <EditText
+                    android:id="@+id/zbx"
+                    android:singleLine="true"
                     android:gravity="center_vertical"
-                    android:maxLength="3"
                     android:background="@null"
                     android:inputType="numberSigned"
                     style="@style/txt_black_12"
@@ -199,9 +200,10 @@
                 <TextView
                     android:text="坐标Y"
                     style="@style/txt_gray_12" />
-                <TextView
+                <EditText
+                    android:id="@+id/zby"
+                    android:singleLine="true"
                     android:gravity="center_vertical"
-                    android:maxLength="3"
                     android:background="@null"
                     android:inputType="numberSigned"
                     style="@style/txt_black_12"
@@ -609,7 +611,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
-                android:text="有"
+                android:text="是"
                 style="@style/txt_gray_12" />
             <ImageView
                 android:id="@+id/sfszwpyt_no"
@@ -621,7 +623,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
-                android:text="无"
+                android:text="否"
                 style="@style/txt_gray_12" />
         </LinearLayout>
         <View
@@ -649,7 +651,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
-                android:text="有"
+                android:text="是"
                 style="@style/txt_gray_12" />
             <ImageView
                 android:id="@+id/zjysfdw_no"
@@ -661,7 +663,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
-                android:text="无"
+                android:text="否"
                 style="@style/txt_gray_12" />
         </LinearLayout>
         <View
@@ -689,7 +691,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
-                android:text="有"
+                android:text="是"
                 style="@style/txt_gray_12" />
             <ImageView
                 android:id="@+id/sfyzlkzwj_no"
@@ -701,7 +703,7 @@
             <TextView
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
-                android:text="无"
+                android:text="否"
                 style="@style/txt_gray_12" />
         </LinearLayout>
         <View
