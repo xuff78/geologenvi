@@ -30,10 +30,6 @@ public class SearchListFrg extends BaseFragment{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         ArrayList<String> list=new ArrayList<>();
-        list.add("测试数据");
-        list.add("测试数据");
-        list.add("测试数据");
-        list.add("测试数据");
         recyclerView.setAdapter(new MenuListAdapter(getActivity(), list, null));
 
         return view;

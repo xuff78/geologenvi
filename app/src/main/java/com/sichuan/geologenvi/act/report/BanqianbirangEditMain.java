@@ -103,6 +103,7 @@ public class BanqianbirangEditMain extends AppFrameAct {
         mIndicator.setTabIndicatorColorResource(R.color.normal_gray);
         mIndicator.setBackgroundResource(R.color.whitesmoke);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setOffscreenPageLimit(4);
         mAdapter = new TabAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
     }
@@ -116,8 +117,10 @@ public class BanqianbirangEditMain extends AppFrameAct {
                     if(frg1.canbeCreate()){
                         JSONObject jsonObj=new JSONObject();
                         frg1.getDataByJson(jsonObj);
+                        frg2.getDataByJson(jsonObj);
+                        frg3.getDataByJson(jsonObj);
                         requesType=Add;
-                        httpHandler.addCJ_BXCS_XCKP(jsonObj.toString());
+                        httpHandler.addCJ_GCZL_XCKP(jsonObj.toString());
                     }
                     break;
                 case R.id.updateDataBtn:

@@ -81,7 +81,7 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
         jhwgrq.setText(ActUtil.getFormatDate(infoMap.get("jhwgrq".toUpperCase())));
         tbrq.setText(ActUtil.getFormatDate(infoMap.get("tbrq".toUpperCase())));
         projectName.setText(infoMap.get("gczl_name".toUpperCase()));
-        sgdw.setText(infoMap.get("xgrydgcsxcd".toUpperCase()));
+        sgdw.setText(infoMap.get("gczl_sgdw".toUpperCase()));
         jldw.setText(infoMap.get("gczl_jldw".toUpperCase()));
         sjdw.setText(infoMap.get("gczl_sjdw".toUpperCase()));
         dlwz.setText(infoMap.get("gczl_quxian".toUpperCase())+"  "+infoMap.get("gczl_xiangzhen".toUpperCase())
@@ -99,7 +99,7 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
         dwzz_sgdw=infoMap.get("dwzz_sgdw".toUpperCase());
         if(dwzz_sgdw.equals("有")) {
             dwzz_sgdw_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        }else if(sfczwffbzb.equals("无")) {
+        }else if(dwzz_sgdw.equals("无")) {
             dwzz_sgdw_no.setImageResource(R.mipmap.app_login_remember_sel);
         }
 
@@ -125,9 +125,9 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
         }
 
         sfszwpyt=infoMap.get("sfszwpyt".toUpperCase());
-        if(sfszwpyt.equals("有")) {
+        if(sfszwpyt.equals("是")) {
             sfszwpyt_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        }else if(sfszwpyt.equals("无")) {
+        }else if(sfszwpyt.equals("否")) {
             sfszwpyt_no.setImageResource(R.mipmap.app_login_remember_sel);
         }
 
@@ -139,9 +139,9 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
         }
 
         tsgzry=infoMap.get("tsgzry".toUpperCase());
-        if(tsgzry.equals("是")) {
+        if(tsgzry.equals("有")) {
             tsgzry_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        }else if(tsgzry.equals("否")) {
+        }else if(tsgzry.equals("无")) {
             tsgzry_no.setImageResource(R.mipmap.app_login_remember_sel);
         }
 

@@ -165,14 +165,16 @@ public class ActUtil {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
             String dateStr2 = "";
-            if (dateStr.contains("T"))
+            if (dateStr.contains("T")) {
                 dateStr2 = dateStr.replace("T", " ");
-            try {
-                Date date = formatter.parse(dateStr2);
-                return formatter2.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+                try {
+                    Date date = formatter.parse(dateStr2);
+                    return formatter2.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }else
+                return dateStr;
         }
         return "";
     }

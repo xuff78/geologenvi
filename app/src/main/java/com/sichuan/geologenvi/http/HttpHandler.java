@@ -116,15 +116,14 @@ public class HttpHandler extends Handle {
 		requestDelete(ConstantUtil.Method.CJ_DZZHD_XCKP, "/"+id, true);
 	}
 
-	public void addCJ_GCZL_XCKP(ArrayList<String> columnName, ArrayList<Object> values) {
-		String jsonContent=ActUtil.addStringContent(columnName, values);
+	public void addCJ_GCZL_XCKP(String jsonContent) {
 		requestPost(ConstantUtil.Method.CJ_GCZL_XCKP, jsonContent, true);
 	}
 
 	public void getCJ_GCZL_XCKP(int page, String name) {
 		String require="";
 		if(name.length()>0)
-			require=require+"&gczlGuid="+name;
+			require=require+"&gczlName="+name;
 		requestGet(ConstantUtil.Method.CJ_GCZL_XCKP, "?pageIndex="+page+require, true);
 	}
 
@@ -139,7 +138,7 @@ public class HttpHandler extends Handle {
 	public void getCJ_BXCS_XCKP(int page, String name) {
 		String require="";
 		if(name.length()>0)
-			require=require+"&bxcsGuid="+name;
+			require=require+"&bxcsName="+name;
 		requestGet(ConstantUtil.Method.CJ_BXCS_XCKP, "?pageIndex="+page+require, true);
 	}
 

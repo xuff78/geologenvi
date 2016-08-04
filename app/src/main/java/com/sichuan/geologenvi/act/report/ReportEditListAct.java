@@ -42,6 +42,7 @@ public class ReportEditListAct extends AppFrameAct {
 
     private SqlHandler handler;
     private HttpHandler httpHandler;
+    private String name="";
 
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(ReportEditListAct.this){
@@ -52,7 +53,7 @@ public class ReportEditListAct extends AppFrameAct {
                 if(method.equals(ConstantUtil.Method.CJ_DZZHD_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
                 }else if(method.equals(ConstantUtil.Method.CJ_GCZL_XCKP)){
-                    recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "ZDMC", listener));
+                    recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "GCZL_NAME", listener));
                 }else if(method.equals(ConstantUtil.Method.CJ_BXCS_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter(ReportEditListAct.this, datalist, "BXCS_NAME", listener));
                 }
@@ -65,6 +66,9 @@ public class ReportEditListAct extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frg_list);
 
+        name=getIntent().getStringExtra("Name");
+        if(name==null)
+            name="";
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
@@ -102,13 +106,13 @@ public class ReportEditListAct extends AppFrameAct {
     private void requestInfo() {
         switch (type) {
             case 10:
-                httpHandler.getCJ_DZZHD_XCKP(1, "");
+                httpHandler.getCJ_DZZHD_XCKP(1, name);
                 break;
             case 11:
-                httpHandler.getCJ_GCZL_XCKP(1, "");
+                httpHandler.getCJ_GCZL_XCKP(1, name);
                 break;
             case 12:
-                httpHandler.getCJ_BXCS_XCKP(1, "");
+                httpHandler.getCJ_BXCS_XCKP(1, name);
                 break;
         }
     }
