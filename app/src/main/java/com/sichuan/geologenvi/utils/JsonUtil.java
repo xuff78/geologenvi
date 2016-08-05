@@ -3,7 +3,9 @@ package com.sichuan.geologenvi.utils;
 import android.util.Log;
 
 
+import com.sichuan.geologenvi.bean.CateInfo;
 import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.bean.RainBean;
 import com.sichuan.geologenvi.bean.ReportBean;
 
@@ -180,6 +182,36 @@ public class JsonUtil {
                     infos.add(infomap);
                 }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return infos;
+    }
+
+    public static ArrayList<CateInfo> getBookList(String jsonStr) {
+        ArrayList<CateInfo> infos=new ArrayList<>();
+        try {
+                JSONArray array = new JSONArray(jsonStr);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject item = array.getJSONObject(i);
+                    CateInfo bean = new CateInfo();
+                    if (!item.isNull("catelog"))
+                        bean.setCatelog(item.getString("catelog"));
+                    if (!item.isNull("files")){
+                        JSONArray subarray = item.getJSONArray("files");
+                        ArrayList<PopupInfoItem> books=new ArrayList<>();
+                        for (int j=0;j<subarray.length();j++){
+                            JSONObject subItem = subarray.getJSONObject(j);
+                            if (!subItem.isNull("name")&&!subItem.isNull("url")) {
+                                PopupInfoItem book = new PopupInfoItem(subItem.getString("name"), subItem.getString("url"));
+                                books.add(book);
+                            }
+                        }
+                        bean.setInfos(books);
+                    }
+                    infos.add(bean);
+                }
         } catch (JSONException e) {
             e.printStackTrace();
         }

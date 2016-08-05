@@ -17,9 +17,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:id="@+id/hintArea2"
                     android:layout_centerVertical="true"
                     android:text="灾点名称"
                     style="@style/txt_gray_12" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/red"
+                    android:layout_toRightOf="@+id/hintArea2"
+                    android:text="*"
+                    style="@style/txt_black_14" />
                 <TextView
                     android:id="@+id/zdmc"
                     android:layout_toLeftOf="@+id/arrowRight6"
@@ -709,11 +717,18 @@
                 <TextView
                     android:text="巡查人员"
                     style="@style/txt_gray_12" />
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/red"
+                    android:text="*"
+                    style="@style/txt_black_14" />
                 <EditText
                     android:id="@+id/xcry"
                     android:background="@null"
                     style="@style/txt_black_12"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="40dp" />
             </LinearLayout>
@@ -729,9 +744,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:id="@+id/hintArea3"
                     android:layout_centerVertical="true"
                     android:text="巡查日期"
                     style="@style/txt_gray_12" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/red"
+                    android:layout_toRightOf="@+id/hintArea3"
+                    android:text="*"
+                    style="@style/txt_black_14" />
                 <TextView
                     android:id="@+id/jcrq"
                     android:layout_toLeftOf="@+id/arrowRight5"

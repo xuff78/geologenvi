@@ -22,6 +22,7 @@ public class SearchAct extends AppFrameAct {
     private EditText editSearch;
     private ImageView btnSearch;
     private String word="";
+    private SearchListFrg frg=new SearchListFrg();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

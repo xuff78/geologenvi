@@ -19,6 +19,7 @@ public class ConstantUtil {
 	public static final String Photo_Path="photo_path";
 	public static final String OfflinePath= "/sdcard/tianditu/offlinemap/"; //Environment.getExternalStorageDirectory().getAbsolutePath()+"/TianDiTu/offline/";
 
+	public static final String BookInfo="BookInfo";
 	public static final String AreaInfo="AreaInfo";
 	public static final String TongliangMap="TongliangMap";
 
