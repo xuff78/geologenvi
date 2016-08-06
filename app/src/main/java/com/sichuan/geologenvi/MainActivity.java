@@ -35,6 +35,8 @@ import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.views.AsycnDialog;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
+import com.tianditu.android.maps.MapView;
+import com.tianditu.android.maps.TOfflineMapManager;
 
 public class MainActivity extends AppFrameAct {
 
@@ -56,8 +58,18 @@ public class MainActivity extends AppFrameAct {
         _setHeaderGone();
         _setHeaderTitle(getResources().getString(R.string.app_name));
         initView();
-
+        initTempMap();
 //        FileUtil.verifyStoragePermissions(this);
+    }
+
+    private void initTempMap() {
+        TOfflineMapManager offlineMapMng = new TOfflineMapManager(null);
+        MapView mMapView = (MapView)findViewById(R.id.mapview);
+        mMapView.setMinZoomLevel(5);
+        mMapView.setPlaceName(true);
+        mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
+        mMapView.setSatellite(true);
+        mMapView.setOfflineMaps(offlineMapMng.searchLocalMaps());
     }
 
     private void initView() {

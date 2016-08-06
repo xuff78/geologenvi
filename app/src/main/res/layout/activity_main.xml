@@ -7,6 +7,10 @@
     android:paddingBottom="10dp"
     android:background="@color/whitesmoke"
     tools:context="com.sichuan.geologenvi.MainActivity">
+    <com.tianditu.android.maps.MapView
+        android:id="@+id/mapview"
+        android:layout_width="1px"
+        android:layout_height="1px"/>
     <LinearLayout
         android:background="@color/white"
         android:orientation="vertical"

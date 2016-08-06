@@ -2,12 +2,18 @@ package com.sichuan.geologenvi.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.widget.Toast;
+
+import com.sichuan.geologenvi.bean.Contact;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -15,6 +21,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.zip.ZipInputStream;
 
 public class FileUtil {
@@ -137,4 +150,68 @@ public class FileUtil {
 		}
 	}
 
+	public static void downloadFile(String name, String urlStr, Context con) {
+		if(name!=null&&name.length()>0&&urlStr!=null&&urlStr.length()>0) {
+			OutputStream output = null;
+			File file = getFile(name, con);
+			try {
+				if(!file.exists())
+					file.createNewFile();
+//				URL url = new URL(urlStr);
+				urlStr = URLEncoder.encode(urlStr,"utf-8").replaceAll("\\+", "%20");
+				urlStr = urlStr.replaceAll("%3A", ":").replaceAll("%2F", "/");
+				HttpURLConnection conn = getURLConnection(urlStr);
+				InputStream input = conn.getInputStream();
+				output = new FileOutputStream(file);
+				//读取大文件
+				int numread = 0;
+				byte buf[] = new byte[1024];
+
+				while ((numread = input.read(buf)) != -1) {
+					output.write(buf, 0, numread);
+				}
+				output.flush();
+			} catch (Exception e) {
+				file.delete();
+				e.printStackTrace();
+			} finally {
+				if (output != null) {
+					try {
+						output.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	private static HttpURLConnection getURLConnection(String url) throws Exception {
+		String proxyHost = android.net.Proxy.getDefaultHost();
+		if (proxyHost != null) {
+			java.net.Proxy p = new java.net.Proxy(java.net.Proxy.Type.HTTP,
+					new InetSocketAddress(android.net.Proxy.getDefaultHost(),
+							android.net.Proxy.getDefaultPort()));
+
+			return (HttpURLConnection) new URL(url).openConnection(p);
+
+		} else {
+			return (HttpURLConnection) new URL(url).openConnection();
+		}
+	}
+
+	public  static  void openFile(File file, Activity act, String type){
+		Uri path = Uri.fromFile(file);
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setDataAndType(path, type);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		try {
+			act.startActivity(intent);
+		}
+		catch (ActivityNotFoundException e) {
+			Toast.makeText(act,
+					"无法打开此文件",
+					Toast.LENGTH_SHORT).show();
+		}
+	}
 }

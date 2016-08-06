@@ -1,14 +1,21 @@
 package com.sichuan.geologenvi.frg;
 
+import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
@@ -27,6 +34,7 @@ import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.utils.ViewUtil;
+import com.tianditu.android.maps.MapView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,6 +48,23 @@ public class SearchListFrg extends BaseFragment{
     LinearLayoutManager layoutManager;
     private HttpHandler httpHandler;
     private ArrayList<CateInfo> cates=new ArrayList<>();
+    ProgressDialog progressDialog;
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progressDialog.dismiss();
+            String bookName=msg.getData().getString("Name");
+            File file=FileUtil.getFile(bookName, getActivity());
+            if(file.exists()){
+                String type="pdf";
+                if(bookName.contains("."))
+                    type=bookName.split("\\.")[1];
+                FileUtil.openFile(file, getActivity(), "application/"+type);
+            }else
+                ToastUtils.displayTextShort(getActivity(), "下载失败，请稍后重试");
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,12 +112,27 @@ public class SearchListFrg extends BaseFragment{
     View.OnClickListener subListener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            PopupInfoItem book= (PopupInfoItem) view.getTag();
+            final PopupInfoItem book= (PopupInfoItem) view.getTag();
             File file=FileUtil.getFile(book.getName(), getActivity());
             if(file.exists()){
-
+                String type="pdf";
+                if(book.getName().contains("."))
+                    type=book.getName().split("\\.")[1];
+                FileUtil.openFile(file, getActivity(), "application/"+type);
             }else {
-                ToastUtils.displayTextShort(getActivity(), "文件不存在，正在为您下载");
+                progressDialog=ProgressDialog.show(getActivity(), "提示", "下载中请稍后");
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        FileUtil.downloadFile(book.getName(), book.getContent(), getActivity());
+                        Message msg=new Message();
+                        Bundle b=new Bundle();
+                        b.putString("Name", book.getName());
+                        msg.setData(b);
+                        handler.sendMessage(msg);
+                    }
+                }.start();
             }
         }
     };

@@ -102,7 +102,7 @@ public class AsycnDialog extends Dialog implements DownloadInterface, TOfflineMa
 		setCancelable(false);
 		initView();
 		mapOpen=SharedPreferencesUtil.getInt(act, ConstantUtil.map_open, 0);
-		if(mapOpen==1)
+//		if(mapOpen==1)
 			inttMapDownload();
 	}
 
@@ -144,7 +144,7 @@ public class AsycnDialog extends Dialog implements DownloadInterface, TOfflineMa
 					}
 					break;
 				case R.id.offlineMap:
-					if(mapOpen==1)
+//					if(mapOpen==1)
 					if(Status==IDLE) {
 						new Thread() {
 							@Override
@@ -171,8 +171,8 @@ public class AsycnDialog extends Dialog implements DownloadInterface, TOfflineMa
 						offlineMap.setText("下载");
 						Status=IDLE;
 					}
-					else
-						ToastUtils.displayTextShort(act, "请先启动一次地图");
+//					else
+//						ToastUtils.displayTextShort(act, "请先启动一次地图");
 					break;
 				case R.id.docDownload:
 					break;

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -50,6 +51,9 @@ public class DownloadAsyncTask extends AsyncTask<String, Integer, String> {
 		InputStream is = null;
 		FileOutputStream fos = null;
 		try {
+
+			url = URLEncoder.encode(url,"utf-8").replaceAll("\\+", "%20");
+			url = url.replaceAll("%3A", ":").replaceAll("%2F", "/");
 			HttpURLConnection urlConn = getURLConnection(url);
 			is = urlConn.getInputStream();
 			fileSize = urlConn.getContentLength(); // 文件大小
