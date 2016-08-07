@@ -34,6 +34,8 @@ public class ContactDialog  extends Dialog {
     public ContactDialog(Context context, Contact contact, String otherInfoName) {
         super(context, R.style.dialog);
         this.contact=contact;
+
+
         this.otherInfoName=otherInfoName;
     }
 
