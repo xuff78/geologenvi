@@ -174,7 +174,7 @@ public class SelectorAct extends AppFrameAct {
                         items[i]=disasterType.get(i).getName();
                     }
                     AlertDialog.Builder builder=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
-                    builder.setTitle("灾难类型"); //设置标题
+                    builder.setTitle("灾害点类型"); //设置标题
                     builder.setItems(items,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -197,7 +197,7 @@ public class SelectorAct extends AppFrameAct {
                         items2[i]=disasterSize.get(i).getName();
                     }
                     AlertDialog.Builder builder2=new AlertDialog.Builder(SelectorAct.this);  //先得到构造器
-                    builder2.setTitle("灾难规模"); //设置标题
+                    builder2.setTitle("灾害体规模"); //设置标题
                     builder2.setItems(items2,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

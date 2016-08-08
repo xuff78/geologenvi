@@ -78,9 +78,13 @@ public class TitleListAct  extends AppFrameAct {
             list.add("避险搬迁工作记录");
         }else if(type.equals("Statistics")){
             list.add("隐患点统计图");
+            list.add("重点点位信息统计图");
             list.add("隐患点统计表格");
             list.add("地下水统计");
             list.add("避险搬迁统计");
+            list.add("工程治理点位统计");
+            list.add("避险场所信息统计");
+            list.add("专业监测信息统计");
         }else if(type.equals("Contact")){
             list.add("通讯录");
             list.add("四川省地质灾害防治工作责任单位通讯录");
@@ -89,7 +93,7 @@ public class TitleListAct  extends AppFrameAct {
             list.add("成都市地质环境监测站通讯录");
             list.add("地质灾害防治片区分工通讯录");
             list.add("地环站站长通讯录");
-            list.add("成都市专职监测人员通讯录");
+            //list.add("成都市专职监测人员通讯录");
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
@@ -104,8 +108,8 @@ public class TitleListAct  extends AppFrameAct {
                         LinearLayout subLayout= (LinearLayout) ((View)(view.getParent())).findViewById(R.id.subLayout);
                         if(subLayout.getChildCount()==0) {
                             subLayout.addView(ViewUtil.getGrayLine(TitleListAct.this));
-                            addTextView(subLayout, "主管部门", 40, 7);
-                            addTextView(subLayout, "其他部门", 20, 8);
+                            addTextView(subLayout, "国土部门负责点位", 40, 7);
+                            addTextView(subLayout, "其他部门负责点位", 20, 8);
                             addTextView(subLayout, "销号点位", 40, 9);
                         }else{
                             subLayout.removeAllViews();
@@ -131,7 +135,7 @@ public class TitleListAct  extends AppFrameAct {
                     startActivity(i);
                 }
             }else if(type.equals("Statistics")) {
-                if(tag==0) {
+                if(tag<=1) {
                     Intent i = new Intent(TitleListAct.this, ChatAct.class);
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));

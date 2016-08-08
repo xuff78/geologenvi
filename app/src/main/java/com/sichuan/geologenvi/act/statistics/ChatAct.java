@@ -42,10 +42,14 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
     private int statisticsType=0;
     private String jsonString="";
 
+    private int type=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_detail_layout);
+
+        type=getIntent().getIntExtra("Type", 1);
+
 
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
@@ -93,6 +97,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()){
             case R.id.selection1:
                 final LinkedList<PopupInfoItem> areainfos= handler.getTypesQueryWithCode("SL_TATTR_DZZH_XZQH", "CODE", "NAME", "length(CODE) = 6");
@@ -172,8 +177,18 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
     private void queryForStatistics(){
         ArrayList<Map<String, String>> data=new ArrayList<>();
         String typeStr="";
-        if(area.length()>0)
+
+        //UPDATE CUIKAILEI START
+        if(type==1)
+            typeStr=" ZHAA01A810=2 ";
+        //END
+
+        if(area.length()>0){
+            if(typeStr.length()>0)
+                typeStr+=" AND ";
+
             typeStr+=" ZHAA01A110 = '"+area+"'";
+        }
         if(statisticsType!=0&&disasterType.length()>0){
             if(typeStr.length()>0)
                 typeStr+=" AND ";
@@ -184,8 +199,12 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                 typeStr+=" AND ";
             typeStr += " ZHAA01A875 = '" + isCancel +"'";
         }
+
         if(typeStr.length()>0)
-            typeStr=" WHERE"+typeStr;
+            typeStr = " WHERE " + typeStr;
+
+
+
         switch (statisticsType){
             case 0:
                 data=handler.getQueryResult("SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +

@@ -109,7 +109,7 @@
         <TextView
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:text="灾难点类型"
+            android:text="灾害点类型"
             style="@style/txt_gray_14" />
         <TextView
             android:layout_toLeftOf="@+id/arrowRight2"
@@ -142,7 +142,7 @@
         <TextView
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:text="灾难规模"
+            android:text="灾害体规模"
             style="@style/txt_gray_14" />
         <TextView
             android:layout_toLeftOf="@+id/arrowRight3"

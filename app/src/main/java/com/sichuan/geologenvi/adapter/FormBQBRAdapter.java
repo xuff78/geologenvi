@@ -46,16 +46,20 @@ public class FormBQBRAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         final DisasterHolder holder = (DisasterHolder) viewHolder;
         Map<String, String> infoMap=datalist.get(position);
-        if(type==2){
+        if(type==3){
             holder.txt1.setText(infoMap.get("QUXIAN"));
             holder.txt2.setText(infoMap.get("ShuLiang"));
             holder.txt3.setText(infoMap.get("QIYONG"));
             holder.txt4.setVisibility(View.GONE);
-        }else if(type==3) {
+        }else if(type==4) {
             holder.txt1.setText(infoMap.get("NAME"));
             holder.txt2.setText(infoMap.get("ZongGong"));
             holder.txt3.setText(infoMap.get("WanCheng"));
             holder.txt4.setText(infoMap.get("YanShou"));
+        }
+        else if(type==6) {
+            holder.txt1.setText(infoMap.get("NAME"));
+            holder.txt2.setText(infoMap.get("ZongGong"));
         }
     }
 

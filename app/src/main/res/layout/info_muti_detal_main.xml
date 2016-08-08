@@ -18,6 +18,7 @@
             android:layout_gravity="top"/>
 
     </android.support.v4.view.ViewPager>
+    <!--
     <LinearLayout
         android:id="@+id/bottomLayout"
         android:layout_alignParentBottom="true"
@@ -28,6 +29,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="45dp">
+
         <TextView
             android:background="@drawable/press_trans_to_gray"
             android:layout_weight="1"
@@ -58,5 +60,8 @@
             style="@style/txt_gray_14"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
+
+      -->
 </RelativeLayout>

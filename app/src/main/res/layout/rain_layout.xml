@@ -16,14 +16,14 @@
             android:gravity="center"
             android:layout_weight="4.5"
             android:layout_width="match_parent"
-            android:text="站点"
+            android:text="序号"
             android:id="@+id/hintTxt3"
             style="@style/txt_gray_14" />
         <TextView
             android:gravity="center"
             android:layout_weight="3"
             android:layout_width="match_parent"
-            android:text="站点"
+            android:text="站点位置"
             android:id="@+id/hintTxt4"
             style="@style/txt_gray_14" />
         <TextView
