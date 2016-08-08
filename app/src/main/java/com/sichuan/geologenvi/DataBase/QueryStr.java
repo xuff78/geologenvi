@@ -5,6 +5,7 @@ package com.sichuan.geologenvi.DataBase;
  */
 public class QueryStr {
 
+    //隐患点
     public static final String yinhuandian="ZHAA01A020,ZHAA01A150, ZHAA01A190, ZHAA01A200, \n" +
             "case(ZHAA01A210) when '00' then '斜坡' when '01' then '滑坡' when '02' then '崩塌' when '03' then '泥石流' when '04' then '地面塌陷' when '05' then '地裂缝' when '06' then '地面沉降' when '07' then '其它' end as ZHAA01A210 ," +
             " ZHAA01A211, ZHAA01A300,\n" +
@@ -56,6 +57,34 @@ public class QueryStr {
             " ZHAA01A900,     ZHAA01A905,     ZHAA01A910,     ZHAA01A915,\n" +
             "     ZHAA01A920,     ZHAA01A925,     ZHAA01A930,     ZHAA01A935,     ZHAA01A936,     ZHAA01A937,\n" +
             "     ZHAA01A938,     ZHAA01A010";
+
+    //专业监测
+    public static final String zhuanyeshebei="STATIONNO,TABLENAME ,METERID ,METERTYPE ,CITY ,COUNTY ,TOWN,COUNTRY ,DISASTERNAME ,LASTSTATUS ,LASTSENDTIME ,\n" +
+            "LONGITUDE ,LATITUDE ,SERVERIP ,PORT ,RELAYIP ,PHONENUMBER  ,EXCEPTIONTYPE,BZ as 备注 ,SBZT ";
+
+    //工程治理
+    public static final String gczl="";
+
+    //隐患点避险场所
+    public static final String yhdbixiancs="ZHDD02A020 ,ZHDD02A030 ,ZHDD02A040 ,ZHDD02A050 ,ZHDD02A060 ,ZHDD02A070 ,ZHDD02A080 ,ZHDD02A090 ,ZHDD02A100 ,ZHDD02A110 ,ZHDD02A120 ,ZHDD02A130 ,ZHDD02A140 ,\n" +
+            "case (ZHDD02A150) when  'A' then '市' when 'B' then '区县' when  'C' then '乡镇' when 'D' then '街道社区' when  'E' then '村'  end as ZHDD02A150,\n" +
+            "case (ZHDD02A160) when  'A' then '场地' when 'B' then '场所'  end as ZHDD02A160,\n" +
+            "ZHDD02A170 ,ZHDD02A180 ,ZHDD02A190 ,ZHDD02A200 ,ZHDD02A210 ,ZHDD02A220 ,ZHDD02A230 ,ZHDD02A310";
+
+    ///避险搬迁
+    public static final String bxbq="ZHDD04B013 ,ZHDD04B020 ,ZHDD04B040 ,ZHDD04B060 ,ZHDD04B070 ,ZHDD04B080 ,ZHDD04B090 ,ZHDD04B100 ,\n" +
+            "case (ZHDD04B110) when  1 then '就近分算安置' when 2 then '集中安置' when 3 then '异地安置' end as ZHDD04B110,\n" +
+            "ZHDD04B120 ,ZHDD04B125 ,ZHDD04B130 ,ZHDD04B140 ,\n" +
+            "case (ZHDD04B145) when  0 then '未拆除' when 1 then '已拆除'  end as ZHDD04B145,\n" +
+            "ZHDD04B150 ,ZHDD04B160 ,\n" +
+            "case (ZHDD04B230) when  0 then '未完成' when 1 then '已完成'  end as ZHDD04B230,\n" +
+            "case (ZHDD04B240) when  0 then '未验收' when 1 then '已验收'  end as ZHDD04B240,\n" +
+            "case (ZHDD04B250) when  0 then '不存在' when 1 then '存在'  end as ZHDD04B250,\n" +
+            "case (ZHDD04B260) when  1 then '改善' when 2 then '持平' when 3 then '降低' end as ZHDD04B260,\n" +
+            "case (ZHDD04B270) when  0 then '不认同' when 1 then '认同'  end as ZHDD04B270,\n" +
+            "ZHDD04B280 ,\n" +
+            "case (ZHDD04B290) when  0 then '未公示' when 1 then '已公示'  end as ZHDD04B290,\n" +
+            "ZHDD04B360 ,ZHDD04B370";
 }
 
 
