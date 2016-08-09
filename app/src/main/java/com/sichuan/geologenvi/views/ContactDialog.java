@@ -47,10 +47,10 @@ public class ContactDialog  extends Dialog {
     }
 
     private void initView() {
-        TextView phoneTxt = (TextView) findViewById(R.id.phoneTxt);
-        TextView phoneTxt2 = (TextView) findViewById(R.id.phoneTxt2);
+        final TextView phoneTxt = (TextView) findViewById(R.id.phoneTxt);
+        final TextView phoneTxt2 = (TextView) findViewById(R.id.phoneTxt2);
         TextView positionTxt = (TextView) findViewById(R.id.positionTxt);
-        TextView nameTxt = (TextView) findViewById(R.id.nameTxt);
+        final TextView nameTxt = (TextView) findViewById(R.id.nameTxt);
         TextView areaTxt = (TextView) findViewById(R.id.areaTxt);
         TextView hintOtherInfo = (TextView) findViewById(R.id.hintOtherInfo);
         if(otherInfoName!=null)
@@ -80,7 +80,7 @@ public class ContactDialog  extends Dialog {
             public void onClick(View view) {
                 if(contact.getPhone().length()>0) {
                     Intent call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
-                            + phones[0]));
+                            + phoneTxt.getText().toString()));
                     getContext().startActivity(call);
                 }
             }
@@ -90,7 +90,7 @@ public class ContactDialog  extends Dialog {
             public void onClick(View view) {
                 if(contact.getPhone().length()>0) {
                     Intent call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
-                            + phones[1]));
+                            + phoneTxt2.getText().toString()));
                     getContext().startActivity(call);
                 }
             }
