@@ -106,7 +106,6 @@ public class HttpAsyncTask extends AsyncTask<Object, String, String> {
 		if(progressDialog!=null&&progressDialog.isShowing())
 			progressDialog.dismiss();
 
-		if(mContext!=null)
 		if(!isCancel&&result!=null) {
 			mHttpCb.httpCallback(mReqMethod, result.trim());
 		}
