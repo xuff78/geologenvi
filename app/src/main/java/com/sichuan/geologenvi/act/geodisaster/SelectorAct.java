@@ -53,11 +53,12 @@ public class SelectorAct extends AppFrameAct {
     private void initView() {
         disasterType.add(new PopupInfoItem("斜坡", "00"));
         disasterType.add(new PopupInfoItem("滑坡", "01"));
-        disasterType.add(new PopupInfoItem("泥石流", "02"));
-        disasterType.add(new PopupInfoItem("地名塌陷", "03"));
-        disasterType.add(new PopupInfoItem("地裂缝", "04"));
-        disasterType.add(new PopupInfoItem("地面沉降", "05"));
-        disasterType.add(new PopupInfoItem("其他", "06"));
+        disasterType.add(new PopupInfoItem("崩塌", "02"));
+        disasterType.add(new PopupInfoItem("泥石流", "03"));
+        disasterType.add(new PopupInfoItem("地名塌陷", "04"));
+        disasterType.add(new PopupInfoItem("地裂缝", "05"));
+        disasterType.add(new PopupInfoItem("地面沉降", "06"));
+        disasterType.add(new PopupInfoItem("其他", "07"));
         disasterType.add(new PopupInfoItem("取消", ""));
 
         disasterSize.add(new PopupInfoItem("特大型", "A"));
@@ -66,11 +67,11 @@ public class SelectorAct extends AppFrameAct {
         disasterSize.add(new PopupInfoItem("小型", "D"));
         disasterSize.add(new PopupInfoItem("取消", ""));
 
-        avoidLevel.add(new PopupInfoItem("A", "A"));
-        avoidLevel.add(new PopupInfoItem("B", "B"));
-        avoidLevel.add(new PopupInfoItem("C", "C"));
-        avoidLevel.add(new PopupInfoItem("D", "D"));
-        avoidLevel.add(new PopupInfoItem("E", "E"));
+        avoidLevel.add(new PopupInfoItem("市", "A"));
+        avoidLevel.add(new PopupInfoItem("区县", "B"));
+        avoidLevel.add(new PopupInfoItem("乡镇", "C"));
+        avoidLevel.add(new PopupInfoItem("街道社区", "D"));
+        avoidLevel.add(new PopupInfoItem("村", "E"));
         avoidLevel.add(new PopupInfoItem("取消", ""));
 
         nameEdt=(EditText)findViewById(R.id.nameEdt);
