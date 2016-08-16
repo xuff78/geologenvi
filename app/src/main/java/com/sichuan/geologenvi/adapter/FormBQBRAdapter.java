@@ -60,6 +60,8 @@ public class FormBQBRAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         else if(type==6) {
             holder.txt1.setText(infoMap.get("NAME"));
             holder.txt2.setText(infoMap.get("ZongGong"));
+            holder.txt3.setVisibility(View.GONE);
+            holder.txt4.setVisibility(View.GONE);
         }
     }
 

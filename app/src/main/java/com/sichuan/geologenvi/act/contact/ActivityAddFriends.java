@@ -345,7 +345,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 					" FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A030=b.CODE ) where a.JCBA05A040 is null "
 					+" and (JCBA05A090 is not null OR JCBA05A130 is not null)"+typeStr;
 
-			ArrayList<Contact> filterDateList = handler.getPersonInfo(typeStr);
+			ArrayList<Contact> filterDateList = handler.getPersonInfo(sqlStr);
 
 			filledData(filterDateList);
 

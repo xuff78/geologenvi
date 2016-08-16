@@ -100,6 +100,9 @@ public class ContactDialog3 extends Dialog implements View.OnClickListener{
             case R.id.phoneLayout1:
                 phone=phone1.getText().toString();
                 break;
+            case R.id.phoneLayout12:
+                phone=phone12.getText().toString();
+                break;
             case R.id.phoneLayout2:
                 phone=phone2.getText().toString();
                 break;
