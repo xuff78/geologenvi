@@ -90,6 +90,7 @@ public class BanqianbirangEditMain extends AppFrameAct {
     }
 
     private void initView() {
+        findViewById(R.id.bottomLayout).setVisibility(View.VISIBLE);
         frg1=new CJ_GCZL_XCKP1();
         frg2=new CJ_GCZL_XCKP2();
         frg3=new CJ_GCZL_XCKP3();

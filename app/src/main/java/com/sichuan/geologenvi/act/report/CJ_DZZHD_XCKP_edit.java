@@ -403,8 +403,8 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             zdwz.setText(mapBean.getMap().get("ZHAA01A150"));
             String type=mapBean.getMap().get("ZHAA01A210");
             String size=mapBean.getMap().get("ZHAA01A890");
-            if(type!=null)
-                type=disasterNames[Integer.valueOf(type)];
+//            if(type!=null)
+//                type=disasterNames[Integer.valueOf(type)];
             if(size!=null) {
                 if(size.equals("A"))
                     size="特大型";
