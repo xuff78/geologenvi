@@ -53,13 +53,13 @@ public class TitleListAct  extends AppFrameAct {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         if(type.equals("Disaster")) {
-            list.add("灾害隐患点基础数据查询");
-            list.add("重点监测隐患点位基础数据查询");
-            list.add("专业监测点位基础数据查询");
-            list.add("工程治理点位基础数据查询");
-            list.add("隐患点避险场所基础数据查询");
-            list.add("重点避险场所基础数据查询");
-            list.add("避险搬迁基础数据查询");
+            list.add("地质灾害隐患点位");
+            list.add("重点监测隐患点位");
+            list.add("专业监测点位");
+            list.add("工程治理点位");
+            list.add("隐患点避险场所");
+            list.add("重点避险场所");
+            list.add("避险搬迁");
 
 //            list.add("灾害隐患点基础数据查询");
 //            list.add("市级监测点位基础数据查询");
@@ -86,13 +86,14 @@ public class TitleListAct  extends AppFrameAct {
             list.add("避险场所信息统计");
             list.add("专业监测信息统计");
         }else if(type.equals("Contact")){
-            list.add("通讯录");
+
             list.add("四川省地质灾害防治工作责任单位通讯录");
             list.add("成都市地质灾害防治工作责任单位通讯录");
+            list.add("区市县地质灾害防治工作通讯录");
             list.add("成都市国土资源局通讯录");
             list.add("成都市地质环境监测站通讯录");
             list.add("地质灾害防治片区分工通讯录");
-            list.add("地环站站长通讯录");
+            //list.add("地环站站长通讯录");
             //list.add("成都市专职监测人员通讯录");
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));

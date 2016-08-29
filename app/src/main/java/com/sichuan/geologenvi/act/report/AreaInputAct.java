@@ -32,7 +32,7 @@ public class AreaInputAct  extends AppFrameAct {
     private ArrayList<AreaInfo> areas=new ArrayList<>();
     private String selectId="";
     private AreaInfos selectedAreaInfo=new AreaInfos();
-//    private LinkedList<String> selectedDistrict=new LinkedList<>(); //记录地区的文字
+    //    private LinkedList<String> selectedDistrict=new LinkedList<>(); //记录地区的文字
     private LinkedList<AreaInfo> selectedDistrict=new LinkedList<>();
 
     @Override

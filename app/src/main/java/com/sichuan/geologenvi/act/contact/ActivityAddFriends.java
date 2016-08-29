@@ -67,7 +67,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 		_setHeaderTitle("通讯录");
 		type=getIntent().getIntExtra("Type", 0);
 		initViews();
-		if(type==0)
+		if(type==2)
 		_setRightHomeText("地区筛选", new View.OnClickListener(){
 
 			@Override
@@ -79,6 +79,14 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 		handler=new SqlHandler(this);
 		switch (type){
 			case 0:
+				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHENG";
+				contacts=handler.getPersonInfo(sqlStr);
+				break;
+			case 1:
+				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHI";
+				contacts=handler.getPersonInfo(sqlStr);
+				break;
+			case 2:
 				sqlStr="SELECT JCBA05A130 as phone, JCBA05A090 as name, JCBA05A180 otherinfo, NAME as addr " +
 						"FROM SL_JCBA05A as a left join SL_TATTR_DZZH_XZQH as b on (a.JCBA05A040=b.CODE ) WHERE  a.JCBA05A040 is not null" +
 						" and (JCBA05A090 is not null OR JCBA05A130 is not null)"+
@@ -89,14 +97,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 
 				contacts=handler.getPersonInfo(sqlStr);
 				break;
-			case 1:
-				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHENG";
-				contacts=handler.getPersonInfo(sqlStr);
-				break;
-			case 2:
-				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHI";
-				contacts=handler.getPersonInfo(sqlStr);
-				break;
+
 			case 3:
 				sqlStr="SELECT BANGONGDIANHUA as phone, ZHIWU as name FROM SL_TXL_SHIGUOTUJU";
 				contacts=handler.getPersonInfo(sqlStr);
