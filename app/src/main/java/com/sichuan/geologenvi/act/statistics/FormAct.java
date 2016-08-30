@@ -118,14 +118,14 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
         TextView title3= (TextView) findViewById(R.id.title3);
         TextView title4= (TextView) findViewById(R.id.title4);
         if(type==3){
-            title2.setText("数量");
-            title3.setText("弃用");
-            title4.setVisibility(View.GONE);
-        }
-        else if(type==6) {
-            title2.setText("数量");
-            title3.setVisibility(View.GONE);
-            title4.setVisibility(View.GONE);
+                title2.setText("数量");
+                title3.setText("弃用");
+                title4.setVisibility(View.GONE);
+            }
+            else if(type==6) {
+                title2.setText("数量");
+                title3.setVisibility(View.GONE);
+                title4.setVisibility(View.GONE);
         }
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
