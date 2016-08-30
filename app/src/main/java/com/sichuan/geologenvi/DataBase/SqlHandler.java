@@ -233,6 +233,9 @@ public class SqlHandler {
             if(disasterName.length()>0){
                 typeStr = typeStr + " and ZHDD02A310 like '%" + disasterName + "%'";
             }
+            if(name.length()>0){
+                typeStr = typeStr + " and ZHDD02A020 like '%" + name + "%'";
+            }
             if(type==5)
                 typeStr = typeStr + " and c.ZHAA01A810 = 2";
         }else if(type==2){

@@ -112,9 +112,12 @@ public class SelectorAct extends AppFrameAct {
             case 5:
                 findViewById(R.id.disasterNameLayout).setVisibility(View.VISIBLE);
                 avoidLayout.setVisibility(View.VISIBLE);
+                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+                break;
             case 6:
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
                 yearLayout.setVisibility(View.VISIBLE);
+                break;
             case 3:
                 break;
 

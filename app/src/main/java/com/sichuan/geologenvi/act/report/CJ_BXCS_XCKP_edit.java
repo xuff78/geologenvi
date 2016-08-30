@@ -342,7 +342,7 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         } else if (resultCode == 0x21) {
             MapBean mapBean = (MapBean) data.getSerializableExtra("InfoMap");
             bxcs_guid=mapBean.getMap().get("ZHDD02A010");
-            bxcs_name.setText(mapBean.getMap().get("ZHDD02A020")+"\n"+mapBean.getMap().get("ZHDD02A310"));
+            bxcs_name.setText(mapBean.getMap().get("ZHDD02A020"));
             bxcs_xzqh.setText(mapBean.getMap().get("ZHDD02A080"));
             String lon=mapBean.getMap().get("ZHDD02A120");
             this.lon=lon;

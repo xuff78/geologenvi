@@ -83,7 +83,7 @@ public class QueryStr {
     public static final String yhdbixiancs="ZHDD02A020 ,ZHDD02A030 ,ZHDD02A040 ,ZHDD02A050 ,ZHDD02A060 ,ZHDD02A070 ,ZHDD02A080 ,ZHDD02A090 ,ZHDD02A100 ,ZHDD02A110 ,ZHDD02A120 ,ZHDD02A130 ,ZHDD02A140 ,\n" +
             "case (ZHDD02A150) when  'A' then '市' when 'B' then '区县' when  'C' then '乡镇' when 'D' then '街道社区' when  'E' then '村'  end as ZHDD02A150,\n" +
             "case (ZHDD02A160) when  'A' then '场地' when 'B' then '场所'  end as ZHDD02A160,\n" +
-            "ZHDD02A170 ,ZHDD02A180 ,ZHDD02A190 ,ZHDD02A200 ,ZHDD02A210 ,ZHDD02A220 ,ZHDD02A230 ,ZHDD02A310";
+            "ZHDD02A170 ,ZHDD02A180 ,ZHDD02A190 ,ZHDD02A200 ,ZHDD02A210 ,ZHDD02A220 ,ZHDD02A230 ,ZHDD02A310,ZHDD02A010";
 
     ///避险搬迁
     public static final String bxbq="ZHDD04B013 ,ZHDD04B020 ,ZHDD04B040 ,ZHDD04B060 ,ZHDD04B070 ,ZHDD04B080 ,ZHDD04B090 ,ZHDD04B100 ,\n" +
