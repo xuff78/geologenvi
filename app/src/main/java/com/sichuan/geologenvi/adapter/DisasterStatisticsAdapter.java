@@ -20,17 +20,12 @@ public class DisasterStatisticsAdapter extends RecyclerView.Adapter<RecyclerView
     private Activity act;
     private LayoutInflater listInflater;
     private ArrayList<Map<String, String>> datalist;
-    private Map<String, String> totalInfo;
     //    private LinearLayout.LayoutParams imgLp;
 
     public DisasterStatisticsAdapter(Activity act, ArrayList<Map<String, String>> datalist) {
         this.datalist = datalist;
         this.act = act;
         listInflater = LayoutInflater.from(act);
-    }
-
-    public void setTotal(Map<String, String> totalInfo){
-        this.totalInfo=totalInfo;
     }
 
     @Override
@@ -47,44 +42,25 @@ public class DisasterStatisticsAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         final DisasterHolder holder = (DisasterHolder) viewHolder;
-        if(position<datalist.size()) {
-            Map<String, String> infoMap = datalist.get(position);
-            holder.txtNum.setText(position + "");
-            holder.txtArea.setText(infoMap.get("NAME"));
-            holder.txt21.setText(infoMap.get("XiePo"));
-            holder.txt22.setText(infoMap.get("HuaPo"));
-            holder.txt23.setText(infoMap.get("BengTa"));
-            holder.txt24.setText(infoMap.get("NiShiLiu"));
-            holder.txt25.setText(infoMap.get("DiMianTaXian"));
-            holder.txt26.setText(infoMap.get("DiLieFeng"));
-            holder.txt27.setText(infoMap.get("DiMianChenJiang"));
-            holder.txt28.setText(infoMap.get("QiTa"));
-            holder.txt11.setText(infoMap.get("Suoyou"));
-            holder.txt12.setText(infoMap.get("HuShu"));
-            holder.txt13.setText(infoMap.get("RenShu"));
-            holder.txt14.setText(infoMap.get("ZiChan"));
-        }else{
-//            holder.txtNum.setText(position + "");
-            holder.txtArea.setText("合计");
-            if(totalInfo!=null){
-                holder.txt21.setText(totalInfo.get("XiePo"));
-                holder.txt22.setText(totalInfo.get("HuaPo"));
-                holder.txt23.setText(totalInfo.get("BengTa"));
-                holder.txt24.setText(totalInfo.get("NiShiLiu"));
-                holder.txt25.setText(totalInfo.get("DiMianTaXian"));
-                holder.txt26.setText(totalInfo.get("DiLieFeng"));
-                holder.txt27.setText(totalInfo.get("DiMianChenJiang"));
-                holder.txt28.setText(totalInfo.get("QiTa"));
-                holder.txt11.setText(totalInfo.get("Suoyou"));
-                holder.txt12.setText(totalInfo.get("HuShu"));
-                holder.txt13.setText(totalInfo.get("RenShu"));
-                holder.txt14.setText(totalInfo.get("ZiChan"));
-            }
-        }
+        Map<String, String> infoMap = datalist.get(position);
+        holder.txtNum.setText((position+1) + "");
+        holder.txtArea.setText(infoMap.get("NAME"));
+        holder.txt21.setText(infoMap.get("XiePo"));
+        holder.txt22.setText(infoMap.get("HuaPo"));
+        holder.txt23.setText(infoMap.get("BengTa"));
+        holder.txt24.setText(infoMap.get("NiShiLiu"));
+        holder.txt25.setText(infoMap.get("DiMianTaXian"));
+        holder.txt26.setText(infoMap.get("DiLieFeng"));
+        holder.txt27.setText(infoMap.get("DiMianChenJiang"));
+        holder.txt28.setText(infoMap.get("QiTa"));
+        holder.txt11.setText(infoMap.get("Suoyou"));
+        holder.txt12.setText(infoMap.get("HuShu"));
+        holder.txt13.setText(infoMap.get("RenShu"));
+        holder.txt14.setText(infoMap.get("ZiChan"));
     }
 
     public int getItemCount() {
-        return datalist.size()+1;
+        return datalist.size();
     }
 
     public int getItemViewType(int position) {

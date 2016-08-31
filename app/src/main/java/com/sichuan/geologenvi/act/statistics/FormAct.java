@@ -49,7 +49,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
     private void queryForStatistics() {
         switch (type){
             case 2:
-                datalist=handler.getQueryResult("NAME,\n" +
+                datalist=handler.getQueryResult2("NAME,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '02' THEN 1 ELSE 0 END) as BengTa,\n" +
@@ -65,23 +65,6 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                         "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE) group by ZHAA01A110",
                         "");
                 DisasterStatisticsAdapter adapter=new DisasterStatisticsAdapter(this, datalist);
-                ArrayList<Map<String, String>> datalist2=handler.getQueryResult(
-                                "SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '02' THEN 1 ELSE 0 END) as BengTa,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '03' THEN 1 ELSE 0 END) as NiShiLiu,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '04' THEN 1 ELSE 0 END) as DiMianTaXian,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '05' THEN 1 ELSE 0 END) as DiLieFeng,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '06' THEN 1 ELSE 0 END) as DiMianChenJiang,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa,\n" +
-                                "SUM(ZHAA01A400) as HuShu,\n" +
-                                "SUM(ZHAA01A390) as RenShu,\n" +
-                                "SUM(ZHAA01A410) as ZiChan,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 is not null THEN 1 ELSE 0 END) as Suoyou ",
-                        "SL_ZHAA01A",
-                        "");
-                if(datalist2.size()>0)
-                    adapter.setTotal(datalist2.get(0));
                 recyclerView.setAdapter(adapter);
                 break;
             case 3:

@@ -322,19 +322,46 @@ public class SqlHandler {
                 }
                 datas.add(maps);
             }
+            c.close();
+        }
+        return datas;
+    }
+
+    public ArrayList<Map<String, String>> getQueryResult2(String queryStry, String tableName, String typeStr){
+
+        ArrayList<Map<String, String>> datas=new ArrayList<>();
+        String sqlStr="select "+queryStry+" from "+tableName+typeStr;
+        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
+        Cursor c = dbManager.querySQL(sqlStr, new String[]{});
+        if(c!=null) {
+            LogUtil.i("SQL", "result num---->:  "+c.getCount());
+            String columnNames[]=c.getColumnNames();
+            while (c.moveToNext()) {
+                LinkedHashMap<String, String> maps=new LinkedHashMap<>();
+                for (int i=0;i<columnNames.length;i++) {
+                    String key = columnNames[i];
+                    String value = c.getString(c.getColumnIndex(key));
+                    maps.put(key, value);
+                }
+                datas.add(maps);
+            }
             LinkedHashMap<String, String> maps=new LinkedHashMap<>();
             for (int i=0;i<columnNames.length;i++) {
                 String key = columnNames[i];
                 String value;
-                int v=0;
+                Double v=0d;
                 if(i==0)
                     value="总计";
                 else {
                     for (int j = 0; j < datas.size(); j++) {
                         Map<String, String> m=datas.get(j);
-                        v+=Integer.parseInt(m.get(key));
+                        v+=Double.valueOf(m.get(key));
                     }
-                    value=String.valueOf(v);
+                    long lv=v.longValue();
+                    if(lv==v)
+                        value=String.valueOf(lv);
+                    else
+                        value=String.valueOf(v);
                 }
                 maps.put(key,value);
             }
