@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:background="@color/whitesmoke"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="序号"
+                style="@style/txt_gray_11" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="70dp" />
+            <TextView
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="区（市）县"
+                style="@style/txt_gray_11" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="70dp" />
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="240dp"
+                android:layout_height="70dp">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="按险情划分"
+                    style="@style/txt_gray_11" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="隐患点"
+                        style="@style/txt_gray_10" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="威胁\n户数\n(户)"
+                        style="@style/txt_gray_10" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="威胁\n人数\n(人)"
+                        style="@style/txt_gray_10" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="威胁\n资产\n(万元)"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/txt_gray_10" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="70dp" />
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="480dp"
+                android:layout_height="70dp">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="按灾害类型划分"
+                    style="@style/txt_gray_11" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="不稳定\n斜坡"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="滑坡"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="崩塌"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="泥石流"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="地面\n塌陷"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="地裂缝"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="地面\n沉降"
+                        style="@style/txt_gray_11" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="其他"
+                        style="@style/txt_gray_11" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+
+        <com.sichuan.geologenvi.views.VRecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</HorizontalScrollView>

@@ -5,11 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.adapter.DisasterStatisticsAdapter;
 import com.sichuan.geologenvi.adapter.FormAdapter;
 import com.sichuan.geologenvi.adapter.FormBQBRAdapter;
 
@@ -31,8 +33,9 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         type=getIntent().getIntExtra("Type", 1);
-
-        if(type==2||type==5)
+        if(type==2)
+            setContentView(R.layout.zaihaidian_tongji);
+        else if(type==5)
             setContentView(R.layout.form_layout);
         else
             setContentView(R.layout.form2_layout);
@@ -55,10 +58,31 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHAA01A210 = '05' THEN 1 ELSE 0 END) as DiLieFeng,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '06' THEN 1 ELSE 0 END) as DiMianChenJiang,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa,\n" +
+                                "SUM(ZHAA01A400) as HuShu,\n" +
+                                "SUM(ZHAA01A390) as RenShu,\n" +
+                                "SUM(ZHAA01A410) as ZiChan,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 is not null THEN 1 ELSE 0 END) as Suoyou ",
                         "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE) group by ZHAA01A110",
                         "");
-                recyclerView.setAdapter(new FormAdapter(this, datalist));
+                DisasterStatisticsAdapter adapter=new DisasterStatisticsAdapter(this, datalist);
+                ArrayList<Map<String, String>> datalist2=handler.getQueryResult(
+                                "SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '02' THEN 1 ELSE 0 END) as BengTa,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '03' THEN 1 ELSE 0 END) as NiShiLiu,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '04' THEN 1 ELSE 0 END) as DiMianTaXian,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '05' THEN 1 ELSE 0 END) as DiLieFeng,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '06' THEN 1 ELSE 0 END) as DiMianChenJiang,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa,\n" +
+                                "SUM(ZHAA01A400) as HuShu,\n" +
+                                "SUM(ZHAA01A390) as RenShu,\n" +
+                                "SUM(ZHAA01A410) as ZiChan,\n" +
+                                "SUM(CASE WHEN ZHAA01A210 is not null THEN 1 ELSE 0 END) as Suoyou ",
+                        "SL_ZHAA01A",
+                        "");
+                if(datalist2.size()>0)
+                    adapter.setTotal(datalist2.get(0));
+                recyclerView.setAdapter(adapter);
                 break;
             case 3:
                 datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +
@@ -130,19 +154,19 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        if(type==2||type==5)
+        if(type==5)
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         else
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        if(type==2||type==5)
-            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        else
-            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        layoutManager = new LinearLayoutManager(this);
+//        if(type==2||type==5)
+//            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        else
+//            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(layoutManager);
 
 
     }
