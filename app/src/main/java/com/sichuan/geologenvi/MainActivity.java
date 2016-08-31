@@ -148,9 +148,13 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 7:
-                    i.setClass(MainActivity.this, MineListAct.class);
+                    //i.setClass(MainActivity.this, MineListAct.class);
+                    //i.putExtra("Title", "矿山地质");
+                    //i.putExtra("TableName", "SL_KS_DZHJ_XX");
+                    //startActivity(i);
+                    i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "矿山地质");
-                    i.putExtra("TableName", "SL_KS_DZHJ_XX");
+                    i.putExtra("Type", "kuangshan");
                     startActivity(i);
                     break;
                 case 8:

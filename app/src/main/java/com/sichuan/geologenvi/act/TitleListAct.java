@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
+import com.sichuan.geologenvi.act.geodisaster.TitleResultListAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
 import com.sichuan.geologenvi.act.report.ReportTitleList;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/6/24.
  */
 public class TitleListAct  extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<String> list=new ArrayList<>();
@@ -47,6 +48,10 @@ public class TitleListAct  extends AppFrameAct {
     }
 
     private void initView() {
+
+        txtcount=(TextView)findViewById(R.id.count);
+        txtcount.setVisibility(View.GONE);
+
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -99,6 +104,10 @@ public class TitleListAct  extends AppFrameAct {
             list.add("地下水基本概况");
             list.add("地下水监测情况");
             list.add("地下水监测点位");
+        }else if(type.equals("kuangshan")){//地下水
+            list.add("国家专项资金恢复治理项目");
+            list.add("绿色矿山");
+            list.add("一般矿山");
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
@@ -106,68 +115,89 @@ public class TitleListAct  extends AppFrameAct {
     View.OnClickListener listener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            int tag=(int)view.getTag();
-            if(type.equals("Disaster")) {
+            int tag = (int) view.getTag();
+            if (type.equals("Disaster")) {
                 switch (tag) {
                     case 0:
-                        LinearLayout subLayout= (LinearLayout) ((View)(view.getParent())).findViewById(R.id.subLayout);
-                        if(subLayout.getChildCount()==0) {
+                        LinearLayout subLayout = (LinearLayout) ((View) (view.getParent())).findViewById(R.id.subLayout);
+                        if (subLayout.getChildCount() == 0) {
                             subLayout.addView(ViewUtil.getGrayLine(TitleListAct.this));
                             addTextView(subLayout, "国土部门负责点位", 40, 7);
                             addTextView(subLayout, "其他部门负责点位", 20, 8);
                             addTextView(subLayout, "销号点位", 40, 9);
-                        }else{
+                        } else {
                             subLayout.removeAllViews();
                         }
                         break;
                     default:
-                        Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                        Intent i = new Intent(TitleListAct.this, TitleResultListAct.class);
                         i.putExtra("Type", tag);
                         i.putExtra("Title", list.get(tag));
+                        i.putExtra("Name", "");
+                        i.putExtra("disasterName", "");
+                        i.putExtra("disasterTypeCode", "");
+                        i.putExtra("disasterSizeCode", "");
+                        i.putExtra("areaCode", "");
+                        i.putExtra("avoidCode", "");
+                        i.putExtra("yearCode", "");
                         startActivity(i);
                         break;
                 }
-            }else if(type.equals("Report")) {
-                if(tag>2) {
+            } else if (type.equals("Report")) {
+                if (tag > 2) {
                     Intent i = new Intent(TitleListAct.this, ReportTitleList.class);
                     i.putExtra("Title", list.get(tag));
                     i.putExtra("Type", tag);
                     startActivity(i);
-                }else{
+                } else {
                     Intent i = new Intent(TitleListAct.this, SelectorAct.class);
                     i.putExtra("Title", list.get(tag));
-                    i.putExtra("Type", tag+10);
+                    i.putExtra("Type", tag + 10);
+
+                    i.putExtra("Name", "");
+                    i.putExtra("disasterName", "");
+                    i.putExtra("disasterTypeCode", "");
+                    i.putExtra("disasterSizeCode", "");
+                    i.putExtra("areaCode", "");
+                    i.putExtra("avoidCode", "");
+                    i.putExtra("yearCode", "");
+
                     startActivity(i);
                 }
-            }else if(type.equals("Statistics")) {
-                if(tag<=1) {
+            } else if (type.equals("Statistics")) {
+                if (tag <= 1) {
                     Intent i = new Intent(TitleListAct.this, ChatAct.class);
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
-                }else{
+                } else {
                     Intent i = new Intent(TitleListAct.this, FormAct.class);
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
                 }
-            }else if(type.equals("Contact")) {
+            } else if (type.equals("Contact")) {
                 Intent i = new Intent(TitleListAct.this, ActivityAddFriends.class);
                 i.putExtra("Type", tag);
                 i.putExtra("Title", list.get(tag));
                 startActivity(i);
-            }else if(type.equals("Jing")) {//地下水
-                if(tag<=1) {
+            } else if (type.equals("Jing")) {//地下水
+                if (tag <= 1) {
                     Intent i = new Intent(TitleListAct.this, DxsAct.class);
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
-                }else{
-                    Intent i=new Intent(TitleListAct.this, MineListAct.class);
-                    i.putExtra("Title", "地下水");
+                } else {
+                    Intent i = new Intent(TitleListAct.this, MineListAct.class);
+                    i.putExtra("Title", list.get(tag));
                     i.putExtra("TableName", "SL_TBLJING");
                     startActivity(i);
                 }
+            } else if (type.equals("kuangshan")) {//矿山地质
+                Intent i = new Intent(TitleListAct.this, MineListAct.class);
+                i.putExtra("Title", list.get(tag));
+                i.putExtra("TableName", "SL_KS_DZHJ_XX");
+                startActivity(i);
             }
         }
 
@@ -185,9 +215,16 @@ public class TitleListAct  extends AppFrameAct {
         public void onClick(View view) {
             if (type.equals("Disaster")) {
                 int tag = (int) view.getTag();
-                Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                Intent i = new Intent(TitleListAct.this, TitleResultListAct.class);
                 i.putExtra("Type", tag);
                 i.putExtra("Title", ((TextView)view).getText().toString());
+                i.putExtra("Name", "");
+                i.putExtra("disasterName", "");
+                i.putExtra("disasterTypeCode", "");
+                i.putExtra("disasterSizeCode", "");
+                i.putExtra("areaCode", "");
+                i.putExtra("avoidCode", "");
+                i.putExtra("yearCode", "");
                 startActivity(i);
             }else if (type.equals("Statistics")) {
 //                int tag = (int) view.getTag();

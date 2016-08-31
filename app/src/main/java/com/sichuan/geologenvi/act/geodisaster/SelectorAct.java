@@ -151,7 +151,8 @@ public class SelectorAct extends AppFrameAct {
                     String disasterName=disasterNameEdt.getText().toString();
                     Intent intent=getIntent();
                     if(type<10)
-                        intent.setClass(SelectorAct.this, TitleResultListAct.class); //查看线下数据库内容
+                        //intent.setClass(SelectorAct.this, TitleResultListAct.class); //查看线下数据库内容
+                    intent=new Intent();
                     else
                         intent.setClass(SelectorAct.this, ReportEditListAct.class); //编辑线上数据库内容
 
@@ -165,8 +166,11 @@ public class SelectorAct extends AppFrameAct {
                     if(getIntent().hasExtra("Report")){
                         setResult(0x11, intent);
                         finish();
-                    }else
-                        startActivity(intent);
+                    }else {
+                       // startActivity(intent);
+                        setResult(0x11, intent);
+                        finish();
+                    }
                     break;
                 case R.id.areaLayout:
                     Intent intent2=new Intent(SelectorAct.this, AreaSelectorAct.class);

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.QueryStr;
@@ -15,24 +16,29 @@ import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.ItemDetailAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.AreaInfo;
+import com.sichuan.geologenvi.bean.Contact;
 import com.sichuan.geologenvi.bean.GeohazardBean;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.utils.ViewUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by Administrator on 2016/6/27.
  */
-public class TitleResultListAct  extends AppFrameAct {
-
+public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer {
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
     Map<String, ArrayList<Map<String, String>>>  stations=new HashMap<>();
     int type=0;
+
+
+    private String sqlStr="";
 
     private SqlHandler handler;
 
@@ -43,9 +49,27 @@ public class TitleResultListAct  extends AppFrameAct {
 
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle(getIntent().getStringExtra("Title"));
+
+
+
+
+
         initView();
         handler=new SqlHandler(this);
         requestInfo();
+
+
+        _setRightHomeText("筛选", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(TitleResultListAct.this, SelectorAct.class);
+                intent2.putExtra("Type", type);
+                intent2.putExtra("Title",getIntent().getStringExtra("Title"));
+                startActivityForResult(intent2, 0x11);
+            }
+        });
+
     }
 
     private void requestInfo() {
@@ -86,6 +110,9 @@ public class TitleResultListAct  extends AppFrameAct {
                 break;
         }
         ArrayList<String> list = new ArrayList<>();
+
+        txtcount.setText("共：   "+ datalist.size()+"    条记录");
+        stations.clear();
         for (Map<String, String> info : datalist) {
             switch (type) {
                 case 1:
@@ -108,6 +135,7 @@ public class TitleResultListAct  extends AppFrameAct {
                         data.add(info);
                         stations.put(key, data);
                     }
+                    txtcount.setText("共：   "+ stations.size()+"    条记录");
                     break;
                 case 4:
                 case 5:
@@ -122,6 +150,7 @@ public class TitleResultListAct  extends AppFrameAct {
     }
 
     private void initView() {
+        txtcount=(TextView)findViewById(R.id.count);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -215,4 +244,106 @@ public class TitleResultListAct  extends AppFrameAct {
         });
         subLayout.addView(txt);
     }
+
+    @Override
+    public Object[] getSections() {
+        return null;
+    }
+
+
+    /**
+     * 根据ListView的当前位置获取分类的首字母的Char ascii值
+     */
+    public int getSectionForPosition(int position) {
+        return 0;
+    }
+
+    /**
+     * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
+     */
+    public int getPositionForSection(int section) {
+
+        return -1;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        switch (type) {
+            case 1:
+            case 7:
+            case 8:
+            case 9:
+                datalist=handler.getGeohazardInfo(QueryStr.yinhuandian, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                        intent.getStringExtra("disasterTypeCode"),
+                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
+                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                break;
+            case 3:
+                datalist=handler.getGeohazardInfo("", type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                        intent.getStringExtra("disasterTypeCode"),
+                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
+                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                break;
+            case 2:
+                datalist=handler.getGeohazardInfo(QueryStr.zhuanyeshebei, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                        intent.getStringExtra("disasterTypeCode"),
+                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
+                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                break;
+            case 4:
+            case 5:
+                datalist=handler.getGeohazardInfo(QueryStr.yhdbixiancs, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                        intent.getStringExtra("disasterTypeCode"),
+                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
+                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                break;
+            case 6:
+                datalist=handler.getGeohazardInfo(QueryStr.bxbq, type,intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                        intent.getStringExtra("disasterTypeCode"),
+                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
+                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                break;
+        }
+        ArrayList<String> list = new ArrayList<>();
+
+        txtcount.setText("共：   "+ datalist.size()+"    条记录");
+        stations.clear();
+        for (Map<String, String> info : datalist) {
+            switch (type) {
+                case 1:
+                case 7:
+                case 8:
+                case 9:
+                    list.add(info.get("ZHAA01A020"));
+                    break;
+                case 3:
+                    list.add(info.get("ZHCA01A020"));
+                    break;
+                case 2:
+                    String key=info.get("DISASTERNAME");
+
+                    if(stations.containsKey(key)) {
+                        ArrayList<Map<String, String>> data=stations.get(key);
+                        data.add(info);
+                    }else{
+                        list.add(key);
+                        ArrayList<Map<String, String>> data=new ArrayList<>();
+                        data.add(info);
+                        stations.put(key, data);
+                    }
+                    txtcount.setText("共：   "+ stations.size()+"    条记录");
+                    break;
+                case 4:
+                case 5:
+                    list.add(info.get("ZHDD02A020")+"\n"+info.get("ZHDD02A310"));
+                    break;
+                case 6:
+                    list.add(info.get("ZHDD04B020"));
+                    break;
+            }
+        }
+        recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
+        }
+
 }

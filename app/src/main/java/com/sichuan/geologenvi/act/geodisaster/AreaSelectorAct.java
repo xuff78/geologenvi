@@ -24,7 +24,7 @@ import java.util.LinkedList;
  * Created by Administrator on 2016/6/27.
  */
 public class AreaSelectorAct extends AppFrameAct {
-
+    TextView txtcount;
     int type=0;
     TextView selectArea;
     RecyclerView recyclerView;
@@ -54,6 +54,10 @@ public class AreaSelectorAct extends AppFrameAct {
     }
 
     private void initView() {
+
+        txtcount=(TextView)findViewById(R.id.count);
+        txtcount.setVisibility(View.GONE);
+
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

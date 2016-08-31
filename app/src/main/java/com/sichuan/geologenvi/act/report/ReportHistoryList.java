@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * Created by 可爱的蘑菇 on 2016/7/23.
  */
 public class ReportHistoryList extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<MenuListItem2> datalist=new ArrayList<>();
@@ -124,6 +125,8 @@ public class ReportHistoryList extends AppFrameAct {
     }
 
     private void initView() {
+        txtcount=(TextView)findViewById(R.id.count);
+        txtcount.setVisibility(View.GONE);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
