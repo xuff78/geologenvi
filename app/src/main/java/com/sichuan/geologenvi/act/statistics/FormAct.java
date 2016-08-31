@@ -59,6 +59,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                         "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE) group by ZHAA01A110",
                         "");
                 recyclerView.setAdapter(new FormAdapter(this, datalist));
+
                 break;
             case 3:
                 datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +

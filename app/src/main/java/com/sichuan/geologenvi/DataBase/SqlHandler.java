@@ -319,6 +319,23 @@ public class SqlHandler {
                 }
                 datas.add(maps);
             }
+            LinkedHashMap<String, String> maps=new LinkedHashMap<>();
+            for (int i=0;i<columnNames.length;i++) {
+                String key = columnNames[i];
+                String value;
+                int v=0;
+                if(i==0)
+                    value="总计";
+                else {
+                    for (int j = 0; j < datas.size(); j++) {
+                        Map<String, String> m=datas.get(j);
+                        v+=Integer.parseInt(m.get(key));
+                    }
+                    value=String.valueOf(v);
+                }
+                maps.put(key,value);
+            }
+            datas.add(maps);
             c.close();
         }
         return datas;
