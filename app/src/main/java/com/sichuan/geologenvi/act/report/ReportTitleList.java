@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -22,7 +23,7 @@ import java.util.Map;
  * Created by 可爱的蘑菇 on 2016/7/23.
  */
 public class ReportTitleList extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<String> list=new ArrayList<>();
@@ -43,6 +44,7 @@ public class ReportTitleList extends AppFrameAct {
     }
 
     private void initView() {
+        txtcount=(TextView)findViewById(R.id.count);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -72,6 +74,7 @@ public class ReportTitleList extends AppFrameAct {
                 startActivityForResult(i, 0x10);
                 return;
         }
+        txtcount.setText("共：   "+ datalist.size()+"    条记录");
         for (Map<String, String> info : datalist) {
             list.add(info.get(titleKey));
         }

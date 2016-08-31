@@ -68,7 +68,7 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 		type=getIntent().getIntExtra("Type", 0);
 		initViews();
 		if(type==2)
-		_setRightHomeText("地区筛选", new View.OnClickListener(){
+		_setRightHomeText("筛选", new View.OnClickListener(){
 
 			@Override
 			public void onClick(View view) {

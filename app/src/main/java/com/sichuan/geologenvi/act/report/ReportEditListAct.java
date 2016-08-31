@@ -34,7 +34,7 @@ import java.util.Map;
  * Created by 可爱的蘑菇 on 2016/7/28.
  */
 public class ReportEditListAct extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
@@ -96,6 +96,8 @@ public class ReportEditListAct extends AppFrameAct {
     }
 
     private void initView() {
+        txtcount=(TextView)findViewById(R.id.count);
+        txtcount.setVisibility(View.GONE);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
