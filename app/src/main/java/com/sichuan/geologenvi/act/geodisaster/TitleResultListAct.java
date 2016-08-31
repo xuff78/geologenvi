@@ -27,7 +27,7 @@ import java.util.Map;
  * Created by Administrator on 2016/6/27.
  */
 public class TitleResultListAct  extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
@@ -86,6 +86,8 @@ public class TitleResultListAct  extends AppFrameAct {
                 break;
         }
         ArrayList<String> list = new ArrayList<>();
+
+        txtcount.setText("共：   "+ datalist.size()+"    条记录");
         for (Map<String, String> info : datalist) {
             switch (type) {
                 case 1:
@@ -122,6 +124,7 @@ public class TitleResultListAct  extends AppFrameAct {
     }
 
     private void initView() {
+        txtcount=(TextView)findViewById(R.id.count);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

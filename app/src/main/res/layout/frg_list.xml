@@ -37,6 +37,21 @@
         android:background="@color/light_gray"
         android:layout_width="match_parent"
         android:layout_height="1px"/>
+    <TextView
+        android:id="@+id/count"
+        android:layout_centerVertical="true"
+        android:text="数量："
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:gravity="center"
+        android:layout_toLeftOf="@+id/confirmBtn"
+        android:layout_marginRight="8dp"
+        android:lineSpacingExtra="3dp"
+        style="@style/txt_gray_14" />
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
     <com.sichuan.geologenvi.views.VRecyclerView
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"

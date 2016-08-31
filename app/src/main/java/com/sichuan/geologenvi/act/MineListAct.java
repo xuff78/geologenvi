@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -21,7 +22,7 @@ import java.util.Map;
  * Created by Administrator on 2016/6/30.
  */
 public class MineListAct   extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
@@ -57,6 +58,7 @@ public class MineListAct   extends AppFrameAct {
             title="NAME";
         else if(tableName.equals("SL_TBLJING"))
             title="QUYU";
+        txtcount.setText("共：   "+ datalist.size()+"    条记录");
         for (Map<String, String> info : datalist) {
             list.add(info.get(title));
 
@@ -65,6 +67,9 @@ public class MineListAct   extends AppFrameAct {
     }
 
     private void initView() {
+
+        txtcount=(TextView)findViewById(R.id.count);
+
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

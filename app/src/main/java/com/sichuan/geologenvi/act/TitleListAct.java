@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2016/6/24.
  */
 public class TitleListAct  extends AppFrameAct {
-
+    TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<String> list=new ArrayList<>();
@@ -47,6 +47,10 @@ public class TitleListAct  extends AppFrameAct {
     }
 
     private void initView() {
+
+        txtcount=(TextView)findViewById(R.id.count);
+        txtcount.setVisibility(View.GONE);
+
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -164,7 +168,7 @@ public class TitleListAct  extends AppFrameAct {
                     startActivity(i);
                 }else{
                     Intent i=new Intent(TitleListAct.this, MineListAct.class);
-                    i.putExtra("Title", "地下水");
+                    i.putExtra("Title", list.get(tag));
                     i.putExtra("TableName", "SL_TBLJING");
                     startActivity(i);
                 }
