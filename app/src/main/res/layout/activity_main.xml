@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="10dp"
@@ -30,7 +34,7 @@
         <com.sichuan.geologenvi.views.AutoScrollViewPager
             android:id="@+id/galleryImgs"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="200dp"/>
     </LinearLayout>
     <LinearLayout
         android:background="@color/light_gray"
@@ -53,4 +57,5 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
+</ScrollView>

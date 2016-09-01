@@ -41,10 +41,11 @@ import com.tianditu.android.maps.TOfflineMapManager;
 public class MainActivity extends AppFrameAct {
 
     private String[] names={"法律法规","通讯录","地图","数据同步","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
-            "地下水","水土地质","雨量监测"};
+            "地下水","水土地质","雨量监测","值班安排","预警","雷达回波",""};
     private int[] ress={R.mipmap.icon_menu_1,R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_4,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
-            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12};
+            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
+            R.mipmap.icon_menu_12, R.mipmap.icon_menu_12,R.mipmap.icon_menu_12, 0};
     private AutoScrollViewPager viewPager;
     private AsycnDialog dialog;
 
@@ -74,8 +75,11 @@ public class MainActivity extends AppFrameAct {
 
     private void initView() {
         viewPager= (AutoScrollViewPager) findViewById(R.id.galleryImgs);
+        int galleryWidth=ScreenUtil.getScreenWidth(this);
+        int galleryHeight= (int) (galleryWidth*(380/640f));
         TopImgAdapter adapter=new TopImgAdapter(this, new int[]{R.mipmap.test_pic1, R.mipmap.test_pic2});
         viewPager.setAdapter(adapter);
+        viewPager.setLayoutParams(new LinearLayout.LayoutParams(galleryWidth, galleryHeight));
 //        viewPager.startAutoScroll(2000);
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
         int paddtop = ImageUtil.dip2px(this,20);
@@ -86,7 +90,7 @@ public class MainActivity extends AppFrameAct {
         LayoutInflater inflater=LayoutInflater.from(this);
         LinearLayout layout=new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
-        for (int i=0;i<12;i++){
+        for (int i=0;i<names.length;i++){
             View v=inflater.inflate(R.layout.item_main_menu, null);
             ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
             TextView menuName= (TextView) v.findViewById(R.id.menuName);
@@ -179,6 +183,21 @@ public class MainActivity extends AppFrameAct {
                     i.setClass(MainActivity.this, RainAct.class);
                     i.putExtra("Title", "雨量监测");
                     startActivity(i);
+                    break;
+                case 12:
+//                    i.setClass(MainActivity.this, RainAct.class);
+//                    i.putExtra("Title", "值班安排");
+//                    startActivity(i);
+                    break;
+                case 13:
+//                    i.setClass(MainActivity.this, RainAct.class);
+//                    i.putExtra("Title", "预警");
+//                    startActivity(i);
+                    break;
+                case 14:
+//                    i.setClass(MainActivity.this, RainAct.class);
+//                    i.putExtra("Title", "雷达回波");
+//                    startActivity(i);
                     break;
             }
         }

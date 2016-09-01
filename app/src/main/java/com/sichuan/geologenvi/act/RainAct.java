@@ -1,11 +1,14 @@
 package com.sichuan.geologenvi.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.statistics.ChatRain;
 import com.sichuan.geologenvi.adapter.ActivityInfoAdapter;
 import com.sichuan.geologenvi.adapter.RainAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
@@ -102,6 +105,18 @@ public class RainAct extends AppFrameAct {
                     rainInfo = JsonUtil.getRainInfo(jsonData);
                     adapter = new RainAdapter(RainAct.this, rainInfo);
                     list.setAdapter(adapter);
+                    final String[] areaTxt=new String[rainInfo.size()];
+                    for(int i=0;i<rainInfo.size();i++){
+                        areaTxt[i]=rainInfo.get(i).getName();
+                    }
+                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent chat=new Intent(RainAct.this, ChatRain.class);
+                            chat.putExtra("Names", areaTxt);
+                            startActivity(chat);
+                        }
+                    });
                 }
             }
         });
