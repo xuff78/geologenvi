@@ -42,6 +42,8 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
     private int statisticsType=0;
     private String jsonString="";
 
+    private TextView txtCount;
+
     private int type=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
     }
 
     private void initView() {
+
+        txtCount=(TextView) findViewById(R.id.countLayout);
         txt1= (TextView) findViewById(R.id.txt1);
         txt2= (TextView) findViewById(R.id.txt2);
         txt3= (TextView) findViewById(R.id.txt3);
@@ -203,7 +207,12 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
         if(typeStr.length()>0)
             typeStr = " WHERE " + typeStr;
 
+        ArrayList<Map<String, String>> data2=new ArrayList<>();
+        data2=handler.getQueryResult("count(*) as count,sum(ZHAA01A390) as renkou,sum(ZHAA01A400) as hushu,sum(ZHAA01A410) as caichan",
+                                "SL_ZHAA01A",
+                                typeStr);
 
+        txtCount.setText("共有隐患点："+data2.get(0).get("count")+"个，威胁人口："+data2.get(0).get("renkou")+"人，威胁户数："+data2.get(0).get("hushu")+"户，威胁财产："+data2.get(0).get("caichan")+"万元");
 
         switch (statisticsType){
             case 0:
