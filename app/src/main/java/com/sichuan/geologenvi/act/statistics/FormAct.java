@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.adapter.BanQianAdapte;
 import com.sichuan.geologenvi.adapter.DisasterStatisticsAdapter;
 import com.sichuan.geologenvi.adapter.FormAdapter;
 import com.sichuan.geologenvi.adapter.FormBQBRAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
+
 
 /**
  * Created by 可爱的蘑菇 on 2016/7/17.
@@ -35,6 +38,8 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
         type=getIntent().getIntExtra("Type", 1);
         if(type==2)
             setContentView(R.layout.zaihaidian_tongji);
+        else if(type==4)
+            setContentView(R.layout.banqian_tongji);
         else if(type==5)
             setContentView(R.layout.form_layout);
         else
@@ -62,7 +67,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(ZHAA01A390) as RenShu,\n" +
                                 "SUM(ZHAA01A410) as ZiChan,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 is not null THEN 1 ELSE 0 END) as Suoyou ",
-                        "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE) group by ZHAA01A110",
+                        "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE)   where a.ZHAA01A875=0 group by ZHAA01A110",
                         "");
                 DisasterStatisticsAdapter adapter=new DisasterStatisticsAdapter(this, datalist);
                 recyclerView.setAdapter(adapter);
@@ -75,13 +80,17 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
                 break;
             case 4:
-                datalist=handler.getQueryResult("NAME,\n" +
-                                "count(1) as ZongGong,\n" +
-                                "SUM(CASE WHEN ZHDD04B230 = '1' THEN 1 ELSE 0 END) as WanCheng,\n" +
-                                "SUM(CASE WHEN ZHDD04B240 = '1' THEN 1 ELSE 0 END) as YanShou ",
+                Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+                int year = c.get(Calendar.YEAR);
+                datalist=handler.getQueryResult2("NAME,\n"+
+                                                "sum(case when zhdd04B013='"+String.valueOf(year-2)+"' then 1 else 0 end) as year1,\n"+
+                                                "sum(case when zhdd04B013='"+String.valueOf(year-1)+"' then 1 else 0 end) as year2,\n"+
+                                                "sum(case when zhdd04B013='"+String.valueOf(year)+"' then 1 else 0 end) as year3,\n"+
+                                                "sum(case when zhdd04B013>='"+String.valueOf(year-2)+"' then 1 else 0 end) as xiaoji",
                         "SL_ZHDD04B as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD04B040=b.CODE) group by ZHDD04B040",
-                        "");
-                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 4));
+                "");
+                BanQianAdapte banqian=new BanQianAdapte(this, datalist);
+                recyclerView.setAdapter(banqian);
                 break;
             case 5:
                 datalist=handler.getQueryResult("NAME,\n" +

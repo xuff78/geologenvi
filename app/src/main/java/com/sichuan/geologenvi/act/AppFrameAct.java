@@ -62,6 +62,7 @@ public abstract class AppFrameAct extends AppCompatActivity {
 				FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.FILL_PARENT);
 
 		frameLayout.addView(content, -1, layoutParams);
+
 	}
 
 	private final class ClickListener implements OnClickListener {
