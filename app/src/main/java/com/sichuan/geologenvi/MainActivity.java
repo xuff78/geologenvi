@@ -45,7 +45,7 @@ public class MainActivity extends AppFrameAct {
     private int[] ress={R.mipmap.icon_menu_1,R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_4,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
-            R.mipmap.icon_menu_12, R.mipmap.icon_menu_12,R.mipmap.icon_menu_12, 0};
+            R.mipmap.icon_menu_13, R.mipmap.icon_menu_14,R.mipmap.icon_menu_15, 0};
     private AutoScrollViewPager viewPager;
     private AsycnDialog dialog;
 
@@ -185,19 +185,19 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 12:
-//                    i.setClass(MainActivity.this, RainAct.class);
-//                    i.putExtra("Title", "值班安排");
-//                    startActivity(i);
+                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "值班安排");
+                    startActivity(i);
                     break;
                 case 13:
-//                    i.setClass(MainActivity.this, RainAct.class);
-//                    i.putExtra("Title", "预警");
-//                    startActivity(i);
+                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "预警");
+                    startActivity(i);
                     break;
                 case 14:
-//                    i.setClass(MainActivity.this, RainAct.class);
-//                    i.putExtra("Title", "雷达回波");
-//                    startActivity(i);
+                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "雷达回波");
+                    startActivity(i);
                     break;
             }
         }
