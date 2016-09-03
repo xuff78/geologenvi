@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.frg.SearchListFrg;
+import com.sichuan.geologenvi.frg.SearchListFrg2;
 import com.sichuan.geologenvi.utils.ToastUtils;
 
 /**
@@ -19,22 +20,37 @@ import com.sichuan.geologenvi.utils.ToastUtils;
  */
 public class SearchAct extends AppFrameAct {
 
+    private String title;
+    private String type;
     private EditText editSearch;
     private ImageView btnSearch;
     private String word="";
-    private SearchListFrg frg=new SearchListFrg();
+   // private SearchListFrg frg=new SearchListFrg();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchlist);
 
-        _setHeaderTitle(getIntent().getStringExtra("Title"));
+        title=getIntent().getStringExtra("Title");
+        _setHeaderTitle(title);
+        type=getIntent().getStringExtra("Type");
         initView();
-        openFragment(new SearchListFrg());
+        Bundle args = new Bundle();
+
+        if(title.equals("政策法规")){
+            openFragment(new SearchListFrg());
+        }
+        else{
+            SearchListFrg2 frg=new  SearchListFrg2();
+            args.putString("Type","国家级文件" );
+            frg.setArguments(args);
+            openFragment(frg);
+        }
     }
 
     private void openFragment(Fragment frg){
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frgFrame, frg);
         ft.commit();

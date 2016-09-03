@@ -40,7 +40,7 @@ import com.tianditu.android.maps.TOfflineMapManager;
 
 public class MainActivity extends AppFrameAct {
 
-    private String[] names={"法律法规","通讯录","地图","数据同步","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+    private String[] names={"政策法规","通讯录","地图","数据同步","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
             "地下水","水土地质","雨量监测","值班安排","预警","雷达回波",""};
     private int[] ress={R.mipmap.icon_menu_1,R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_4,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
@@ -116,7 +116,8 @@ public class MainActivity extends AppFrameAct {
             switch ((int)view.getTag()){
                 case 0:
                     i.setClass(MainActivity.this, SearchAct.class);
-                    i.putExtra("Title", "法律法规");
+                    i.putExtra("Title", "政策法规");
+                    i.putExtra("Type","zcfg");
                     startActivity(i);
                     break;
                 case 1:
@@ -187,11 +188,13 @@ public class MainActivity extends AppFrameAct {
                 case 12:
                     i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "值班安排");
+                    i.putExtra("Type","zhibananpai");
                     startActivity(i);
                     break;
                 case 13:
                     i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "预警");
+                    i.putExtra("Type","yujing");
                     startActivity(i);
                     break;
                 case 14:

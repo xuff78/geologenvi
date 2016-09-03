@@ -45,6 +45,8 @@ public class ReportTitleList extends AppFrameAct {
 
     private void initView() {
         txtcount=(TextView)findViewById(R.id.count);
+        txtcount.setVisibility(View.VISIBLE);
+
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
