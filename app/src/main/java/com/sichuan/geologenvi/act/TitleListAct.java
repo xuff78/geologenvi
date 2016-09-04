@@ -15,6 +15,7 @@ import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.geodisaster.TitleResultListAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
+import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.act.report.ReportTitleList;
 import com.sichuan.geologenvi.act.statistics.ChatAct;
 import com.sichuan.geologenvi.act.statistics.FormAct;
@@ -150,7 +151,9 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("Type", tag);
                     startActivity(i);
                 } else {
-                    Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                    //Intent i = new Intent(TitleListAct.this, SelectorAct.class);
+                    Intent i = new Intent(TitleListAct.this, ReportEditListAct.class);
+
                     i.putExtra("Title", list.get(tag));
                     i.putExtra("Type", tag + 10);
 
