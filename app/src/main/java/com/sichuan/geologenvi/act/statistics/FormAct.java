@@ -15,6 +15,7 @@ import com.sichuan.geologenvi.adapter.BanQianAdapte;
 import com.sichuan.geologenvi.adapter.DisasterStatisticsAdapter;
 import com.sichuan.geologenvi.adapter.FormAdapter;
 import com.sichuan.geologenvi.adapter.FormBQBRAdapter;
+import com.sichuan.geologenvi.adapter.FormGCZLAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +42,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
         else if(type==4)
             setContentView(R.layout.banqian_tongji);
         else if(type==5)
-            setContentView(R.layout.form_layout);
+            setContentView(R.layout.gczl_tongji);
         else
             setContentView(R.layout.form2_layout);
 
@@ -93,7 +94,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(banqian);
                 break;
             case 5:
-                datalist=handler.getQueryResult("NAME,\n" +
+                datalist=handler.getQueryResult2("NAME,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '02' THEN 1 ELSE 0 END) as BengTa,\n" +
@@ -101,11 +102,10 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHAA01A210 = '04' THEN 1 ELSE 0 END) as DiMianTaXian,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '05' THEN 1 ELSE 0 END) as DiLieFeng,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '06' THEN 1 ELSE 0 END) as DiMianChenJiang,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 is not null THEN 1 ELSE 0 END) as Suoyou ",
+                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa",
                         "SL_ZHCA01A as a left join SL_ZHAA01A as c on (a.ZHCA01A015=c.ZHAA01A010)  left join SL_TATTR_DZZH_XZQH as b on (a.ZHCA01A040=b.CODE) group by ZHCA01A040",
                         "");
-                recyclerView.setAdapter(new FormAdapter(this, datalist));
+                recyclerView.setAdapter(new FormGCZLAdapter(this, datalist));
                 break;
             case 6:
                 datalist=handler.getQueryResult("NAME,\n"+
@@ -115,13 +115,11 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 6));
                 break;
             case 7:
-                datalist=handler.getQueryResult("NAME,\n" +
-                                "count(1) as ZongGong,\n" +
-                                "SUM(CASE WHEN ZHDD04B230 = '1' THEN 1 ELSE 0 END) as WanCheng,\n" +
-                                "SUM(CASE WHEN ZHDD04B240 = '1' THEN 1 ELSE 0 END) as YanShou ",
-                        "SL_ZHDD04B as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD04B040=b.CODE) group by ZHDD04B040",
+                datalist=handler.getQueryResult2("city as NAME,\n" +
+                                "count(distinct(disastername)) as zhandian,count(meterid) as shebei",
+                        "sl_stationmeters group by city",
                         "");
-                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
+                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 7));
                 break;
 
         }
@@ -143,12 +141,17 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 title3.setVisibility(View.GONE);
                 title4.setVisibility(View.GONE);
         }
+        else if(type==7){
+            title2.setText("站点数");
+            title3.setText("专业设备数");
+            title4.setVisibility(View.GONE);
+        }
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        if(type==5)
-            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        else
+       // if(type==5)
+       //     layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+       // else
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 //        recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
