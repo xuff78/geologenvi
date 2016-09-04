@@ -58,10 +58,11 @@ public class SearchListFrg extends BaseFragment{
             String bookName=msg.getData().getString("Name");
             File file=FileUtil.getFile(bookName, getActivity());
             if(file.exists()){
-                String type="pdf";
-                if(bookName.contains("."))
-                    type=bookName.split("\\.")[1];
-                FileUtil.openFile(file, getActivity(), "application/"+type);
+//                String type="pdf";
+//                if(bookName.contains("."))
+//                    type=bookName.split("\\.")[1];
+//                FileUtil.openFile(file, getActivity(), "application/"+type);
+                startActivity(FileUtil.openFile(file.getPath()));
             }else
                 ToastUtils.displayTextShort(getActivity(), "下载失败，请稍后重试");
         }
@@ -116,10 +117,12 @@ public class SearchListFrg extends BaseFragment{
             final PopupInfoItem book= (PopupInfoItem) view.getTag();
             File file=FileUtil.getFile(book.getName(), getActivity());
             if(file.exists()){
-                String type="pdf";
-                if(book.getName().contains("."))
-                    type=book.getName().split("\\.")[1];
-                FileUtil.openFile(file, getActivity(), "application/"+type);
+//                String type="pdf";
+//                if(book.getName().contains("."))
+//                    type=book.getName().split("\\.")[1];
+//                FileUtil.openFile(file, getActivity(), "application/"+type);
+
+                startActivity(FileUtil.openFile(file.getPath()));
             }else {
                 progressDialog=ProgressDialog.show(getActivity(), "提示", "下载中请稍后");
                 new Thread() {

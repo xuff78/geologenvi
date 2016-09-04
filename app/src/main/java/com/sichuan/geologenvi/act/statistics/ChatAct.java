@@ -212,7 +212,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                                 "SL_ZHAA01A",
                                 typeStr);
 
-        txtCount.setText("共有隐患点："+data2.get(0).get("count")+"个，威胁人口："+data2.get(0).get("renkou")+"人，威胁户数："+data2.get(0).get("hushu")+"户，威胁财产："+data2.get(0).get("caichan")+"万元");
+        txtCount.setText("共有隐患点："+data2.get(0).get("count")+"个    威胁人口："+data2.get(0).get("renkou")+"人\n威胁户数："+data2.get(0).get("hushu")+"户    威胁财产："+data2.get(0).get("caichan")+"万元");
 
         switch (statisticsType){
             case 0:
@@ -252,7 +252,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
         mWebView.loadUrl("file:///android_asset/form1.html");
     }
 
-    String[] disasterNames={"斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
+    String[] disasterNames={"不稳定斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
     String[] disasterKey={"XiePo", "HuaPo", "BengTa", "NiShiLiu", "DiMianTaXian", "DiLieFeng", "DiMianChenJiang", "QiTa"};
     String[] sizeName={"特大型", "大型", "中型", "小型"};
     String[] sizeKey={"TedaXing", "DaXing", "ZhongXing", "XiaoXing"};
@@ -273,10 +273,12 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                     subjosn.put("name", info.get(key[i]));
                     subjosn.put("value", info.get(key[i]));
 
-                    JSONObject labeljosn=new JSONObject();
-                    labeljosn.put("show", true);
-                    labeljosn.put("position", "top");
-                    subjosn.put("label", labeljosn);
+//                    JSONObject labeljosn=new JSONObject();
+//                    labeljosn.put("show", true);
+//                    labeljosn.put("position", "top");
+//                    JSONObject normalJson=new JSONObject();
+//                    normalJson.put("normal", labeljosn);
+//                    subjosn.put("label", normalJson);
 
                     subValue.put("data", subjosn);
                     array1.put(i, subValue);

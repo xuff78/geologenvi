@@ -7,7 +7,7 @@
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 <div id="main" style="height:330px; margin-top: 15px;"></div>
 <!-- ECharts单文件引入 -->
-<script src="echarts-all.js"></script>
+<script src="echarts.min.js"></script>
 <!--<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
 <script type="text/javascript">
         function setData(p1){
@@ -156,6 +156,13 @@
             type:'bar',
             itemStyle: {
                 normal: {
+                    color: '#3398DB',
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
                     color: '#3398DB',
                 }
             },
