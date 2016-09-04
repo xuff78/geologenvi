@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.sichuan.geologenvi.DataBase.QueryStr;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.geodisaster.AreaSelectorAct;
+import com.sichuan.geologenvi.act.geodisaster.QuXianSelectorAct;
 import com.sichuan.geologenvi.act.geodisaster.YinhuandianDetail;
 import com.sichuan.geologenvi.act.geodisaster.ZhilidianweiDetail;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
@@ -22,7 +25,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/6/30.
  */
-public class MineListAct   extends AppFrameAct {
+public class MineListAct   extends AppFrameAct implements SectionIndexer {
     TextView txtcount;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -53,7 +56,7 @@ public class MineListAct   extends AppFrameAct {
 
                 @Override
                 public void onClick(View view) {
-                    Intent intent2 = new Intent(MineListAct.this, AreaSelectorAct.class);
+                    Intent intent2 = new Intent(MineListAct.this, QuXianSelectorAct.class);
                     startActivityForResult(intent2, 0x11);
                 }
             });
@@ -87,7 +90,7 @@ public class MineListAct   extends AppFrameAct {
     private void initView() {
 
         txtcount=(TextView)findViewById(R.id.count);
-
+        txtcount.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -114,4 +117,54 @@ public class MineListAct   extends AppFrameAct {
             startActivity(i);
         }
     };
+
+    @Override
+    public Object[] getSections() {
+        return null;
+    }
+
+
+    /**
+     * 根据ListView的当前位置获取分类的首字母的Char ascii值
+     */
+    public int getSectionForPosition(int position) {
+        return 0;
+    }
+
+    /**
+     * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
+     */
+    public int getPositionForSection(int section) {
+
+        return -1;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if(tableName.equals("SL_KS_DZHJ_XX"))   //矿山的
+            datalist=handler.getQueryResult(ConstantUtil.Mine,
+                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+        else if(tableName.equals("SL_DZYJBH")) //地址遗迹
+            datalist=handler.getQueryResult(tableName, "");
+        else if(tableName.equals("SL_TBLJING")) //地下水
+            datalist=handler.getQueryResult(tableName, " where QUXIAN='"+intent.getStringExtra("Area")+"'");
+        ArrayList<String> list = new ArrayList<>();
+        String title="";
+        if(tableName.equals("SL_KS_DZHJ_XX"))
+            title="KSMC";
+        else if(tableName.equals("SL_DZYJBH"))
+            title="NAME";
+        else if(tableName.equals("SL_TBLJING"))
+            title="QUYU";
+        txtcount.setText("共：   "+ datalist.size()+"    条记录");
+        for (Map<String, String> info : datalist) {
+            list.add(info.get(title));
+
+        }
+        recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
+
+
+    }
 }

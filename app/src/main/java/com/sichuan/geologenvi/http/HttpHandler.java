@@ -155,6 +155,10 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.Files, "", true);
 	}
 
+	public void getFiles(String type){
+		requestGet(ConstantUtil.Method.Files, type, true);
+	}
+
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
 		String progressInfo = "";
 		String url= ConstantUtil.Api_Url+method;
