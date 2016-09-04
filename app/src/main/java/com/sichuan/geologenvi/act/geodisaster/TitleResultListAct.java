@@ -217,6 +217,26 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                     tableName="SL_ZHCA01A";
                     break;
             }
+
+            String[] telNames = null;
+            if(type==1||type==7||type==8||type==9) {
+                telNames= new String[]{"ZHAA01A510", "ZHAA01A720", "ZHAA01A735", "ZHAA01A750", "ZHAA01A751", "ZHAA01A752", "ZHAA01A753", "ZHAA01A754", "ZHAA01A758"};
+            }else if(type==3){
+                telNames= new String[]{"ZHCA01A220", "ZHCA01A240", "ZHCA01A250"};
+            }else if(type==4||type==5){
+                telNames= new String[]{"ZHDD02A220"};
+            }else if(type==2){
+                telNames= new String[]{"PHONENUMBER"};
+            }else if(type==6){
+
+            }
+            if(telNames!=null)
+                for (int j=0;j<telNames.length;j++){
+                    String key=telNames[j];
+                    String value=map.get(key);
+                    if(value!=null&&value.length()>0)
+                        map.put(key, "tel"+value);
+                }
             MapBean mapBean=new MapBean();
             mapBean.setMap(map);
             i.putExtra("InfoMap",mapBean);

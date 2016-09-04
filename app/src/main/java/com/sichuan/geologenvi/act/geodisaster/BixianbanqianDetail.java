@@ -84,7 +84,12 @@ public class BixianbanqianDetail extends AppFrameAct {
                     maps=handler.getQueryResult(new String[]{"ZHDD04B001020", "ZHDD04B001030", "ZHDD04B001040", "ZHDD04B001050", "ZHDD04B001060", "ZHDD04B001070", "ZHDD04B001080", "ZHDD04B001090","ZHDD04B001100",
                     "ZHDD04B001110","ZHDD04B001120","ZHDD04B001130","ZHDD04B001140"}, "SL_ZHDD04B001", " where ZHDD04B001010 = '"+id+"'");
                     if(maps.size()>0) {
-                        mBean.setMap(maps.get(0));
+                        Map<String, String> map0=maps.get(0);
+                        String key="ZHDD04B001060";
+                        String value=map0.get(key);
+                        if(value!=null&&value.length()>0)
+                            map0.put(key, "tel"+value);
+                        mBean.setMap(map0);
                         b.putSerializable("InfoMap", mBean);
                     }
                     break;
