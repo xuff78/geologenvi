@@ -49,6 +49,7 @@ public class SearchListFrg extends BaseFragment{
     private HttpHandler httpHandler;
     private ArrayList<CateInfo> cates=new ArrayList<>();
     ProgressDialog progressDialog;
+    String[] names={"法律法规","国家级文件","四川省级文件","成都市级文件","成都市国土局文件"};
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -167,7 +168,13 @@ public class SearchListFrg extends BaseFragment{
                 if(jsonData.equals(SharedPreferencesUtil.FAILURE_STRING)){
                     DialogUtil.showInfoDailog(getActivity(), "提示", GlbsNet.HTTP_ERROR_MESSAGE);
                 }else {
-                    cates = JsonUtil.getBookList(jsonData);
+                    ArrayList<CateInfo> tempCates = JsonUtil.getBookList(jsonData);
+                    for (int i=0;i<names.length;i++){
+                        for (CateInfo cate:tempCates){
+                            if(cate.getCatelog().equals(names[i]))
+                                cates.add(cate);
+                        }
+                    }
                     ArrayList<String> list=new ArrayList<>();
                     for (CateInfo cate:cates){
                         list.add(cate.getCatelog());

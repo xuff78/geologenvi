@@ -38,6 +38,7 @@ public class ConstantUtil {
 		public static final String CJ_DZZHD_XCKP="CJ_DZZHD_XCKP";
 		public static final String CJ_GCZL_XCKP="CJ_GCZL_XCKP";
 		public static final String CJ_BXCS_XCKP="CJ_BXCS_XCKP";
+		public static final String CheckVersion="CheckVersion";
 	}
 
 

@@ -5,4 +5,5 @@ package com.sichuan.geologenvi.act;
  */
 public interface DownloadInterface {
     void onComplete();
+    void onFailure();
 }

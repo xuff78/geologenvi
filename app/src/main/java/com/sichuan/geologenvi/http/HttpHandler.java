@@ -135,6 +135,10 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_BXCS_XCKP, jsonContent, true);
 	}
 
+	public void checkVersion() {
+//		requestGet(ConstantUtil.Method.CJ_GCZL_XCKP, "?pageIndex="+page+require, true);
+	}
+
 	public void getCJ_BXCS_XCKP(int page, String name) {
 		String require="";
 		if(name.length()>0)
