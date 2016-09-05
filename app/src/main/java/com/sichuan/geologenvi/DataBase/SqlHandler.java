@@ -253,10 +253,13 @@ public class SqlHandler {
             else if (areaCode.length() == 9)
                 typeStr = typeStr + " and ZHDD04B060 = '" + areaCode + "'";
         }
+
+        ArrayList<Map<String, String>> mapsInfo;
         if(queryStr!=null&&queryStr.length()>0)
-            return getQueryResult(queryStr, formName, typeStr);
+            mapsInfo = getQueryResult(queryStr, formName, typeStr);
         else
-            return getQueryResult(formName, typeStr);
+            mapsInfo = getQueryResult(formName, typeStr);
+        return mapsInfo;
     }
 
     public ArrayList<Map<String, String>> getQueryResult(String tableName, String typeStr){

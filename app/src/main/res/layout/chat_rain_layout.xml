@@ -104,22 +104,8 @@
 
 
     </LinearLayout>
-    <LinearLayout
-        android:paddingRight="1px"
-        android:paddingTop="1px"
-        android:paddingBottom="1px"
-
-        android:layout_width="match_parent"
-        android:layout_height="60dip">
-        <TextView
-            android:id="@+id/countLayout"
-            android:gravity="center"
-            style="@style/txt_black_14"
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
     <HorizontalScrollView
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -132,7 +118,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_width="600dp"
-            android:layout_height="330dip"/>
+            android:layout_height="360dip"/>
         </LinearLayout>
     </HorizontalScrollView>
 </LinearLayout>

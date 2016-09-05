@@ -98,7 +98,7 @@ public class QueryStr {
             "case (ZHDD04B270) when  0 then '不认同' when 1 then '认同'  end as ZHDD04B270,\n" +
             "ZHDD04B280 ,\n" +
             "case (ZHDD04B290) when  0 then '未公示' when 1 then '已公示'  end as ZHDD04B290,\n" +
-            "ZHDD04B360 ,ZHDD04B370";
+            "ZHDD04B360 ,ZHDD04B370,ZHDD04B010";
 }
 
 

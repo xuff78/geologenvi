@@ -197,6 +197,11 @@ public class AsycnDialog extends Dialog implements DownloadInterface, TOfflineMa
 	}
 
 	@Override
+	public void onFailure() {
+
+	}
+
+	@Override
 	public void onGetResult(ArrayList<TOfflineMapManager.MapAdminSet> maps, int error) {
 		if(error != TErrorCode.OK)
 			return;

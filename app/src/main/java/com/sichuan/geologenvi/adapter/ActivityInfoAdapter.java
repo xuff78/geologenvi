@@ -1,7 +1,9 @@
 package com.sichuan.geologenvi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ public class ActivityInfoAdapter extends BaseAdapter {
     private int itemHeight = 0;
     private List<String> mapKeyList;
     private String xmlName;
+    private int blue;
 
     public ActivityInfoAdapter(Context context, Map<String, String> dataList, String xmlName) {
         this.mInflater = LayoutInflater.from(context);
@@ -35,6 +38,7 @@ public class ActivityInfoAdapter extends BaseAdapter {
         con = context;
         mapKeyList = new ArrayList<>(dataList.keySet());
         this.xmlName=xmlName;
+        blue=context.getResources().getColor(R.color.normal_blue);
     }
 
     @Override
@@ -68,10 +72,27 @@ public class ActivityInfoAdapter extends BaseAdapter {
         TextView title = (TextView)v.findViewById(R.id.nameTxt);
         TextView contentTxt = (TextView)v.findViewById(R.id.contentTxt);
         title.setText(name);
-        if(content!=null&&content.length()>0)
-            contentTxt.setText(content);
-        else
+        if(content!=null&&content.length()>0) {
+            if(content.startsWith("tel")){
+                contentTxt.setText(content.substring(3));
+                contentTxt.setTextColor(blue);
+                contentTxt.setOnClickListener(listener);
+            }else
+                contentTxt.setText(content);
+        }else
             contentTxt.setTextColor(Color.LTGRAY);
         return v;
     }
+
+    View.OnClickListener listener= new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String phone=((TextView)view).getText().toString();
+            if(phone.length()>0) {
+                Intent call = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+                        + phone));
+                con.startActivity(call);
+            }
+        }
+    };
 }

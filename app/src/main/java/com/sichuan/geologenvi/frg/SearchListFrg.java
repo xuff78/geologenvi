@@ -49,6 +49,7 @@ public class SearchListFrg extends BaseFragment{
     private HttpHandler httpHandler;
     private ArrayList<CateInfo> cates=new ArrayList<>();
     ProgressDialog progressDialog;
+    String[] names={"法律法规","国家级文件","四川省级文件","成都市级文件","成都市国土局文件"};
     Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -57,10 +58,11 @@ public class SearchListFrg extends BaseFragment{
             String bookName=msg.getData().getString("Name");
             File file=FileUtil.getFile(bookName, getActivity());
             if(file.exists()){
-                String type="pdf";
-                if(bookName.contains("."))
-                    type=bookName.split("\\.")[1];
-                FileUtil.openFile(file, getActivity(), "application/"+type);
+//                String type="pdf";
+//                if(bookName.contains("."))
+//                    type=bookName.split("\\.")[1];
+//                FileUtil.openFile(file, getActivity(), "application/"+type);
+                startActivity(FileUtil.openFile(file.getPath()));
             }else
                 ToastUtils.displayTextShort(getActivity(), "下载失败，请稍后重试");
         }
@@ -115,10 +117,12 @@ public class SearchListFrg extends BaseFragment{
             final PopupInfoItem book= (PopupInfoItem) view.getTag();
             File file=FileUtil.getFile(book.getName(), getActivity());
             if(file.exists()){
-                String type="pdf";
-                if(book.getName().contains("."))
-                    type=book.getName().split("\\.")[1];
-                FileUtil.openFile(file, getActivity(), "application/"+type);
+//                String type="pdf";
+//                if(book.getName().contains("."))
+//                    type=book.getName().split("\\.")[1];
+//                FileUtil.openFile(file, getActivity(), "application/"+type);
+
+                startActivity(FileUtil.openFile(file.getPath()));
             }else {
                 progressDialog=ProgressDialog.show(getActivity(), "提示", "下载中请稍后");
                 new Thread() {
@@ -167,7 +171,13 @@ public class SearchListFrg extends BaseFragment{
                 if(jsonData.equals(SharedPreferencesUtil.FAILURE_STRING)){
                     DialogUtil.showInfoDailog(getActivity(), "提示", GlbsNet.HTTP_ERROR_MESSAGE);
                 }else {
-                    cates = JsonUtil.getBookList(jsonData);
+                    ArrayList<CateInfo> tempCates = JsonUtil.getBookList(jsonData);
+                    for (int i=0;i<names.length;i++){
+                        for (CateInfo cate:tempCates){
+                            if(cate.getCatelog().equals(names[i]))
+                                cates.add(cate);
+                        }
+                    }
                     ArrayList<String> list=new ArrayList<>();
                     for (CateInfo cate:cates){
                         list.add(cate.getCatelog());
