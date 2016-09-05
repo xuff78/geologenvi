@@ -25,6 +25,7 @@ public class SearchAct extends AppFrameAct {
     private EditText editSearch;
     private ImageView btnSearch;
     private String word="";
+    private SearchListFrg flfg=new SearchListFrg();
    // private SearchListFrg frg=new SearchListFrg();
 
     @Override
@@ -39,7 +40,7 @@ public class SearchAct extends AppFrameAct {
         Bundle args = new Bundle();
 
         if(title.equals("政策法规")){
-            openFragment(new SearchListFrg());
+            openFragment(flfg);
         }
         else{
             SearchListFrg2 frg=new  SearchListFrg2();
@@ -62,7 +63,8 @@ public class SearchAct extends AppFrameAct {
 
             @Override
             public void onClick(View arg0) {
-
+                editSearch.setText("");
+                getWords();
             }
 
         });
@@ -79,13 +81,19 @@ public class SearchAct extends AppFrameAct {
                 if(actionId==EditorInfo.IME_ACTION_DONE||actionId==EditorInfo.IME_ACTION_UNSPECIFIED||actionId==EditorInfo.IME_ACTION_SEARCH){
                     if(!editSearch.getText().toString().trim().equals(""))
                     {
-                        String keyword=editSearch.getText().toString();
-
+                        getWords();
                     }else
                         ToastUtils.displayTextShort(SearchAct.this, "请填写搜索关键字");
                 }
                 return true;
             }
         });
+    }
+
+    private void getWords(){
+        String keyword=editSearch.getText().toString().trim();
+        if (title.equals("政策法规")) {
+            flfg.searchFile(keyword);
+        }
     }
 }

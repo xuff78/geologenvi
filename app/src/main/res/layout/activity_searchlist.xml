@@ -26,7 +26,7 @@
             android:id="@+id/store_search_btn" android:layout_width="40dip"
             android:layout_height="40dip" android:layout_marginTop="0dip"
             android:layout_centerVertical="true"
-            android:textSize="16sp" android:src="@mipmap/mall_search_light_icon"
+            android:textSize="16sp" android:src="@mipmap/mall_search_cancel"
             android:textColor="#ffffff"/>
         <!--
         <AutoCompleteTextView android:id="@+id/station_search_text"

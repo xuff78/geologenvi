@@ -68,6 +68,8 @@ public class SearchListFrg extends BaseFragment{
         }
     };
 
+    ArrayList<CateInfo> tempCates=new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frg_list, container, false);
@@ -82,6 +84,33 @@ public class SearchListFrg extends BaseFragment{
         httpHandler.getFiles();
 
         return view;
+    }
+
+    public void searchFile(String keyword){
+        cates.clear();
+        for (int i=0;i<names.length;i++){
+            for (CateInfo cate:tempCates){
+                if(cate.getCatelog().equals(names[i])) {
+                    if(keyword.length()>0) {
+                        CateInfo tmpcate = new CateInfo();
+                        tmpcate.setCatelog(cate.getCatelog());
+                        ArrayList<PopupInfoItem> infos = tmpcate.getInfos();
+                        for (PopupInfoItem info : cate.getInfos()) {
+                            if (info.getName().contains(keyword))
+                                infos.add(info);
+                        }
+                        cates.add(tmpcate);
+                    }else
+                        cates.add(cate);
+                }
+            }
+        }
+        ArrayList<String> list=new ArrayList<>();
+        for (CateInfo cate:cates){
+            if(cate.getInfos().size()>0)
+                list.add(cate.getCatelog());
+        }
+        recyclerView.setAdapter(new MenuListAdapter(getActivity(), list, listener));
     }
 
     View.OnClickListener listener=new View.OnClickListener() {
@@ -171,7 +200,7 @@ public class SearchListFrg extends BaseFragment{
                 if(jsonData.equals(SharedPreferencesUtil.FAILURE_STRING)){
                     DialogUtil.showInfoDailog(getActivity(), "提示", GlbsNet.HTTP_ERROR_MESSAGE);
                 }else {
-                    ArrayList<CateInfo> tempCates = JsonUtil.getBookList(jsonData);
+                     tempCates = JsonUtil.getBookList(jsonData);
                     for (int i=0;i<names.length;i++){
                         for (CateInfo cate:tempCates){
                             if(cate.getCatelog().equals(names[i]))
