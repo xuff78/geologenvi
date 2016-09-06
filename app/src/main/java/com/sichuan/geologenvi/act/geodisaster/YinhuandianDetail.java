@@ -84,7 +84,15 @@ public class YinhuandianDetail extends AppFrameAct{
                     tableName="SL_JCBA02A";
                     maps=handler.getQueryResult("SL_JCBA02A", " where JCBA02A010 = '"+id+"'");
                     if(maps.size()>0) {
-                        mBean.setMap(maps.get(0));
+                        Map<String, String> map0=maps.get(0);
+                        String[] keys={"JCBA02A340","JCBA02A360","JCBA02A400"};
+                        for (int i=0;i<keys.length;i++) {
+                            String key=keys[i];
+                            String value = map0.get(key);
+                            if (value != null && value.length() > 0)
+                                map0.put(key, "tel" + value);
+                        }
+                        mBean.setMap(map0);
                         b.putSerializable("InfoMap", mBean);
                     }
                     break;
@@ -92,7 +100,15 @@ public class YinhuandianDetail extends AppFrameAct{
                     tableName="SL_JCBA03A";
                     maps=handler.getQueryResult("SL_JCBA03A", " where JCBA03A010 = '"+id+"'");
                     if(maps.size()>0) {
-                        mBean.setMap(maps.get(0));
+                        Map<String, String> map0=maps.get(0);
+                        String[] keys={"JCBA03A170","JCBA03A250","JCBA03A280","JCBA03A310","JCBA03A320","JCBA03A350","JCBA03A370","JCBA03A400"};
+                        for (int i=0;i<keys.length;i++) {
+                            String key=keys[i];
+                            String value = map0.get(key);
+                            if (value != null && value.length() > 0)
+                                map0.put(key, "tel" + value);
+                        }
+                        mBean.setMap(map0);
                         b.putSerializable("InfoMap", mBean);
                     }
                     break;
@@ -100,7 +116,15 @@ public class YinhuandianDetail extends AppFrameAct{
                     tableName="SL_JCBA04A";
                     maps=handler.getQueryResult("SL_JCBA04A", " where JCBA04A010 = '"+id+"'");
                     if(maps.size()>0) {
-                        mBean.setMap(maps.get(0));
+                        Map<String, String> map0=maps.get(0);
+                        String[] keys={"JCBA04A190","JCBA04A220","JCBA04A260","JCBA04A290","JCBA04A320","JCBA04A340"};
+                        for (int i=0;i<keys.length;i++) {
+                            String key=keys[i];
+                            String value = map0.get(key);
+                            if (value != null && value.length() > 0)
+                                map0.put(key, "tel" + value);
+                        }
+                        mBean.setMap(map0);
                         b.putSerializable("InfoMap", mBean);
                     }
                     break;
