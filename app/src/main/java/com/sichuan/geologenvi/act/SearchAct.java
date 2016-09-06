@@ -43,7 +43,7 @@ public class SearchAct extends AppFrameAct {
         }
         else{
             SearchListFrg2 frg=new  SearchListFrg2();
-            args.putString("Type",title );
+            args.putString("type",type );
             frg.setArguments(args);
             openFragment(frg);
         }

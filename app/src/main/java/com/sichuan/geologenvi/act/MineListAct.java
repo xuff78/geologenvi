@@ -47,7 +47,7 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
         tableName=getIntent().getStringExtra("TableName");
         requestInfo();
 
-        if(tableName.equals("SL_DZYJBH")) {
+        if(tableName.equals("SL_DZYJBH")||tableName.equals("SL_SOILSTASION")) {
             txtcount.setVisibility(View.GONE);
 
         }
@@ -71,6 +71,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
             datalist=handler.getQueryResult(tableName, "");
         else if(tableName.equals("SL_TBLJING")) //地下水
             datalist=handler.getQueryResult(tableName, "");
+        else if(tableName.equals("SL_SOILSTASION"))
+            datalist=handler.getQueryResult(tableName, "");
         ArrayList<String> list = new ArrayList<>();
         String title="";
         if(tableName.equals("SL_KS_DZHJ_XX"))
@@ -79,6 +81,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
             title="NAME";
         else if(tableName.equals("SL_TBLJING"))
             title="QUYU";
+        else if(tableName.equals("SL_SOILSTASION"))
+            title="PIANQU";
         txtcount.setText("共：   "+ datalist.size()+"    条记录");
         for (Map<String, String> info : datalist) {
             list.add(info.get(title));
@@ -108,6 +112,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
                 i.setClass(MineListAct.this, ItemDetailAct.class);
             }
             else if(tableName.equals("SL_TBLJING"))
+                i.setClass(MineListAct.this, ItemDetailAct.class);
+            else if(tableName.equals("SL_SOILSTASION"))
                 i.setClass(MineListAct.this, ItemDetailAct.class);
             MapBean mapBean=new MapBean();
             int tag=(int)view.getTag();
@@ -150,6 +156,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
             datalist=handler.getQueryResult(tableName, "");
         else if(tableName.equals("SL_TBLJING")) //地下水
             datalist=handler.getQueryResult(tableName, " where QUXIAN='"+intent.getStringExtra("Area")+"'");
+        else if(tableName.equals("SL_SOILSTASION")) //地下水
+            datalist=handler.getQueryResult(tableName, "");
         ArrayList<String> list = new ArrayList<>();
         String title="";
         if(tableName.equals("SL_KS_DZHJ_XX"))
@@ -158,6 +166,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
             title="NAME";
         else if(tableName.equals("SL_TBLJING"))
             title="QUYU";
+        else if(tableName.equals("SL_SOILSTATION"))
+            title="PIANQU";
         txtcount.setText("共：   "+ datalist.size()+"    条记录");
         for (Map<String, String> info : datalist) {
             list.add(info.get(title));

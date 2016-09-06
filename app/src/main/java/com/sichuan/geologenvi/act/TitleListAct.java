@@ -110,6 +110,11 @@ public class TitleListAct  extends AppFrameAct {
             list.add("绿色矿山");
             list.add("一般矿山");
         }
+        else if(type.equals("soil")){//水土地质
+            list.add("土壤环境调查");
+            list.add("土壤环境监测");
+            list.add("土壤治理与修复");
+        }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
     }
 
@@ -196,7 +201,19 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("TableName", "SL_TBLJING");
                     startActivity(i);
                 }
-            } else if (type.equals("kuangshan")) {//矿山地质
+            } else if (type.equals("soil")) {//水土地质
+                 if(tag!=1){
+                    Intent i = new Intent(TitleListAct.this, DxsAct.class);
+                    i.putExtra("Type", tag);
+                    i.putExtra("Title", list.get(tag));
+                    startActivity(i);
+                } else {
+                    Intent i = new Intent(TitleListAct.this, MineListAct.class);
+                    i.putExtra("Title", list.get(tag));
+                    i.putExtra("TableName", "SL_SOILSTASION");
+                    startActivity(i);
+                }
+            }else if (type.equals("kuangshan")) {//矿山地质
                 Intent i = new Intent(TitleListAct.this, MineListAct.class);
                 i.putExtra("Title", list.get(tag));
                 i.putExtra("TableName", "SL_KS_DZHJ_XX");

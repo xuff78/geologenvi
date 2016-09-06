@@ -156,7 +156,7 @@ public class HttpHandler extends Handle {
 	}
 
 	public void getFiles(String type){
-		requestGet(ConstantUtil.Method.Files, type, true);
+		requestGet(ConstantUtil.Method.Files, "?catelog="+type, true);
 	}
 
 	protected void request(String method, HashMap<String, String> params, boolean showDialog) {
