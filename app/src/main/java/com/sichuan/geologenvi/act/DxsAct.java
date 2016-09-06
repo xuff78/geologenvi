@@ -1,11 +1,13 @@
 package com.sichuan.geologenvi.act;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -19,6 +21,7 @@ public class DxsAct   extends AppFrameAct {
     private TextView content;
 
     private int type=0;
+    private String title;
     private SqlHandler handler;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
 
@@ -27,24 +30,25 @@ public class DxsAct   extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dxs);
 
-        _setHeaderTitle(getIntent().getStringExtra("Title"));
+        title=getIntent().getStringExtra("Title");
+        _setHeaderTitle(title);
         type=getIntent().getIntExtra("Type", 0);
 
 
         initView();
 
         handler=new SqlHandler(this);
-        datalist=handler.getQueryResult("SL_TBLDXS", "");
+        datalist=handler.getQueryResult("SL_TBLMIAOSHU", "");
         String neirong="";
-         switch (type) {
-           case 0:
-                neirong=datalist.get(0).get("jbgk");
+        for(int i=0;i<datalist.size();i++)
+        {
+            String s=datalist.get(i).get("TYPE");
+            if(s.equals(title)){
+                neirong=datalist.get(i).get("MIAOSHU");
                 content.setText(neirong);
                 break;
-            case 1:
-                neirong=datalist.get(0).get("jcqk");
-                content.setText(neirong);
-                break;
+            }
+
         }
     }
 

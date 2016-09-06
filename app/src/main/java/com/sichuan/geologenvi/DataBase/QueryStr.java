@@ -74,7 +74,11 @@ public class QueryStr {
 
     //专业监测
     public static final String zhuanyeshebei="STATIONNO,TABLENAME ,METERID ,METERTYPE ,CITY ,COUNTY ,TOWN,COUNTRY ,DISASTERNAME ,LASTSTATUS ,LASTSENDTIME ,\n" +
-            "LONGITUDE ,LATITUDE ,SERVERIP ,PORT ,RELAYIP ,PHONENUMBER  ,EXCEPTIONTYPE,BZ as 备注 ,SBZT ";
+            "LONGITUDE ,LATITUDE ,SERVERIP ,PORT ,RELAYIP ,PHONENUMBER  ,EXCEPTIONTYPE,BZ as 备注 ,SBZT as 设备状态,\n" +
+            "METERNAME as 设备名称,METERXH as 设备型号,CGFS as 采购方式,SBJZ as 设备价值（万元）,CGSJ as 设备采购时间,SBCJNAME as 设备厂家名称,\n" +
+            "SBCJPHONE as 设备厂家联系方式,SBCCDATE as 设备出厂日期,AZSJ as 安装时间,JYGHDATE as 建议更换时间,YSDATE as 验收时间,ZBQ as 质保期,KHQK as 看护情况,KHRNAME as 看护人姓名,\n" +
+            "KHRPHONE as 看护人电话,SBSJCSFS as 设备数据传输方式,HSBGDFSDJ as 设备供电方式及电价,SBFJQD as 设备附（配）件清单,\n" +
+            "QTXYSMQK as 其它需要说明情况,SBGLR as 设备管理人,SYKS as 使用科室人,WBR as 维保人,SJ as 时间 ";
 
     //工程治理
     public static final String gczl="";

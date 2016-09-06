@@ -180,6 +180,14 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "Jing");
                     startActivity(i);
                     break;
+                case 10:
+
+
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "水土地质");
+                    i.putExtra("Type", "soil");
+                    startActivity(i);
+                    break;
                 case 11:
                     i.setClass(MainActivity.this, RainAct.class);
                     i.putExtra("Title", "雨量监测");

@@ -72,7 +72,12 @@ public class SearchListFrg2 extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frg_list, container, false);
 
-       type = getArguments().getString("Type");
+       type = getArguments().getString("type");
+        String c="";
+        if(type.equals("zhibananpai"))
+            c="值班安排";
+                else if(type.equals("yujing"))
+            c="预警";
 
 
 
@@ -83,7 +88,7 @@ public class SearchListFrg2 extends BaseFragment{
         recyclerView.setLayoutManager(layoutManager);
         initHandler();
 
-        httpHandler.getFiles(type);
+        httpHandler.getFiles(c);
 
         return view;
     }

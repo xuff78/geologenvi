@@ -44,7 +44,7 @@ public class SearchAct extends AppFrameAct {
         }
         else{
             SearchListFrg2 frg=new  SearchListFrg2();
-            args.putString("Type","国家级文件" );
+            args.putString("type",type );
             frg.setArguments(args);
             openFragment(frg);
         }
