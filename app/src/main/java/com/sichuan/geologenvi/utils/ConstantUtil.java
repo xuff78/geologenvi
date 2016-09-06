@@ -17,6 +17,7 @@ public class ConstantUtil {
 	public static final String map_open="map_open";
 	public static final String map_download="map_download";
 	public static final String Photo_Path="photo_path";
+	public static final String YIJI_Pic_Url="http://218.246.202.44:808/DZYJ/";
 	public static final String OfflinePath= "/sdcard/tianditu/offlinemap/"; //Environment.getExternalStorageDirectory().getAbsolutePath()+"/TianDiTu/offline/";
 
 	public static final String BookInfo="BookInfo";

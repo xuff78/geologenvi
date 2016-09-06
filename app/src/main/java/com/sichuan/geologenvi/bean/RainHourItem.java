@@ -1,9 +1,11 @@
 package com.sichuan.geologenvi.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 可爱的蘑菇 on 2016/9/2.
  */
-public class RainHourItem {
+public class RainHourItem implements Serializable{
 
     String dateTime="";
     String rain="";

@@ -14,6 +14,7 @@ import com.sichuan.geologenvi.adapter.RainAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.bean.RainBean;
+import com.sichuan.geologenvi.bean.RainsBean;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.GlbsNet;
 import com.sichuan.geologenvi.http.HttpHandler;
@@ -105,15 +106,22 @@ public class RainAct extends AppFrameAct {
                     rainInfo = JsonUtil.getRainInfo(jsonData);
                     adapter = new RainAdapter(RainAct.this, rainInfo);
                     list.setAdapter(adapter);
-                    final String[] areaTxt=new String[rainInfo.size()];
-                    for(int i=0;i<rainInfo.size();i++){
-                        areaTxt[i]=rainInfo.get(i).getName();
-                    }
+
+
                     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            RainBean[] rains=adapter.getData();
+                            String[] areaTxt=new String[rains.length];
+                            for(int j=0;j<rains.length;j++){
+                                areaTxt[j]=rains[j].getName();
+                            }
+                            RainsBean rainsBean=new RainsBean();
+                            rainsBean.setItems(rains);
                             Intent chat=new Intent(RainAct.this, ChatRain.class);
                             chat.putExtra("Names", areaTxt);
+                            chat.putExtra("pos", i);
+                            chat.putExtra("rains", rainsBean);
                             startActivity(chat);
                         }
                     });

@@ -37,6 +37,10 @@ public class RainAdapter extends BaseAdapter {
         setHours(1);
     }
 
+    public RainBean[] getData(){
+        return dataList;
+    }
+
     public void setHours(int hour){
         this.hour=hour;
         Arrays.sort(dataList, new ComparatorValues());

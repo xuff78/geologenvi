@@ -38,6 +38,10 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.TIMERAININFO, "", true);
 	}
 
+	public void getRainInfo(String name) {
+		requestGet(ConstantUtil.Method.TIMERAININFO, "?stName="+name, true);
+	}
+
 	public void checkVersion(int version) {
 		requestGet(ConstantUtil.Method.Version, "?v="+version, true);
 	}

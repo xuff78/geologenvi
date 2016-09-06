@@ -1,9 +1,11 @@
 package com.sichuan.geologenvi.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/7/4.
  */
-public class RainBean {
+public class RainBean implements Serializable{
     private String name="缺省";
     private String hour1="0";
     private String hour3="0";

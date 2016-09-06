@@ -1,20 +1,32 @@
 package com.sichuan.geologenvi.act.statistics;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.adapter.RainAdapter;
+import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.bean.RainHourItem;
+import com.sichuan.geologenvi.bean.RainsBean;
+import com.sichuan.geologenvi.http.CallBack;
+import com.sichuan.geologenvi.http.GlbsNet;
+import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 
 import org.json.JSONArray;
@@ -30,7 +42,7 @@ import java.util.Map;
  */
 public class ChatRain extends AppFrameAct implements View.OnClickListener{
 
-    private SqlHandler handler;
+    private HttpHandler handler;
     private String tableName="";
     private TextView txt1,txt2, txt3, txt4;
     private View selection1, selection2, selection3, selection4;
@@ -42,6 +54,9 @@ public class ChatRain extends AppFrameAct implements View.OnClickListener{
 
     private String[] areaTxt;
     private TextView txtCount;
+    private int pos=0;
+    private Dialog dialog;
+    RainsBean rains;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +64,13 @@ public class ChatRain extends AppFrameAct implements View.OnClickListener{
         setContentView(R.layout.chat_rain_layout);
 
         areaTxt=getIntent().getStringArrayExtra("Names");
-
+        pos=getIntent().getIntExtra("pos", 0);
+        rains= (RainsBean) getIntent().getSerializableExtra("rains");
         _setHeaderTitle("雨量统计");
         initView();
+        initHandler();
+
+        handler.getRainInfo(areaTxt[pos]);
     }
 
     private void initView() {
@@ -61,6 +80,9 @@ public class ChatRain extends AppFrameAct implements View.OnClickListener{
         txt2= (TextView) findViewById(R.id.txt2);
         txt3= (TextView) findViewById(R.id.txt3);
         txt4= (TextView) findViewById(R.id.txt4);
+        txt1.setText(rains.getItems()[pos].getArea());
+        txt2.setText(areaTxt[pos]);
+        txt3.setText(rains.getItems()[pos].getHour24());
 
         selection2=findViewById(R.id.selection2);
         selection2.setOnClickListener(this);
@@ -86,12 +108,6 @@ public class ChatRain extends AppFrameAct implements View.OnClickListener{
             }
         });
 
-        ArrayList<RainHourItem> datalist=new ArrayList<>();
-        for (int i=0;i<24;i++) {
-            datalist.add(new RainHourItem("9-2\\n"+i+"时", i+""));
-        }
-        jsonString=getTypeJson(datalist);
-        mWebView.loadUrl("file:///android_asset/form2.html");
     }
 
     @Override
@@ -104,6 +120,10 @@ public class ChatRain extends AppFrameAct implements View.OnClickListener{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         txt2.setText(areaTxt[i]);
+                        txt1.setText(rains.getItems()[i].getArea());
+                        txt3.setText(rains.getItems()[i].getHour24());
+                        pos=i;
+                        handler.getRainInfo(areaTxt[pos]);
                     }
                 });
                 break;
@@ -151,5 +171,48 @@ public class ChatRain extends AppFrameAct implements View.OnClickListener{
             }
         }
         return jsonData;
+    }
+
+    private void initHandler() {
+        handler=new HttpHandler(this, new CallBack(this){
+            @Override
+            public void onHTTPException(String method, String jsonMessage) {
+                showDialog();
+            }
+
+            @Override
+            public void doSuccess(String method, String jsonData) {
+                ArrayList<RainHourItem> rainInfo = JsonUtil.getRainInfoFor24h(jsonData);
+                jsonString=getTypeJson(rainInfo);
+                mWebView.loadUrl("file:///android_asset/form2.html");
+
+//                ArrayList<RainHourItem> datalist=new ArrayList<>();
+//                for (int i=0;i<24;i++) {
+//                    datalist.add(new RainHourItem("9-2\\n"+i+"时", i+""));
+//                }
+//                jsonString=getTypeJson(datalist);
+//                mWebView.loadUrl("file:///android_asset/form2.html");
+            }
+
+            @Override
+            public void onFailure(String method, JsonMessage jsonMessage) {
+                showDialog();
+            }
+
+            @Override
+            public void oServerException(String method, String jsonMessage) {
+                showDialog();
+            }
+
+            private void showDialog(){
+                DialogUtil.showActionDialog(ChatRain.this, "提示", "请求失败，是否重试", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        handler.getRainInfo(areaTxt[pos]);
+                    }
+                });
+            }
+        });
     }
 }

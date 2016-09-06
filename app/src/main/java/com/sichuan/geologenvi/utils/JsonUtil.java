@@ -7,6 +7,7 @@ import com.sichuan.geologenvi.bean.CateInfo;
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.bean.RainBean;
+import com.sichuan.geologenvi.bean.RainHourItem;
 import com.sichuan.geologenvi.bean.ReportBean;
 
 import org.json.JSONArray;
@@ -118,6 +119,33 @@ public class JsonUtil {
                         bean.setArea(item.getString("area"));
                     infos.add(bean);
                 }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return infos;
+    }
+
+    public static ArrayList<RainHourItem> getRainInfoFor24h(String jsonStr) {
+        ArrayList<RainHourItem> infos=new ArrayList<>();
+        try {
+            JSONObject data=new JSONObject(jsonStr);
+            JSONArray array = data.getJSONArray("last24");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(i);
+                String datetime="";
+                String rain="";
+                if (!item.isNull("hour")) {
+                    String hourTxt = item.getString("hour");
+                    if(hourTxt!=null&&hourTxt.length()>0) {
+                        datetime = Integer.valueOf(hourTxt.substring(4,6))+"-"+Integer.valueOf(hourTxt.substring(6,8))+"\\n"+
+                                Integer.valueOf(hourTxt.substring(8,10))+"时";
+                    }
+                }
+                if (!item.isNull("rain"))
+                    rain=item.getString("rain");
+                RainHourItem bean = new RainHourItem(datetime, rain);
+                infos.add(bean);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
