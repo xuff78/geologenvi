@@ -33,13 +33,15 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
 
     private SqlHandler handler;
     private String tableName="";
+    private String title="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frg_list);
 
-        _setHeaderTitle(getIntent().getStringExtra("Title"));
+        title=getIntent().getStringExtra("Title");
+        _setHeaderTitle(title);
         initView();
 
 
@@ -64,9 +66,16 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
     }
 
     private void requestInfo() {
-        if(tableName.equals("SL_KS_DZHJ_XX"))   //矿山的
-            datalist=handler.getQueryResult(ConstantUtil.Mine,
-                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+        if(tableName.equals("SL_KS_DZHJ_XX")) {   //矿山的
+            String whereStr=" where IS_GUOJIA is not'1' and IS_LSKS is not'1' ";
+            if(title.equals("国家专项资金恢复治理项目"))
+                whereStr=" where IS_GUOJIA is '1'";
+            else  if(title.equals("绿色矿山"))
+                whereStr=" where IS_LSKS is '1'";
+            datalist = handler.getQueryResult(ConstantUtil.Mine,
+                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", whereStr);
+
+        }
         else if(tableName.equals("SL_DZYJBH")) //地址遗迹
             datalist=handler.getQueryResult(tableName, "");
         else if(tableName.equals("SL_TBLJING")) //地下水

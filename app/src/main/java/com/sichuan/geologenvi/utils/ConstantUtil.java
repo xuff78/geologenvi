@@ -44,6 +44,7 @@ public class ConstantUtil {
 
 
 	public static final String[] Mine={"KSMC", "SFHJPG", "CKMJ", "SZXZQMC", "DZHJ_GK", "HFZL_GK", "DJQ", "XJQ", "BWQ",
-			"BQZ", "KCFS", "CK_GUID"};
+	"BQZ", "KCFS","KSCKXKZ","KSQX","CK_TYPE","BZJJNQK","FYQK"};
+//,"is_guojia","is_lsks","ksckxkz","ksqx","ck_type","bzjjnqk","fyqk"
 
 }

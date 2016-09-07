@@ -944,6 +944,9 @@
     <string name="SPHQK_RW">受破坏情况（人为）</string>
     <string name="SPHQK_ZR">受破坏情况（自然）</string>
     <string name="XZQH">行政区划</string>
+    <string name="FILESCODE">附件编号</string>
+    <string name="FILESNAME">附件</string>
+
   </dict>
   <dict name="SL_KS_DZHJ_XX">
     <string name="DZHJ_GK">矿山地质环境概况</string>
@@ -951,6 +954,15 @@
     <string name="KS_CK_GUID">矿山ID</string>
     <string name="KS_NAME">矿山名</string>
     <string name="SFHJPG">是否已进行环境影响评估(已评估；未评估)</string>
+
+    <string name="KSCKXKZ">是否有矿山采矿许可证</string>
+    <string name="KSQX">矿山有限期限</string>
+    <string name="CK_TYPE">开采矿种</string>
+    <string name="BZJJNQK">矿山地质环境恢复治理保证金缴纳情况</string>
+    <string name="FYQK">地质灾害发育情况</string>
+    <string name="FILESCODE">附件编号</string>
+    <string name="FILESNAME">附件</string>
+
   <!--</dict>
   <dict name="SL_XMDA">-->
     <string name="SQXH">申请序号</string>
@@ -1089,5 +1101,15 @@
     <string name="QIYONG">弃用</string>
     <string name="SHEBEIBZ">设备备注</string>
     <string name="QIYAJICODE">气压计编号</string>
+
+
+    <string name="SHUIWEIBIAOGAO">水位标高</string>
+    <string name="SHUIWEIMAISHEN">水位埋深</string>
+    <string name="WENDU">温度</string>
+    <string name="PH">PH值</string>
+    <string name="YINGDU">硬度</string>
+
+
+
   </dict>
 </dicts>
