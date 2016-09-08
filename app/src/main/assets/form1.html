@@ -55,7 +55,7 @@
     <!--},-->
     calculable : false,
     legend: {
-        data:['数量'],
+        data:['数量','威胁人数','威胁户数','威胁财产'],
         textStyle: {
             color: 'black'          // 图例文字颜色
         }
@@ -163,8 +163,71 @@
             label: {
                 normal: {
                     show: true,
+                    textStyle: {
+                        fontSize: 9,
+                    },
                     position: 'top',
                     color: '#3398DB',
+                }
+            },
+            data:m_list
+        },
+        {
+            name:'威胁人数',
+            type:'bar',
+            itemStyle: {
+                normal: {
+                    color: '#EEB422',
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 9,
+                    },
+                    position: 'top',
+                    color: '#EEB422',
+                }
+            },
+            data:m_list
+        },
+        {
+            name:'威胁户数',
+            type:'bar',
+            itemStyle: {
+                normal: {
+                    color: '#EE0000',
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 9,
+                    },
+                    position: 'top',
+                    color: '#EE0000',
+                }
+            },
+            data:m_list
+        },
+        {
+            name:'威胁财产',
+            type:'bar',
+            itemStyle: {
+                normal: {
+                    color: '#104E8B',
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 9,
+                    },
+                    position: 'top',
+                    color: '#104E8B',
                 }
             },
             data:m_list
@@ -176,6 +239,20 @@
 
         // 为echarts对象加载数据
         myChart.setOption(option);
+
+        myChart.dispatchAction({
+            type: 'legendUnSelect',
+            name: '威胁人数'
+        });
+        myChart.dispatchAction({
+            type: 'legendUnSelect',
+            name: '威胁户数'
+        });
+        myChart.dispatchAction({
+            type: 'legendUnSelect',
+            name: '威胁财产
+            '
+        });
         };
 
     </script>

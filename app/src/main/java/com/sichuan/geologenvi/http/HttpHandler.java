@@ -140,7 +140,11 @@ public class HttpHandler extends Handle {
 	}
 
 	public void checkVersion() {
-//		requestGet(ConstantUtil.Method.CJ_GCZL_XCKP, "?pageIndex="+page+require, true);
+		requestGet(ConstantUtil.Method.CheckVersion, "", true);
+	}
+
+	public void getAppUrl(String pwd, int version) {
+		requestGet(ConstantUtil.Method.getAppUrl, "?pwd="+pwd+"&v="+version, true);
 	}
 
 	public void getCJ_BXCS_XCKP(int page, String name) {

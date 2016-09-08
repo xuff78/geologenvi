@@ -59,7 +59,7 @@ public class ViewPagerExampleActivity extends Activity {
         @Override
         public View instantiateItem(ViewGroup container, int position) {
             final TouchImageView img = new TouchImageView(container.getContext());
-            loader.loadImage(imgs.get(position), new SimpleImageLoadingListener() {
+            loader.loadImage(imgs.get(position), ImageUtil.getImageOption(R.mipmap.icon_menu_4), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     img.setImageBitmap(loadedImage);

@@ -9,6 +9,7 @@ import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.bean.RainBean;
 import com.sichuan.geologenvi.bean.RainHourItem;
 import com.sichuan.geologenvi.bean.ReportBean;
+import com.sichuan.geologenvi.bean.VersionBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,6 +151,26 @@ public class JsonUtil {
             e.printStackTrace();
         }
         return infos;
+    }
+
+    public static VersionBean getVersionInfo(String jsonStr) {
+        VersionBean bean=new VersionBean();
+        try {
+            JSONObject item=new JSONObject(jsonStr);
+            if (!item.isNull("CreateAt"))
+                bean.setCreateAt(item.getString("CreateAt"));
+            if (!item.isNull("DownloadUrl"))
+                bean.setDownloadUrl(item.getString("DownloadUrl"));
+            if (!item.isNull("Size"))
+                bean.setSize(item.getString("Size"));
+            if (!item.isNull("Version"))
+                bean.setVersion(item.getInt("Version"));
+            if (!item.isNull("VersionName"))
+                bean.setVersionName(item.getString("VersionName"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return bean;
     }
 
     public static ArrayList<ReportBean> getMSRecords(String jsonStr) {

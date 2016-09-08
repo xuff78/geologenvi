@@ -83,7 +83,7 @@ public class UpdateDailog extends Dialog implements DownloadInterface{
                     }
                     break;
                 case R.id.okBtn:
-                    if(Status!=DataInfo){
+                    if(Status==DataInfo){
                         downloadAsyncTask.cancel(true);
                         ToastUtils.displayTextShort(getContext(), "已停止");
                         cancelBtn.setText("取消");

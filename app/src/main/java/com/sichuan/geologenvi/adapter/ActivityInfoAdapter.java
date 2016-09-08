@@ -1,6 +1,7 @@
 package com.sichuan.geologenvi.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,7 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
+import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.XmlParse;
 
@@ -60,7 +65,7 @@ public class ActivityInfoAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         String name=XmlParse.getPapers(con, mapKeyList.get(position), xmlName);
         String content=dataList.get(mapKeyList.get(position));
         View v = null;
@@ -77,6 +82,38 @@ public class ActivityInfoAdapter extends BaseAdapter {
                 contentTxt.setText(content.substring(3));
                 contentTxt.setTextColor(blue);
                 contentTxt.setOnClickListener(listener);
+            }else if(mapKeyList.get(position).equals("FILESNAME")){
+                final String[] names=content.split("\\|");
+                contentTxt.setText(content);
+                contentTxt.setTextColor(blue);
+                contentTxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DialogUtil.showSelectDialog(con, "附件图片", names, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String[] codes=dataList.get("FILESCODE").split("\\|");
+                                final ArrayList<String> imgUrls=new ArrayList<>();
+                                for (int j=0;j<codes.length;j++){
+                                    imgUrls.add(ConstantUtil.YIJI_Pic_Url+codes[j]+".jpg");
+                                }
+
+                                //只能是图片
+                                Intent intent = new Intent(con, ViewPagerExampleActivity.class);
+                                intent.putExtra("Images", imgUrls);
+                                intent.putExtra("pos", i);
+                                con.startActivity(intent);
+
+                                //如果有其他类型，可选择用浏览器打开，可能会有点慢
+//                                Intent intent=new Intent();
+//                                intent.setAction("android.intent.action.VIEW");
+//                                Uri CONTENT_URI_BROWSERS = Uri.parse(imgUrls.get(i));
+//                                intent.setData(CONTENT_URI_BROWSERS);
+//                                con.startActivity(intent);
+                            }
+                        });
+                    }
+                });
             }else
                 contentTxt.setText(content);
         }else

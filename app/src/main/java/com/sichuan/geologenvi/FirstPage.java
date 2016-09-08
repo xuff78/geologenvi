@@ -1,26 +1,34 @@
 package com.sichuan.geologenvi;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 
 import com.sichuan.geologenvi.DataBase.DBManager;
 import com.sichuan.geologenvi.act.statistics.ChatRain;
 import com.sichuan.geologenvi.adapter.RainAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.bean.VersionBean;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.GlbsNet;
 import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
+import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.views.PSDdialog;
 import com.sichuan.geologenvi.views.UpdateDailog;
 
 import java.io.File;
@@ -91,7 +99,7 @@ public class FirstPage extends AppCompatActivity {
 
     private void toMainPage(){
         ready++;
-        if(ready==2) {
+        if(ready==3) {
             Intent i = new Intent(FirstPage.this, MainActivity.class);
             startActivity(i);
             finish();
@@ -108,14 +116,7 @@ public class FirstPage extends AppCompatActivity {
 
             @Override
             public void doSuccess(String method, String jsonData) {
-                updateDailog=new UpdateDailog(FirstPage.this, "", "");
-                updateDailog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        toMainPage();
-                    }
-                });
-                updateDailog.show();
+                doUpdate(method, jsonData);
             }
 
             @Override
@@ -129,5 +130,36 @@ public class FirstPage extends AppCompatActivity {
             }
 
         });
+    }
+
+    private PSDdialog psDdialog;
+    private void doUpdate(String method, String jsonData){
+        if(method.equals(ConstantUtil.Method.CheckVersion)) {
+            final VersionBean version = JsonUtil.getVersionInfo(jsonData);
+            if (version.getVersion() > ActUtil.getVersionCode(FirstPage.this)) {
+                psDdialog=new PSDdialog(this, new PSDdialog.CallBack(){
+
+                    @Override
+                    public void cancel() {
+                        toMainPage();
+                    }
+
+                    @Override
+                    public void editfinish(String psw) {
+                        handler.getAppUrl(psw, version.getVersion());
+                    }
+                });
+                psDdialog.show();
+            }
+        }else if(method.equals(ConstantUtil.Method.getAppUrl)) {
+            updateDailog = new UpdateDailog(FirstPage.this, jsonData, "更新了一个版本");
+            updateDailog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    toMainPage();
+                }
+            });
+            updateDailog.show();
+        }
     }
 }
