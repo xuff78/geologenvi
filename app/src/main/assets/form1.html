@@ -5,7 +5,7 @@
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="height:280px; margin-top: 15px;"></div>
+<div id="main" style="height:300px; margin-top: 15px;"></div>
 <!-- ECharts单文件引入 -->
 <script src="echarts.min.js"></script>
 <!--<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>-->
@@ -17,6 +17,24 @@
         var m_list = new Array();
         for (var i = 0; i < m_info.length; i++) {
             m_list[i] = m_info[i].data;
+        }
+
+        var m_info2 = m_json.FristFormInfo2;
+        var m_list2 = new Array();
+        for (var i = 0; i < m_info2.length; i++) {
+            m_list2[i] = m_info2[i].data;
+        }
+
+        var m_info3 = m_json.FristFormInfo3;
+        var m_list3 = new Array();
+        for (var i = 0; i < m_info3.length; i++) {
+            m_list3[i] = m_info3[i].data;
+        }
+
+        var m_info4 = m_json.FristFormInfo4;
+        var m_list4 = new Array();
+        for (var i = 0; i < m_info4.length; i++) {
+            m_list4[i] = m_info4[i].data;
         }
 
         var tags_info = m_json.tags;
@@ -96,7 +114,7 @@
              axisLabel : {
                 textStyle: {
                     color: 'black',
-                    fontSize: 9,
+                    fontSize: 6,
                 }
             },
             axisTick : {
@@ -131,7 +149,7 @@
              axisLabel : {
                 textStyle: {
                     color: 'black',
-                    fontSize: 9,
+                    fontSize: 4,
                 }
             },
             splitLine: {           // 分隔线
@@ -190,7 +208,7 @@
                     color: '#EEB422',
                 }
             },
-            data:m_list
+            data:m_list2
         },
         {
             name:'威胁户数',
@@ -210,7 +228,7 @@
                     color: '#EE0000',
                 }
             },
-            data:m_list
+            data:m_list3
         },
         {
             name:'威胁财产',
@@ -230,7 +248,7 @@
                     color: '#104E8B',
                 }
             },
-            data:m_list
+            data:m_list4
         }
     ]
 };
@@ -250,8 +268,7 @@
         });
         myChart.dispatchAction({
             type: 'legendUnSelect',
-            name: '威胁财产
-            '
+            name: '威胁财产'
         });
         };
 

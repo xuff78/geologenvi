@@ -34,7 +34,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
 
     private SqlHandler handler;
     private String tableName="";
-    private TextView txt1,txt2, txt3, txt4;
+    private TextView txt1,txt2, txt3, txt4, hintTxt;
     private View selection1, selection2, selection3, selection4;
     private WebView mWebView;
     private int requestType=0;
@@ -67,7 +67,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
         txt2= (TextView) findViewById(R.id.txt2);
         txt3= (TextView) findViewById(R.id.txt3);
         txt4= (TextView) findViewById(R.id.txt4);
-
+        hintTxt= (TextView) findViewById(R.id.hintTxt);
         selection1=findViewById(R.id.selection1);
         selection2=findViewById(R.id.selection2);
         selection3=findViewById(R.id.selection3);
@@ -89,6 +89,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 mWebView.loadUrl("javascript:setData('" + jsonString + "')");
+                hintTxt.setVisibility(View.GONE);
             }
 
             @Override
@@ -223,10 +224,37 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHAA01A210 = '04' THEN 1 ELSE 0 END) as DiMianTaXian,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '05' THEN 1 ELSE 0 END) as DiLieFeng,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '06' THEN 1 ELSE 0 END) as DiMianChenJiang,\n" +
-                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa",
+                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN 1 ELSE 0 END) as QiTa, \n"+
+
+                                "SUM(CASE WHEN ZHAA01A210 = '00' THEN ZHAA01A390 END) as RenKou1, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '01' THEN ZHAA01A390 END) as RenKou2, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '02' THEN ZHAA01A390 END) as RenKou3, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '03' THEN ZHAA01A390 END) as RenKou4, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '04' THEN ZHAA01A390 END) as RenKou5, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '05' THEN ZHAA01A390 END) as RenKou6, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '06' THEN ZHAA01A390 END) as RenKou7, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN ZHAA01A390 END) as RenKou8, \n"+
+
+                                "SUM(CASE WHEN ZHAA01A210 = '00' THEN ZHAA01A400 END) as HuShu1, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '01' THEN ZHAA01A400 END) as HuShu2, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '02' THEN ZHAA01A400 END) as HuShu3, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '03' THEN ZHAA01A400 END) as HuShu4, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '04' THEN ZHAA01A400 END) as HuShu5, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '05' THEN ZHAA01A400 END) as HuShu6, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '06' THEN ZHAA01A400 END) as HuShu7, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN ZHAA01A400 END) as HuShu8, \n"+
+
+                                "SUM(CASE WHEN ZHAA01A210 = '00' THEN ZHAA01A410 END) as CaiChan1, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '01' THEN ZHAA01A410 END) as CaiChan2, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '02' THEN ZHAA01A410 END) as CaiChan3, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '03' THEN ZHAA01A410 END) as CaiChan4, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '04' THEN ZHAA01A410 END) as CaiChan5, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '05' THEN ZHAA01A410 END) as CaiChan6, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '06' THEN ZHAA01A410 END) as CaiChan7, \n"+
+                                "SUM(CASE WHEN ZHAA01A210 = '07' THEN ZHAA01A410 END) as CaiChan8",
                         "SL_ZHAA01A",
                         typeStr);
-                jsonString=getTypeJson(data, disasterKey, disasterNames);
+                jsonString=getTypeJson(data, disasterKey, renkouKey, HuShuKey, CaiChanKey, disasterNames);
                 break;
             case 1:
                 data=handler.getQueryResult(
@@ -236,7 +264,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHAA01A890 = 'D' THEN 1 ELSE 0 END) as XiaoXing",
                         "SL_ZHAA01A",
                         typeStr);
-                jsonString=getTypeJson(data, sizeKey, sizeName);
+//                jsonString=getTypeJson(data, sizeKey, sizeName);
                 break;
             case 2:
                 data=handler.getQueryResult(
@@ -246,17 +274,21 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHAA01A420 = 'D' THEN 1 ELSE 0 END) as XiaoXing",
                         "SL_ZHAA01A",
                         typeStr);
-                jsonString=getTypeJson(data, sizeKey, sizeName);
+//                jsonString=getTypeJson(data, sizeKey, sizeName);
                 break;
         }
         mWebView.loadUrl("file:///android_asset/form1.html");
     }
 
-    String[] disasterNames={"不稳定斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
+    String[] disasterNames={"斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
     String[] disasterKey={"XiePo", "HuaPo", "BengTa", "NiShiLiu", "DiMianTaXian", "DiLieFeng", "DiMianChenJiang", "QiTa"};
+    String[] CaiChanKey={"CaiChan1", "CaiChan2", "CaiChan3", "CaiChan4", "CaiChan5", "CaiChan6", "CaiChan7", "CaiChan8"};
+    String[] HuShuKey={"HuShu1", "HuShu2", "HuShu3", "HuShu4", "HuShu5", "HuShu6", "HuShu7", "HuShu8"};
+    String[] renkouKey={"RenKou1", "RenKou2", "RenKou3", "RenKou4", "RenKou5", "RenKou6", "RenKou7", "RenKou8"};
     String[] sizeName={"特大型", "大型", "中型", "小型"};
     String[] sizeKey={"TedaXing", "DaXing", "ZhongXing", "XiaoXing"};
-    public String getTypeJson(ArrayList<Map<String, String>> datalist, String[] key, String[] names) {
+    public String getTypeJson(ArrayList<Map<String, String>> datalist, String[] key1, String[] key2, String[] key3,
+                              String[] key4, String[] names) {
         String jsonData="";
         if(datalist.size()>0) {
             Map<String, String> info=datalist.get(0);
@@ -264,24 +296,28 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                 JSONObject jsonObj = new JSONObject();
 
                 JSONArray array1 = new JSONArray();
+                JSONArray array2 = new JSONArray();
+                JSONArray array3 = new JSONArray();
+                JSONArray array4 = new JSONArray();
                 JSONArray arrayTag = new JSONArray();
 
                 for (int i=0;i<names.length; i++) {
 
                     JSONObject subValue = new JSONObject();
-                    JSONObject subjosn=new JSONObject();
-                    subjosn.put("name", info.get(key[i]));
-                    subjosn.put("value", info.get(key[i]));
-
-//                    JSONObject labeljosn=new JSONObject();
-//                    labeljosn.put("show", true);
-//                    labeljosn.put("position", "top");
-//                    JSONObject normalJson=new JSONObject();
-//                    normalJson.put("normal", labeljosn);
-//                    subjosn.put("label", normalJson);
-
-                    subValue.put("data", subjosn);
+                    subValue.put("data", info.get(key1[i]));
                     array1.put(i, subValue);
+
+                    JSONObject subValue2 = new JSONObject();
+                    subValue2.put("data", info.get(key2[i]));
+                    array2.put(i, subValue2);
+
+                    JSONObject subValue3 = new JSONObject();
+                    subValue3.put("data", info.get(key3[i]));
+                    array3.put(i, subValue3);
+
+                    JSONObject subValue4 = new JSONObject();
+                    subValue4.put("data", info.get(key4[i]));
+                    array4.put(i, subValue4);
 
                     JSONObject subName = new JSONObject();
                     subName.put("data", names[i]);
@@ -290,6 +326,9 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                 }
 
                 jsonObj.put("FristFormInfo1", array1);
+                jsonObj.put("FristFormInfo2", array2);
+                jsonObj.put("FristFormInfo3", array3);
+                jsonObj.put("FristFormInfo4", array4);
                 jsonObj.put("tags", arrayTag);
 
                 jsonData = jsonObj.toString();
