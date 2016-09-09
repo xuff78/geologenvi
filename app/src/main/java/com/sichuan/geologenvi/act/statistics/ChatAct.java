@@ -261,20 +261,52 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(CASE WHEN ZHAA01A890 = 'A' THEN 1 ELSE 0 END) as TedaXing,\n" +
                                 "SUM(CASE WHEN ZHAA01A890 = 'B' THEN 1 ELSE 0 END) as DaXing,\n" +
                                 "SUM(CASE WHEN ZHAA01A890 = 'C' THEN 1 ELSE 0 END) as ZhongXing,\n" +
-                                "SUM(CASE WHEN ZHAA01A890 = 'D' THEN 1 ELSE 0 END) as XiaoXing",
+                                "SUM(CASE WHEN ZHAA01A890 = 'D' THEN 1 ELSE 0 END) as XiaoXing, \n"+
+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'A' THEN ZHAA01A390 END) as RenKou1, \n"+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'B' THEN ZHAA01A390 END) as RenKou2, \n"+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'C' THEN ZHAA01A390 END) as RenKou3, \n"+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'D' THEN ZHAA01A390 END) as RenKou4, \n"+
+
+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'A' THEN ZHAA01A400 END) as HuShu1, \n"+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'B' THEN ZHAA01A400 END) as HuShu2, \n"+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'C' THEN ZHAA01A400 END) as HuShu3, \n"+
+                                        "SUM(CASE WHEN ZHAA01A890 = 'D' THEN ZHAA01A400 END) as HuShu4, \n"+
+
+                                "SUM(CASE WHEN ZHAA01A890 = 'A' THEN ZHAA01A410 END) as CaiChan1, \n"+
+                                "SUM(CASE WHEN ZHAA01A890 = 'B' THEN ZHAA01A410 END) as CaiChan2, \n"+
+                                "SUM(CASE WHEN ZHAA01A890 = 'C' THEN ZHAA01A410 END) as CaiChan3, \n"+
+                                "SUM(CASE WHEN ZHAA01A890 = 'D' THEN ZHAA01A410 END) as CaiChan4",
                         "SL_ZHAA01A",
                         typeStr);
-//                jsonString=getTypeJson(data, sizeKey, sizeName);
+                jsonString=getTypeJson(data, sizeKey, renkouKey2, HuShuKey2, CaiChanKey2, sizeName);
                 break;
             case 2:
                 data=handler.getQueryResult(
                                 "SUM(CASE WHEN ZHAA01A420 = 'A' THEN 1 ELSE 0 END) as TedaXing,\n" +
                                 "SUM(CASE WHEN ZHAA01A420 = 'B' THEN 1 ELSE 0 END) as DaXing,\n" +
                                 "SUM(CASE WHEN ZHAA01A420 = 'C' THEN 1 ELSE 0 END) as ZhongXing,\n" +
-                                "SUM(CASE WHEN ZHAA01A420 = 'D' THEN 1 ELSE 0 END) as XiaoXing",
+                                "SUM(CASE WHEN ZHAA01A420 = 'D' THEN 1 ELSE 0 END) as XiaoXing, \n" +
+
+                                "SUM(CASE WHEN ZHAA01A420 = 'A' THEN ZHAA01A390 END) as RenKou1, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'B' THEN ZHAA01A390 END) as RenKou2, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'C' THEN ZHAA01A390 END) as RenKou3, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'D' THEN ZHAA01A390 END) as RenKou4, \n"+
+
+
+                                "SUM(CASE WHEN ZHAA01A420 = 'A' THEN ZHAA01A400 END) as HuShu1, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'B' THEN ZHAA01A400 END) as HuShu2, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'C' THEN ZHAA01A400 END) as HuShu3, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'D' THEN ZHAA01A400 END) as HuShu4, \n"+
+
+                                "SUM(CASE WHEN ZHAA01A420 = 'A' THEN ZHAA01A410 END) as CaiChan1, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'B' THEN ZHAA01A410 END) as CaiChan2, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'C' THEN ZHAA01A410 END) as CaiChan3, \n"+
+                                "SUM(CASE WHEN ZHAA01A420 = 'D' THEN ZHAA01A410 END) as CaiChan4",
                         "SL_ZHAA01A",
                         typeStr);
-//                jsonString=getTypeJson(data, sizeKey, sizeName);
+                jsonString=getTypeJson(data, sizeKey, renkouKey2, HuShuKey2, CaiChanKey2, sizeName);
                 break;
         }
         mWebView.loadUrl("file:///android_asset/form1.html");
@@ -285,6 +317,11 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
     String[] CaiChanKey={"CaiChan1", "CaiChan2", "CaiChan3", "CaiChan4", "CaiChan5", "CaiChan6", "CaiChan7", "CaiChan8"};
     String[] HuShuKey={"HuShu1", "HuShu2", "HuShu3", "HuShu4", "HuShu5", "HuShu6", "HuShu7", "HuShu8"};
     String[] renkouKey={"RenKou1", "RenKou2", "RenKou3", "RenKou4", "RenKou5", "RenKou6", "RenKou7", "RenKou8"};
+
+    String[] CaiChanKey2={"CaiChan1", "CaiChan2", "CaiChan3", "CaiChan4"};
+    String[] HuShuKey2={"HuShu1", "HuShu2", "HuShu3", "HuShu4"};
+    String[] renkouKey2={"RenKou1", "RenKou2", "RenKou3", "RenKou4"};
+
     String[] sizeName={"特大型", "大型", "中型", "小型"};
     String[] sizeKey={"TedaXing", "DaXing", "ZhongXing", "XiaoXing"};
     public String getTypeJson(ArrayList<Map<String, String>> datalist, String[] key1, String[] key2, String[] key3,
