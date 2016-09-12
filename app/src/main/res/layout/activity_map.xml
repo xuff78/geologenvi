@@ -2,10 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.tianditu.android.maps.MapView
+    <!--<com.tianditu.android.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"/>-->
+    <com.esri.android.map.MapView
+        android:id="@+id/tdtMap"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        initExtent = "-180, -90, 180, 90"/>
     <ImageView
         android:id="@+id/myLoc"
         android:layout_alignParentBottom="true"

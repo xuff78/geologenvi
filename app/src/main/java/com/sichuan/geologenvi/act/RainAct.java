@@ -23,7 +23,11 @@ import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2016/7/4.
@@ -40,15 +44,19 @@ public class RainAct extends AppFrameAct {
             if(adapter!=null)
             switch (view.getId()){
                 case R.id.hintTxt21:
+                    setTopHintTxt(1);
                     adapter.setHours(1);
                     break;
                 case R.id.hintTxt22:
+                    setTopHintTxt(3);
                     adapter.setHours(3);
                     break;
                 case R.id.hintTxt23:
+                    setTopHintTxt(12);
                     adapter.setHours(12);
                     break;
                 case R.id.hintTxt24:
+                    setTopHintTxt(24);
                     adapter.setHours(24);
                     break;
             }
@@ -56,7 +64,7 @@ public class RainAct extends AppFrameAct {
     };
     private RainAdapter adapter;
     private HttpHandler handler;
-    private TextView hintTxt21;
+    private TextView hintTxt21, hintTop;
     private ArrayList<RainBean> rainInfo=new ArrayList<>();
     private ListView list;
     private View pressView=hintTxt21;
@@ -70,6 +78,7 @@ public class RainAct extends AppFrameAct {
 
         initHandler();
         initView();
+        setTopHintTxt(1);
         handler.getRainInfo();
     }
 
@@ -132,11 +141,21 @@ public class RainAct extends AppFrameAct {
 
     private void initView() {
         hintTxt21= (TextView) findViewById(R.id.hintTxt21);
+        hintTop=(TextView) findViewById(R.id.hintTop);
         pressView=hintTxt21;
         hintTxt21.setOnClickListener(listener);
         findViewById(R.id.hintTxt22).setOnClickListener(listener);
         findViewById(R.id.hintTxt23).setOnClickListener(listener);
         findViewById(R.id.hintTxt24).setOnClickListener(listener);
         list=(ListView)findViewById(R.id.infoList);
+    }
+
+    private void setTopHintTxt(int longtime){
+        Format dateShow=new SimpleDateFormat("dd日HH时");
+        Date date = new Date(System.currentTimeMillis());
+        String to=dateShow.format(date);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, -longtime);
+        hintTop.setText("成都市观测站"+dateShow.format(cal.getTime())+"至"+to+"（"+longtime+"）小时降水");
     }
 }

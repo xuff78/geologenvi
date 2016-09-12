@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"/>
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -70,12 +71,13 @@
             android:gravity="center"
             android:layout_width="80dp"
             android:layout_height="50dp" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
     </RelativeLayout>
 
-    <View
-        android:background="@color/light_gray"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

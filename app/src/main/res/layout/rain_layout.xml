@@ -3,7 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:layout_weight="4.5"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="提示"
+        android:id="@+id/hintTop"
+        style="@style/txt_black_13" />
+    <View
+        android:id="@+id/topLine"
+        android:layout_below="@+id/hintTop"
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
     <LinearLayout
+        android:layout_below="@+id/topLine"
         android:id="@+id/selectHintLayout"
         android:background="@color/whitesmoke"
         android:orientation="horizontal"

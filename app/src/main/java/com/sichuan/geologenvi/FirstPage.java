@@ -150,7 +150,8 @@ public class FirstPage extends AppCompatActivity {
                     }
                 });
                 psDdialog.show();
-            }
+            }else
+                toMainPage();
         }else if(method.equals(ConstantUtil.Method.getAppUrl)) {
             updateDailog = new UpdateDailog(FirstPage.this, jsonData, "更新了一个版本");
             updateDailog.setOnDismissListener(new DialogInterface.OnDismissListener() {
