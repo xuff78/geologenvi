@@ -1,36 +1,33 @@
 package com.sichuan.geologenvi.act;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
+import com.esri.android.map.LocationDisplayManager;
+import com.esri.android.map.MapView;
+import com.esri.android.runtime.ArcGISRuntime;
+import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.Point;
+import com.scgis.mmap.helper.TileCacheDBManager;
+import com.scgis.mmap.map.SCGISTiledMapServiceLayer;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
-import com.sichuan.geologenvi.views.ItemOverlay;
 import com.sichuan.geologenvi.views.MarkerSupportView;
-import com.tianditu.android.maps.GeoPoint;
-import com.tianditu.android.maps.MapController;
-import com.tianditu.android.maps.MapView;
-import com.tianditu.android.maps.MyLocationOverlay;
-import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +37,15 @@ import java.util.List;
  */
 public class MapAct  extends AppFrameAct {
 
-    private MapView mMapView = null;
-    protected MapController mController = null;
+    private final String dlgUrl="http://www.scgis.net.cn/iMap/iMapServer/DefaultRest/services/scmobile_dlg";
     private MarkerSupportView  mPopView=null;
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
-    private MyOverlay myLocation;
     private Location lct;
     private String addr="";
     private boolean firstMove=false;
+    private MapView mMapView;
+    private LocationDisplayManager lDisplayManager;
 
 
     @Override
@@ -75,7 +72,6 @@ public class MapAct  extends AppFrameAct {
         mMapView.addView(mPopView.getPopView());
         mPopView.setVisibility(View.GONE);
 
-        List<Overlay> list = mMapView.getOverlays();
 
 //        Resources res = getResources();
 //        Drawable marker = res.getDrawable(R.mipmap.icon_location_target);
@@ -84,36 +80,91 @@ public class MapAct  extends AppFrameAct {
     }
 
     private void initView() {
-        _setRightHomeText("切换模式", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mMapView.getMapType()==MapView.TMapType.MAP_TYPE_IMG) {
-                    mMapView.setMapType(MapView.TMapType.MAP_TYPE_VEC);
-                    ToastUtils.displayTextShort(MapAct.this, "切换为矢量图");
-                }else {
-                    mMapView.setMapType(MapView.TMapType.MAP_TYPE_IMG);
-                    ToastUtils.displayTextShort(MapAct.this, "切换为影像图");
+//        _setRightHomeText("切换模式", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(mMapView.getMapType()==MapView.TMapType.MAP_TYPE_IMG) {
+//                    mMapView.setMapType(MapView.TMapType.MAP_TYPE_VEC);
+//                    ToastUtils.displayTextShort(MapAct.this, "切换为矢量图");
+//                }else {
+//                    mMapView.setMapType(MapView.TMapType.MAP_TYPE_IMG);
+//                    ToastUtils.displayTextShort(MapAct.this, "切换为影像图");
+//                }
+//            }
+//        });
+        ArcGISRuntime.setClientId("zzzz4r7FQDyeNu12");
+
+        mMapView=(MapView)findViewById(R.id.tdtMap);
+        // mMapView.setResolution(0.010986328125);
+        mMapView.centerAt(new Point(105.444402, 28.871906), true);
+
+        String mToken="YgA6oKQf_zMiFPwkc3GerqZq9dvmjc0smYCnhwEZPngytdYrPjwSa22d90lgVZ4q";//token ʹ�����ͼ�Ĵ����û�������
+
+        long dlgdbsize = 100;//  100MB
+        int dlgTileCompress=75;  //ͼƬѹ��75%
+
+        TileCacheDBManager mDLGTileDBManager=new TileCacheDBManager(this,"iDLGTile1.db");  //�������߻����
+        final SCGISTiledMapServiceLayer mDLGTileMapServiceLayer=new SCGISTiledMapServiceLayer(this,dlgUrl,mToken,true,mDLGTileDBManager);
+
+        mDLGTileMapServiceLayer.setCacheSize(dlgdbsize); //�����ļ���С����
+        mDLGTileMapServiceLayer.setTileCompressAndQuality(true, dlgTileCompress);  //����Ƭ����ѹ��
+        mMapView.addLayer(mDLGTileMapServiceLayer);
+        mMapView.setExtent(new Envelope(95,24,110,35));
+        mMapView.centerAt(28.871906, 105.444402, true);
+        mDLGTileMapServiceLayer.setVisible(true);
+        //************************************************************************
+        //mDLGTileMapServiceLayer.setStartLevel(3);
+        //mDLGTileMapServiceLayer.setStopLevel(20);
+        mMapView.setMinScale(mDLGTileMapServiceLayer.getMinScale());
+        mMapView.setMaxScale(mDLGTileMapServiceLayer.getMaxScale());
+        // mMapView.zo(mDLGTileMapServiceLayer.getMaxScale(), true);
+        //mMapView.setMaxResolution(mDLGTileMapServiceLayer.getMaxResolution());//ͨ��������Կ��Ƶ�ͼ����ʾ����
+        // mMapView.setMinResolution(mDLGTileMapServiceLayer.getMinResolution());//ͨ��������Կ��Ƶ�ͼ����ʾ����
+        //************************************************************************
+        //ArcGISDynamicMapServiceLayer dynamicLayer=new ArcGISDynamicMapServiceLayer("http://apps.tianditucd.cn/cdmap/rest/services/SampleWorldCities/MapServer");
+        //dynamicLayer.setOpacity(0.5f);
+        //mMapView.addLayer(dynamicLayer);
+        //"http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer"));
+
+
+
+
+        lDisplayManager = mMapView.getLocationDisplayManager();
+        lDisplayManager.setLocationListener(new LocationListener() {
+            //boolean locationChanged = false;
+
+            public void onLocationChanged(Location location) {
+                // TODO Auto-generated method stub
+//                currentLocation=location;
+                if(location!=null){
+                    LogUtil.i("Location", "getLocation: "+location.getLatitude()+"    "+location.getLongitude());
+                    mMapView.centerAt(location.getLatitude(), location.getLongitude(), true);
                 }
+
             }
+
+            public void onProviderDisabled(String provider) {
+                // TODO Auto-generated method stub
+
+            }
+
+            public void onProviderEnabled(String provider) {
+                // TODO Auto-generated method stub
+
+            }
+
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+                // TODO Auto-generated method stub
+
+            }
+
+
         });
-        TOfflineMapManager offlineMapMng = new TOfflineMapManager(null);
-        offlineMapMng.setMapPath(ConstantUtil.OfflinePath);
-        mMapView = (MapView)findViewById(R.id.mapview);
-        mMapView.setMinZoomLevel(5);
-        mMapView.setOfflineMaps(offlineMapMng.searchLocalMaps());
-        mMapView.setPlaceName(true);
-        mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
-        mMapView.setSatellite(true);
-        mMapView.setMapType(MapView.TMapType.MAP_TYPE_IMG);
-        mController = mMapView.getController();
-        mController.setZoom(8);
-        mMapView.setOfflineMaps(offlineMapMng.searchLocalMaps());
-//        mController.setCenter(new GeoPoint((int)(30.67*1000000), (int)(104.06*1000000)));
-
-
-        myLocation = new MyOverlay(this, mMapView);
-        myLocation.enableMyLocation(); //显示我的位置
-        mMapView.getOverlays().add(myLocation);
+        lDisplayManager.setAccuracyCircleOn(true);
+        lDisplayManager.setAutoPanMode(LocationDisplayManager.AutoPanMode.OFF);
+        //lDisplayManager.set
+        lDisplayManager.start();
 
         LocationManager m_locationManager = ( LocationManager ) getSystemService( Context.LOCATION_SERVICE );
         Criteria criteria = new Criteria();
@@ -152,51 +203,33 @@ public class MapAct  extends AppFrameAct {
             @Override
             public void onClick(View view) {
 
-                GeoPoint point = myLocation.getMyLocation();
-                if(point != null)
-                    mMapView.getController().animateTo(point);
+//                GeoPoint point = myLocation.getMyLocation();
+//                if(point != null)
+//                    mMapView.getController().animateTo(point);
             }
         });
     }
 
-    class MyOverlay extends MyLocationOverlay
-    {
-        public MyOverlay(Context context, MapView mapView) {
-            super(context, mapView);
-            // TODO Auto-generated constructor stub
-        }
-        protected boolean dispatchTap()
-        {
-            if(!mPopView.getPopView().isShown()){
-                GeoPoint geo=new GeoPoint((int)(lct.getLatitude() * 1000000.0D), (int)(lct.getLongitude() * 1000000.0D));
-                ArrayList<PopupInfoItem> datas=new ArrayList<>();
-                datas.add(new PopupInfoItem("经度", lct.getLongitude()+""));
-                datas.add(new PopupInfoItem("纬度度", lct.getLatitude()+""));
-                if(addr!=null&&addr.length()>0)
-                    datas.add(new PopupInfoItem("位置", addr));
-                mPopView.setListView(datas);
-                mMapView.updateViewLayout( mPopView.getPopView(),
-                        new MapView.LayoutParams(MapView.LayoutParams.WRAP_CONTENT, MapView.LayoutParams.WRAP_CONTENT,
-                                geo, MapView.LayoutParams.BOTTOM_CENTER));
-                mPopView.getPopView().setVisibility(View.VISIBLE);
-            }else
-                mPopView.getPopView().setVisibility(View.GONE);
-            return true;
-        }
-        @Override
-        public void onLocationChanged(Location location) {
-            // TODO Auto-generated method stub
-            super.onLocationChanged(location);
-        }
-    }
 
     @Override
     protected void onDestroy() {
         if(mLocationClient!=null){
             mLocationClient.stop();
             mMapView.destroyDrawingCache();
+            lDisplayManager.stop();
         }
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMapView.pause();
+    }
+    @Override 	protected void onResume() {
+        super.onResume();
+        mMapView.unpause();
+
     }
 
     public class MyLocationListener implements BDLocationListener {
@@ -210,15 +243,15 @@ public class MapAct  extends AppFrameAct {
 //            lct.setLongitude(location.getLongitude());
             lct.setLatitude(location.getLatitude()-0.00374531687912);
             lct.setLongitude(location.getLongitude()-0.008774687519);
-            myLocation.onLocationChanged(lct);
+//            myLocation.onLocationChanged(lct);
             addr=location.getAddrStr();
 
             if(!firstMove) {
-                GeoPoint point = myLocation.getMyLocation();
-                if (point != null) {
-                    mMapView.getController().animateTo(point);
-                    firstMove = true;
-                }
+//                GeoPoint point = myLocation.getMyLocation();
+//                if (point != null) {
+//                    mMapView.getController().animateTo(point);
+//                    firstMove = true;
+//                }
             }
 
             LogUtil.i("Location", "location: "+location.getLatitude()+"   "+location.getLongitude());

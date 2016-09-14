@@ -10,8 +10,8 @@ android {
         applicationId "com.sichuan.geologenvi"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.2"
     }
     buildTypes {
         release {
@@ -43,15 +43,33 @@ android {
             keyPassword "123456"
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
-    compile files('libs/tiandituapi2.2.2.jar')
     compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/arcgis-android-app-toolkit.jar')
+    compile files('libs/arcgis-android-api.jar')
+    compile files('libs/jackson-mapper-1.9.5.jar')
+    compile files('libs/jackson-core-1.9.5.jar')
+    compile files('libs/jcifs-1.3.17.jar')
+    compile files('libs/scmmapapi.jar')
 }

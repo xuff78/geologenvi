@@ -22,9 +22,6 @@ import com.sichuan.geologenvi.act.statistics.FormAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ViewUtil;
-import com.sichuan.geologenvi.views.MarkerSupportView;
-import com.tianditu.android.maps.MapController;
-import com.tianditu.android.maps.MapView;
 
 import java.util.ArrayList;
 

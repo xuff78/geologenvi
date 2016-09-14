@@ -34,7 +34,6 @@ import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.utils.ViewUtil;
-import com.tianditu.android.maps.MapView;
 
 import java.io.File;
 import java.util.ArrayList;

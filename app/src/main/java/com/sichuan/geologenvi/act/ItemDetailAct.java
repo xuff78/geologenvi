@@ -1,17 +1,11 @@
 package com.sichuan.geologenvi.act;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.widget.ListView;
 
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.adapter.ActivityInfoAdapter;
 import com.sichuan.geologenvi.bean.MapBean;
-import com.sichuan.geologenvi.views.MarkerSupportView;
-import com.tianditu.android.maps.MapController;
-import com.tianditu.android.maps.MapView;
-
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/6/28.

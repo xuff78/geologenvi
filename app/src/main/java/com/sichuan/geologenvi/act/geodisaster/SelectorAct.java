@@ -4,23 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
-import com.sichuan.geologenvi.MainActivity;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
-import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
-import com.sichuan.geologenvi.views.MarkerSupportView;
-import com.tianditu.android.maps.MapController;
-import com.tianditu.android.maps.MapView;
 
 import java.util.ArrayList;
 
