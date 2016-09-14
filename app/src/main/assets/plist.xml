@@ -948,6 +948,18 @@
     <string name="FILESNAME">附件</string>
 
   </dict>
+  <dict name="SL_SOILSTASION">
+    <string name="JD">经度</string>
+    <string name="WD">纬度</string>
+    <string name="GAOCHENG">高程</string>
+    <string name="QUXIAN">区县</string>
+    <string name="WEIZHI">位置</string>
+    <string name="QUYANGSHIJIAN">取样时间</string>
+    <string name="PIANQU">片区</string>
+    <string name="FILESCODE">附件编号</string>
+    <string name="FILESNAME">附件</string>
+  </dict>
+
   <dict name="SL_KS_DZHJ_XX">
     <string name="DZHJ_GK">矿山地质环境概况</string>
     <string name="HFZL_GK">矿山地质环境恢复治理概况</string>
