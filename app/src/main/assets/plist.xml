@@ -1120,7 +1120,8 @@
     <string name="WENDU">温度</string>
     <string name="PH">PH值</string>
     <string name="YINGDU">硬度</string>
-
+    <string name="FILESCODE">附件编号</string>
+    <string name="FILESNAME">附件</string>
 
 
   </dict>
