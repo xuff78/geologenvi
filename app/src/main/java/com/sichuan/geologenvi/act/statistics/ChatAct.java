@@ -143,7 +143,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
                 break;
             case R.id.selection3:
                 if(statisticsType!=0) {
-                    final String[] disasterInfos = new String[]{"全部", "斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其他"};
+                    final String[] disasterInfos = new String[]{"全部", "不稳定斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其他"};
                     DialogUtil.showSelectDialog(ChatAct.this, "统计区域", disasterInfos, new DialogInterface.OnClickListener() {
 
                         @Override
@@ -312,7 +312,7 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
         mWebView.loadUrl("file:///android_asset/form1.html");
     }
 
-    String[] disasterNames={"斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
+    String[] disasterNames={"不稳定斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
     String[] disasterKey={"XiePo", "HuaPo", "BengTa", "NiShiLiu", "DiMianTaXian", "DiLieFeng", "DiMianChenJiang", "QiTa"};
     String[] CaiChanKey={"CaiChan1", "CaiChan2", "CaiChan3", "CaiChan4", "CaiChan5", "CaiChan6", "CaiChan7", "CaiChan8"};
     String[] HuShuKey={"HuShu1", "HuShu2", "HuShu3", "HuShu4", "HuShu5", "HuShu6", "HuShu7", "HuShu8"};
