@@ -68,7 +68,7 @@ public class PSDdialog extends Dialog {
                     dismiss();
                     cb.editfinish(psw);
                 } else
-                    ToastUtils.displayTextShort(act, "请输入密码");
+                    ToastUtils.displayTextShort(act, "请输入内容");
             }
         });
         findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {

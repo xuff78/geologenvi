@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ import com.sichuan.geologenvi.views.PSDdialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +67,7 @@ public class MapAct  extends AppFrameAct {
     private double lat=0, lon=0;
     private Point pressPoint;
     private GraphicsLayer mGraphicsLayer;
-    private ArrayList<MapPoint> points=new ArrayList<>();
+    private Map<Long, MapPoint> points=new LinkedHashMap<>();
     int i=0;
 
     @Override
@@ -166,6 +168,7 @@ public class MapAct  extends AppFrameAct {
 
     private Graphic CreateGraphic(Point geometry, Map<String, Object> map, int imgRes, int yoffset) {
         Drawable image = getResources().getDrawable(imgRes);
+        image.setBounds(5, 5, 5, 5);
         PictureMarkerSymbol symbol = new PictureMarkerSymbol(image);
         symbol.setOffsetY(yoffset);
         Graphic g = new Graphic(geometry, symbol, map);
@@ -190,9 +193,20 @@ public class MapAct  extends AppFrameAct {
         public void editfinish(String psw) {
             Map<String, Object> map = new HashMap<>();
             map.put("desc", psw);
+            long timeid=System.currentTimeMillis();
+            map.put("timeid", timeid);
+            MapPoint mapPoint=new MapPoint();
+            mapPoint.setP(new Point(pressPoint.getX(), pressPoint.getY()));
+            mapPoint.setDesc(psw);
+            points.put(timeid, mapPoint);
             Graphic gp1 = CreateGraphic(pressPoint, map, R.mipmap.of_location_icon, 15);
             getGraphicLayer().addGraphic(gp1);
-            KeyBoardCancle();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ActUtil.closeSoftPan(MapAct.this);
+                }
+            },300);
         }
     };
 
@@ -238,6 +252,10 @@ public class MapAct  extends AppFrameAct {
 //                view.setLayoutParams(new ViewGroup.LayoutParams(ImageUtil.dip2px(MapAct.this, 280), -2));
                 Graphic gr = getGraphicLayer().getGraphic(graphicIDs[0]);
                 view.findViewById(R.id.okBtn).setOnClickListener(listener);
+                View del=view.findViewById(R.id.delBtn);
+                del.setTag(R.id.tag_1, gr.getAttributes().get("timeid"));
+                del.setTag(R.id.tag_2, graphicIDs[0]);
+                del.setOnClickListener(listener);
                 TextView contentTxt= (TextView) view.findViewById(R.id.contentTxt);
                 contentTxt.setText((String)(gr.getAttributes().get("desc")));
                 Point popPositon = mMapView.toMapPoint(new Point(x, y));
@@ -255,6 +273,11 @@ public class MapAct  extends AppFrameAct {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.okBtn:
+                    mMapView.getCallout().animatedHide();
+                    break;
+                case R.id.delBtn:
+                    points.remove(view.getTag(R.id.tag_1));
+                    getGraphicLayer().removeGraphic((int) view.getTag(R.id.tag_2));
                     mMapView.getCallout().animatedHide();
                     break;
             }
