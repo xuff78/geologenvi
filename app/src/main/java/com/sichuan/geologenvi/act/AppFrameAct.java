@@ -30,7 +30,7 @@ public abstract class AppFrameAct extends AppCompatActivity {
 	public ImageButton btnHome, btnBack;
 	
 	public TextView rightTxtBtn;
-	
+
 	public boolean flag;
 
 	private ClickListener listener;

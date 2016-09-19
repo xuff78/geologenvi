@@ -3,6 +3,7 @@ package com.sichuan.geologenvi.views;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -13,6 +14,8 @@ import com.sichuan.geologenvi.act.DownloadInterface;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.AppDownLoadTask;
 import com.sichuan.geologenvi.utils.ToastUtils;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by 可爱的蘑菇 on 2016/9/9.
@@ -25,11 +28,21 @@ public class PSDdialog extends Dialog {
     private ProgressBar app_update_pb_progress;
     private String url, content;
     private EditText edt;
+    private String title=null;
+    private boolean isPsw=true;
 
     public PSDdialog(Activity act,  CallBack cb){
         super(act, R.style.dialog);
         this.cb=cb;
         this.act=act;
+    }
+
+    public PSDdialog(Activity act,  CallBack cb, String title, boolean isPsw){
+        super(act, R.style.dialog);
+        this.cb=cb;
+        this.act=act;
+        this.isPsw=isPsw;
+        this.title=title;
     }
 
     @Override
@@ -41,7 +54,12 @@ public class PSDdialog extends Dialog {
     }
 
     private void initView() {
+        TextView titleTxt= (TextView) findViewById(R.id.dialogTitle);
+        if(title!=null)
+            titleTxt.setText(title);
         edt = (EditText) findViewById(R.id.pswEdt);
+        if(isPsw)
+            edt.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         findViewById(R.id.confirmBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
