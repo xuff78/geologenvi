@@ -9,17 +9,22 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
+import com.esri.android.map.Callout;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.LocationDisplayManager;
 import com.esri.android.map.MapView;
 import com.esri.android.map.event.OnLongPressListener;
+import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Point;
@@ -32,7 +37,9 @@ import com.scgis.mmap.map.SCGISTiledMapServiceLayer;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.bean.MapPoint;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
+import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
@@ -106,6 +113,7 @@ public class MapAct  extends AppFrameAct {
         mDLGTileMapServiceLayer.setVisible(true);
         mMapView.setMinScale(mDLGTileMapServiceLayer.getMinScale());
         mMapView.setMaxScale(mDLGTileMapServiceLayer.getMaxScale());
+        mMapView.setOnSingleTapListener(singleTapListener);
         mMapView.setOnLongPressListener(new OnLongPressListener() {
             @Override
             public boolean onLongPress(float x, float y) {
@@ -184,6 +192,7 @@ public class MapAct  extends AppFrameAct {
             map.put("desc", psw);
             Graphic gp1 = CreateGraphic(pressPoint, map, R.mipmap.of_location_icon, 15);
             getGraphicLayer().addGraphic(gp1);
+            KeyBoardCancle();
         }
     };
 
@@ -217,7 +226,38 @@ public class MapAct  extends AppFrameAct {
             // TODO Auto-generated method stub
 
         }
+    };
 
+    OnSingleTapListener singleTapListener=new OnSingleTapListener() {
+        public void onSingleTap(float x, float y) {
+            // TODO Auto-generated method stub
+            int[] graphicIDs = getGraphicLayer().getGraphicIDs(x, y, 25);
+            if (graphicIDs != null && graphicIDs.length > 0) {
+                LayoutInflater inflater = LayoutInflater.from(MapAct.this);
+                View view = inflater.inflate(R.layout.user_marker_pop, null);
+//                view.setLayoutParams(new ViewGroup.LayoutParams(ImageUtil.dip2px(MapAct.this, 280), -2));
+                Graphic gr = getGraphicLayer().getGraphic(graphicIDs[0]);
+                view.findViewById(R.id.okBtn).setOnClickListener(listener);
+                TextView contentTxt= (TextView) view.findViewById(R.id.contentTxt);
+                contentTxt.setText((String)(gr.getAttributes().get("desc")));
+                Point popPositon = mMapView.toMapPoint(new Point(x, y));
+                Callout callout = mMapView.getCallout();
+//                callout.setStyle(R.xml.calloutstyle);
+                callout.setMaxWidthDp(340);
+                callout.setOffset(0, -30);
+                callout.show(popPositon, view);
+            }
+        }
+    };
 
+    View.OnClickListener listener=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.okBtn:
+                    mMapView.getCallout().animatedHide();
+                    break;
+            }
+        }
     };
 }
