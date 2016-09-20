@@ -290,81 +290,83 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        switch (type) {
-            case 1:
-            case 7:
-            case 8:
-            case 9:
-                datalist=handler.getGeohazardInfo(QueryStr.yinhuandian, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
-                        intent.getStringExtra("disasterTypeCode"),
-                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
-                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
-                break;
-            case 3:
-                datalist=handler.getGeohazardInfo("", type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
-                        intent.getStringExtra("disasterTypeCode"),
-                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
-                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
-                break;
-            case 2:
-                datalist=handler.getGeohazardInfo(QueryStr.zhuanyeshebei, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
-                        intent.getStringExtra("disasterTypeCode"),
-                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
-                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
-                break;
-            case 4:
-            case 5:
-                datalist=handler.getGeohazardInfo(QueryStr.yhdbixiancs, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
-                        intent.getStringExtra("disasterTypeCode"),
-                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
-                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
-                break;
-            case 6:
-                datalist=handler.getGeohazardInfo(QueryStr.bxbq, type,intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
-                        intent.getStringExtra("disasterTypeCode"),
-                        intent.getStringExtra("disasterSizeCode"),intent.getStringExtra("areaCode"),
-                        intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
-                break;
-        }
-        ArrayList<String> list = new ArrayList<>();
-
-        txtcount.setText("共：   "+ datalist.size()+"    条记录");
-        stations.clear();
-        for (Map<String, String> info : datalist) {
+        if (resultCode == 0x11) {
             switch (type) {
                 case 1:
                 case 7:
                 case 8:
                 case 9:
-                    list.add(info.get("ZHAA01A020"));
+                    datalist = handler.getGeohazardInfo(QueryStr.yinhuandian, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
                     break;
                 case 3:
-                    list.add(info.get("ZHCA01A020"));
+                    datalist = handler.getGeohazardInfo("", type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
                     break;
                 case 2:
-                    String key=info.get("DISASTERNAME");
-
-                    if(stations.containsKey(key)) {
-                        ArrayList<Map<String, String>> data=stations.get(key);
-                        data.add(info);
-                    }else{
-                        list.add(key);
-                        ArrayList<Map<String, String>> data=new ArrayList<>();
-                        data.add(info);
-                        stations.put(key, data);
-                    }
-                    txtcount.setText("共：   "+ stations.size()+"    条记录");
+                    datalist = handler.getGeohazardInfo(QueryStr.zhuanyeshebei, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
                     break;
                 case 4:
                 case 5:
-                    list.add(info.get("ZHDD02A020")+"\n"+info.get("ZHDD02A310"));
+                    datalist = handler.getGeohazardInfo(QueryStr.yhdbixiancs, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
                     break;
                 case 6:
-                    list.add(info.get("ZHDD04B020"));
+                    datalist = handler.getGeohazardInfo(QueryStr.bxbq, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
                     break;
             }
+            ArrayList<String> list = new ArrayList<>();
+
+            txtcount.setText("共：   " + datalist.size() + "    条记录");
+            stations.clear();
+            for (Map<String, String> info : datalist) {
+                switch (type) {
+                    case 1:
+                    case 7:
+                    case 8:
+                    case 9:
+                        list.add(info.get("ZHAA01A020"));
+                        break;
+                    case 3:
+                        list.add(info.get("ZHCA01A020"));
+                        break;
+                    case 2:
+                        String key = info.get("DISASTERNAME");
+
+                        if (stations.containsKey(key)) {
+                            ArrayList<Map<String, String>> data = stations.get(key);
+                            data.add(info);
+                        } else {
+                            list.add(key);
+                            ArrayList<Map<String, String>> data = new ArrayList<>();
+                            data.add(info);
+                            stations.put(key, data);
+                        }
+                        txtcount.setText("共：   " + stations.size() + "    条记录");
+                        break;
+                    case 4:
+                    case 5:
+                        list.add(info.get("ZHDD02A020") + "\n" + info.get("ZHDD02A310"));
+                        break;
+                    case 6:
+                        list.add(info.get("ZHDD04B020"));
+                        break;
+                }
+            }
+            recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
         }
-        recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
-        }
+    }
 
 }

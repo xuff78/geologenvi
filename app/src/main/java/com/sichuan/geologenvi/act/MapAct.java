@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -77,6 +78,7 @@ public class MapAct  extends AppFrameAct {
     private MenuPopup popup;
     private String[] typeNames=new String[]{"地质灾害点","地下水","矿山","地质遗迹"};
     private int toLocation=0;
+    private int showType=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +156,31 @@ public class MapAct  extends AppFrameAct {
         mMapView.setMinScale(mDLGTileMapServiceLayer.getMinScale());
         mMapView.setMaxScale(mDLGTileMapServiceLayer.getMaxScale());
         mMapView.setOnSingleTapListener(singleTapListener);
+        mMapView.setOnTouchListener(new View.OnTouchListener() {
+
+            float startX=0;
+            float startY=0;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = motionEvent.getRawX();
+                        startY = motionEvent.getRawY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        //第一种方法，获取两点间距离
+                        float endX = motionEvent.getRawX() - startX;
+                        float endY = motionEvent.getRawY() - startY;
+                        double distance = Math.sqrt(endX * endX + endY * endY);//
+                        if (distance > 100) {
+                            getDataOnScreen();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
         mMapView.setOnLongPressListener(new OnLongPressListener() {
             @Override
             public boolean onLongPress(float x, float y) {
@@ -194,6 +221,15 @@ public class MapAct  extends AppFrameAct {
 //                }
             }
         });
+    }
+
+    private void getDataOnScreen() {
+        Envelope rExtent=new Envelope();
+        mMapView.getExtent().queryEnvelope(rExtent);
+        double leftB_x=rExtent.getXMin();
+        double leftB_y=rExtent.getYMin();
+        double topR_x=rExtent.getXMax();
+        double topR_y=rExtent.getYMax();
     }
 
 
