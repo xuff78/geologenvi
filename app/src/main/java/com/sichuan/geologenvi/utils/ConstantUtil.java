@@ -23,6 +23,7 @@ public class ConstantUtil {
 	public static final String BookInfo="BookInfo";
 	public static final String AreaInfo="AreaInfo";
 	public static final String TongliangMap="TongliangMap";
+	public static final String UserPoint="UserPoint";
 
 	public static final String Api_Url="http://bitcoin.beewonder.com/api/";
 

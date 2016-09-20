@@ -3,8 +3,10 @@ package com.sichuan.geologenvi.utils;
 import android.util.Log;
 
 
+import com.esri.core.geometry.Point;
 import com.sichuan.geologenvi.bean.CateInfo;
 import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.bean.MapPoint;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.bean.RainBean;
 import com.sichuan.geologenvi.bean.RainHourItem;
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -266,5 +269,60 @@ public class JsonUtil {
         }
 
         return infos;
+    }
+
+    public static String getJsonStrUserPoint(Map<Long, MapPoint> points) {
+        String json=SharedPreferencesUtil.FAILURE_STRING;
+        if(points.size()>0) {
+            try {
+                JSONArray array=new JSONArray();
+                for (Long key:points.keySet()) {
+
+                    JSONObject jsonObj = new JSONObject();
+                    MapPoint point=points.get(key);
+
+                    jsonObj.put("desc", point.getDesc());
+                    jsonObj.put("id", point.getId());
+                    JSONObject subjosn=new JSONObject();
+                    subjosn.put("x", point.getP().getX());
+                    subjosn.put("y", point.getP().getY());
+                    jsonObj.put("point",subjosn);
+                    array.put(jsonObj);
+                }
+                json=array.toString();
+                Log.i("Json", "user point:  "+json);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return json;
+    }
+
+    public static Map<Long, MapPoint> getUserPointByJson(String jsonStr) {
+        Map<Long, MapPoint> mapPointMap=new LinkedHashMap<>();
+        try {
+            JSONArray array = new JSONArray(jsonStr);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(i);
+                MapPoint bean = new MapPoint();
+                if (!item.isNull("desc"))
+                    bean.setDesc(item.getString("desc"));
+                if (!item.isNull("id"))
+                    bean.setId(item.getLong("id"));
+                if (!item.isNull("point")){
+                    Point p=new Point();
+                    JSONObject subobj = item.getJSONObject("point");
+                    if (!subobj.isNull("x"))
+                        p.setX(subobj.getDouble("x"));
+                    if (!subobj.isNull("y"))
+                        p.setY(subobj.getDouble("y"));
+                    bean.setP(p);
+                }
+                mapPointMap.put(bean.getId(), bean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mapPointMap;
     }
 }

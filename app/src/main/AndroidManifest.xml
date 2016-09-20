@@ -115,11 +115,11 @@
         <activity
             android:name=".act.statistics.ChatRain" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
-        <meta-data
+        <!--<meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="8UZCSfnnDH0pIQADr31H1TpNvPfSaXDM" />
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
+        </service>-->
 
     </application>
 
