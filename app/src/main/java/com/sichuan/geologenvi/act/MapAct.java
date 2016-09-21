@@ -28,6 +28,7 @@ import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.LocationDisplayManager;
 import com.esri.android.map.MapView;
 import com.esri.android.map.event.OnLongPressListener;
+import com.esri.android.map.event.OnPanListener;
 import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
@@ -84,6 +85,7 @@ public class MapAct  extends AppFrameAct {
     private String[] typeNames=new String[]{"地质灾害点","地下水","矿山","地质遗迹"};
     private int toLocation=0;
     private int showType=0; //-1 用户设置的点， 0，地址灾害
+    private ArrayList<Integer> shownIds=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,7 @@ public class MapAct  extends AppFrameAct {
             Map<String, Object> map = new HashMap<>();
             map.put("desc", point.getDesc());
             map.put("timeid", key);
+            map.put(InfoType, -1);
             Graphic gp1 = CreateGraphic(point.getP(), map, R.mipmap.of_location_icon, 16);
             getGraphicLayer().addGraphic(gp1);
         }
@@ -162,31 +165,33 @@ public class MapAct  extends AppFrameAct {
         mMapView.setMinScale(mDLGTileMapServiceLayer.getMinScale());
         mMapView.setMaxScale(mDLGTileMapServiceLayer.getMaxScale());
         mMapView.setOnSingleTapListener(singleTapListener);
-        mMapView.setOnTouchListener(new View.OnTouchListener() {
+        mMapView.setOnPanListener(new OnPanListener() {
+            @Override
+            public void prePointerMove(float v, float v1, float v2, float v3) {
 
-            float startX=0;
-            float startY=0;
+            }
 
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        startX = motionEvent.getRawX();
-                        startY = motionEvent.getRawY();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        //第一种方法，获取两点间距离
-                        float endX = motionEvent.getRawX() - startX;
-                        float endY = motionEvent.getRawY() - startY;
-                        double distance = Math.sqrt(endX * endX + endY * endY);//
-                        if (distance > 100) {
-                            getDataOnScreen();
-                        }
-                        break;
+            public void postPointerMove(float v, float v1, float v2, float v3) {
+
+            }
+
+            @Override
+            public void prePointerUp(float v, float v1, float v2, float v3) {
+
+            }
+
+            @Override
+            public void postPointerUp(float v, float v1, float v2, float v3) {
+                float endX = v - v2;
+                float endY = v1 - v3;
+                double distance = Math.sqrt(endX * endX + endY * endY);//
+                if (distance > 50) {
+                    getDataOnScreen();
                 }
-                return false;
             }
         });
+
         mMapView.setOnLongPressListener(new OnLongPressListener() {
             @Override
             public boolean onLongPress(float x, float y) {
@@ -230,12 +235,57 @@ public class MapAct  extends AppFrameAct {
     }
 
     private void getDataOnScreen() {
+        GraphicsLayer gLayer=getGraphicLayer();
+        if(shownIds.size()>0){
+            for(Integer id:shownIds){
+                gLayer.removeGraphic(id);
+            }
+            shownIds.clear();
+        }
         Envelope rExtent=new Envelope();
         mMapView.getExtent().queryEnvelope(rExtent);
         double leftB_x=rExtent.getXMin();
         double leftB_y=rExtent.getYMin();
         double topR_x=rExtent.getXMax();
         double topR_y=rExtent.getYMax();
+        LogUtil.i("Location", "left_bottomX:  "+leftB_x+"   left_bottomY:  "+leftB_y);
+        LogUtil.i("Location", "right_topX:  "+topR_x+"   right_topY:  "+topR_y);
+        switch (showType){
+            case 0:
+                datalist = handler.getQueryResult(QueryStr.yinhuandian, "SL_ZHAA01A", " where ZHAA01A190 > '"+leftB_x+"' and ZHAA01A190 < '"+topR_x+"' and"+
+                        " ZHAA01A200 > '"+leftB_y+"' and ZHAA01A200 < '"+topR_y+"' limit 100");
+                for (int i=0;i<datalist.size();i++){
+                    Map<String, String> dataMap=datalist.get(i);
+                    Map<String, Object> map=new HashMap<>();
+                    map.put("position", i);
+                    map.put(InfoType, showType);
+                    int res=R.mipmap.shanchu;
+                    String disasterType=dataMap.get("ZHAA01A210");
+                    if(disasterType.equals("不稳定斜坡"))
+                        res=R.mipmap.mapicon_d0;
+                    else if(disasterType.equals("滑坡"))
+                        res=R.mipmap.mapicon_d1;
+                    else if(disasterType.equals("崩塌"))
+                        res=R.mipmap.mapicon_d2;
+                    else if(disasterType.equals("泥石流"))
+                        res=R.mipmap.mapicon_d3;
+                    else if(disasterType.equals("地面塌陷"))
+                        res=R.mipmap.mapicon_d4;
+                    else if(disasterType.equals("地裂缝"))
+                        res=R.mipmap.mapicon_d5;
+                    else if(disasterType.equals("地面沉降"))
+                        res=R.mipmap.mapicon_d6;
+                    else if(disasterType.equals("其它"))
+                        res=R.mipmap.mapicon_d7;
+                    Point point=new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
+                    Graphic gp1 = CreateGraphic(point, map, res, 0);
+                    shownIds.add(gp1.getUid());
+                    gLayer.addGraphic(gp1);
+                }
+                break;
+        }
+
+
     }
 
 
@@ -388,7 +438,8 @@ public class MapAct  extends AppFrameAct {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             rightTxtBtn.setText(typeNames[i]);
-                            queryMapInfo(i);
+                            showType=i;
+                            getDataOnScreen();
                             popup.dismiss();
                         }
                     });
@@ -397,12 +448,4 @@ public class MapAct  extends AppFrameAct {
             }
         }
     };
-
-    private void queryMapInfo(int type) {
-        switch (type){
-            case 0:
-                datalist = handler.getQueryResult(QueryStr.yinhuandian, "SL_ZHAA01A", " where ZHAA01A810 = 2");
-                break;
-        }
-    }
 }
