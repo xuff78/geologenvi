@@ -38,6 +38,8 @@ import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.scgis.mmap.helper.TileCacheDBManager;
 import com.scgis.mmap.map.SCGISTiledMapServiceLayer;
+import com.sichuan.geologenvi.DataBase.QueryStr;
+import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.bean.MapPoint;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
@@ -70,15 +72,18 @@ public class MapAct  extends AppFrameAct {
     private MapView mMapView;
     private LocationDisplayManager lDisplayManager;
     private LocationManager lm;
+    private String InfoType="infotype";
     private String bestProvider;
     private double lat=0, lon=0;
+    private SqlHandler handler;
     private Point pressPoint;
     private GraphicsLayer mGraphicsLayer;
     private Map<Long, MapPoint> points=new LinkedHashMap<>();
+    private ArrayList<Map<String, String>> datalist=new ArrayList<>();
     private MenuPopup popup;
     private String[] typeNames=new String[]{"地质灾害点","地下水","矿山","地质遗迹"};
     private int toLocation=0;
-    private int showType=0;
+    private int showType=0; //-1 用户设置的点， 0，地址灾害
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,7 @@ public class MapAct  extends AppFrameAct {
         setContentView(R.layout.activity_map);
 
         _setHeaderTitle("地图");
+        handler=new SqlHandler(this);
         initView();
         _setRightHomeText("灾害点", listener);
         addMarker();
@@ -282,6 +288,7 @@ public class MapAct  extends AppFrameAct {
             map.put("desc", psw);
             long timeid=System.currentTimeMillis();
             map.put("timeid", timeid);
+            map.put(InfoType, -1);
             MapPoint mapPoint=new MapPoint();
             mapPoint.setP(new Point(pressPoint.getX(), pressPoint.getY()));
             mapPoint.setDesc(psw);
@@ -335,24 +342,31 @@ public class MapAct  extends AppFrameAct {
             // TODO Auto-generated method stub
             int[] graphicIDs = getGraphicLayer().getGraphicIDs(x, y, 25);
             if (graphicIDs != null && graphicIDs.length > 0) {
-                LayoutInflater inflater = LayoutInflater.from(MapAct.this);
-                View view = inflater.inflate(R.layout.user_marker_pop, null);
-//                view.setLayoutParams(new ViewGroup.LayoutParams(ImageUtil.dip2px(MapAct.this, 280), -2));
                 Graphic gr = getGraphicLayer().getGraphic(graphicIDs[0]);
-                view.findViewById(R.id.okBtn).setOnClickListener(listener);
-                View del=view.findViewById(R.id.delBtn);
-                Object id= gr.getAttributes().get("timeid");
-                del.setTag(R.id.tag_1, id);
-                del.setTag(R.id.tag_2, graphicIDs[0]);
-                del.setOnClickListener(listener);
-                TextView contentTxt= (TextView) view.findViewById(R.id.contentTxt);
-                contentTxt.setText((String)(gr.getAttributes().get("desc")));
-                Point popPositon = points.get(id).getP();
-                Callout callout = mMapView.getCallout();
-//                callout.setStyle(R.xml.calloutstyle);
-                callout.setMaxWidthDp(340);
-                callout.setOffset(0, 50);
-                callout.show(popPositon, view);
+                int infotype= (int)(gr.getAttributes().get(InfoType));
+
+                switch (infotype){
+                    case -1:
+                        LayoutInflater inflater = LayoutInflater.from(MapAct.this);
+                        View view = inflater.inflate(R.layout.user_marker_pop, null);
+//                      view.setLayoutParams(new ViewGroup.LayoutParams(ImageUtil.dip2px(MapAct.this, 280), -2));
+                        view.findViewById(R.id.okBtn).setOnClickListener(listener);
+                        View del=view.findViewById(R.id.delBtn);
+                        Object id= gr.getAttributes().get("timeid");
+                        del.setTag(R.id.tag_1, id);
+                        del.setTag(R.id.tag_2, graphicIDs[0]);
+                        del.setOnClickListener(listener);
+                        TextView contentTxt= (TextView) view.findViewById(R.id.contentTxt);
+                        contentTxt.setText((String)(gr.getAttributes().get("desc")));
+                        Point popPositon = points.get(id).getP();
+                        Callout callout = mMapView.getCallout();
+//                      callout.setStyle(R.xml.calloutstyle);
+                        callout.setMaxWidthDp(340);
+                        callout.setOffset(0, 50);
+                        callout.show(popPositon, view);
+                        break;
+                }
+
             }
         }
     };
@@ -374,6 +388,7 @@ public class MapAct  extends AppFrameAct {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             rightTxtBtn.setText(typeNames[i]);
+                            queryMapInfo(i);
                             popup.dismiss();
                         }
                     });
@@ -382,4 +397,12 @@ public class MapAct  extends AppFrameAct {
             }
         }
     };
+
+    private void queryMapInfo(int type) {
+        switch (type){
+            case 0:
+                datalist = handler.getQueryResult(QueryStr.yinhuandian, "SL_ZHAA01A", " where ZHAA01A810 = 2");
+                break;
+        }
+    }
 }
