@@ -1,6 +1,7 @@
 package com.sichuan.geologenvi.act;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -15,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.esri.android.map.MapView;
 import com.esri.android.map.event.OnLongPressListener;
 import com.esri.android.map.event.OnPanListener;
 import com.esri.android.map.event.OnSingleTapListener;
+import com.esri.android.map.event.OnZoomListener;
 import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Point;
@@ -42,6 +45,8 @@ import com.scgis.mmap.map.SCGISTiledMapServiceLayer;
 import com.sichuan.geologenvi.DataBase.QueryStr;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.adapter.ActivityInfoAdapter;
+import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.bean.MapPoint;
 import com.sichuan.geologenvi.bean.PopupInfoItem;
 import com.sichuan.geologenvi.utils.ActUtil;
@@ -88,6 +93,7 @@ public class MapAct  extends AppFrameAct {
     private int toLocation=0;
     private int showType=0; //-1 用户设置的点， 0，地址灾害
     private float mx=-1, my=-1; //滑动屏幕的坐标
+    private LayoutInflater inflater;
 //    private Map<String, Graphic> markersMap=new HashMap<>();
 
     @Override
@@ -97,6 +103,7 @@ public class MapAct  extends AppFrameAct {
 
         _setHeaderTitle("地图");
         handler=new SqlHandler(this);
+        inflater = LayoutInflater.from(MapAct.this);
         initView();
         _setRightHomeText("灾害点", listener);
         addMarker();
@@ -168,6 +175,17 @@ public class MapAct  extends AppFrameAct {
         mMapView.setMinScale(mDLGTileMapServiceLayer.getMinScale());
         mMapView.setMaxScale(mDLGTileMapServiceLayer.getMaxScale());
         mMapView.setOnSingleTapListener(singleTapListener);
+        mMapView.setOnZoomListener(new OnZoomListener() {
+            @Override
+            public void preAction(float v, float v1, double v2) {
+
+            }
+
+            @Override
+            public void postAction(float v, float v1, double v2) {
+                getDataOnScreen();
+            }
+        });
         mMapView.setOnPanListener(new OnPanListener() {
             @Override
             public void prePointerMove(float v, float v1, float v2, float v3) {
@@ -263,7 +281,7 @@ public class MapAct  extends AppFrameAct {
                     String sid=dataMap.get("ZHAA01A010"); //灾害点ID
                     if(needAddMarker(sid)) {
                         Map<String, Object> map = new HashMap<>();
-                        map.put("position", i);
+                        map.put("id", sid);
                         map.put(InfoType, showType);
                         int res = R.mipmap.shanchu;
                         String disasterType = dataMap.get("ZHAA01A210");
@@ -425,31 +443,65 @@ public class MapAct  extends AppFrameAct {
                 Graphic gr = getGraphicLayer().getGraphic(graphicIDs[0]);
                 int infotype= (int)(gr.getAttributes().get(InfoType));
 
-                switch (infotype){
-                    case -1:
-                        LayoutInflater inflater = LayoutInflater.from(MapAct.this);
-                        View view = inflater.inflate(R.layout.user_marker_pop, null);
+                Callout callout = mMapView.getCallout();
+                callout.setMaxWidthDp(340);
+                callout.setOffset(0, 50);
+
+                if (infotype==-1) {
+                    View view = inflater.inflate(R.layout.user_marker_pop, null);
 //                      view.setLayoutParams(new ViewGroup.LayoutParams(ImageUtil.dip2px(MapAct.this, 280), -2));
-                        view.findViewById(R.id.okBtn).setOnClickListener(listener);
-                        View del=view.findViewById(R.id.delBtn);
-                        Object id= gr.getAttributes().get("timeid");
-                        del.setTag(R.id.tag_1, id);
-                        del.setTag(R.id.tag_2, graphicIDs[0]);
-                        del.setOnClickListener(listener);
-                        TextView contentTxt= (TextView) view.findViewById(R.id.contentTxt);
-                        contentTxt.setText((String)(gr.getAttributes().get("desc")));
-                        Point popPositon = points.get(id).getP();
-                        Callout callout = mMapView.getCallout();
-//                      callout.setStyle(R.xml.calloutstyle);
-                        callout.setMaxWidthDp(340);
-                        callout.setOffset(0, 50);
-                        callout.show(popPositon, view);
-                        break;
+                    view.findViewById(R.id.okBtn).setOnClickListener(listener);
+                    View del = view.findViewById(R.id.delBtn);
+                    Object id = gr.getAttributes().get("timeid");
+                    del.setTag(R.id.tag_1, id);
+                    del.setTag(R.id.tag_2, graphicIDs[0]);
+                    del.setOnClickListener(listener);
+                    TextView contentTxt = (TextView) view.findViewById(R.id.contentTxt);
+                    contentTxt.setText((String) (gr.getAttributes().get("desc")));
+                    Point popPositon = points.get(id).getP();
+                    callout.show(popPositon, view);
+                }else{
+                    final Map<String, String> infoMap0=datamap.get(gr.getAttributes().get("id"));
+                    View view0 = inflater.inflate(R.layout.marker_info_pop, null);
+                    view0.findViewById(R.id.okBtn).setOnClickListener(listener);
+                    Point point=null;
+
+                    String[] itemTxtId={"ZHAA01A150", "ZHAA01A210", "ZHAA01A370","ZHAA01A410"};
+                    point = new Point(Double.valueOf(infoMap0.get("ZHAA01A190")), Double.valueOf(infoMap0.get("ZHAA01A200")));
+                    setMarkerInfo(itemTxtId, "ZHAA01A020", "SL_ZHAA01A", "灾害点详情", infoMap0, view0);
+
+
+
+                    callout.show(point, view0);
                 }
 
             }
         }
     };
+
+    private void setMarkerInfo(String[] itemTxtId, String titleId, final String table, final String titleTxt, final Map<String, String> dataMap, View view0) {
+        View detailBtn=view0.findViewById(R.id.detailBtn);
+        TextView title= (TextView) view0.findViewById(R.id.titleTxt);
+        Map<String, String> partData=new LinkedHashMap<>();
+        for (int i=0;i<itemTxtId.length;i++){
+            partData.put(itemTxtId[i], dataMap.get(itemTxtId[i]));
+        }
+        title.setText(dataMap.get(titleId));
+        ListView infoList=(ListView)view0.findViewById(R.id.infoList);
+        infoList.setAdapter(new ActivityInfoAdapter(MapAct.this, partData, table));
+        detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MapAct.this, ItemDetailAct.class);
+                MapBean mapBean=new MapBean();
+                mapBean.setMap(dataMap);
+                i.putExtra("Title",titleTxt);
+                i.putExtra("InfoMap",mapBean);
+                i.putExtra("TableName", table);
+                startActivity(i);
+            }
+        });
+    }
 
     View.OnClickListener listener=new View.OnClickListener() {
         @Override
