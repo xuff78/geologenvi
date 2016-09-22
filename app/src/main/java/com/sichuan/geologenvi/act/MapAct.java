@@ -81,11 +81,14 @@ public class MapAct  extends AppFrameAct {
     private GraphicsLayer mGraphicsLayer;
     private Map<Long, MapPoint> points=new LinkedHashMap<>();
     private ArrayList<Map<String, String>> datalist=new ArrayList<>();
+    private Map<String, Map<String, String>> datamap=new HashMap();
+    private Map<String, Map<String, String>> tempdataMap=new HashMap();
     private MenuPopup popup;
     private String[] typeNames=new String[]{"地质灾害点","地下水","矿山","地质遗迹"};
     private int toLocation=0;
     private int showType=0; //-1 用户设置的点， 0，地址灾害
-    private ArrayList<Integer> shownIds=new ArrayList<>();
+    private float mx=-1, my=-1; //滑动屏幕的坐标
+//    private Map<String, Graphic> markersMap=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +171,10 @@ public class MapAct  extends AppFrameAct {
         mMapView.setOnPanListener(new OnPanListener() {
             @Override
             public void prePointerMove(float v, float v1, float v2, float v3) {
-
+//                if(mx-1!=-1&&my!=-1){
+//                    mx=v;
+//                    my=v1;
+//                }
             }
 
             @Override
@@ -183,12 +189,14 @@ public class MapAct  extends AppFrameAct {
 
             @Override
             public void postPointerUp(float v, float v1, float v2, float v3) {
-                float endX = v - v2;
-                float endY = v1 - v3;
-                double distance = Math.sqrt(endX * endX + endY * endY);//
-                if (distance > 50) {
-                    getDataOnScreen();
-                }
+//                float endX = v - mx;
+//                float endY = v1 - my;
+//                double distance = Math.sqrt(endX * endX + endY * endY);//
+//                LogUtil.i("ppp", "distance: "+distance);
+//                if (distance > 100) {
+//                    getDataOnScreen();
+//                }
+                getDataOnScreen();
             }
         });
 
@@ -236,12 +244,6 @@ public class MapAct  extends AppFrameAct {
 
     private void getDataOnScreen() {
         GraphicsLayer gLayer=getGraphicLayer();
-        if(shownIds.size()>0){
-            for(Integer id:shownIds){
-                gLayer.removeGraphic(id);
-            }
-            shownIds.clear();
-        }
         Envelope rExtent=new Envelope();
         mMapView.getExtent().queryEnvelope(rExtent);
         double leftB_x=rExtent.getXMin();
@@ -254,38 +256,66 @@ public class MapAct  extends AppFrameAct {
             case 0:
                 datalist = handler.getQueryResult(QueryStr.yinhuandian, "SL_ZHAA01A", " where ZHAA01A190 > '"+leftB_x+"' and ZHAA01A190 < '"+topR_x+"' and"+
                         " ZHAA01A200 > '"+leftB_y+"' and ZHAA01A200 < '"+topR_y+"' limit 100");
+                tempdataMap.clear();
+                tempdataMap.putAll(datamap);
                 for (int i=0;i<datalist.size();i++){
                     Map<String, String> dataMap=datalist.get(i);
-                    Map<String, Object> map=new HashMap<>();
-                    map.put("position", i);
-                    map.put(InfoType, showType);
-                    int res=R.mipmap.shanchu;
-                    String disasterType=dataMap.get("ZHAA01A210");
-                    if(disasterType.equals("不稳定斜坡"))
-                        res=R.mipmap.mapicon_d0;
-                    else if(disasterType.equals("滑坡"))
-                        res=R.mipmap.mapicon_d1;
-                    else if(disasterType.equals("崩塌"))
-                        res=R.mipmap.mapicon_d2;
-                    else if(disasterType.equals("泥石流"))
-                        res=R.mipmap.mapicon_d3;
-                    else if(disasterType.equals("地面塌陷"))
-                        res=R.mipmap.mapicon_d4;
-                    else if(disasterType.equals("地裂缝"))
-                        res=R.mipmap.mapicon_d5;
-                    else if(disasterType.equals("地面沉降"))
-                        res=R.mipmap.mapicon_d6;
-                    else if(disasterType.equals("其它"))
-                        res=R.mipmap.mapicon_d7;
-                    Point point=new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
-                    Graphic gp1 = CreateGraphic(point, map, res, 0);
-                    shownIds.add(gp1.getUid());
-                    gLayer.addGraphic(gp1);
+                    String sid=dataMap.get("ZHAA01A010"); //灾害点ID
+                    if(needAddMarker(sid)) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("position", i);
+                        map.put(InfoType, showType);
+                        int res = R.mipmap.shanchu;
+                        String disasterType = dataMap.get("ZHAA01A210");
+                        if (disasterType.equals("不稳定斜坡"))
+                            res = R.mipmap.mapicon_d0;
+                        else if (disasterType.equals("滑坡"))
+                            res = R.mipmap.mapicon_d1;
+                        else if (disasterType.equals("崩塌"))
+                            res = R.mipmap.mapicon_d2;
+                        else if (disasterType.equals("泥石流"))
+                            res = R.mipmap.mapicon_d3;
+                        else if (disasterType.equals("地面塌陷"))
+                            res = R.mipmap.mapicon_d4;
+                        else if (disasterType.equals("地裂缝"))
+                            res = R.mipmap.mapicon_d5;
+                        else if (disasterType.equals("地面沉降"))
+                            res = R.mipmap.mapicon_d6;
+                        else if (disasterType.equals("其它"))
+                            res = R.mipmap.mapicon_d7;
+                        Point point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
+                        Graphic gp1 = CreateGraphic(point, map, res, 0);
+                        int uid=gLayer.addGraphic(gp1);
+                        dataMap.put("markerUid", ""+uid);
+                        datamap.put(sid, dataMap);
+                    }
                 }
+                removeleftMarkers();
                 break;
         }
 
 
+    }
+
+    private void removeleftMarkers() {
+        int i=0;
+        for (Map.Entry<String , Map<String, String>> entry : tempdataMap.entrySet()) {
+            i++;
+//            Graphic marker=markersMap.get(entry.getKey());
+            getGraphicLayer().removeGraphic(Integer.valueOf(entry.getValue().get("markerUid")));
+//            markersMap.remove(entry.getKey());
+            datamap.remove(entry.getKey());
+        }
+        LogUtil.i("ppp", "removed: "+i);
+    }
+
+    private boolean needAddMarker(String code){
+        boolean  addMarker=true;
+        if(tempdataMap.containsKey(code)){
+            addMarker=false;
+            tempdataMap.remove(code);
+        }
+        return addMarker;
     }
 
 
