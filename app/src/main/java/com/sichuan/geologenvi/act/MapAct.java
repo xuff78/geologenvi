@@ -310,6 +310,72 @@ public class MapAct  extends AppFrameAct {
                 }
                 removeleftMarkers();
                 break;
+            case 1:
+                datalist = handler.getQueryResult("SL_TBLJING", " where JINGDU > '"+leftB_x+"' and JINGDU < '"+topR_x+"' and"+
+                        " WEIDU > '"+leftB_y+"' and WEIDU < '"+topR_y+"' limit 100");
+                tempdataMap.clear();
+                tempdataMap.putAll(datamap);
+                for (int i=0;i<datalist.size();i++){
+                    Map<String, String> dataMap=datalist.get(i);
+                    String sid=dataMap.get("TONGYICODE"); //地下水ID
+                    if(needAddMarker(sid)) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("id", sid);
+                        map.put(InfoType, showType);
+                        int res = R.mipmap.mapicon_water;
+                        Point point = new Point(Double.valueOf(dataMap.get("JINGDU")), Double.valueOf(dataMap.get("WEIDU")));
+                        Graphic gp1 = CreateGraphic(point, map, res, 0);
+                        int uid=gLayer.addGraphic(gp1);
+                        dataMap.put("markerUid", ""+uid);
+                        datamap.put(sid, dataMap);
+                    }
+                }
+                removeleftMarkers();
+                break;
+//            case 2:
+//                datalist = handler.getQueryResult(ConstantUtil.Mine,
+//                        "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+//                tempdataMap.clear();
+//                tempdataMap.putAll(datamap);
+//                for (int i=0;i<datalist.size();i++){
+//                    Map<String, String> dataMap=datalist.get(i);
+//                    String sid=dataMap.get("KS_CK_GUID"); //矿山ID
+//                    if(needAddMarker(sid)) {
+//                        Map<String, Object> map = new HashMap<>();
+//                        map.put("id", sid);
+//                        map.put(InfoType, showType);
+//                        int res = R.mipmap.mapicon_d6;
+//                        Point point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
+//                        Graphic gp1 = CreateGraphic(point, map, res, 0);
+//                        int uid=gLayer.addGraphic(gp1);
+//                        dataMap.put("markerUid", ""+uid);
+//                        datamap.put(sid, dataMap);
+//                    }
+//                }
+//                removeleftMarkers();
+//                break;
+            case 3:
+                datalist = handler.getQueryResult("SL_DZYJBH", " where COORDX > '"+leftB_x+"' and COORDX < '"+topR_x+"' and"+
+                        " COORDY > '"+leftB_y+"' and COORDY < '"+topR_y+"' limit 100");
+                tempdataMap.clear();
+                tempdataMap.putAll(datamap);
+                for (int i=0;i<datalist.size();i++){
+                    Map<String, String> dataMap=datalist.get(i);
+                    String sid=dataMap.get("ID"); //遗迹
+                    if(needAddMarker(sid)) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("id", sid);
+                        map.put(InfoType, showType);
+                        int res = R.mipmap.mapicon_d2;
+                        Point point = new Point(Double.valueOf(dataMap.get("COORDX")), Double.valueOf(dataMap.get("COORDY")));
+                        Graphic gp1 = CreateGraphic(point, map, res, 0);
+                        int uid=gLayer.addGraphic(gp1);
+                        dataMap.put("markerUid", ""+uid);
+                        datamap.put(sid, dataMap);
+                    }
+                }
+                removeleftMarkers();
+                break;
         }
 
 
@@ -465,13 +531,21 @@ public class MapAct  extends AppFrameAct {
                     View view0 = inflater.inflate(R.layout.marker_info_pop, null);
                     view0.findViewById(R.id.okBtn).setOnClickListener(listener);
                     Point point=null;
+                    if(infotype==0) {
+                        String[] itemTxtId = {"ZHAA01A150", "ZHAA01A210", "ZHAA01A370", "ZHAA01A410"};
+                        point = new Point(Double.valueOf(infoMap0.get("ZHAA01A190")), Double.valueOf(infoMap0.get("ZHAA01A200")));
+                        setMarkerInfo(itemTxtId, "ZHAA01A020", "SL_ZHAA01A", "灾害点详情", infoMap0, view0);
+                    }else if(infotype==1) {
+                        String[] itemTxtId = {"SHUILEIXING", "QUXIAN", "KOUJING"};
+                        point = new Point(Double.valueOf(infoMap0.get("JINGDU")), Double.valueOf(infoMap0.get("WEIDU")));
+                        setMarkerInfo(itemTxtId, "QUYU", "SL_TBLJING", "地下水", infoMap0, view0);
+                    }else if(infotype==2) {
 
-                    String[] itemTxtId={"ZHAA01A150", "ZHAA01A210", "ZHAA01A370","ZHAA01A410"};
-                    point = new Point(Double.valueOf(infoMap0.get("ZHAA01A190")), Double.valueOf(infoMap0.get("ZHAA01A200")));
-                    setMarkerInfo(itemTxtId, "ZHAA01A020", "SL_ZHAA01A", "灾害点详情", infoMap0, view0);
-
-
-
+                    }else if(infotype==3) {
+                        String[] itemTxtId = {"NAME", "XZQH", "BHJB"};
+                        point = new Point(Double.valueOf(infoMap0.get("COORDX")), Double.valueOf(infoMap0.get("COORDY")));
+                        setMarkerInfo(itemTxtId, "NAME", "SL_DZYJBH", "地址遗迹", infoMap0, view0);
+                    }
                     callout.show(point, view0);
                 }
 
@@ -521,6 +595,7 @@ public class MapAct  extends AppFrameAct {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             rightTxtBtn.setText(typeNames[i]);
                             showType=i;
+                            mMapView.getCallout().animatedHide();
                             getDataOnScreen();
                             popup.dismiss();
                         }
