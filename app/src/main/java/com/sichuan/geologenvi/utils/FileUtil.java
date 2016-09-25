@@ -61,6 +61,28 @@ public class FileUtil {
 		return file;
 	}
 
+	public static void deleteAllFile(String folderName){
+		String path = Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+folderName;
+		deleteFile(new File(path));
+	}
+
+	public static void deleteFile(File oldPath) {
+		try {
+			if (oldPath.isDirectory()) {
+				File[] files = oldPath.listFiles();
+				for (File file : files) {
+					deleteFile(file);
+					file.delete();
+				}
+			}else{
+				oldPath.delete();
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+	}
+
 	public static void isExist(String path) {
 		File file = new File(path);
 		if (!file.exists())

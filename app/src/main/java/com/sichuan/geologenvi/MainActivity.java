@@ -20,8 +20,10 @@ import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.adapter.TopImgAdapter;
+import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
+import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.views.AsycnDialog;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
 
@@ -46,6 +48,11 @@ public class MainActivity extends AppFrameAct {
         _setHeaderGone();
         _setHeaderTitle(getResources().getString(R.string.app_name));
         initView();
+        String clear=SharedPreferencesUtil.getString(this, "ClearMapData");
+        if(!clear.equals("1")){
+            SharedPreferencesUtil.setString(this, "ClearMapData", "1");
+            FileUtil.deleteAllFile("com.sichuan.geologenvi/sctiledatabase/");
+        }
 //        FileUtil.verifyStoragePermissions(this);
     }
 

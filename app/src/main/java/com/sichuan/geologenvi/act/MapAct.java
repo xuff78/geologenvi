@@ -182,10 +182,10 @@ public class MapAct  extends AppFrameAct {
         TileCacheDBManager mDLGTileDBManager = new TileCacheDBManager(this, "iDLGTile1.db");  //���
 
         mDLGTileMapServiceLayer = new SCGISTiledMapServiceLayer(this, dlgUrl, mToken, false, mDLGTileDBManager);
-        mDLGTileMapServiceLayer.setCacheSize(dlgdbsize); //�����ļ���С����
+//        mDLGTileMapServiceLayer.setCacheSize(dlgdbsize); //�����ļ���С����
         mDLGTileMapServiceLayer.setTileCompressAndQuality(true, dlgTileCompress);  //
 
-        mDLGTileImgMapServiceLayer = new SCGISTiledMapServiceLayer(this, imgUrl, mToken, false, mDLGTileDBManager);
+        mDLGTileImgMapServiceLayer = new SCGISTiledMapServiceLayer(this, imgUrl, mToken, true, mDLGTileDBManager);
         mDLGTileImgMapServiceLayer.setCacheSize(dlgdbsize); //�����ļ���С����
         mDLGTileImgMapServiceLayer.setTileCompressAndQuality(true, dlgTileCompress);  //
 
@@ -508,7 +508,7 @@ public class MapAct  extends AppFrameAct {
         if (lDisplayManager != null)
             lDisplayManager.start();
     }
-
+//    /storage/emulated/0/com.sichuan.geologenvi/sctiledatabase/iDLGTile1.db
     private Graphic CreateGraphic(Point geometry, Map<String, Object> map, int imgRes, int yoffset) {
         Drawable image = getResources().getDrawable(imgRes);
         image.setBounds(5, 5, 5, 5);
