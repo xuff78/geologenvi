@@ -22,6 +22,9 @@
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
 
         <activity
+            android:name=".act.MapSearchAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
             android:name=".act.MapAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
@@ -115,14 +118,15 @@
         <activity
             android:name=".act.statistics.ChatRain" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
-        <!--<meta-data
+        <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="8UZCSfnnDH0pIQADr31H1TpNvPfSaXDM" />
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>-->
+        </service>
 
     </application>
 
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"></uses-permission>
     <!-- 访问网络的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 访问精确位置的权限 -->

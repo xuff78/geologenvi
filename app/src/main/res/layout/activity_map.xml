@@ -12,11 +12,27 @@
         android:layout_height="match_parent"
         initExtent = "-180, -90, 180, 90"/>
     <ImageView
-        android:id="@+id/myLoc"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
+    android:id="@+id/myLoc"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="25dp"
+    android:layout_marginLeft="20dp"
+    android:src="@mipmap/position_img"
+    android:layout_width="45dp"
+    android:layout_height="45dp" />
+    <ImageView
+        android:id="@+id/mapType"
+        android:layout_above="@+id/myLoc"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
-        android:src="@mipmap/position_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:src="@mipmap/type_map_img"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
+    <ImageView
+        android:id="@+id/searchImg"
+        android:layout_above="@+id/mapType"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/search_map_img"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
 </RelativeLayout>
