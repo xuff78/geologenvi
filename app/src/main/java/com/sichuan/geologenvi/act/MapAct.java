@@ -115,7 +115,7 @@ public class MapAct  extends AppFrameAct {
         showUserMarker();
 
         openArcgisLocation();
-//        openBaiduLocation();
+        openBaiduLocation();
 
 //        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 //        bestProvider = lm.getBestProvider(getCriteria(), true);
@@ -566,6 +566,10 @@ public class MapAct  extends AppFrameAct {
                 LogUtil.i("Location", "getLocation: " + location.getLongitude() + "    " + location.getLatitude());
                 lon = location.getLongitude();
                 lat = location.getLatitude();
+                if(mLocationClient!=null)
+                    mLocationClient.stop();
+                if(locationId!=-1)
+                    getGraphicLayer().removeGraphic(locationId);
             }
 
         }
@@ -757,10 +761,13 @@ public class MapAct  extends AppFrameAct {
         lDisplayManager.setAccuracyCircleOn(false);       //是否要圈
         lDisplayManager.setShowLocation(true);
         try {
-            lDisplayManager.setAccuracySymbol(new SimpleFillSymbol(Color.GREEN).setAlpha(20));
-            lDisplayManager.setDefaultSymbol(new PictureMarkerSymbol(getResources().getDrawable(R.mipmap.icon_oval0)));
+            PictureMarkerSymbol symbol=new PictureMarkerSymbol(getResources().getDrawable(R.mipmap.icon_oval0));
+            lDisplayManager.setAccuracySymbol(new SimpleFillSymbol(getResources().getColor(R.color.normal_blue)).setAlpha(20));
+            lDisplayManager.setDefaultSymbol(symbol);
+            lDisplayManager.setLocationAcquiringSymbol(symbol);
         } catch (Exception e) {
             e.printStackTrace();
+            LogUtil.i("Location", "failed set location icon");
         }
         lDisplayManager.setAutoPanMode(LocationDisplayManager.AutoPanMode.LOCATION);
         lDisplayManager.start();
