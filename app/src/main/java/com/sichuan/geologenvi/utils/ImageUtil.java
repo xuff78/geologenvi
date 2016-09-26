@@ -66,6 +66,47 @@ public class ImageUtil {
 		}
 	}
 
+	public static Bitmap createTransparentBitmapFromBitmap(Bitmap bitmap,
+													int replaceThisColor) {
+		if (bitmap != null) {
+			int picw = bitmap.getWidth();
+			int pich = bitmap.getHeight();
+			int[] pix = new int[picw * pich];
+			bitmap.getPixels(pix, 0, picw, 0, 0, picw, pich);
+
+			int sr = (replaceThisColor >> 16) & 0xff;
+			int sg = (replaceThisColor >> 8) & 0xff;
+			int sb = replaceThisColor & 0xff;
+
+			for (int y = 0; y < pich; y++) {
+				for (int x = 0; x < picw; x++) {
+					int index = y * picw + x;
+                /*  int r = (pix[index] >> 16) & 0xff;
+                  int g = (pix[index] >> 8) & 0xff;
+                  int b = pix[index] & 0xff;*/
+
+					if (pix[index] == replaceThisColor) {
+
+//                  if(x<topLeftHole.x) topLeftHole.x = x;
+//                  if(y<topLeftHole.y) topLeftHole.y = y;
+//                  if(x>bottomRightHole.x) bottomRightHole.x = x;
+//                  if(y>bottomRightHole.y)bottomRightHole.y = y;
+
+						pix[index] = Color.TRANSPARENT;
+					} else {
+						//break;
+					}
+				}
+			}
+
+			Bitmap bm = Bitmap.createBitmap(pix, picw, pich,
+					Bitmap.Config.ARGB_8888);
+			bitmap.recycle();
+			return bm;
+		}
+		return null;
+	}
+
 	public static Drawable resizeToXY(Bitmap bm, int x, int y) {
 		int width = bm.getWidth();
 		int height = bm.getHeight();

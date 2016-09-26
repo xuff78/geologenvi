@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -27,6 +28,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.esri.android.map.Callout;
 import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.ImageFilter;
 import com.esri.android.map.LocationDisplayManager;
 import com.esri.android.map.MapView;
 import com.esri.android.map.event.OnLongPressListener;
@@ -49,6 +51,7 @@ import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.bean.MapPoint;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
@@ -96,7 +99,8 @@ public class MapAct  extends AppFrameAct {
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
     private boolean isImg=true;
-    private SCGISTiledMapServiceLayer mDLGTileMapServiceLayer, mDLGTileImgMapServiceLayer, mDLGTileInfoMapServiceLayer;
+    private SCGISTiledMapServiceLayer mDLGTileMapServiceLayer, mDLGTileImgMapServiceLayer;
+    private com.sichuan.geologenvi.SCGISTiledMapServiceLayer mDLGTileInfoMapServiceLayer;
 
 
     @Override
@@ -180,6 +184,8 @@ public class MapAct  extends AppFrameAct {
         int dlgTileCompress = 75;  //ͼƬѹ��75%
 
         TileCacheDBManager mDLGTileDBManager = new TileCacheDBManager(this, "iDLGTile1.db");  //���
+        ActUtil.setNamesDB(this, "iDLGTile2.db");
+        TileCacheDBManager mDLGTileDBManager2 = new TileCacheDBManager(this, "iDLGTile2.db");
 
         mDLGTileMapServiceLayer = new SCGISTiledMapServiceLayer(this, dlgUrl, mToken, false, mDLGTileDBManager);
 //        mDLGTileMapServiceLayer.setCacheSize(dlgdbsize); //�����ļ���С����
@@ -190,15 +196,16 @@ public class MapAct  extends AppFrameAct {
         mDLGTileImgMapServiceLayer.setTileCompressAndQuality(true, dlgTileCompress);  //
 
 
-//        mDLGTileInfoMapServiceLayer = new SCGISTiledMapServiceLayer(this, infoUrl, mToken, false, mDLGTileDBManager);
-//        mDLGTileInfoMapServiceLayer.setCacheSize(dlgdbsize); //�����ļ���С����
-//        mDLGTileInfoMapServiceLayer.setTileCompressAndQuality(true, dlgTileCompress);  //
+        mDLGTileInfoMapServiceLayer = new com.sichuan.geologenvi.SCGISTiledMapServiceLayer(this, infoUrl, mToken, true, mDLGTileDBManager2){};
+        mDLGTileInfoMapServiceLayer.setCacheSize(50); //�����ļ���С����
+        mDLGTileInfoMapServiceLayer.setTileCompressAndQuality(false, 100);  //
 
         mMapView.addLayer(mDLGTileImgMapServiceLayer);
-//        mMapView.addLayer(mDLGTileInfoMapServiceLayer);
+        mMapView.addLayer(mDLGTileInfoMapServiceLayer);
 
         mMapView.setExtent(new Envelope(95, 24, 110, 35));
         mMapView.centerAt(28.871906, 105.444402, true);
+        mMapView.zoomin();
         mDLGTileMapServiceLayer.setVisible(true);
         mMapView.setMinScale(mDLGTileMapServiceLayer.getMinScale());
         mMapView.setMaxScale(mDLGTileMapServiceLayer.getMaxScale());

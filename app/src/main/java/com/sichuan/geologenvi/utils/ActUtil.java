@@ -6,14 +6,20 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.scgis.mmap.commons.Util;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -215,4 +221,43 @@ public class ActUtil {
             return "未知";
     }
 
+    public static void setNamesDB(Context context, String dbname) {
+        int index = dbname.indexOf(".");
+        String _tileName="";
+        if(index < 0) {
+            _tileName = dbname;
+        } else {
+            _tileName = dbname.substring(0, index);
+        }
+
+        boolean isDBFileCreateSuccess = false;
+        String appName = context.getPackageName();
+        String mDBPath = Util.getAppRootPath(appName);
+        if(mDBPath != null && mDBPath.length() != 0) {
+            mDBPath = mDBPath + "/sctiledatabase/";
+            String mDBFilePath = mDBPath + dbname;
+            File mDBDic = new File(mDBPath);
+            if(!mDBDic.exists()) {
+                mDBDic.mkdirs();
+            }
+
+            File mDBFile = new File(mDBFilePath);
+            if(!mDBFile.exists()) {
+                try {
+                    InputStream oe = context.getAssets().open("itile.db");
+                    if(oe != null && Util.CopyFile(oe, mDBFilePath) > 0L) {
+                        isDBFileCreateSuccess = true;
+                        Log.i("TileCacheManager", String.format("copy file %s susccessful!", new Object[]{mDBFilePath}));
+                    }
+                } catch (Exception var11) {
+                    var11.printStackTrace();
+                }
+            } else {
+                isDBFileCreateSuccess = true;
+            }
+
+        } else {
+            Log.e("SD卡管理", "SD卡不存在，请加载SD卡");
+        }
+    }
 }

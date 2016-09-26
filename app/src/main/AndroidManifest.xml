@@ -9,7 +9,8 @@
         android:supportsRtl="true"
         android:name=".GEApplication"
         android:theme="@style/AppTheme" >
-        <activity android:name=".FirstPage" >
+        <activity android:name=".FirstPage"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
