@@ -397,28 +397,28 @@ public class MapAct  extends AppFrameAct {
                 }
                 removeleftMarkers();
                 break;
-//            case 2:
-//                datalist = handler.getQueryResult(ConstantUtil.Mine,
-//                        "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
-//                tempdataMap.clear();
-//                tempdataMap.putAll(datamap);
-//                for (int i=0;i<datalist.size();i++){
-//                    Map<String, String> dataMap=datalist.get(i);
-//                    String sid=dataMap.get("KS_CK_GUID"); //矿山ID
-//                    if(needAddMarker(sid)) {
-//                        Map<String, Object> map = new HashMap<>();
-//                        map.put("id", sid);
-//                        map.put(InfoType, showType);
-//                        int res = R.mipmap.mapicon_d6;
-//                        Point point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
-//                        Graphic gp1 = CreateGraphic(point, map, res, 0);
-//                        int uid=gLayer.addGraphic(gp1);
-//                        dataMap.put("markerUid", ""+uid);
-//                        datamap.put(sid, dataMap);
-//                    }
-//                }
-//                removeleftMarkers();
-//                break;
+            case 2:
+                datalist = handler.getQueryResult(ConstantUtil.Mine,
+                        "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+                tempdataMap.clear();
+                tempdataMap.putAll(datamap);
+                for (int i=0;i<datalist.size();i++){
+                    Map<String, String> dataMap=datalist.get(i);
+                    String sid=dataMap.get("KS_CK_GUID"); //矿山ID
+                    if(needAddMarker(sid)) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("id", sid);
+                        map.put(InfoType, showType);
+                        int res = R.mipmap.mapicon_d9;
+                        Point point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
+                        Graphic gp1 = CreateGraphic(point, map, res, 0);
+                        int uid=gLayer.addGraphic(gp1);
+                        dataMap.put("markerUid", ""+uid);
+                        datamap.put(sid, dataMap);
+                    }
+                }
+                removeleftMarkers();
+                break;
             case 3:
                 datalist = handler.getQueryResult("SL_DZYJBH", " where COORDX > '" + leftB_x + "' and COORDX < '" + topR_x + "' and" +
                         " COORDY > '" + leftB_y + "' and COORDY < '" + topR_y + "' limit 100");
@@ -431,7 +431,7 @@ public class MapAct  extends AppFrameAct {
                         Map<String, Object> map = new HashMap<>();
                         map.put("id", sid);
                         map.put(InfoType, showType);
-                        int res = R.mipmap.mapicon_d2;
+                        int res = R.mipmap.mapicon_d8;
                         Point point = new Point(Double.valueOf(dataMap.get("COORDX")), Double.valueOf(dataMap.get("COORDY")));
                         Graphic gp1 = CreateGraphic(point, map, res, 0);
                         int uid = gLayer.addGraphic(gp1);
