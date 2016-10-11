@@ -294,6 +294,7 @@ public class SqlHandler {
         if(c!=null) {
             LogUtil.i("SQL", "result num---->:  "+c.getCount());
             while (c.moveToNext()) {
+
                 LinkedHashMap<String, String> maps=new LinkedHashMap<>();
                 for (int i=0;i<columnNames.length;i++) {
                     String key = columnNames[i];
@@ -301,9 +302,11 @@ public class SqlHandler {
                     maps.put(key, value);
                 }
                 datas.add(maps);
+
             }
             c.close();
         }
+
         return datas;
     }
 

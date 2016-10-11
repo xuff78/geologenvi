@@ -1085,6 +1085,33 @@
     <string name="HBXM">合并项目</string>
     <string name="BZ">备注</string>
   </dict>
+
+  <dict name="SL_KS_XX">
+    <string name="KS_NAME">矿山名称</string>
+    <string name="KS_KAICAIKZ">矿山开采矿种</string>
+    <string name="KS_XKZ">矿山采矿许可证号</string>
+    <string name="KS_FZJG">发证机关</string>
+    <string name="KS_YXQX">矿山有限期限</string>
+    <string name="KS_SSQX">所属区县</string>
+    <string name="KS_WEIZHI">矿山位置</string>
+    <string name="KS_FANWEI">采矿权范围</string>
+    <string name="KS_AREA">矿山面积</string>
+    <string name="KS_KCZT">开采状态</string>
+    <string name="KS_SCGM">生产规模（万吨/年）</string>
+    <string name="KS_KQGM">矿区规模</string>
+    <string name="KS_DZHJGK">矿山地质环境概况</string>
+    <string name="KS_DZZHFYQK">地质灾害发育情况</string>
+    <string name="KS_BZJ">矿山地质环境恢复治理保证金缴纳情况</string>
+    <string name="KS_HJYXPG">环境影响评估情况</string>
+    <string name="KS_FHZLQK">矿山地质环境恢复治理情况</string>
+    <string name="KS_BZ">矿山备注</string>
+    <string name="FILESCODE">附件编号</string>
+    <string name="FILESNAME">附件</string>
+    <string name="LON">经度</string>
+    <string name="LAT">纬度</string>
+    <string name="IS_LVSE">绿色矿山</string>
+    <string name="IS_GUOJIA">国家专项资金恢复治理项目</string>
+  </dict>
   <dict name="SL_TBLJING">
     <string name="JINGID">井ID</string>
     <string name="TONGYICODE">统一编号</string>

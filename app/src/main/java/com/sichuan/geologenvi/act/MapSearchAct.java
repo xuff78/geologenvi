@@ -107,6 +107,13 @@ public class MapSearchAct extends AppFrameAct {
             list.add(info.get("QUYU"));
         }
 
+        ArrayList<Map<String, String>> datalist2=handler.getQueryResult("SL_KS_XX", " where KS_NAME like '%" + keyword + "%'");
+        datalist.addAll(datalist2);
+        for (Map<String, String> info : datalist2) {
+            list.add(info.get("KS_NAME"));
+        }
+
+
         ArrayList<Map<String, String>> datalist3=handler.getQueryResult("SL_DZYJBH", " where NAME like '%" + keyword + "%'");
         datalist.addAll(datalist3);
         for (Map<String, String> info : datalist3) {

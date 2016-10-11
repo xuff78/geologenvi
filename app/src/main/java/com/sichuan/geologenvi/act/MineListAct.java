@@ -66,14 +66,14 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
     }
 
     private void requestInfo() {
-        if(tableName.equals("SL_KS_DZHJ_XX")) {   //矿山的
-            String whereStr=" where IS_GUOJIA is not'1' and IS_LSKS is not'1' ";
+        if(tableName.equals("SL_KS_XX")) {   //矿山的
+            String whereStr=" where IS_GUOJIA is not'是' and IS_LVSE is not'是' ";
             if(title.equals("国家专项资金恢复治理项目"))
-                whereStr=" where IS_GUOJIA is '1'";
+                whereStr=" where IS_GUOJIA is '是'";
             else  if(title.equals("绿色矿山"))
-                whereStr=" where IS_LSKS is '1'";
-            datalist = handler.getQueryResult(ConstantUtil.Mine,
-                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", whereStr);
+                whereStr=" where IS_LVSE is '是'";
+            datalist = handler.getQueryResult(
+                    "SL_KS_XX", whereStr);
 
         }
         else if(tableName.equals("SL_DZYJBH")) //地址遗迹
@@ -84,8 +84,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
             datalist=handler.getQueryResult(tableName, "");
         ArrayList<String> list = new ArrayList<>();
         String title="";
-        if(tableName.equals("SL_KS_DZHJ_XX"))
-            title="KSMC";
+        if(tableName.equals("SL_KS_XX"))
+            title="KS_NAME";
         else if(tableName.equals("SL_DZYJBH"))
             title="NAME";
         else if(tableName.equals("SL_TBLJING"))
@@ -115,7 +115,7 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
         @Override
         public void onClick(View view) {
             Intent i=getIntent();
-            if(tableName.equals("SL_KS_DZHJ_XX"))
+            if(tableName.equals("SL_KS_XX"))
                 i.setClass(MineListAct.this, ItemDetailAct.class);
             else if(tableName.equals("SL_DZYJBH")) {
                 i.setClass(MineListAct.this, ItemDetailAct.class);
@@ -158,9 +158,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        if(tableName.equals("SL_KS_DZHJ_XX"))   //矿山的
-            datalist=handler.getQueryResult(ConstantUtil.Mine,
-                    "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+        if(tableName.equals("SL_KS_XX"))   //矿山的
+            datalist=handler.getQueryResult(tableName, " where KS_SSQX='"+intent.getStringExtra("Area")+"'");
         else if(tableName.equals("SL_DZYJBH")) //地址遗迹
             datalist=handler.getQueryResult(tableName, "");
         else if(tableName.equals("SL_TBLJING")) //地下水
@@ -169,8 +168,8 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
             datalist=handler.getQueryResult(tableName, "");
         ArrayList<String> list = new ArrayList<>();
         String title="";
-        if(tableName.equals("SL_KS_DZHJ_XX"))
-            title="KSMC";
+        if(tableName.equals("SL_KS_XX"))
+            title="KS_NAME";
         else if(tableName.equals("SL_DZYJBH"))
             title="NAME";
         else if(tableName.equals("SL_TBLJING"))

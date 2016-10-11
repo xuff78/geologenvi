@@ -317,12 +317,18 @@ public class MapAct  extends AppFrameAct {
                 res = R.mipmap.mapicon_water;
                 point = new Point(Double.valueOf(dataMap.get("JINGDU")), Double.valueOf(dataMap.get("WEIDU")));
                 sid = dataMap.get("TONGYICODE");
-            }else  if(dataMap.containsKey("ID")) {
+            }else  if(dataMap.containsKey("COORDX")) {
                 showTypeSearch=3;
-                res = R.mipmap.mapicon_d2;
+                res = R.mipmap.mapicon_d8;
                 sid = dataMap.get("ID");
                 point = new Point(Double.valueOf(dataMap.get("COORDX")), Double.valueOf(dataMap.get("COORDY")));
+            }else  if(dataMap.containsKey("KS_NAME")) {
+                showTypeSearch=4;
+                res = R.mipmap.mapicon_d9;
+                sid = dataMap.get("ID");
+                point = new Point(Double.valueOf(dataMap.get("lon")), Double.valueOf(dataMap.get("lat")));
             }
+
 
             Map<String, Object> map = new HashMap<>();
             map.put("id", sid);
@@ -398,19 +404,18 @@ public class MapAct  extends AppFrameAct {
                 removeleftMarkers();
                 break;
             case 2:
-                datalist = handler.getQueryResult(ConstantUtil.Mine,
-                        "SL_KS_DZHJ_XX left join SL_XMDA on SL_KS_DZHJ_XX.KS_CK_GUID=SL_XMDA.CK_GUID", "");
+                datalist = handler.getQueryResult("SL_KS_XX", " where lon is not null and lat is not null");
                 tempdataMap.clear();
                 tempdataMap.putAll(datamap);
                 for (int i=0;i<datalist.size();i++){
                     Map<String, String> dataMap=datalist.get(i);
-                    String sid=dataMap.get("KS_CK_GUID"); //矿山ID
+                    String sid=dataMap.get("ID"); //矿山ID
                     if(needAddMarker(sid)) {
                         Map<String, Object> map = new HashMap<>();
                         map.put("id", sid);
                         map.put(InfoType, showType);
                         int res = R.mipmap.mapicon_d9;
-                        Point point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
+                        Point point = new Point(Double.valueOf(dataMap.get("lon")), Double.valueOf(dataMap.get("lat")));
                         Graphic gp1 = CreateGraphic(point, map, res, 0);
                         int uid=gLayer.addGraphic(gp1);
                         dataMap.put("markerUid", ""+uid);

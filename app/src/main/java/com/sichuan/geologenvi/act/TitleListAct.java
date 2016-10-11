@@ -213,7 +213,7 @@ public class TitleListAct  extends AppFrameAct {
             }else if (type.equals("kuangshan")) {//矿山地质
                 Intent i = new Intent(TitleListAct.this, MineListAct.class);
                 i.putExtra("Title", list.get(tag));
-                i.putExtra("TableName", "SL_KS_DZHJ_XX");
+                i.putExtra("TableName", "SL_KS_XX");
                 startActivity(i);
             }
         }
