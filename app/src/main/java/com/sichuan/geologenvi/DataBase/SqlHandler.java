@@ -277,10 +277,12 @@ public class SqlHandler {
                     String key = columnNames[i];
                     String value = c.getString(c.getColumnIndex(key));
                     maps.put(key, value);
+
                 }
                 datas.add(maps);
             }
             c.close();
+
         }
         return datas;
     }

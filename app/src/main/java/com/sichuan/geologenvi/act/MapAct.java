@@ -415,11 +415,12 @@ public class MapAct  extends AppFrameAct {
                         map.put("id", sid);
                         map.put(InfoType, showType);
                         int res = R.mipmap.mapicon_d9;
-                        Point point = new Point(Double.valueOf(dataMap.get("lon")), Double.valueOf(dataMap.get("lat")));
+                        Point point = new Point(Double.valueOf(dataMap.get("LON")), Double.valueOf(dataMap.get("LAT")));
                         Graphic gp1 = CreateGraphic(point, map, res, 0);
                         int uid=gLayer.addGraphic(gp1);
                         dataMap.put("markerUid", ""+uid);
                         datamap.put(sid, dataMap);
+
                     }
                 }
                 removeleftMarkers();
@@ -656,7 +657,9 @@ public class MapAct  extends AppFrameAct {
             point = new Point(Double.valueOf(infoMap0.get("JINGDU")), Double.valueOf(infoMap0.get("WEIDU")));
             setMarkerInfo(itemTxtId, "QUYU", "SL_TBLJING", "地下水", infoMap0, view0);
         } else if (infotype == 2) {
-
+            String[] itemTxtId = {"KS_NAME", "KS_WEIZHI", "KS_KCZT"};
+            point = new Point(Double.valueOf(infoMap0.get("LON")), Double.valueOf(infoMap0.get("LAT")));
+            setMarkerInfo(itemTxtId, "KS_NAME", "SL_KS_XX", "矿山", infoMap0, view0);
         } else if (infotype == 3) {
             String[] itemTxtId = {"NAME", "XZQH", "BHJB"};
             point = new Point(Double.valueOf(infoMap0.get("COORDX")), Double.valueOf(infoMap0.get("COORDY")));
