@@ -39,7 +39,7 @@ public class SearchAct extends AppFrameAct {
         initView();
         Bundle args = new Bundle();
 
-        if(title.equals("政策法规")){
+        if(title.equals("基础资料")){
             openFragment(flfg);
         }
         else{
@@ -92,7 +92,7 @@ public class SearchAct extends AppFrameAct {
 
     private void getWords(){
         String keyword=editSearch.getText().toString().trim();
-        if (title.equals("政策法规")) {
+        if (title.equals("基础资料")) {
             flfg.searchFile(keyword);
         }
     }

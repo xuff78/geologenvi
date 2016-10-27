@@ -16,17 +16,17 @@
         style="@style/txt_black_14" />
     <TextView
         android:gravity="center"
-        android:layout_weight="3"
-        android:layout_width="match_parent"
-        android:text=""
-        android:id="@+id/hintTxt4"
-        style="@style/txt_black_14" />
-    <TextView
-        android:gravity="center"
         android:layout_weight="4"
         android:layout_width="match_parent"
         android:text=""
         android:id="@+id/hintTxt1"
+        style="@style/txt_black_14" />
+    <TextView
+        android:gravity="center"
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:text=""
+        android:id="@+id/hintTxt4"
         style="@style/txt_black_14" />
     <TextView
         android:gravity="center"

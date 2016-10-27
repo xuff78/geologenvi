@@ -194,11 +194,11 @@ public class SqlHandler {
                 formName="SL_ZHDD04B";
                 break;
             case 7:
-                typeStr=" where ZHAA01A382 = 0";
+                typeStr=" where ZHAA01A382 = 0 and ZHAA01A875 = 0";
                 formName="SL_ZHAA01A";
                 break;
             case 8:
-                typeStr=" where ZHAA01A382 = 1";
+                typeStr=" where ZHAA01A382 = 1  and ZHAA01A875 = 0";
                 formName="SL_ZHAA01A";
                 break;
             case 9:
