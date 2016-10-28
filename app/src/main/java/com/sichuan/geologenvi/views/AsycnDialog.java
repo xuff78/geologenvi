@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -131,6 +133,7 @@ public class AsycnDialog extends Dialog implements DownloadInterface{
 		switch (Status){
 			case DataInfo:
 				dataAsycn.setText("同步");
+				findViewById(R.id.okBtn).setBackgroundColor(Color.rgb(81,81,254));
 				break;
 		}
 		Status=IDLE;

@@ -115,6 +115,8 @@ public class MapAct  extends AppFrameAct {
 //        openGPS(this);
         initView();
         _setRightHomeText("灾害点", listener);
+
+        dingwei();
         addMarker();
         showUserMarker();
 
@@ -134,6 +136,69 @@ public class MapAct  extends AppFrameAct {
 
         //updateWithNewLocation(location);
     }
+
+
+
+    private void dingwei(){
+        MapBean mapBean = (MapBean) getIntent().getSerializableExtra("InfoMap");
+        if(mapBean==null)
+            return;
+        Map<String, String> dataMap=mapBean.getMap();
+        String sid="";
+        int showTypeSearch=-1;
+        Point point=null;
+        int res = R.mipmap.search_map_img;
+
+        if(dataMap.containsKey("ZHAA01A010")) {
+            showTypeSearch=0;
+            res = getDisasterIcon(dataMap);
+            point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
+            sid = dataMap.get("ZHAA01A010");
+            _setRightHomeText("灾害点", listener);
+            showType=0;
+        }else  if(dataMap.containsKey("TONGYICODE")) {
+            showTypeSearch=1;
+            res = R.mipmap.mapicon_water;
+            point = new Point(Double.valueOf(dataMap.get("JINGDU")), Double.valueOf(dataMap.get("WEIDU")));
+            sid = dataMap.get("TONGYICODE");
+            _setRightHomeText("地下水", listener);
+            showType=1;
+        }else  if(dataMap.containsKey("COORDX")) {
+            showTypeSearch=3;
+            res = R.mipmap.mapicon_d8;
+            sid = dataMap.get("ID");
+            point = new Point(Double.valueOf(dataMap.get("COORDX")), Double.valueOf(dataMap.get("COORDY")));
+            _setRightHomeText("地质遗迹", listener);
+
+            showType=3;
+        }else  if(dataMap.containsKey("KS_NAME")) {
+
+            showTypeSearch=4;
+            res = R.mipmap.mapicon_d9;
+            sid = dataMap.get("ID");
+            point = new Point(Double.valueOf(dataMap.get("LON")), Double.valueOf(dataMap.get("LAT")));
+            _setRightHomeText("矿山", listener);
+            showType=2;
+        }
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", sid);
+        map.put(InfoType, showTypeSearch);
+        Graphic gp1 = CreateGraphic(point, map, res, 0);
+        int uid = getGraphicLayer().addGraphic(gp1);
+        dataMap.put("markerUid", "" + uid);
+        datamap.put(sid, dataMap);
+        showInfoPop(gp1, showTypeSearch);
+        final Point finalPoint = point;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMapView.centerAt(finalPoint, true);
+            }
+        }, 500);
+    }
+
 
     private Criteria getCriteria() {
         // TODO Auto-generated method stub
@@ -326,7 +391,7 @@ public class MapAct  extends AppFrameAct {
                 showTypeSearch=4;
                 res = R.mipmap.mapicon_d9;
                 sid = dataMap.get("ID");
-                point = new Point(Double.valueOf(dataMap.get("lon")), Double.valueOf(dataMap.get("lat")));
+                point = new Point(Double.valueOf(dataMap.get("LON")), Double.valueOf(dataMap.get("LAT")));
             }
 
 

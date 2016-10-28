@@ -83,7 +83,7 @@
         android:layout_height="wrap_content">
         <TextView
             style="@style/txt_gray_14"
-            android:text="法律文档"
+            android:text="基础资料"
             android:paddingLeft="20dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
@@ -152,7 +152,7 @@
     <TextView
         android:id="@+id/okBtn"
         android:layout_marginTop="15dp"
-        android:background="@mipmap/of_btn_login_unpressed"
+        android:background="@drawable/shape_transwhite_withcorner"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textSize="15sp"
