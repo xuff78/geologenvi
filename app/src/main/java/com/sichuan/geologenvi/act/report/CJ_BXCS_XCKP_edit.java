@@ -73,7 +73,7 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
-            addDataBtn.setVisibility(View.GONE);
+//            addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
             arrowRight9.setVisibility(View.GONE);
         }else{
@@ -85,6 +85,7 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
     }
 
     private void initData() {
+        bxcs_guid=infoMap.get("bxcs_guid".toUpperCase());
         bxcs_name.setText(infoMap.get("bxcs_name".toUpperCase()));
         bxcs_xzqh.setText(infoMap.get("bxcs_xzqh".toUpperCase()));
         lat=infoMap.get("lat".toUpperCase());

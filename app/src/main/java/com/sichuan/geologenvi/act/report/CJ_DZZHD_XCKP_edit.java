@@ -82,7 +82,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
-            addDataBtn.setVisibility(View.GONE);
+            //addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
             findViewById(R.id.arrowRight6).setVisibility(View.INVISIBLE);
         }else{
@@ -94,6 +94,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
     }
 
     private void initData() {
+        zdid=infoMap.get("zdid".toUpperCase());
         zdmc.setText(infoMap.get("zdmc".toUpperCase()));
         yfys.setText(infoMap.get("yfys".toUpperCase()));
         jcfzr.setText(infoMap.get("jcfzr".toUpperCase()));

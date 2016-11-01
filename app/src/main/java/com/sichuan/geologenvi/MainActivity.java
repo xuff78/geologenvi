@@ -29,12 +29,21 @@ import com.sichuan.geologenvi.views.AutoScrollViewPager;
 
 public class MainActivity extends AppFrameAct {
 
-    private String[] names={"基础资料","通讯录","地图","数据同步","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
-            "地下水","水土地质","雨量监测","值班安排","预警","雷达回波",""};
-    private int[] ress={R.mipmap.icon_menu_1,R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_4,
+
+    private String[] names1={"通讯录","地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+            "地下水","水土地质","雨量监测","预警","更多..."};
+    private String[] names={"通讯录","地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+            "地下水","水土地质","雨量监测","预警","雷达回波","基础资料","数据同步","值班安排","敬请期待"};
+    private int[] ress={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
-            R.mipmap.icon_menu_13, R.mipmap.icon_menu_14,R.mipmap.icon_menu_15, 0};
+             R.mipmap.icon_menu_14,R.mipmap.icon_menu_15,
+            R.mipmap.icon_menu_1,R.mipmap.icon_menu_4,R.mipmap.icon_menu_13, 0};
+
+    private int[] ress1={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
+            R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
+            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
+             R.mipmap.icon_menu_14,R.mipmap.icon_menu_15 };
     private AutoScrollViewPager viewPager;
     private AsycnDialog dialog;
 
@@ -73,6 +82,36 @@ public class MainActivity extends AppFrameAct {
         LayoutInflater inflater=LayoutInflater.from(this);
         LinearLayout layout=new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
+        for (int i=0;i<names1.length;i++){
+            View v=inflater.inflate(R.layout.item_main_menu, null);
+            ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
+            TextView menuName= (TextView) v.findViewById(R.id.menuName);
+            menuName.setText(names1[i]);
+            menuIcon.setImageResource(ress1[i]);
+            v.setLayoutParams(llp);
+            layout.addView(v);
+            v.setTag(i);
+            v.setOnClickListener(listener1);
+            if(i%4==3){
+                menuLayout.addView(layout);
+                layout=new LinearLayout(this);
+//                layout.setPadding(0,paddtop,0,0);
+                layout.setOrientation(LinearLayout.HORIZONTAL);
+            }
+        }
+    }
+
+    public void setImage(){
+        LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
+        int paddtop = ImageUtil.dip2px(this,20);
+        int itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;
+        LinearLayout.LayoutParams llp=new LinearLayout.LayoutParams(itemWidth, itemWidth);
+        llp.topMargin=1;
+        llp.rightMargin=1;
+        LayoutInflater inflater=LayoutInflater.from(this);
+        LinearLayout layout=new LinearLayout(this);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        menuLayout.removeAllViews();
         for (int i=0;i<names.length;i++){
             View v=inflater.inflate(R.layout.item_main_menu, null);
             ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
@@ -98,44 +137,34 @@ public class MainActivity extends AppFrameAct {
             Intent i=new Intent();
             switch ((int)view.getTag()){
                 case 0:
-                    i.setClass(MainActivity.this, SearchAct.class);
-                    i.putExtra("Title", "基础资料");
-                    i.putExtra("Type","zcfg");
-                    startActivity(i);
-                    break;
-                case 1:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "通讯录");
                     i.putExtra("Type", "Contact");
                     startActivity(i);
                     break;
-                case 2:
+                case 1:
                     i.setClass(MainActivity.this, MapAct.class);
                     startActivity(i);
                     break;
-                case 3:
-                    dialog=new AsycnDialog(MainActivity.this);
-                    dialog.show();
-                    break;
-                case 4:
+                case 2:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "地质灾害");
                     i.putExtra("Type", "Disaster");
                     startActivity(i);
                     break;
-                case 5:
+                case 3:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "统计分析");
                     i.putExtra("Type", "Statistics");
                     startActivity(i);
                     break;
-                case 6:
+                case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "数据采集");
                     i.putExtra("Type", "Report");
                     startActivity(i);
                     break;
-                case 7:
+                case 5:
                     //i.setClass(MainActivity.this, MineListAct.class);
                     //i.putExtra("Title", "矿山地质");
                     //i.putExtra("TableName", "SL_KS_DZHJ_XX");
@@ -145,13 +174,13 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "kuangshan");
                     startActivity(i);
                     break;
-                case 8:
+                case 6:
                     i.setClass(MainActivity.this, MineListAct.class);
                     i.putExtra("Title", "地质遗迹");
                     i.putExtra("TableName", "SL_DZYJBH");
                     startActivity(i);
                     break;
-                case 9:
+                case 7:
                     //i.setClass(MainActivity.this, MineListAct.class);
                     //i.putExtra("Title", "地下水");
                     //i.putExtra("TableName", "SL_TBLJING");
@@ -163,35 +192,128 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "Jing");
                     startActivity(i);
                     break;
-                case 10:
-
-
+                case 8:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "水土地质");
                     i.putExtra("Type", "soil");
                     startActivity(i);
                     break;
-                case 11:
+                case 9:
                     i.setClass(MainActivity.this, RainAct.class);
                     i.putExtra("Title", "雨量监测");
                     startActivity(i);
                     break;
-                case 12:
-                    i.setClass(MainActivity.this, SearchAct.class);
-                    i.putExtra("Title", "值班安排");
-                    i.putExtra("Type","zhibananpai");
-                    startActivity(i);
-                    break;
-                case 13:
+                case 10:
                     i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "预警");
                     i.putExtra("Type","yujing");
+                    startActivity(i);
+                    break;
+                case 11:
+                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "基础资料");
+                    i.putExtra("Type","zcfg");
+                    startActivity(i);
+                    break;
+                case 12:
+                    dialog=new AsycnDialog(MainActivity.this);
+                    dialog.show();
+                    break;
+                case 13:
+                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "值班安排");
+                    i.putExtra("Type","zhibananpai");
                     startActivity(i);
                     break;
                 case 14:
                     i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "雷达回波");
                     startActivity(i);
+                    break;
+            }
+        }
+    };
+
+    View.OnClickListener listener1=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i=new Intent();
+            switch ((int)view.getTag()){
+                case 0:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "通讯录");
+                    i.putExtra("Type", "Contact");
+                    startActivity(i);
+                    break;
+                case 1:
+                    i.setClass(MainActivity.this, MapAct.class);
+                    startActivity(i);
+                    break;
+                case 2:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "地质灾害");
+                    i.putExtra("Type", "Disaster");
+                    startActivity(i);
+                    break;
+                case 3:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "统计分析");
+                    i.putExtra("Type", "Statistics");
+                    startActivity(i);
+                    break;
+                case 4:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "数据采集");
+                    i.putExtra("Type", "Report");
+                    startActivity(i);
+                    break;
+                case 5:
+                    //i.setClass(MainActivity.this, MineListAct.class);
+                    //i.putExtra("Title", "矿山地质");
+                    //i.putExtra("TableName", "SL_KS_DZHJ_XX");
+                    //startActivity(i);
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "矿山地质");
+                    i.putExtra("Type", "kuangshan");
+                    startActivity(i);
+                    break;
+                case 6:
+                    i.setClass(MainActivity.this, MineListAct.class);
+                    i.putExtra("Title", "地质遗迹");
+                    i.putExtra("TableName", "SL_DZYJBH");
+                    startActivity(i);
+                    break;
+                case 7:
+                    //i.setClass(MainActivity.this, MineListAct.class);
+                    //i.putExtra("Title", "地下水");
+                    //i.putExtra("TableName", "SL_TBLJING");
+                    //startActivity(i);
+                    //break;
+
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "地下水");
+                    i.putExtra("Type", "Jing");
+                    startActivity(i);
+                    break;
+                case 8:
+                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.putExtra("Title", "水土地质");
+                    i.putExtra("Type", "soil");
+                    startActivity(i);
+                    break;
+                case 9:
+                    i.setClass(MainActivity.this, RainAct.class);
+                    i.putExtra("Title", "雨量监测");
+                    startActivity(i);
+                    break;
+                case 10:
+                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "预警");
+                    i.putExtra("Type","yujing");
+                    startActivity(i);
+                    break;
+                case 11:
+                    setImage();
                     break;
             }
         }

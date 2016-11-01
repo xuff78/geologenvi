@@ -77,7 +77,7 @@ public class BanqianbirangEditMain extends AppFrameAct {
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
-            addDataBtn.setVisibility(View.GONE);
+            //addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
         }else{
             updateDataBtn.setVisibility(View.GONE);

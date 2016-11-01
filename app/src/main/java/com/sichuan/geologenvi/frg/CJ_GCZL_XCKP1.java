@@ -68,6 +68,7 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
     }
 
     private void initData() {
+        guid=infoMap.get("gczl_guid".toUpperCase());
         gcjzqk.setText(infoMap.get("gcjzqk".toUpperCase()));
         qt.setText(infoMap.get("qt".toUpperCase()));
         jcfzr.setText(infoMap.get("jcfzr".toUpperCase()));

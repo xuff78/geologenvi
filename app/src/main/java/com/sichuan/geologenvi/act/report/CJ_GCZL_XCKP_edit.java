@@ -50,7 +50,7 @@ public class CJ_GCZL_XCKP_edit extends AppFrameAct {
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
-            addDataBtn.setVisibility(View.GONE);
+//            addDataBtn.setVisibility(View.GONE);
         }else{
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
