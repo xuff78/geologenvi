@@ -92,6 +92,7 @@ public class SelectorAct extends AppFrameAct {
             case 7:
             case 8:
             case 9:
+            case 20:
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
                 disasterTypeLayout.setVisibility(View.VISIBLE);
                 disasterSizeLayout.setVisibility(View.VISIBLE);
@@ -103,6 +104,7 @@ public class SelectorAct extends AppFrameAct {
                 break;
             case 4:
             case 5:
+            case 22:
                 findViewById(R.id.disasterNameLayout).setVisibility(View.VISIBLE);
                 avoidLayout.setVisibility(View.VISIBLE);
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
@@ -112,6 +114,7 @@ public class SelectorAct extends AppFrameAct {
                 yearLayout.setVisibility(View.VISIBLE);
                 break;
             case 3:
+            case 21:
                 break;
 
             case 10:
@@ -143,7 +146,7 @@ public class SelectorAct extends AppFrameAct {
                     String name=nameEdt.getText().toString();
                     String disasterName=disasterNameEdt.getText().toString();
                     Intent intent=getIntent();
-                    if(type<10)
+                    if(type<10||type>=20)
                         //intent.setClass(SelectorAct.this, TitleResultListAct.class); //查看线下数据库内容
                     intent=new Intent();
                     else

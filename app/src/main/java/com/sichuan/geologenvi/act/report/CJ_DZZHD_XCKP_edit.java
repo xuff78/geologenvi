@@ -90,6 +90,31 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
         }
+
+        if(getIntent().hasExtra("Map")) {
+            MapBean mapBean= (MapBean) getIntent().getSerializableExtra("Map");
+            zdmc.setText(mapBean.getMap().get("ZHAA01A020"));
+            yfys.setText(mapBean.getMap().get("ZHAA01A830"));
+            zdwz.setText(mapBean.getMap().get("ZHAA01A150"));
+            String type = mapBean.getMap().get("ZHAA01A210");
+            String size = mapBean.getMap().get("ZHAA01A890");
+//            if(type!=null)
+//                type=disasterNames[Integer.valueOf(type)];
+            if (size != null) {
+                if (size.equals("A"))
+                    size = "特大型";
+                else if (size.equals("B"))
+                    size = "大型";
+                else if (size.equals("C"))
+                    size = "中型";
+                else if (size.equals("D"))
+                    size = "小型";
+
+            }
+            lxjqgm.setText(type + "  " + size);
+            zdid = mapBean.getMap().get("ZHAA01A010");
+        }
+
         initHandler();
     }
 

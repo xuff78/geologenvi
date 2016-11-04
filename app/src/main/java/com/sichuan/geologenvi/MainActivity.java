@@ -211,25 +211,26 @@ public class MainActivity extends AppFrameAct {
                     break;
                 case 11:
                     i.setClass(MainActivity.this, SearchAct.class);
+                    i.putExtra("Title", "雷达回波");
+                    startActivity(i);
+                    break;
+                case 12:
+                    i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "基础资料");
                     i.putExtra("Type","zcfg");
                     startActivity(i);
                     break;
-                case 12:
+                case 13:
                     dialog=new AsycnDialog(MainActivity.this);
                     dialog.show();
                     break;
-                case 13:
+                case 14:
                     i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "值班安排");
                     i.putExtra("Type","zhibananpai");
                     startActivity(i);
                     break;
-                case 14:
-                    i.setClass(MainActivity.this, SearchAct.class);
-                    i.putExtra("Title", "雷达回波");
-                    startActivity(i);
-                    break;
+
             }
         }
     };

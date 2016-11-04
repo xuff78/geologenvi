@@ -14,6 +14,7 @@ import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.ItemDetailAct;
+import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.Contact;
@@ -108,6 +109,18 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                         getIntent().getStringExtra("disasterSizeCode"), getIntent().getStringExtra("areaCode"),
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;
+
+            case 20://数据采集（地质灾害防治工作检查）
+                datalist=handler.getGeohazardInfo("", type, "", "","","","","","");
+                break;
+            case 21://数据采集（重大地质灾害防治工程项目现场检查）
+                datalist=handler.getGeohazardInfo("", type, "", "","","","","","");
+                break;
+            case 22://数据采集（应急避险场所检查）
+                datalist=handler.getGeohazardInfo("", type, "", "","","","","","");
+                break;
+
+
         }
         ArrayList<String> list = new ArrayList<>();
 
@@ -144,6 +157,15 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                 case 6:
                     list.add(info.get("ZHDD04B020"));
                     break;
+                case 20://数据采集（地质灾害防治工作检查）
+                    list.add(info.get("ZHAA01A020"));
+                    break;
+                case 21://数据采集（重大地质灾害防治工程项目现场检查）
+                    list.add(info.get("ZHCA01A020"));
+                    break;
+                case 22://数据采集（应急避险场所检查）
+                    list.add(info.get("ZHDD02A020")+"\n"+info.get("ZHDD02A310"));
+                    break;
             }
         }
         recyclerView.setAdapter(new MenuListAdapter(this, list, listener));
@@ -164,8 +186,36 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
         public void onClick(View view) {
             String tableName="";
             Intent i=getIntent();
+
             int tag=(int)view.getTag();
             Map<String, String> map=datalist.get(tag);
+            MapBean mapBean=new MapBean();
+            mapBean.setMap(map);
+
+            if(type>=20){
+                Intent intent=new Intent(TitleResultListAct.this,ReportEditListAct.class);
+                switch(type) {
+                    case 20:
+                        intent.putExtra("Title", "地质灾害防治工作检查");
+                        intent.putExtra("Name", map.get("ZHAA01A020"));
+                        intent.putExtra("ID",map.get("ZHAA01A010"));
+                        break;
+                    case 21:
+                        intent.putExtra("Title", "重大地质灾害防治工程项目现场检查");
+                        intent.putExtra("Name",  map.get("ZHCA01A020"));
+                        intent.putExtra("ID",map.get("ZHCA01A010"));
+                        break;
+                    case 22:
+                        intent.putExtra("Title", "应急避险场所检查");
+                        intent.putExtra("Name",  map.get("ZHDD02A020"));
+                        intent.putExtra("ID",map.get("ZHDD02A010"));
+                        break;
+                }
+                intent.putExtra("InfoMap",mapBean);
+                intent.putExtra("Type",type);
+                startActivity(intent);
+                return;
+            }
             switch (getIntent().getIntExtra("Type", 0)){
                 case 1:
                 case 9:
@@ -216,6 +266,9 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                     i.setClass(TitleResultListAct.this, ZhilidianweiDetail.class);
                     tableName="SL_ZHCA01A";
                     break;
+
+
+
             }
 
             String[] telNames = null;
@@ -237,8 +290,7 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                     if(value!=null&&value.length()>0)
                         map.put(key, "tel"+value);
                 }
-            MapBean mapBean=new MapBean();
-            mapBean.setMap(map);
+
             i.putExtra("InfoMap",mapBean);
             i.putExtra("TableName", tableName);
             if(getIntent().hasExtra("TakeDataBack")){  //给数据采集选择灾害点
@@ -296,12 +348,14 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                 case 7:
                 case 8:
                 case 9:
+                case 20:
                     datalist = handler.getGeohazardInfo(QueryStr.yinhuandian, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
                             intent.getStringExtra("disasterTypeCode"),
                             intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
                             intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
                     break;
                 case 3:
+                case 21:
                     datalist = handler.getGeohazardInfo("", type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
                             intent.getStringExtra("disasterTypeCode"),
                             intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
@@ -315,6 +369,7 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                     break;
                 case 4:
                 case 5:
+                case 22:
                     datalist = handler.getGeohazardInfo(QueryStr.yhdbixiancs, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
                             intent.getStringExtra("disasterTypeCode"),
                             intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
@@ -337,9 +392,11 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                     case 7:
                     case 8:
                     case 9:
+                    case 20:
                         list.add(info.get("ZHAA01A020"));
                         break;
                     case 3:
+                    case 21:
                         list.add(info.get("ZHCA01A020"));
                         break;
                     case 2:
@@ -358,6 +415,7 @@ public class TitleResultListAct  extends AppFrameAct  implements SectionIndexer 
                         break;
                     case 4:
                     case 5:
+                    case 22:
                         list.add(info.get("ZHDD02A020") + "\n" + info.get("ZHDD02A310"));
                         break;
                     case 6:

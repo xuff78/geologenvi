@@ -205,8 +205,20 @@ public class SqlHandler {
                 typeStr=" where ZHAA01A875 = 1";
                 formName="SL_ZHAA01A";
                 break;
+            case 20://数据采集（地质灾害防治工作检查）
+                typeStr=" where ZHAA01A382 = 0 and ZHAA01A875 = 0";
+                formName="SL_ZHAA01A";
+                break;
+            case 21://数据采集（重大地质灾害防治工程项目现场检查）
+                typeStr=" where ZHCA01A020 is not null";
+                formName="SL_ZHCA01A";
+                break;
+            case 22://数据采集（应急避险场所检查）
+                typeStr=" where ZHDD02A020 is not null";
+                formName="SL_ZHDD02A as a left join SL_ZHAA01A as c on a.ZHDD02A300=c.ZHAA01A010";
+                break;
         }
-        if(type==1||type==7||type==8||type==9) {
+        if(type==1||type==7||type==8||type==9||type==20) {
             if (name.length() > 0)
                 typeStr = typeStr + " and ZHAA01A020 like '%" + name + "%'";
             if (disasterTypeCode.length() > 0)
@@ -217,12 +229,12 @@ public class SqlHandler {
                 typeStr = typeStr + " and ZHAA01A110 = '" + areaCode + "'";
             else if (areaCode.length() == 9)
                 typeStr = typeStr + " and ZHAA01A120 = '" + areaCode + "'";
-        }else if(type==3){
+        }else if(type==3||type==21){
             if (areaCode.length() == 6)
                 typeStr = typeStr + " and ZHCA01A040 = '" + areaCode + "'";
             else if (areaCode.length() == 9)
                 typeStr = typeStr + " and ZHCA01A050 = '" + areaCode + "'";
-        }else if(type==4||type==5){
+        }else if(type==4||type==5||type==22){
             if (areaCode.length() == 6)
                 typeStr = typeStr + " and ZHDD02A040 = '" + areaCode + "'";
             else if (areaCode.length() == 9)

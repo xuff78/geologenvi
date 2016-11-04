@@ -153,12 +153,9 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("Type", tag);
                     startActivity(i);
                 } else {
-                    //Intent i = new Intent(TitleListAct.this, SelectorAct.class);
-                    Intent i = new Intent(TitleListAct.this, ReportEditListAct.class);
-
-                    i.putExtra("Title", list.get(tag));
-                    i.putExtra("Type", tag + 10);
-
+                    Intent i = new Intent(TitleListAct.this, TitleResultListAct.class);
+                    i.putExtra("Type", tag+20);
+                    i.putExtra("Title", ((TextView)view).getText().toString());
                     i.putExtra("Name", "");
                     i.putExtra("disasterName", "");
                     i.putExtra("disasterTypeCode", "");
@@ -166,8 +163,23 @@ public class TitleListAct  extends AppFrameAct {
                     i.putExtra("areaCode", "");
                     i.putExtra("avoidCode", "");
                     i.putExtra("yearCode", "");
-
                     startActivity(i);
+
+
+//                    Intent i = new Intent(TitleListAct.this, ReportEditListAct.class);
+//
+//                    i.putExtra("Title", list.get(tag));
+//                    i.putExtra("Type", tag + 10);
+//
+//                    i.putExtra("Name", "");
+//                    i.putExtra("disasterName", "");
+//                    i.putExtra("disasterTypeCode", "");
+//                    i.putExtra("disasterSizeCode", "");
+//                    i.putExtra("areaCode", "");
+//                    i.putExtra("avoidCode", "");
+//                    i.putExtra("yearCode", "");
+//
+//                    startActivity(i);
                 }
             } else if (type.equals("Statistics")) {
                 if (tag <= 1) {
