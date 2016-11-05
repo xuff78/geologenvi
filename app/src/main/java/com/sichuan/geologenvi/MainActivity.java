@@ -43,7 +43,7 @@ public class MainActivity extends AppFrameAct {
     private int[] ress1={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
-             R.mipmap.icon_menu_14,R.mipmap.icon_menu_15 };
+             R.mipmap.icon_menu_14,R.mipmap.more1 };
     private AutoScrollViewPager viewPager;
     private AsycnDialog dialog;
 

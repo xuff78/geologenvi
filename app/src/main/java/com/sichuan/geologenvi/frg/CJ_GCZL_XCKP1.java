@@ -62,6 +62,32 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
             arrowRight.setVisibility(View.INVISIBLE);
             initData();
         }else{
+            if(getActivity().getIntent().hasExtra("Map")){
+                MapBean mapBean = (MapBean) getActivity().getIntent().getSerializableExtra("Map");
+                guid = mapBean.getMap().get("ZHCA01A010");
+                projectName.setText(mapBean.getMap().get("ZHCA01A020"));
+                sgdw.setText(mapBean.getMap().get("ZHCA01A230"));
+                jldw.setText(mapBean.getMap().get("ZHCA01A210"));
+                sjdw.setText(mapBean.getMap().get("ZHCA01A200"));
+
+                gczl_quxian=mapBean.getMap().get("ZHCA01A040");
+                if(gczl_quxian!=null)
+                    gczl_quxian=handler.getDistrictName(gczl_quxian);
+                gczl_xiangzhen=mapBean.getMap().get("ZHCA01A050");
+                if(gczl_xiangzhen!=null)
+                    gczl_xiangzhen=handler.getDistrictName(gczl_xiangzhen);
+                gczl_cun=mapBean.getMap().get("ZHCA01A060");
+                gczl_zu=mapBean.getMap().get("ZHCA01A070");
+                dlwz.setText(gczl_quxian+"  "+gczl_xiangzhen+"  "+gczl_cun+"  "+gczl_zu);
+//            hb.setText(mapBean.getMap().get("ZHCA01A210"));
+
+                String lon = mapBean.getMap().get("ZHCA01A075");
+                this.lon = lon;
+                String lat = mapBean.getMap().get("ZHCA01A076");
+                this.lat = lat;
+                setLoaction(lon, lat);
+            }
+
             view.findViewById(R.id.projectNameLayout).setOnClickListener(listener);
         }
         return view;

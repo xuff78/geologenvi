@@ -76,10 +76,25 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 //            addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
             arrowRight9.setVisibility(View.GONE);
-        }else{
+        }else {
+
+            if (getIntent().hasExtra("Map")) {
+
+                MapBean mapBean = (MapBean) getIntent().getSerializableExtra("Map");
+                bxcs_guid = mapBean.getMap().get("ZHDD02A010");
+                bxcs_name.setText(mapBean.getMap().get("ZHDD02A020"));
+                bxcs_xzqh.setText(mapBean.getMap().get("ZHDD02A080"));
+                String lon = mapBean.getMap().get("ZHDD02A120");
+                this.lon = lon;
+                String lat = mapBean.getMap().get("ZHDD02A130");
+                this.lat = lat;
+                setLoaction(lon, lat);
+            }
+
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
         }
+
         initHandler();
         handler=new SqlHandler(this);
     }
