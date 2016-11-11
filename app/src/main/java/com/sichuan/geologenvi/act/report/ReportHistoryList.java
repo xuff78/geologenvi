@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.act.YujingAct;
 import com.sichuan.geologenvi.adapter.MenuList2Adapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.bean.MenuListItem2;
 import com.sichuan.geologenvi.bean.ReportBean;
 import com.sichuan.geologenvi.http.CallBack;
@@ -19,6 +21,7 @@ import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.JsonUtil;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by 可爱的蘑菇 on 2016/7/23.
@@ -37,6 +40,8 @@ public class ReportHistoryList extends AppFrameAct {
     int lastVisibleItem=0;
     private String id="";
     boolean onloading=false, hasMore=true;
+
+
 
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(ReportHistoryList.this){

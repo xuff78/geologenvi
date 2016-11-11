@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/titleTxt"
+                android:layout_marginTop="5dp"
+                android:text="题目"
+                style="@style/txt_black_14"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:id="@+id/contentTxt"
+                android:layout_marginTop="20dp"
+                android:text="工作描述："
+                style="@style/txt_gray_14" />
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/timeDate"
+                android:text="发布时间：2016-07-23 22:28"
+                style="@style/txt_gray_12"
+                android:layout_gravity="right" />
+
+        </LinearLayout>
+        <com.sichuan.geologenvi.views.Photo9Layout
+            android:id="@+id/photoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

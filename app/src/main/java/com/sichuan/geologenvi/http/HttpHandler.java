@@ -98,6 +98,12 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.CJ_GZJL_BXBQ, "?pageIndex="+page+"&bxbqid="+id, true);
 	}
 
+	//查询预警
+	public void getYujing() {
+		requestGet(ConstantUtil.Method.Yujing, "", true);
+
+	}
+
 	public void delCJ_GZJL_BXBQ(String id) {
 		requestDelete(ConstantUtil.Method.CJ_GZJL_BXBQ, "/"+id, true);
 	}

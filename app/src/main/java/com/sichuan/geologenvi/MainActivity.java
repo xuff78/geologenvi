@@ -19,6 +19,9 @@ import com.sichuan.geologenvi.act.MineListAct;
 import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
+import com.sichuan.geologenvi.act.YujingAct;
+import com.sichuan.geologenvi.act.report.ReportEditListAct;
+import com.sichuan.geologenvi.act.report.ReportHistoryList;
 import com.sichuan.geologenvi.adapter.TopImgAdapter;
 import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
@@ -204,9 +207,9 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 10:
-                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.setClass(MainActivity.this,ReportEditListAct.class);
                     i.putExtra("Title", "预警");
-                    i.putExtra("Type","yujing");
+                    i.putExtra("Type",30);
                     startActivity(i);
                     break;
                 case 11:
@@ -308,9 +311,9 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 10:
-                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.setClass(MainActivity.this,ReportEditListAct.class);
                     i.putExtra("Title", "预警");
-                    i.putExtra("Type","yujing");
+                    i.putExtra("Type",30);
                     startActivity(i);
                     break;
                 case 11:

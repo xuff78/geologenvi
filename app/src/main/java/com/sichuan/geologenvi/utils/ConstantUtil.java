@@ -42,6 +42,9 @@ public class ConstantUtil {
 		public static final String CJ_BXCS_XCKP="CJ_BXCS_XCKP";
 		public static final String CheckVersion="AppUpdate";
 		public static final String getAppUrl="AppUpdate/GetDownloadUrl";
+
+
+		public static final String Yujing="Yujing";
 	}
 
 

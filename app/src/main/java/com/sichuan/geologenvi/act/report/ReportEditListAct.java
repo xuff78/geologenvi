@@ -13,6 +13,7 @@ import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.ItemDetailAct;
+import com.sichuan.geologenvi.act.YujingAct;
 import com.sichuan.geologenvi.act.geodisaster.BixianbanqianDetail;
 import com.sichuan.geologenvi.act.geodisaster.YinhuandianDetail;
 import com.sichuan.geologenvi.act.geodisaster.ZhilidianweiDetail;
@@ -24,6 +25,7 @@ import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.utils.ViewUtil;
 
@@ -58,6 +60,8 @@ public class ReportEditListAct extends AppFrameAct {
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"GCZL_NAME","TBRQ"}, listener));
                 }else if(method.equals(ConstantUtil.Method.CJ_BXCS_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"BXCS_NAME","JCDATE"}, listener));
+                }else if(method.equals(ConstantUtil.Method.Yujing)){
+                    recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"TITLE","FBDATE"}, listener));
                 }
             }
         });
@@ -81,25 +85,27 @@ public class ReportEditListAct extends AppFrameAct {
         initHandler();
         handler=new SqlHandler(this);
         requestInfo();
-        _setRightHomeText("添加", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent();
-                i.putExtra("Map",mapBean);
-                switch (type) {
-                    case 20:
-                        i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
-                        break;
-                    case 21:
-                        i.setClass(ReportEditListAct.this, BanqianbirangEditMain.class);
-                        break;
-                    case 22:
-                        i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
-                        break;
+        if(type!=30) {
+            _setRightHomeText("添加", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent();
+                    i.putExtra("Map", mapBean);
+                    switch (type) {
+                        case 20:
+                            i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
+                            break;
+                        case 21:
+                            i.setClass(ReportEditListAct.this, BanqianbirangEditMain.class);
+                            break;
+                        case 22:
+                            i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
+                            break;
+                    }
+                    startActivityForResult(i, 0x82);
                 }
-                startActivityForResult(i, 0x82);
-            }
-        });
+            });
+        }
 //        _setRightHomeText("筛选", new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -141,6 +147,9 @@ public class ReportEditListAct extends AppFrameAct {
             case 22:
                 httpHandler.getCJ_BXCS_XCKP(1, name,id);
                 break;
+            case 30:
+                httpHandler.getYujing();
+                break;
         }
     }
 
@@ -161,6 +170,9 @@ public class ReportEditListAct extends AppFrameAct {
                 case 22:
                     i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
                     break;
+                case 30://预警
+                    i.setClass(ReportEditListAct.this, YujingAct.class);
+
             }
             MapBean mapBean=new MapBean();
             mapBean.setMap(map);
