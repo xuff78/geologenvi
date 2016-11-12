@@ -19,7 +19,8 @@
                 android:layout_marginTop="5dp"
                 android:text="题目"
                 style="@style/txt_black_14"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dip" />
             <TextView
                 android:id="@+id/contentTxt"
                 android:layout_marginTop="20dp"
