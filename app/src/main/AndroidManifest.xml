@@ -21,9 +21,14 @@
         <activity
             android:name=".MainActivity" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
-
+        <activity
+            android:name=".act.TXL.TXLListAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
             android:name=".act.YujingAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".act.RadAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
             android:name=".act.MapSearchAct" android:screenOrientation="portrait"

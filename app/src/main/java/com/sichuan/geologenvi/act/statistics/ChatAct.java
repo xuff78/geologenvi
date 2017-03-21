@@ -202,7 +202,10 @@ public class ChatAct extends AppFrameAct implements View.OnClickListener{
         if(isCancel.length()>0) {
             if(typeStr.length()>0)
                 typeStr+=" AND ";
-            typeStr += " ZHAA01A875 = '" + isCancel +"'";
+            if(isCancel=="0")
+            typeStr += " (ZHAA01A875 = 0 or ZHAA01A875 is null)";
+            else
+                typeStr += " ZHAA01A875 = 1";
         }
 
         if(typeStr.length()>0)

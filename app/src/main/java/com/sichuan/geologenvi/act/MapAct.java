@@ -91,7 +91,7 @@ public class MapAct  extends AppFrameAct {
     private Map<String, Map<String, String>> datamap = new HashMap();
     private Map<String, Map<String, String>> tempdataMap = new HashMap();
     private MenuPopup popup;
-    private String[] typeNames = new String[]{"地质灾害点", "地下水", "矿山", "地质遗迹"};
+    private String[] typeNames = new String[]{"选择显示","地质灾害点", "地下水", "地质遗迹", "矿山"};
     private int toLocation = 0;
     private int showType = 0; //-1 用户设置的点， 0，地址灾害
     private float mx = -1, my = -1; //滑动屏幕的坐标
@@ -102,6 +102,7 @@ public class MapAct  extends AppFrameAct {
     private SCGISTiledMapServiceLayer mDLGTileMapServiceLayer, mDLGTileImgMapServiceLayer;
     private com.sichuan.geologenvi.SCGISTiledMapServiceLayer mDLGTileInfoMapServiceLayer;
 
+    private boolean isShowOwn=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,6 @@ public class MapAct  extends AppFrameAct {
 //        initGPS();
 //        openGPS(this);
         initView();
-        _setRightHomeText("灾害点", listener);
 
         dingwei();
         addMarker();
@@ -141,8 +141,13 @@ public class MapAct  extends AppFrameAct {
 
     private void dingwei(){
         MapBean mapBean = (MapBean) getIntent().getSerializableExtra("InfoMap");
-        if(mapBean==null)
+        if(mapBean==null){
+            _setRightHomeText("选择显示", listener);
             return;
+        }
+        else {
+            isShowOwn = true;
+        }
         Map<String, String> dataMap=mapBean.getMap();
         String sid="";
         int showTypeSearch=-1;
@@ -150,35 +155,35 @@ public class MapAct  extends AppFrameAct {
         int res = R.mipmap.search_map_img;
 
         if(dataMap.containsKey("ZHAA01A010")) {
-            showTypeSearch=0;
+//            LogUtil.i("地质灾害点", "id---->:  "+dataMap.get("ZHAA01A010"));
+            showTypeSearch=1;
             res = getDisasterIcon(dataMap);
             point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
             sid = dataMap.get("ZHAA01A010");
-            _setRightHomeText("灾害点", listener);
-            showType=0;
+//            _setRightHomeText("地质灾害点", listener);
+//            showType=1;
         }else  if(dataMap.containsKey("TONGYICODE")) {
-            showTypeSearch=1;
+            showTypeSearch=2;
             res = R.mipmap.mapicon_water;
             point = new Point(Double.valueOf(dataMap.get("JINGDU")), Double.valueOf(dataMap.get("WEIDU")));
             sid = dataMap.get("TONGYICODE");
-            _setRightHomeText("地下水", listener);
-            showType=1;
+//            _setRightHomeText("地下水", listener);
+//            showType=2;
         }else  if(dataMap.containsKey("COORDX")) {
             showTypeSearch=3;
             res = R.mipmap.mapicon_d8;
             sid = dataMap.get("ID");
             point = new Point(Double.valueOf(dataMap.get("COORDX")), Double.valueOf(dataMap.get("COORDY")));
-            _setRightHomeText("地质遗迹", listener);
-
-            showType=3;
+//            _setRightHomeText("地质遗迹", listener);
+//            showType=3;
         }else  if(dataMap.containsKey("KS_NAME")) {
 
             showTypeSearch=4;
             res = R.mipmap.mapicon_d9;
             sid = dataMap.get("ID");
             point = new Point(Double.valueOf(dataMap.get("LON")), Double.valueOf(dataMap.get("LAT")));
-            _setRightHomeText("矿山", listener);
-            showType=2;
+//            _setRightHomeText("矿山", listener);
+//            showType=4;
         }
 
 
@@ -314,7 +319,7 @@ public class MapAct  extends AppFrameAct {
 //                if (distance > 100) {
 //                    getDataOnScreen();
 //                }
-                getDataOnScreen();
+                    getDataOnScreen();
             }
         });
 
@@ -373,12 +378,12 @@ public class MapAct  extends AppFrameAct {
             int res = R.mipmap.search_map_img;
 
             if(dataMap.containsKey("ZHAA01A010")) {
-                showTypeSearch=0;
+                showTypeSearch=1;
                 res = getDisasterIcon(dataMap);
                 point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
                 sid = dataMap.get("ZHAA01A010");
             }else  if(dataMap.containsKey("TONGYICODE")) {
-                showTypeSearch=1;
+                showTypeSearch=2;
                 res = R.mipmap.mapicon_water;
                 point = new Point(Double.valueOf(dataMap.get("JINGDU")), Double.valueOf(dataMap.get("WEIDU")));
                 sid = dataMap.get("TONGYICODE");
@@ -414,6 +419,8 @@ public class MapAct  extends AppFrameAct {
     }
 
     private void getDataOnScreen() {
+        if(isShowOwn)//add cuikailei
+            return;
         GraphicsLayer gLayer = getGraphicLayer();
         Envelope rExtent = new Envelope();
         mMapView.getExtent().queryEnvelope(rExtent);
@@ -425,6 +432,11 @@ public class MapAct  extends AppFrameAct {
 //        LogUtil.i("Location", "right_topX:  "+topR_x+"   right_topY:  "+topR_y);
         switch (showType) {
             case 0:
+                tempdataMap.clear();
+                tempdataMap.putAll(datamap);
+                removeleftMarkers();
+                break;
+            case 1:
                 datalist = handler.getQueryResult(QueryStr.yinhuandian, "SL_ZHAA01A", " where ZHAA01A190 > '" + leftB_x + "' and ZHAA01A190 < '" + topR_x + "' and" +
                         " ZHAA01A200 > '" + leftB_y + "' and ZHAA01A200 < '" + topR_y + "' limit 100");
                 tempdataMap.clear();
@@ -446,7 +458,7 @@ public class MapAct  extends AppFrameAct {
                 }
                 removeleftMarkers();
                 break;
-            case 1:
+            case 2:
                 datalist = handler.getQueryResult("SL_TBLJING", " where JINGDU > '" + leftB_x + "' and JINGDU < '" + topR_x + "' and" +
                         " WEIDU > '" + leftB_y + "' and WEIDU < '" + topR_y + "' limit 100");
                 tempdataMap.clear();
@@ -468,28 +480,7 @@ public class MapAct  extends AppFrameAct {
                 }
                 removeleftMarkers();
                 break;
-            case 2:
-                datalist = handler.getQueryResult("SL_KS_XX", " where lon is not null and lat is not null");
-                tempdataMap.clear();
-                tempdataMap.putAll(datamap);
-                for (int i=0;i<datalist.size();i++){
-                    Map<String, String> dataMap=datalist.get(i);
-                    String sid=dataMap.get("ID"); //矿山ID
-                    if(needAddMarker(sid)) {
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("id", sid);
-                        map.put(InfoType, showType);
-                        int res = R.mipmap.mapicon_d9;
-                        Point point = new Point(Double.valueOf(dataMap.get("LON")), Double.valueOf(dataMap.get("LAT")));
-                        Graphic gp1 = CreateGraphic(point, map, res, 0);
-                        int uid=gLayer.addGraphic(gp1);
-                        dataMap.put("markerUid", ""+uid);
-                        datamap.put(sid, dataMap);
 
-                    }
-                }
-                removeleftMarkers();
-                break;
             case 3:
                 datalist = handler.getQueryResult("SL_DZYJBH", " where COORDX > '" + leftB_x + "' and COORDX < '" + topR_x + "' and" +
                         " COORDY > '" + leftB_y + "' and COORDY < '" + topR_y + "' limit 100");
@@ -508,6 +499,28 @@ public class MapAct  extends AppFrameAct {
                         int uid = gLayer.addGraphic(gp1);
                         dataMap.put("markerUid", "" + uid);
                         datamap.put(sid, dataMap);
+                    }
+                }
+                removeleftMarkers();
+                break;
+            case 4:
+                datalist = handler.getQueryResult("SL_KS_XX", " where lon is not null and lat is not null");
+                tempdataMap.clear();
+                tempdataMap.putAll(datamap);
+                for (int i=0;i<datalist.size();i++){
+                    Map<String, String> dataMap=datalist.get(i);
+                    String sid=dataMap.get("ID"); //矿山ID
+                    if(needAddMarker(sid)) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("id", sid);
+                        map.put(InfoType, showType);
+                        int res = R.mipmap.mapicon_d9;
+                        Point point = new Point(Double.valueOf(dataMap.get("LON")), Double.valueOf(dataMap.get("LAT")));
+                        Graphic gp1 = CreateGraphic(point, map, res, 0);
+                        int uid=gLayer.addGraphic(gp1);
+                        dataMap.put("markerUid", ""+uid);
+                        datamap.put(sid, dataMap);
+
                     }
                 }
                 removeleftMarkers();
@@ -546,7 +559,6 @@ public class MapAct  extends AppFrameAct {
 //            markersMap.remove(entry.getKey());
             datamap.remove(entry.getKey());
         }
-        LogUtil.i("ppp", "removed: " + i);
     }
 
     private boolean needAddMarker(String code) {
@@ -569,7 +581,6 @@ public class MapAct  extends AppFrameAct {
         if(mLocationClient!=null)
             mLocationClient.stop();
         mMapView.destroyDrawingCache();
-        LogUtil.i("Location", "destory!");
         super.onDestroy();
     }
 
@@ -639,7 +650,7 @@ public class MapAct  extends AppFrameAct {
         public void onLocationChanged(Location location) {
             // TODO Auto-generated method stub
 //                currentLocation=location;
-            LogUtil.i("Location", "getLocationCallback");
+//            LogUtil.i("Location", "getLocationCallback");
             if (location != null) {
                 LogUtil.i("Location", "getLocation: " + location.getLongitude() + "    " + location.getLatitude());
                 lon = location.getLongitude();
@@ -654,20 +665,20 @@ public class MapAct  extends AppFrameAct {
 
         public void onProviderDisabled(String provider) {
             // TODO Auto-generated method stub
-            LogUtil.i("Location", "disable: " + provider);
+//            LogUtil.i("Location", "disable: " + provider);
 
         }
 
         public void onProviderEnabled(String provider) {
             // TODO Auto-generated method stub
-            LogUtil.i("Location", "enable: " + provider);
+//            LogUtil.i("Location", "enable: " + provider);
 
         }
 
         public void onStatusChanged(String provider, int status,
                                     Bundle extras) {
             // TODO Auto-generated method stub
-            LogUtil.i("Location", "status change!!");
+//            LogUtil.i("Location", "status change!!");
 
         }
     };
@@ -713,22 +724,22 @@ public class MapAct  extends AppFrameAct {
         View view0 = inflater.inflate(R.layout.marker_info_pop, null);
         view0.findViewById(R.id.okBtn).setOnClickListener(listener);
         Point point = null;
-        if (infotype == 0) {
+        if (infotype == 1) {
             String[] itemTxtId = {"ZHAA01A150", "ZHAA01A210", "ZHAA01A370", "ZHAA01A410"};
             point = new Point(Double.valueOf(infoMap0.get("ZHAA01A190")), Double.valueOf(infoMap0.get("ZHAA01A200")));
             setMarkerInfo(itemTxtId, "ZHAA01A020", "SL_ZHAA01A", "灾害点详情", infoMap0, view0);
-        } else if (infotype == 1) {
+        } else if (infotype == 2) {
             String[] itemTxtId = {"SHUILEIXING", "QUXIAN", "KOUJING"};
             point = new Point(Double.valueOf(infoMap0.get("JINGDU")), Double.valueOf(infoMap0.get("WEIDU")));
             setMarkerInfo(itemTxtId, "QUYU", "SL_TBLJING", "地下水", infoMap0, view0);
-        } else if (infotype == 2) {
-            String[] itemTxtId = {"KS_NAME", "KS_WEIZHI", "KS_KCZT"};
-            point = new Point(Double.valueOf(infoMap0.get("LON")), Double.valueOf(infoMap0.get("LAT")));
-            setMarkerInfo(itemTxtId, "KS_NAME", "SL_KS_XX", "矿山", infoMap0, view0);
-        } else if (infotype == 3) {
+        }  else if (infotype == 3) {
             String[] itemTxtId = {"NAME", "XZQH", "BHJB"};
             point = new Point(Double.valueOf(infoMap0.get("COORDX")), Double.valueOf(infoMap0.get("COORDY")));
             setMarkerInfo(itemTxtId, "NAME", "SL_DZYJBH", "地址遗迹", infoMap0, view0);
+        }else if (infotype == 4) {
+            String[] itemTxtId = {"KS_NAME", "KS_WEIZHI", "KS_KCZT"};
+            point = new Point(Double.valueOf(infoMap0.get("LON")), Double.valueOf(infoMap0.get("LAT")));
+            setMarkerInfo(itemTxtId, "KS_NAME", "SL_KS_XX", "矿山", infoMap0, view0);
         }
         callout.show(point, view0);
     }
@@ -847,7 +858,7 @@ public class MapAct  extends AppFrameAct {
             lDisplayManager.setLocationAcquiringSymbol(symbol);
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtil.i("Location", "failed set location icon");
+//            LogUtil.i("Location", "failed set location icon");
         }
         lDisplayManager.setAutoPanMode(LocationDisplayManager.AutoPanMode.LOCATION);
         lDisplayManager.start();
@@ -860,7 +871,7 @@ public class MapAct  extends AppFrameAct {
         public void onReceiveLocation(BDLocation location) {
             //Receive Location
             if (location != null) {
-                LogUtil.i("Location", "getBaiduLocation: " + location.getLongitude() + "    " + location.getLatitude());
+//                LogUtil.i("Location", "getBaiduLocation: " + location.getLongitude() + "    " + location.getLatitude());
                 lon = location.getLongitude();
                 lat = location.getLatitude();
 

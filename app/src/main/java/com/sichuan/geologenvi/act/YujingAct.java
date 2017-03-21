@@ -16,6 +16,7 @@ import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.bean.ReportBean;
+import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
@@ -70,10 +71,10 @@ public class YujingAct extends AppFrameAct {
     private void SetDate() {
         txtTitle.setText(infoMap.get("TITLE"));
         txtContent.setText(infoMap.get("CONTENT"));
-        txtTimeDate.setText("发布时间：" + infoMap.get("FBDATE"));
+        txtTimeDate.setText("发布时间：" + ActUtil.getFormatDate(infoMap.get("FBDATE")));
         String path = infoMap.get("PATH");
         //得到可用的图片
-        String url = "http://bitcoin.beewonder.com/Files/预警/" + path;
+        String url = "http://223.85.242.114:8090/Files/预警/" + path;
 
         final ArrayList<String> imgUrls=new ArrayList<>();
         imgUrls.add(url);

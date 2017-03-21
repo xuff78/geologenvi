@@ -67,11 +67,15 @@ public class MineListAct   extends AppFrameAct implements SectionIndexer {
 
     private void requestInfo() {
         if(tableName.equals("SL_KS_XX")) {   //矿山的
-            String whereStr=" where IS_GUOJIA is not'是' and IS_LVSE is not'是' ";
+            String whereStr=" where IS_GUOJIA is not'是' and IS_LVSE is not'是' and IS_ZHUANYE is not'是'";
             if(title.equals("国家专项资金恢复治理项目"))
                 whereStr=" where IS_GUOJIA is '是'";
             else  if(title.equals("绿色矿山"))
                 whereStr=" where IS_LVSE is '是'";
+            else if(title.equals("专业监测矿山"))
+                whereStr=" where IS_ZHUANYE is '是'";
+            else if(title.equals("全部矿山"))
+                whereStr=" ";
             datalist = handler.getQueryResult(
                     "SL_KS_XX", whereStr);
 

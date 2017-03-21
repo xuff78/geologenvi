@@ -193,16 +193,23 @@ public class SqlHandler {
                 typeStr=" where ZHDD04B020 is not null";
                 formName="SL_ZHDD04B";
                 break;
-            case 7:
-                typeStr=" where ZHAA01A382 = 0 and ZHAA01A875 = 0";
+            case 7://国土负责点位
+//                typeStr=" where ZHAA01A382 = 0 and ZHAA01A875 = 0";
+                typeStr= " where (ZHAA01A382=0 or ZHAA01A382 is null) and (ZHAA01A875 = 0 or ZHAA01A875 is null) ";
                 formName="SL_ZHAA01A";
                 break;
-            case 8:
-                typeStr=" where ZHAA01A382 = 1  and ZHAA01A875 = 0";
+            case 8://其他行业点位
+//                typeStr=" where ZHAA01A382 = 1  and ZHAA01A875 = 0";
+                typeStr= " where ZHAA01A382 = 1 and (ZHAA01A875 = 0 or ZHAA01A875 is null) ";
                 formName="SL_ZHAA01A";
                 break;
-            case 9:
+            case 9://销号点位
                 typeStr=" where ZHAA01A875 = 1";
+                formName="SL_ZHAA01A";
+                break;
+            case 10://全部点位
+//                typeStr=" where ZHAA01A875 = 1";
+                typeStr=" where ZHAA01A875 = 0 or ZHAA01A875 is null";
                 formName="SL_ZHAA01A";
                 break;
             case 20://数据采集（地质灾害防治工作检查）
@@ -216,6 +223,26 @@ public class SqlHandler {
             case 22://数据采集（应急避险场所检查）
                 typeStr=" where ZHDD02A020 is not null";
                 formName="SL_ZHDD02A as a left join SL_ZHAA01A as c on a.ZHDD02A300=c.ZHAA01A010";
+                break;
+            case 30:
+                typeStr="";
+                formName="SL_TXL_SHENG";
+                break;
+            case 31:
+                typeStr="";
+                formName="SL_TXL_SHI";
+                break;
+            case 32:
+                typeStr="";
+                formName="SL_TXL_SHIGUOTUJU";
+                break;
+            case 33:
+                typeStr="";
+                formName="SL_TXL_SHIDHZ";
+                break;
+            case 34:
+                typeStr="";
+                formName="SL_TXL_SHILD";
                 break;
         }
         if(type==1||type==7||type==8||type==9||type==20) {

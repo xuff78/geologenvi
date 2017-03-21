@@ -25,7 +25,8 @@ public class ConstantUtil {
 	public static final String TongliangMap="TongliangMap";
 	public static final String UserPoint="UserPoint";
 
-	public static final String Api_Url="http://bitcoin.beewonder.com/api/";
+//	public static final String Api_Url="http://bitcoin.beewonder.com/api/";
+	public static final String Api_Url="http://223.85.242.114:8090/api/";
 
 	public static final class Method{
 		public static final String TIMERAININFO="TIMERAININFO";

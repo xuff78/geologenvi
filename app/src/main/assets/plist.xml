@@ -1111,8 +1111,10 @@
     <string name="LAT">纬度</string>
     <string name="IS_LVSE">绿色矿山</string>
     <string name="IS_GUOJIA">国家专项资金恢复治理项目</string>
+    <string name="IS_ZHUANYE">是否是专业监测矿山</string>
   </dict>
   <dict name="SL_TBLJING">
+
     <string name="JINGID">井ID</string>
     <string name="TONGYICODE">统一编号</string>
     <string name="YUANSHICODE">原始编号</string>
@@ -1150,6 +1152,8 @@
     <string name="FILESCODE">附件编号</string>
     <string name="FILESNAME">附件</string>
 
+    <string name="KHRNAME">看护人姓名</string>
+    <string name="KHRPHONE">看护人电话</string>
 
   </dict>
 </dicts>

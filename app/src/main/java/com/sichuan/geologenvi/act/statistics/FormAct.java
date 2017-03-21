@@ -37,11 +37,11 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         type=getIntent().getIntExtra("Type", 1);
-        if(type==2)
+        if(type==102)
             setContentView(R.layout.zaihaidian_tongji);
-        else if(type==4)
+        else if(type==103)
             setContentView(R.layout.banqian_tongji);
-        else if(type==5)
+        else if(type==104)
             setContentView(R.layout.gczl_tongji);
         else
             setContentView(R.layout.form2_layout);
@@ -54,7 +54,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
 
     private void queryForStatistics() {
         switch (type){
-            case 2:
+            case 102://隐患点统计表格
                 datalist=handler.getQueryResult2("NAME,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
@@ -68,19 +68,35 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                                 "SUM(ZHAA01A390) as RenShu,\n" +
                                 "SUM(ZHAA01A410) as ZiChan,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 is not null THEN 1 ELSE 0 END) as Suoyou ",
-                        "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE)   where a.ZHAA01A875=0 group by ZHAA01A110",
+                        "SL_ZHAA01A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHAA01A110=b.CODE)   where  (a.ZHAA01A875 = 0 or a.ZHAA01A875 is null) group by ZHAA01A110",
                         "");
                 DisasterStatisticsAdapter adapter=new DisasterStatisticsAdapter(this, datalist);
                 recyclerView.setAdapter(adapter);
                 break;
-            case 3:
+            case 1://监测水井统计
                 datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +
                                 " SUM(CASE WHEN QIYONG = '01' THEN 1 ELSE 0 END) as QIYONG ",
                         " SL_TBLJING group by QUXIAN",
                         "");
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
                 break;
-            case 4:
+            case 2://水土地质统计
+//                datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +
+//                                " SUM(CASE WHEN QIYONG = '01' THEN 1 ELSE 0 END) as QIYONG ",
+//                        " SL_TBLJING group by QUXIAN",
+//                        "");
+//                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
+                break;
+            case 3://矿山统计
+                datalist=handler.getQueryResult("KS_SSQX as NAME,\n"+
+                                "sum(1) as ZongGong ",
+                        "SL_KS_XX  group by KS_SSQX ",
+                        "");
+                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 6));
+                break;
+
+
+            case 103://避险搬迁统计
                 Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
                 int year = c.get(Calendar.YEAR);
                 datalist=handler.getQueryResult2("NAME,\n"+
@@ -93,7 +109,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 BanQianAdapte banqian=new BanQianAdapte(this, datalist);
                 recyclerView.setAdapter(banqian);
                 break;
-            case 5:
+            case 104://工程治理点位统计
                 datalist=handler.getQueryResult2("NAME,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '00' THEN 1 ELSE 0 END) as XiePo,\n" +
                                 "SUM(CASE WHEN ZHAA01A210 = '01' THEN 1 ELSE 0 END) as HuaPo,\n" +
@@ -107,14 +123,14 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                         "");
                 recyclerView.setAdapter(new FormGCZLAdapter(this, datalist));
                 break;
-            case 6:
+            case 105://避险场所信息统计
                 datalist=handler.getQueryResult("NAME,\n"+
                         "sum(1) as ZongGong ",
                         "SL_ZHDD02A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD02A040=b.CODE) group by ZHDD02A040 ",
                         "");
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 6));
                 break;
-            case 7:
+            case 4://专业监测信息统计
                 datalist=handler.getQueryResult2("city as NAME,\n" +
                                 "count(distinct(disastername)) as zhandian,count(meterid) as shebei",
                         "sl_stationmeters group by city",
@@ -126,22 +142,35 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
 
     }
 
+    //            list.add("隐患点统计图");
+//            list.add("重点点位信息统计图");
+//            list.add("隐患点统计表格");
+//            list.add("地下水统计");
+//            list.add("避险搬迁统计");
+//            list.add("工程治理点位统计");
+//            list.add("避险场所信息统计");
+//            list.add("专业监测信息统计");
     private void initView() {
         TextView title1= (TextView) findViewById(R.id.title1);
         TextView title2= (TextView) findViewById(R.id.title2);
         TextView title3= (TextView) findViewById(R.id.title3);
         TextView title4= (TextView) findViewById(R.id.title4);
-        if(type==3){
-                title2.setText("数量");
-                title3.setText("弃用");
-                title4.setVisibility(View.GONE);
-            }
-            else if(type==6) {
-                title2.setText("数量");
-                title3.setVisibility(View.GONE);
-                title4.setVisibility(View.GONE);
+        if(type==1) {//地下水统计
+            title2.setText("数量");
+            title3.setText("弃用");
+            title4.setVisibility(View.GONE);
         }
-        else if(type==7){
+        else if(type==105) {//避险场所信息统计
+            title2.setText("数量");
+            title3.setVisibility(View.GONE);
+            title4.setVisibility(View.GONE);
+        }
+        else if(type==3) {//矿山统计
+            title2.setText("数量");
+            title3.setVisibility(View.GONE);
+            title4.setVisibility(View.GONE);
+        }
+        else if(type==4) {//专业监测信息统计
             title2.setText("站点数");
             title3.setText("专业设备数");
             title4.setVisibility(View.GONE);

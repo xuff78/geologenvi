@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.MineListAct;
+import com.sichuan.geologenvi.act.RadAct;
 import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
@@ -36,12 +37,12 @@ public class MainActivity extends AppFrameAct {
     private String[] names1={"通讯录","地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
             "地下水","水土地质","雨量监测","预警","更多..."};
     private String[] names={"通讯录","地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
-            "地下水","水土地质","雨量监测","预警","雷达回波","基础资料","数据同步","值班安排","敬请期待"};
+            "地下水","水土地质","雨量监测","预警","雷达回波","基础资料","数据同步","值班安排","收回"};
     private int[] ress={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
              R.mipmap.icon_menu_14,R.mipmap.icon_menu_15,
-            R.mipmap.icon_menu_1,R.mipmap.icon_menu_4,R.mipmap.icon_menu_13, 0};
+            R.mipmap.icon_menu_1,R.mipmap.icon_menu_4,R.mipmap.icon_menu_13, R.mipmap.more1};
 
     private int[] ress1={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
@@ -104,7 +105,7 @@ public class MainActivity extends AppFrameAct {
         }
     }
 
-    public void setImage(){
+    public void setImage(int k){
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
         int paddtop = ImageUtil.dip2px(this,20);
         int itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;
@@ -115,21 +116,42 @@ public class MainActivity extends AppFrameAct {
         LinearLayout layout=new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         menuLayout.removeAllViews();
-        for (int i=0;i<names.length;i++){
-            View v=inflater.inflate(R.layout.item_main_menu, null);
-            ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
-            TextView menuName= (TextView) v.findViewById(R.id.menuName);
-            menuName.setText(names[i]);
-            menuIcon.setImageResource(ress[i]);
-            v.setLayoutParams(llp);
-            layout.addView(v);
-            v.setTag(i);
-            v.setOnClickListener(listener);
-            if(i%4==3){
-                menuLayout.addView(layout);
-                layout=new LinearLayout(this);
+        if(k==1) {
+            for (int i = 0; i < names.length; i++) {
+                View v = inflater.inflate(R.layout.item_main_menu, null);
+                ImageView menuIcon = (ImageView) v.findViewById(R.id.menuIcon);
+                TextView menuName = (TextView) v.findViewById(R.id.menuName);
+                menuName.setText(names[i]);
+                menuIcon.setImageResource(ress[i]);
+                v.setLayoutParams(llp);
+                layout.addView(v);
+                v.setTag(i);
+                v.setOnClickListener(listener);
+                if (i % 4 == 3) {
+                    menuLayout.addView(layout);
+                    layout = new LinearLayout(this);
 //                layout.setPadding(0,paddtop,0,0);
-                layout.setOrientation(LinearLayout.HORIZONTAL);
+                    layout.setOrientation(LinearLayout.HORIZONTAL);
+                }
+            }
+        }
+        else{
+            for (int i=0;i<names1.length;i++){
+                View v=inflater.inflate(R.layout.item_main_menu, null);
+                ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
+                TextView menuName= (TextView) v.findViewById(R.id.menuName);
+                menuName.setText(names1[i]);
+                menuIcon.setImageResource(ress1[i]);
+                v.setLayoutParams(llp);
+                layout.addView(v);
+                v.setTag(i);
+                v.setOnClickListener(listener1);
+                if(i%4==3){
+                    menuLayout.addView(layout);
+                    layout=new LinearLayout(this);
+//                layout.setPadding(0,paddtop,0,0);
+                    layout.setOrientation(LinearLayout.HORIZONTAL);
+                }
             }
         }
     }
@@ -213,7 +235,7 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 11:
-                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.setClass(MainActivity.this, RadAct.class);
                     i.putExtra("Title", "雷达回波");
                     startActivity(i);
                     break;
@@ -232,6 +254,9 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Title", "值班安排");
                     i.putExtra("Type","zhibananpai");
                     startActivity(i);
+                    break;
+                case 15:
+                    setImage(0);
                     break;
 
             }
@@ -317,7 +342,7 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 11:
-                    setImage();
+                    setImage(1);
                     break;
             }
         }

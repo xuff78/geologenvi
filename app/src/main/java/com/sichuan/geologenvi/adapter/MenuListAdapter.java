@@ -62,7 +62,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if(name!=null&&name.length()>0)
             holder.titleTxt.setText(name);
         else
-            holder.titleTxt.setText("缺省名称");
+            holder.titleTxt.setText("");
     }
 
     public int getItemCount() {

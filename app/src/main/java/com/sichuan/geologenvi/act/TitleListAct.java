@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.TXL.TXLListAct;
 import com.sichuan.geologenvi.act.contact.ActivityAddFriends;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.geodisaster.TitleResultListAct;
@@ -72,39 +73,52 @@ public class TitleListAct  extends AppFrameAct {
 //            list.add("治理点位基础数据查询");
 //            list.add("销号点位基础数据查询");
         }else if(type.equals("Report")) {
-            list.add("地质灾害防治工作检查");
-            list.add("重大地质灾害防治工程项目现场检查");
-            list.add("应急避险场所检查");
+            list.add("地质灾害防治工作督导");
+            list.add("重大地质灾害防治工程项目督导");
+            list.add("应急避险场所督导");
             list.add("矿山工作记录");
             list.add("地下水工作记录");
             list.add("地质遗迹工作记录");
             list.add("避险搬迁工作记录");
         }else if(type.equals("Statistics")){
-            list.add("隐患点统计图");
-            list.add("重点点位信息统计图");
-            list.add("隐患点统计表格");
+            list.add("地质灾害点");
             list.add("地下水统计");
-            list.add("避险搬迁统计");
-            list.add("工程治理点位统计");
-            list.add("避险场所信息统计");
+            list.add("水土地质统计");
+            list.add("矿山统计");
             list.add("专业监测信息统计");
+//            list.add("隐患点统计图");
+//            list.add("重点点位信息统计图");
+//            list.add("隐患点统计表格");
+//            list.add("地下水统计");
+//            list.add("避险搬迁统计");
+//            list.add("工程治理点位统计");
+//            list.add("避险场所信息统计");
+//            list.add("专业监测信息统计");
         }else if(type.equals("Contact")){
 
-            list.add("四川省地质灾害防治工作责任单位通讯录");
-            list.add("成都市地质灾害防治工作责任单位通讯录");
-            list.add("区市县地质灾害防治工作通讯录");
+//            list.add("四川省地质灾害防治工作责任单位通讯录");
+//            list.add("成都市地质灾害防治工作责任单位通讯录");
+//            list.add("区市县地质灾害防治工作通讯录");
+//            list.add("成都市国土资源局通讯录");
+//            list.add("成都市地质环境监测站通讯录");
+//            list.add("地质灾害防治片区分工通讯录");
+
+            list.add("四川省地质灾害防治工作通讯录");
+            list.add("成都市地质灾害防治工作通讯录");
             list.add("成都市国土资源局通讯录");
             list.add("成都市地质环境监测站通讯录");
+            list.add("区（市）县地质灾害防治工作通讯录");
             list.add("地质灾害防治片区分工通讯录");
-            //list.add("地环站站长通讯录");
-            //list.add("成都市专职监测人员通讯录");
+
         }else if(type.equals("Jing")){//地下水
             list.add("地下水基本概况");
             list.add("地下水监测情况");
             list.add("地下水监测点位");
         }else if(type.equals("kuangshan")){//地下水
+            list.add("全部矿山");
             list.add("国家专项资金恢复治理项目");
             list.add("绿色矿山");
+            list.add("专业监测矿山");
             list.add("一般矿山");
         }
         else if(type.equals("soil")){//水土地质
@@ -125,12 +139,13 @@ public class TitleListAct  extends AppFrameAct {
                         LinearLayout subLayout = (LinearLayout) ((View) (view.getParent())).findViewById(R.id.subLayout);
                         if (subLayout.getChildCount() == 0) {
                             subLayout.addView(ViewUtil.getGrayLine(TitleListAct.this));
+                            addTextView(subLayout, "全部点位", 40, 10);
                             addTextView(subLayout, "国土部门负责点位", 40, 7);
-                            addTextView(subLayout, "其他部门负责点位", 20, 8);
+                            addTextView(subLayout, "其他部门负责点位", 40, 8);
                             addTextView(subLayout, "销号点位", 40, 9);
                         } else {
-                            subLayout.removeAllViews();
-                        }
+                        subLayout.removeAllViews();
+                    }
                         break;
                     default:
                         Intent i = new Intent(TitleListAct.this, TitleResultListAct.class);
@@ -182,22 +197,56 @@ public class TitleListAct  extends AppFrameAct {
 //                    startActivity(i);
                 }
             } else if (type.equals("Statistics")) {
-                if (tag <= 1) {
-                    Intent i = new Intent(TitleListAct.this, ChatAct.class);
-                    i.putExtra("Type", tag);
-                    i.putExtra("Title", list.get(tag));
-                    startActivity(i);
-                } else {
-                    Intent i = new Intent(TitleListAct.this, FormAct.class);
+                switch (tag) {
+                    case 0:
+                        LinearLayout subLayout = (LinearLayout) ((View) (view.getParent())).findViewById(R.id.subLayout);
+                        if (subLayout.getChildCount() == 0) {
+                            subLayout.addView(ViewUtil.getGrayLine(TitleListAct.this));
+                            addTextView(subLayout, "隐患点统计图", 40, 0);
+                            addTextView(subLayout, "重点点位信息统计图", 40, 1);
+                            addTextView(subLayout, "隐患点统计表格", 40, 102);
+                            addTextView(subLayout, "避险搬迁统计", 40, 103);
+                            addTextView(subLayout, "工程治理点位统计", 40, 104);
+                            addTextView(subLayout, "避险场所信息统计", 40, 105);
+
+                        } else {
+                            subLayout.removeAllViews();
+                        }
+                        break;
+                    default:
+                        Intent i = new Intent(TitleListAct.this, FormAct.class);
+                        i.putExtra("Type", tag);
+                        i.putExtra("Title", list.get(tag));
+                        startActivity(i);
+                        break;
+                }
+
+
+
+//                if (tag <= 1) {
+//                    Intent i = new Intent(TitleListAct.this, ChatAct.class);
+//                    i.putExtra("Type", tag);
+//                    i.putExtra("Title", list.get(tag));
+//                    startActivity(i);
+//                } else {
+//                    Intent i = new Intent(TitleListAct.this, FormAct.class);
+//                    i.putExtra("Type", tag);
+//                    i.putExtra("Title", list.get(tag));
+//                    startActivity(i);
+//                }
+            } else if (type.equals("Contact")) {
+                if(tag==5) {
+                    Intent i = new Intent(TitleListAct.this, ActivityAddFriends.class);
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));
                     startActivity(i);
                 }
-            } else if (type.equals("Contact")) {
-                Intent i = new Intent(TitleListAct.this, ActivityAddFriends.class);
-                i.putExtra("Type", tag);
-                i.putExtra("Title", list.get(tag));
-                startActivity(i);
+                else {
+                    Intent i = new Intent(TitleListAct.this, TitleResultListAct.class);
+                    i.putExtra("Type", tag+30);
+                    i.putExtra("Title", list.get(tag));
+                    startActivity(i);
+                }
             } else if (type.equals("Jing")) {//地下水
                 if (tag <= 1) {
                     Intent i = new Intent(TitleListAct.this, DxsAct.class);
@@ -256,6 +305,20 @@ public class TitleListAct  extends AppFrameAct {
                 i.putExtra("yearCode", "");
                 startActivity(i);
             }else if (type.equals("Statistics")) {
+                int tag = (int) view.getTag();
+
+                    if (tag <= 1) {
+                        Intent i = new Intent(TitleListAct.this, ChatAct.class);
+                        i.putExtra("Type", tag);
+                        i.putExtra("Title", ((TextView)view).getText().toString());
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(TitleListAct.this, FormAct.class);
+                        i.putExtra("Type", tag);
+                        i.putExtra("Title", ((TextView)view).getText().toString());
+                        startActivity(i);
+                    }
+
 //                int tag = (int) view.getTag();
 //                Intent i = new Intent(TitleListAct.this, ChatAct.class);
 //                i.putExtra("Type", tag);
