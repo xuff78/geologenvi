@@ -139,6 +139,11 @@ public class MainActivity extends AppFrameAct {
 //                layout.setPadding(0,paddtop,0,0);
                 layout.setOrientation(LinearLayout.HORIZONTAL);
             }
+            if(names1[i].equals("预警")){
+                TextView news= (TextView) v.findViewById(R.id.news);
+                news.setVisibility(View.VISIBLE);
+                news.setText("1");
+            }
         }
     }
 
@@ -265,7 +270,7 @@ public class MainActivity extends AppFrameAct {
 //                layout.setPadding(0,paddtop,0,0);
                     layout.setOrientation(LinearLayout.HORIZONTAL);
                 }
-                if(names[i].equals("预警")){
+                if(names1[i].equals("预警")){
                     TextView news= (TextView) v.findViewById(R.id.news);
                     news.setVisibility(View.VISIBLE);
                     news.setText("1");
