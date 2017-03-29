@@ -140,9 +140,7 @@ public class MainActivity extends AppFrameAct {
                 layout.setOrientation(LinearLayout.HORIZONTAL);
             }
             if(names1[i].equals("预警")){
-                TextView news= (TextView) v.findViewById(R.id.news);
-                news.setVisibility(View.VISIBLE);
-                news.setText("1");
+                setNews(v);
             }
         }
     }
@@ -247,9 +245,7 @@ public class MainActivity extends AppFrameAct {
                 }
 
                 if(names[i].equals("预警")){
-                    TextView news= (TextView) v.findViewById(R.id.news);
-                    news.setVisibility(View.VISIBLE);
-                    news.setText("1");
+                    setNews(v);
                 }
             }
         }
@@ -271,9 +267,7 @@ public class MainActivity extends AppFrameAct {
                     layout.setOrientation(LinearLayout.HORIZONTAL);
                 }
                 if(names1[i].equals("预警")){
-                    TextView news= (TextView) v.findViewById(R.id.news);
-                    news.setVisibility(View.VISIBLE);
-                    news.setText("1");
+                    setNews(v);
                 }
             }
         }
@@ -509,4 +503,10 @@ public class MainActivity extends AppFrameAct {
             isExit = false;
         }
     };
+
+    public void setNews(View v) {
+        TextView news= (TextView) v.findViewById(R.id.news);
+        news.setVisibility(View.VISIBLE);
+        news.setText("1");
+    }
 }
