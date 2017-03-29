@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sichuan.geologenvi.DataBase.CDDHSqlHandler;
 import com.sichuan.geologenvi.DataBase.QueryStr;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
@@ -42,8 +43,9 @@ public class ReportEditListAct extends AppFrameAct {
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
     int type=0;
-
+    String fbDate="";
     private SqlHandler handler;
+    private CDDHSqlHandler cddhHandler;
     private HttpHandler httpHandler;
     private String name="";
     private String id="";
@@ -61,6 +63,17 @@ public class ReportEditListAct extends AppFrameAct {
                 }else if(method.equals(ConstantUtil.Method.CJ_BXCS_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"BXCS_NAME","JCDATE"}, listener));
                 }else if(method.equals(ConstantUtil.Method.Yujing)){
+                    LogUtil.i("SQL", "result jsonData---->:  "+jsonData);
+                    String yujingtime="";
+                    for(int i=0;i<datalist.size();i++){
+                        LogUtil.i("SQL", "result FBDATE---->:  "+datalist.get(i).get("FBDATE"));
+                        if(yujingtime.compareTo(datalist.get(i).get("FBDATE"))<0){
+                            yujingtime=datalist.get(i).get("FBDATE");
+                        }
+                    }
+
+
+                    cddhHandler.execSQL("update yujing set yujingtime='"+yujingtime+"' where id=1");
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"TITLE","FBDATE"}, listener));
                 }
             }
@@ -81,9 +94,11 @@ public class ReportEditListAct extends AppFrameAct {
             id="";
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle(getIntent().getStringExtra("Title"));
+        fbDate=getIntent().getStringExtra("YJDate");
         initView();
         initHandler();
         handler=new SqlHandler(this);
+        cddhHandler=new CDDHSqlHandler(this);
         requestInfo();
         if(type!=30) {
             _setRightHomeText("添加", new View.OnClickListener() {
@@ -148,7 +163,14 @@ public class ReportEditListAct extends AppFrameAct {
                 httpHandler.getCJ_BXCS_XCKP(1, name,id);
                 break;
             case 30:
-                httpHandler.getYujing();
+                if(fbDate!=null&&fbDate!=""){
+
+                    httpHandler.getYujing(fbDate);
+                }
+                else{
+                    httpHandler.getYujing();
+                }
+
                 break;
         }
     }

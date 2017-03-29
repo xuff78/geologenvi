@@ -1,5 +1,6 @@
 package com.sichuan.geologenvi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sichuan.geologenvi.DataBase.CDDHSqlHandler;
+import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.MineListAct;
@@ -24,12 +27,27 @@ import com.sichuan.geologenvi.act.YujingAct;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.act.report.ReportHistoryList;
 import com.sichuan.geologenvi.adapter.TopImgAdapter;
+import com.sichuan.geologenvi.bean.JsonMessage;
+import com.sichuan.geologenvi.bean.MapBean;
+import com.sichuan.geologenvi.bean.VersionBean;
+import com.sichuan.geologenvi.http.CallBack;
+import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ActUtil;
+import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
 import com.sichuan.geologenvi.views.AsycnDialog;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
+import com.sichuan.geologenvi.views.PSDdialog;
+import com.sichuan.geologenvi.views.UpdateDailog;
+import com.sichuan.geologenvi.views.YujingNotDialog;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MainActivity extends AppFrameAct {
 
@@ -51,8 +69,14 @@ public class MainActivity extends AppFrameAct {
     private AutoScrollViewPager viewPager;
     private AsycnDialog dialog;
 
+    private HttpHandler handler;
+    private CDDHSqlHandler cddhhandler;
+    private int ready=0;
+    ArrayList<Map<String, String>> datalist=new ArrayList<>();
 
-
+    private YujingNotDialog yjDdialog;
+    private String YJFBDate;
+    String flag="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +85,24 @@ public class MainActivity extends AppFrameAct {
         _setHeaderGone();
         _setHeaderTitle(getResources().getString(R.string.app_name));
         initView();
+        initHandler();
         String clear=SharedPreferencesUtil.getString(this, "ClearMapData");
         if(!clear.equals("1")){
             SharedPreferencesUtil.setString(this, "ClearMapData", "1");
             FileUtil.deleteAllFile("com.sichuan.geologenvi/sctiledatabase/");
         }
 //        FileUtil.verifyStoragePermissions(this);
+
+        flag=getIntent().getStringExtra("flag");
+
+        if(flag!="") {
+            LogUtil.i("flag", "reques flag---->:  "+flag);
+            cddhhandler = new CDDHSqlHandler(this);
+            YJFBDate=cddhhandler.getYJDate();
+            if(YJFBDate=="")
+                YJFBDate="2016-03-03";
+            handler.getYujing(YJFBDate);
+        }
     }
 
     private void initView() {
@@ -104,6 +140,76 @@ public class MainActivity extends AppFrameAct {
             }
         }
     }
+
+
+    private void initHandler() {
+        handler=new HttpHandler(this, new CallBack(this){
+            @Override
+            public void onHTTPException(String method, String jsonMessage) {
+                toMainPage();
+            }
+
+            @Override
+            public void doSuccess(String method, String jsonData) {
+                doUpdate(method, jsonData);
+            }
+
+            @Override
+            public void onFailure(String method, JsonMessage jsonMessage) {
+                toMainPage();
+            }
+
+            @Override
+            public void oServerException(String method, String jsonMessage) {
+                toMainPage();
+            }
+
+        });
+    }
+
+    private void toMainPage(){
+//        ready++;
+//        if(ready==3) {
+//            Intent i = new Intent(MainActivity.this, MainActivity.class);
+//            startActivity(i);
+//            finish();
+//            overridePendingTransition(0, R.anim.zoom_out);
+//        }
+    }
+
+    private void doUpdate(String method, String jsonData){
+        //获取预警
+        if(method.equals(ConstantUtil.Method.Yujing)) {
+            datalist.addAll(JsonUtil.getDataMap(jsonData));
+            if(datalist.size()>0){
+                LogUtil.i("Yujing","count: "+datalist.size());
+                yjDdialog=new YujingNotDialog(this, new YujingNotDialog.CallBack(){
+
+                    @Override
+                    public void cancel() {
+                        toMainPage();
+                    }
+
+                    @Override
+                    public void OK() {
+                        Intent ii = new Intent(MainActivity.this, MainActivity.class);
+                        ii.putExtra("flag", "");
+                        startActivity(ii);
+                        Intent i=new Intent();
+                        i.setClass(MainActivity.this,ReportEditListAct.class);
+                        i.putExtra("YJDate",YJFBDate);
+                        i.putExtra("Title", "预警");
+                        i.putExtra("Type",30);
+//                        startActivity(i);
+                        startActivityForResult(i,0);
+                    }
+                },"提示","有"+datalist.size()+"条新的预警信息，是否进行查看");
+                yjDdialog.show();
+            }else
+                toMainPage();
+        }
+    }
+
 
     public void setImage(int k){
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
@@ -347,7 +453,6 @@ public class MainActivity extends AppFrameAct {
             }
         }
     };
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

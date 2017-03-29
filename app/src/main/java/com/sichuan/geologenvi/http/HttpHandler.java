@@ -46,6 +46,8 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.Version, "?v="+version, true);
 	}
 
+
+
 	public void addBangqianBaseInfo(String json) {
 		requestPost(ConstantUtil.Method.ZHDD04B, json, true);
 	}
@@ -103,6 +105,10 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.Yujing, "", true);
 
 	}
+	//查询一个时间以后的预警
+	public void getYujing(String fbDate){
+		requestGet(ConstantUtil.Method.Yujing, "?fbdate="+fbDate, true);
+	}
 
 	public void delCJ_GZJL_BXBQ(String id) {
 		requestDelete(ConstantUtil.Method.CJ_GZJL_BXBQ, "/"+id, true);
@@ -152,6 +158,8 @@ public class HttpHandler extends Handle {
 	public void checkVersion() {
 		requestGet(ConstantUtil.Method.CheckVersion, "", true);
 	}
+
+
 
 	public void getAppUrl(String pwd, int version) {
 		requestGet(ConstantUtil.Method.getAppUrl, "?pwd="+pwd+"&v="+version, true);

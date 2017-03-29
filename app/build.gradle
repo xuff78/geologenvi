@@ -10,7 +10,7 @@ android {
         applicationId "com.sichuan.geologenvi"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 6
+        versionCode 7
         versionName "2.1"
     }
     buildTypes {

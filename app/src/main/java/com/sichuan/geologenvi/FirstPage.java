@@ -1,39 +1,29 @@
 package com.sichuan.geologenvi;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
 
+import com.sichuan.geologenvi.DataBase.CDDHDBManager;
 import com.sichuan.geologenvi.DataBase.DBManager;
-import com.sichuan.geologenvi.act.statistics.ChatRain;
-import com.sichuan.geologenvi.adapter.RainAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.VersionBean;
 import com.sichuan.geologenvi.http.CallBack;
-import com.sichuan.geologenvi.http.GlbsNet;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
-import com.sichuan.geologenvi.utils.DialogUtil;
-import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
-import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
-import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.views.PSDdialog;
 import com.sichuan.geologenvi.views.UpdateDailog;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2016/3/9.
@@ -50,7 +40,6 @@ public class FirstPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_frist_page);
-
         initHandler();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -62,7 +51,8 @@ public class FirstPage extends AppCompatActivity {
         new Thread(){
             @Override
             public void run() {
-                copyDBtoSDCard(getExternalFilesDir(null)+"/"+DBManager.DB_NAME);
+                copyDBtoSDCard("db.db3",getExternalFilesDir(null)+"/"+DBManager.DB_NAME);
+                copyDBtoSDCard("cddh.db3",getExternalFilesDir(null)+"/"+ CDDHDBManager.DB_NAME);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -72,17 +62,18 @@ public class FirstPage extends AppCompatActivity {
             }
         }.start();
         handler.checkVersion();
+
     }
 
 
 
-    private void copyDBtoSDCard(String dbfile) {
+    private void copyDBtoSDCard(String path,String dbfile) {
         try {
             if (!(new File(dbfile).exists())) {
 //                FileUtil.isExist(DBManager.DB_PATH);
 
                 File file = new File(dbfile);
-                InputStream is = getResources().getAssets().open("db.db3");
+                InputStream is = getResources().getAssets().open(path);
                 FileOutputStream fos = new FileOutputStream(file);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int count = 0;
@@ -101,6 +92,7 @@ public class FirstPage extends AppCompatActivity {
         ready++;
         if(ready==3) {
             Intent i = new Intent(FirstPage.this, MainActivity.class);
+            i.putExtra("flag", "1");
             startActivity(i);
             finish();
             overridePendingTransition(0, R.anim.zoom_out);
@@ -134,6 +126,9 @@ public class FirstPage extends AppCompatActivity {
 
     private PSDdialog psDdialog;
     private void doUpdate(String method, String jsonData){
+
+
+        //版本更新
         if(method.equals(ConstantUtil.Method.CheckVersion)) {
             final VersionBean version = JsonUtil.getVersionInfo(jsonData);
             if (version.getVersion() > ActUtil.getVersionCode(FirstPage.this)) {
