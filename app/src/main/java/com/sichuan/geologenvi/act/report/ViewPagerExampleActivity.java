@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -11,11 +12,13 @@ import android.widget.LinearLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.sichuan.geologenvi.R;
+import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.utils.ImageUtil;
+import com.sichuan.geologenvi.views.ScrollPoints;
 
 import java.util.ArrayList;
 
-public class ViewPagerExampleActivity extends Activity {
+public class ViewPagerExampleActivity extends AppFrameAct {
 	
 	/**
 	 * Step 1: Download and set up v4 support library: http://developer.android.com/tools/support-library/setup.html
@@ -26,17 +29,41 @@ public class ViewPagerExampleActivity extends Activity {
 	 */
 
     private ArrayList<String> imgs=null;
+    private ScrollPoints scrollPoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ImageUtil.initImageLoader(this);
+        setContentView(R.layout.activity_viewpager_example);
+
+
         int pos=getIntent().getIntExtra("pos", 0);
         imgs=getIntent().getStringArrayListExtra("Images");
-        setContentView(R.layout.activity_viewpager_example);
+        if(getIntent().hasExtra("Title"))
+            _setHeaderTitle(getIntent().getStringExtra("Title"));
+        else
+            _setHeaderGone();
         ExtendedViewPager mViewPager = (ExtendedViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(new TouchImageAdapter());
         mViewPager.setCurrentItem(pos);
+        scrollPoints= (ScrollPoints) findViewById(R.id.scrollPoints);
+        scrollPoints.initPoints(this, imgs.size(), pos);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                scrollPoints.changeSelectedPoint(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

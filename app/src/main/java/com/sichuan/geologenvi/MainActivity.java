@@ -26,6 +26,7 @@ import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.YujingAct;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.act.report.ReportHistoryList;
+import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
 import com.sichuan.geologenvi.adapter.TopImgAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.MapBean;
@@ -239,6 +240,12 @@ public class MainActivity extends AppFrameAct {
 //                layout.setPadding(0,paddtop,0,0);
                     layout.setOrientation(LinearLayout.HORIZONTAL);
                 }
+
+                if(names[i].equals("预警")){
+                    TextView news= (TextView) v.findViewById(R.id.news);
+                    news.setVisibility(View.VISIBLE);
+                    news.setText("1");
+                }
             }
         }
         else{
@@ -341,7 +348,16 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 11:
-                    i.setClass(MainActivity.this, RadAct.class);
+//                    i.setClass(MainActivity.this, RadAct.class);
+//                    i.putExtra("Title", "雷达回波");
+//                    startActivity(i);
+                    i.setClass(MainActivity.this, ViewPagerExampleActivity.class);
+                    final ArrayList<String> imgUrls=new ArrayList<>();
+                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329042400000.png");
+                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329043000000.png");
+                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329043600000.png");
+                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329044200000.png");
+                    i.putExtra("Images", imgUrls);
                     i.putExtra("Title", "雷达回波");
                     startActivity(i);
                     break;

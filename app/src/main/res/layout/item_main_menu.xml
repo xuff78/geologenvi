@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/press_trans_to_gray"
@@ -16,3 +19,17 @@
         android:text="功能"
         style="@style/txt_black_12" />
 </LinearLayout>
+
+<TextView
+    android:visibility="gone"
+    android:id="@+id/news"
+    android:layout_marginRight="15dp"
+    android:padding="3dp"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:layout_marginTop="15dp"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/shape_oranged_round_with_shadow"
+    android:text="0"
+    style="@style/txt_white_11" />
+</RelativeLayout>
