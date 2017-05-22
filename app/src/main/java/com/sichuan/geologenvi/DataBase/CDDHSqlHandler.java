@@ -25,7 +25,6 @@ public class CDDHSqlHandler {
         String sql="select yujingtime from yujing";
         Cursor c = dbManager.querySQL(sql, new String[]{});
         if(c!=null) {
-            LogUtil.i("SQL", "result num---->:  "+c.getCount());
             while (c.moveToNext()) {
                  value = c.getString(0);
             }
@@ -35,7 +34,6 @@ public class CDDHSqlHandler {
     }
 
     public void execSQL(String sql){
-        LogUtil.i("SQL", "result sql---->:  "+sql);
         dbManager.execSQL(sql, new String[]{});
     }
 }

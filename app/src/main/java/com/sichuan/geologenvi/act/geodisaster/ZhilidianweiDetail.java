@@ -12,6 +12,7 @@ import android.view.View;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.frg.FormInfoFrg;
 
@@ -44,10 +45,9 @@ public class ZhilidianweiDetail  extends AppFrameAct {
 
             @Override
             public void onClick(View view) {
-//                Intent intent2 = new Intent(TitleResultListAct.this, SelectorAct.class);
-//                intent2.putExtra("Type", type);
-//                intent2.putExtra("Title",getIntent().getStringExtra("Title"));
-//                startActivityForResult(intent2, 0x11);
+                Intent intent2 = new Intent(ZhilidianweiDetail.this, MapAct.class);
+                intent2.putExtra("InfoMap", mapBean);
+                startActivityForResult(intent2, 0x11);
             }
         });
     }

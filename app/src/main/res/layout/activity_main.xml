@@ -46,7 +46,7 @@
         <RelativeLayout
             android:background="@color/whitesmoke"
             android:layout_width="match_parent"
-            android:layout_height="24dp">
+            android:layout_height="1dp">
             <com.sichuan.geologenvi.views.ScrollPoints
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"

@@ -12,6 +12,7 @@ import com.sichuan.geologenvi.bean.RainBean;
 import com.sichuan.geologenvi.bean.RainHourItem;
 import com.sichuan.geologenvi.bean.ReportBean;
 import com.sichuan.geologenvi.bean.VersionBean;
+import com.sichuan.geologenvi.bean.ZBAP;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -270,6 +271,43 @@ public class JsonUtil {
 
         return infos;
     }
+
+    public static ArrayList<String> getUrl(String jsonStr) {
+        ArrayList<String> infos = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(jsonStr);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(array.length()-1-i);
+                if (!item.isNull("url"))
+                    infos.add(item.getString("url"));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return infos;
+    }
+
+    public static ArrayList<ZBAP> getZBAP(String jsonStr){
+        ArrayList<ZBAP> infos = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(jsonStr);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(array.length()-1-i);
+                if (!item.isNull("name")&&!item.isNull("content")) {
+                    ZBAP zbap = new ZBAP(item.getString("name"), item.getString("content"));
+                    infos.add(zbap);
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return infos;
+    }
+
 
     public static String getJsonStrUserPoint(Map<Long, MapPoint> points) {
         String json=SharedPreferencesUtil.FAILURE_STRING;

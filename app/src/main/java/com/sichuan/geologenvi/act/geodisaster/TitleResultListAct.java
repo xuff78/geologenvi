@@ -445,6 +445,7 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                 case 7:
                 case 8:
                 case 9:
+                case 10:
                 case 20:
                     datalist = handler.getGeohazardInfo(QueryStr.yinhuandian, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
                             intent.getStringExtra("disasterTypeCode"),
@@ -489,6 +490,7 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                     case 7:
                     case 8:
                     case 9:
+                    case 10:
                     case 20:
                         list.add(info.get("ZHAA01A020"));
                         break;

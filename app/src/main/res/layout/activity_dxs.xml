@@ -10,5 +10,6 @@
         android:layout_height="fill_parent"
         android:text="地下水基本概况"
         android:id="@+id/Layer_content"
-        android:layout_weight="0.50" />
+        android:lineSpacingMultiplier="1.5"
+        android:layout_marginTop="50dp" />
 </LinearLayout>

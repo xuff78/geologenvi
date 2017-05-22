@@ -114,6 +114,14 @@ public class HttpHandler extends Handle {
 		requestDelete(ConstantUtil.Method.CJ_GZJL_BXBQ, "/"+id, true);
 	}
 
+	//获取最新雷达数据列表
+	public void getRadUrl(){
+		requestGet(ConstantUtil.Method.Rad, "", true);
+	}
+	//获取值班安排数据列表
+	public void getZBAP(){
+		requestGet(ConstantUtil.Method.ZBAP, "", true);
+	}
 
 
 

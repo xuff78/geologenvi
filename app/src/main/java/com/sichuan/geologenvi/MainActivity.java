@@ -24,6 +24,7 @@ import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.YujingAct;
+import com.sichuan.geologenvi.act.ZBAPAct;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.act.report.ReportHistoryList;
 import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
@@ -74,10 +75,13 @@ public class MainActivity extends AppFrameAct {
     private CDDHSqlHandler cddhhandler;
     private int ready=0;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
+    private int yjCount=0;
 
     private YujingNotDialog yjDdialog;
     private String YJFBDate;
     String flag="";
+
+    private View yjView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +101,6 @@ public class MainActivity extends AppFrameAct {
         flag=getIntent().getStringExtra("flag");
 
         if(flag!="") {
-            LogUtil.i("flag", "reques flag---->:  "+flag);
             cddhhandler = new CDDHSqlHandler(this);
             YJFBDate=cddhhandler.getYJDate();
             if(YJFBDate=="")
@@ -106,26 +109,41 @@ public class MainActivity extends AppFrameAct {
         }
     }
 
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+//
+//    }
+    LinearLayout.LayoutParams para;
+    int itemWidth;
     private void initView() {
         viewPager= (AutoScrollViewPager) findViewById(R.id.galleryImgs);
+        itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;//菜单栏大小
+        int height=ScreenUtil.getScreenHeight(this);
         int galleryWidth=ScreenUtil.getScreenWidth(this);
-        int galleryHeight= (int) (galleryWidth*(380/640f));
+//        int galleryHeight= (int) (galleryWidth*(380/640f));
+        int galleryHeight=height-itemWidth*3-240;
         TopImgAdapter adapter=new TopImgAdapter(this, new int[]{R.mipmap.test_pic1, R.mipmap.test_pic2});
         viewPager.setAdapter(adapter);
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(galleryWidth, galleryHeight));
 //        viewPager.startAutoScroll(2000);
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
-        int paddtop = ImageUtil.dip2px(this,20);
-        int itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;
+
+
         LinearLayout.LayoutParams llp=new LinearLayout.LayoutParams(itemWidth, itemWidth);
         llp.topMargin=1;
         llp.rightMargin=1;
         LayoutInflater inflater=LayoutInflater.from(this);
         LinearLayout layout=new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
+        para=new LinearLayout.LayoutParams(galleryWidth/6,galleryWidth/6);
+
+
+
         for (int i=0;i<names1.length;i++){
             View v=inflater.inflate(R.layout.item_main_menu, null);
             ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
+            menuIcon.setLayoutParams(para);
             TextView menuName= (TextView) v.findViewById(R.id.menuName);
             menuName.setText(names1[i]);
             menuIcon.setImageResource(ress1[i]);
@@ -139,8 +157,10 @@ public class MainActivity extends AppFrameAct {
 //                layout.setPadding(0,paddtop,0,0);
                 layout.setOrientation(LinearLayout.HORIZONTAL);
             }
+
             if(names1[i].equals("预警")){
-                setNews(v);
+                yjView=v;
+//                setNews(v);
             }
         }
     }
@@ -185,40 +205,40 @@ public class MainActivity extends AppFrameAct {
         //获取预警
         if(method.equals(ConstantUtil.Method.Yujing)) {
             datalist.addAll(JsonUtil.getDataMap(jsonData));
-            if(datalist.size()>0){
-                LogUtil.i("Yujing","count: "+datalist.size());
-                yjDdialog=new YujingNotDialog(this, new YujingNotDialog.CallBack(){
-
-                    @Override
-                    public void cancel() {
-                        toMainPage();
-                    }
-
-                    @Override
-                    public void OK() {
-                        Intent ii = new Intent(MainActivity.this, MainActivity.class);
-                        ii.putExtra("flag", "");
-                        startActivity(ii);
-                        Intent i=new Intent();
-                        i.setClass(MainActivity.this,ReportEditListAct.class);
-                        i.putExtra("YJDate",YJFBDate);
-                        i.putExtra("Title", "预警");
-                        i.putExtra("Type",30);
-//                        startActivity(i);
-                        startActivityForResult(i,0);
-                    }
-                },"提示","有"+datalist.size()+"条新的预警信息，是否进行查看");
-                yjDdialog.show();
-            }else
-                toMainPage();
+            yjCount=datalist.size();
+            setNews(yjView,yjCount);
+//            if(datalist.size()>0){
+//                yjDdialog=new YujingNotDialog(this, new YujingNotDialog.CallBack(){
+//
+//                    @Override
+//                    public void cancel() {
+//                        toMainPage();
+//                    }
+//
+//                    @Override
+//                    public void OK() {
+//                        Intent ii = new Intent(MainActivity.this, MainActivity.class);
+//                        ii.putExtra("flag", "");
+//                        startActivity(ii);
+//                        Intent i=new Intent();
+//                        i.setClass(MainActivity.this,ReportEditListAct.class);
+//                        i.putExtra("YJDate",YJFBDate);
+//                        i.putExtra("Title", "预警");
+//                        i.putExtra("Type",30);
+////                        startActivity(i);
+//                        startActivityForResult(i,0);
+//                    }
+//                },"提示","有"+datalist.size()+"条新的预警信息，是否进行查看");
+//                yjDdialog.show();
+//            }else
+//                toMainPage();
         }
     }
 
 
     public void setImage(int k){
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
-        int paddtop = ImageUtil.dip2px(this,20);
-        int itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;
+        itemWidth = (ScreenUtil.getScreenWidth(this)-3)/4;
         LinearLayout.LayoutParams llp=new LinearLayout.LayoutParams(itemWidth, itemWidth);
         llp.topMargin=1;
         llp.rightMargin=1;
@@ -226,10 +246,12 @@ public class MainActivity extends AppFrameAct {
         LinearLayout layout=new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         menuLayout.removeAllViews();
+
         if(k==1) {
             for (int i = 0; i < names.length; i++) {
                 View v = inflater.inflate(R.layout.item_main_menu, null);
                 ImageView menuIcon = (ImageView) v.findViewById(R.id.menuIcon);
+                menuIcon.setLayoutParams(para);
                 TextView menuName = (TextView) v.findViewById(R.id.menuName);
                 menuName.setText(names[i]);
                 menuIcon.setImageResource(ress[i]);
@@ -245,7 +267,8 @@ public class MainActivity extends AppFrameAct {
                 }
 
                 if(names[i].equals("预警")){
-                    setNews(v);
+                    yjView=v;
+                    setNews(yjView,yjCount);
                 }
             }
         }
@@ -253,6 +276,7 @@ public class MainActivity extends AppFrameAct {
             for (int i=0;i<names1.length;i++){
                 View v=inflater.inflate(R.layout.item_main_menu, null);
                 ImageView menuIcon= (ImageView) v.findViewById(R.id.menuIcon);
+                menuIcon.setLayoutParams(para);
                 TextView menuName= (TextView) v.findViewById(R.id.menuName);
                 menuName.setText(names1[i]);
                 menuIcon.setImageResource(ress1[i]);
@@ -267,7 +291,8 @@ public class MainActivity extends AppFrameAct {
                     layout.setOrientation(LinearLayout.HORIZONTAL);
                 }
                 if(names1[i].equals("预警")){
-                    setNews(v);
+                    yjView=v;
+                    setNews(yjView,yjCount);
                 }
             }
         }
@@ -347,6 +372,8 @@ public class MainActivity extends AppFrameAct {
                     break;
                 case 10:
                     i.setClass(MainActivity.this,ReportEditListAct.class);
+                    yjCount=0;
+                    setNews(yjView,yjCount);
                     i.putExtra("Title", "预警");
                     i.putExtra("Type",30);
                     startActivity(i);
@@ -356,12 +383,12 @@ public class MainActivity extends AppFrameAct {
 //                    i.putExtra("Title", "雷达回波");
 //                    startActivity(i);
                     i.setClass(MainActivity.this, ViewPagerExampleActivity.class);
-                    final ArrayList<String> imgUrls=new ArrayList<>();
-                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329042400000.png");
-                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329043000000.png");
-                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329043600000.png");
-                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329044200000.png");
-                    i.putExtra("Images", imgUrls);
+//                    final ArrayList<String> imgUrls=new ArrayList<>();
+//                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329042400000.png");
+//                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329043000000.png");
+//                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329043600000.png");
+//                    imgUrls.add("http://223.85.242.114:8090//Rad/sevp_aoc_rdcp_sldas_ebref_az9280_l88_pi_20170329044200000.png");
+//                    i.putExtra("Images", imgUrls);
                     i.putExtra("Title", "雷达回波");
                     startActivity(i);
                     break;
@@ -376,7 +403,7 @@ public class MainActivity extends AppFrameAct {
                     dialog.show();
                     break;
                 case 14:
-                    i.setClass(MainActivity.this, SearchAct.class);
+                    i.setClass(MainActivity.this, ZBAPAct.class);
                     i.putExtra("Title", "值班安排");
                     i.putExtra("Type","zhibananpai");
                     startActivity(i);
@@ -463,6 +490,8 @@ public class MainActivity extends AppFrameAct {
                     break;
                 case 10:
                     i.setClass(MainActivity.this,ReportEditListAct.class);
+                    yjCount=0;
+                    setNews(yjView,yjCount);
                     i.putExtra("Title", "预警");
                     i.putExtra("Type",30);
                     startActivity(i);
@@ -504,9 +533,14 @@ public class MainActivity extends AppFrameAct {
         }
     };
 
-    public void setNews(View v) {
+    public void setNews(View v,int count) {
         TextView news= (TextView) v.findViewById(R.id.news);
-        news.setVisibility(View.VISIBLE);
-        news.setText("1");
+        if(count>0) {
+            news.setVisibility(View.VISIBLE);
+            news.setText(count+"");
+        }
+        else{
+            news.setVisibility(View.GONE);
+        }
     }
 }

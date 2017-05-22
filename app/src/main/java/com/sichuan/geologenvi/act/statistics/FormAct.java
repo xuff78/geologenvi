@@ -16,6 +16,7 @@ import com.sichuan.geologenvi.adapter.DisasterStatisticsAdapter;
 import com.sichuan.geologenvi.adapter.FormAdapter;
 import com.sichuan.geologenvi.adapter.FormBQBRAdapter;
 import com.sichuan.geologenvi.adapter.FormGCZLAdapter;
+import com.sichuan.geologenvi.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         type=getIntent().getIntExtra("Type", 1);
+
         if(type==102)
             setContentView(R.layout.zaihaidian_tongji);
         else if(type==103)
@@ -48,6 +50,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
 
         _setHeaderTitle(getIntent().getStringExtra("Title"));
         initView();
+
         handler=new SqlHandler(this);
         queryForStatistics();
     }
@@ -81,11 +84,11 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
                 break;
             case 2://水土地质统计
-//                datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +
-//                                " SUM(CASE WHEN QIYONG = '01' THEN 1 ELSE 0 END) as QIYONG ",
-//                        " SL_TBLJING group by QUXIAN",
-//                        "");
-//                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
+                datalist=handler.getQueryResult("QUXIAN as NAME,\n" +
+                        "sum(1) as ZongGong" ,
+                        " SL_SOILSTASION group by QUXIAN",
+                        "");
+                recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 6));
                 break;
             case 3://矿山统计
                 datalist=handler.getQueryResult("KS_SSQX as NAME,\n"+
@@ -161,6 +164,11 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
             title4.setVisibility(View.GONE);
         }
         else if(type==105) {//避险场所信息统计
+            title2.setText("数量");
+            title3.setVisibility(View.GONE);
+            title4.setVisibility(View.GONE);
+        }
+        else if(type==2){
             title2.setText("数量");
             title3.setVisibility(View.GONE);
             title4.setVisibility(View.GONE);

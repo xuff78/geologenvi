@@ -27,6 +27,7 @@ import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
 
 import org.json.JSONObject;
@@ -54,6 +55,9 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
     private String requesType="";
     private String Update="update", Delete="delete", Add="add";
 
+
+     private String lon="";
+    private String lat="";
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(CJ_DZZHD_XCKP_edit.this){
 
@@ -94,9 +98,34 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         if(getIntent().hasExtra("Map")) {
             MapBean mapBean= (MapBean) getIntent().getSerializableExtra("Map");
             zdmc.setText(mapBean.getMap().get("ZHAA01A020"));
-            yfys.setText(mapBean.getMap().get("ZHAA01A830"));
+            String temp=mapBean.getMap().get("ZHAA01A830");
+            temp=temp.replaceAll("1","地震");
+            temp=temp.replaceAll("2","降雨");
+            temp=temp.replaceAll("3","人为因素");
+            temp=temp.replaceAll("4","其它");
+            yfys.setText(temp);
+//            yfys.setText(mapBean.getMap().get("ZHAA01A830"));
             zdwz.setText(mapBean.getMap().get("ZHAA01A150"));
+            lon=mapBean.getMap().get("ZHAA01A190");
+            lat=mapBean.getMap().get("ZHAA01A200");
+//            00：斜坡
+//            01：滑坡
+//            02：崩塌
+//            03：泥石流
+//            04：地面塌陷
+//            05：地裂缝
+//            06：地面沉降
+//            07：其它
+
             String type = mapBean.getMap().get("ZHAA01A210");
+            type=type.replaceAll("00","斜坡");
+            type=type.replaceAll("01","滑坡");
+            type=type.replaceAll("02","崩塌");
+            type=type.replaceAll("03","泥石流");
+            type=type.replaceAll("04","地面塌陷");
+            type=type.replaceAll("05","地裂缝");
+            type=type.replaceAll("06","地面沉降");
+            type=type.replaceAll("07","其它");
             String size = mapBean.getMap().get("ZHAA01A890");
 //            if(type!=null)
 //                type=disasterNames[Integer.valueOf(type)];
@@ -111,7 +140,32 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                     size = "小型";
 
             }
-            lxjqgm.setText(type + "  " + size);
+            lxjqgm.setText("灾害类型:"+type + ";规模等级:" + size);
+
+            String p=mapBean.getMap().get("ZHAA01A390");//威胁人口（人）
+            String h=mapBean.getMap().get("ZHAA01A400");//威胁户数（户）
+            String cc=mapBean.getMap().get("ZHAA01A410");//威胁财产（万元）
+//            A:分散农户
+//            B:聚集区
+//            C:学校
+//            D:场镇
+//            E:县城
+//            F:公路
+//            G:河道
+//            H:景区
+//            I:其它
+
+            String dx=mapBean.getMap().get("ZHAA01A380");//威胁对象
+            dx=dx.replaceAll("A","分散农户");
+            dx=dx.replaceAll("B","聚集区");
+            dx=dx.replaceAll("C","学校");
+            dx=dx.replaceAll("D","场镇");
+            dx=dx.replaceAll("E","县城");
+            dx=dx.replaceAll("F","公路");
+            dx=dx.replaceAll("G","河道");
+            dx=dx.replaceAll("H","景区");
+            dx=dx.replaceAll("I","其它");
+            wxdx.setText(h+"户;"+p+"人;"+cc+"万元;"+dx);
             zdid = mapBean.getMap().get("ZHAA01A010");
         }
 
@@ -119,7 +173,9 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
     }
 
     private void initData() {
-        zdid=infoMap.get("zdid".toUpperCase());
+        lon=infoMap.get("xzb".toUpperCase());
+        lat=infoMap.get("yzb".toUpperCase());
+        zdid=infoMap.get("zhdbh".toUpperCase());
         zdmc.setText(infoMap.get("zdmc".toUpperCase()));
         yfys.setText(infoMap.get("yfys".toUpperCase()));
         jcfzr.setText(infoMap.get("jcfzr".toUpperCase()));
@@ -268,7 +324,8 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                         ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请输入检查日期");
                     }else{
                         JSONObject jsonObj=new JSONObject();
-                        JsonUtil.addJsonData(jsonObj, "zdid", zdid);
+//                        JsonUtil.addJsonData(jsonObj, "id", "");//巡查卡片编号
+                        JsonUtil.addJsonData(jsonObj, "zhdbh", zdid);//灾害点编号
                         JsonUtil.addJsonData(jsonObj, "zdmc", zdmc.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "yfys", yfys.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "lxjqgm", lxjqgm.getText().toString());
@@ -296,6 +353,8 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                         JsonUtil.addJsonData(jsonObj, "remark", remark.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "xcry", xcry.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "jcrq", jcrq.getText().toString());
+                        JsonUtil.addJsonData(jsonObj,"xzb",lon);
+                        JsonUtil.addJsonData(jsonObj,"yzb",lat);
                         requesType=Add;
                         httpHandler.addCJ_DZZHD_XCKP(jsonObj.toString());
                     }
@@ -423,27 +482,62 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             data.putExtra("Title", "灾害点名称");
             startActivityForResult(data, 0x20);
         }else if(resultCode==0x21) {
-            MapBean mapBean= (MapBean) data.getSerializableExtra("InfoMap");
+
+            MapBean mapBean= (MapBean) getIntent().getSerializableExtra("InfoMap");
             zdmc.setText(mapBean.getMap().get("ZHAA01A020"));
-            yfys.setText(mapBean.getMap().get("ZHAA01A830"));
+            String temp=mapBean.getMap().get("ZHAA01A830");
+            temp=temp.replaceAll("1","地震");
+            temp=temp.replaceAll("2","降雨");
+            temp=temp.replaceAll("3","人为因素");
+            temp=temp.replaceAll("4","其它");
+            yfys.setText(temp);
+
             zdwz.setText(mapBean.getMap().get("ZHAA01A150"));
-            String type=mapBean.getMap().get("ZHAA01A210");
-            String size=mapBean.getMap().get("ZHAA01A890");
+            lon=mapBean.getMap().get("ZHAA01A190");
+            lat=mapBean.getMap().get("ZHAA01A200");
+
+
+            String type = mapBean.getMap().get("ZHAA01A210");
+            type=type.replaceAll("00","斜坡");
+            type=type.replaceAll("01","滑坡");
+            type=type.replaceAll("02","崩塌");
+            type=type.replaceAll("03","泥石流");
+            type=type.replaceAll("04","地面塌陷");
+            type=type.replaceAll("05","地裂缝");
+            type=type.replaceAll("06","地面沉降");
+            type=type.replaceAll("07","其它");
+            String size = mapBean.getMap().get("ZHAA01A890");
 //            if(type!=null)
 //                type=disasterNames[Integer.valueOf(type)];
-            if(size!=null) {
-                if(size.equals("A"))
-                    size="特大型";
-                else if(size.equals("B"))
-                    size="大型";
-                else if(size.equals("C"))
-                    size="中型";
-                else if(size.equals("D"))
-                    size="小型";
+            if (size != null) {
+                if (size.equals("A"))
+                    size = "特大型";
+                else if (size.equals("B"))
+                    size = "大型";
+                else if (size.equals("C"))
+                    size = "中型";
+                else if (size.equals("D"))
+                    size = "小型";
 
             }
-            lxjqgm.setText(type+"  "+size);
-            zdid=mapBean.getMap().get("ZHAA01A010");
+            lxjqgm.setText("灾害类型:"+type + ";规模等级:" + size);
+
+            String p=mapBean.getMap().get("ZHAA01A390");//威胁人口（人）
+            String h=mapBean.getMap().get("ZHAA01A400");//威胁户数（户）
+            String cc=mapBean.getMap().get("ZHAA01A410");//威胁财产（万元）
+
+            String dx=mapBean.getMap().get("ZHAA01A380");//威胁对象
+            dx=dx.replaceAll("A","分散农户");
+            dx=dx.replaceAll("B","聚集区");
+            dx=dx.replaceAll("C","学校");
+            dx=dx.replaceAll("D","场镇");
+            dx=dx.replaceAll("E","县城");
+            dx=dx.replaceAll("F","公路");
+            dx=dx.replaceAll("G","河道");
+            dx=dx.replaceAll("H","景区");
+            dx=dx.replaceAll("I","其它");
+            wxdx.setText(h+"户;"+p+"人;"+cc+"万元;"+dx);
+            zdid = mapBean.getMap().get("ZHAA01A010");
 
         }else if(resultCode==0x22){
             AreaInfo area= (AreaInfo) data.getSerializableExtra("Area");

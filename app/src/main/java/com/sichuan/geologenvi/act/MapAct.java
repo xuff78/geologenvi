@@ -154,15 +154,15 @@ public class MapAct  extends AppFrameAct {
         Point point=null;
         int res = R.mipmap.search_map_img;
 
+        //地质灾害点
         if(dataMap.containsKey("ZHAA01A010")) {
-//            LogUtil.i("地质灾害点", "id---->:  "+dataMap.get("ZHAA01A010"));
             showTypeSearch=1;
             res = getDisasterIcon(dataMap);
             point = new Point(Double.valueOf(dataMap.get("ZHAA01A190")), Double.valueOf(dataMap.get("ZHAA01A200")));
             sid = dataMap.get("ZHAA01A010");
-//            _setRightHomeText("地质灾害点", listener);
-//            showType=1;
-        }else  if(dataMap.containsKey("TONGYICODE")) {
+        }
+        //地下水
+        else  if(dataMap.containsKey("TONGYICODE")) {
             showTypeSearch=2;
             res = R.mipmap.mapicon_water;
             point = new Point(Double.valueOf(dataMap.get("JINGDU")), Double.valueOf(dataMap.get("WEIDU")));
@@ -176,7 +176,9 @@ public class MapAct  extends AppFrameAct {
             point = new Point(Double.valueOf(dataMap.get("COORDX")), Double.valueOf(dataMap.get("COORDY")));
 //            _setRightHomeText("地质遗迹", listener);
 //            showType=3;
-        }else  if(dataMap.containsKey("KS_NAME")) {
+        }
+        //矿山
+        else  if(dataMap.containsKey("KS_NAME")) {
 
             showTypeSearch=4;
             res = R.mipmap.mapicon_d9;
@@ -185,23 +187,51 @@ public class MapAct  extends AppFrameAct {
 //            _setRightHomeText("矿山", listener);
 //            showType=4;
         }
+        //专业监测
+        else if(dataMap.containsKey("STATIONNO")){
+            showTypeSearch=4;
+            res = R.mipmap.mark;
+            sid = dataMap.get("STATIONNO");
+            point = new Point(Double.valueOf(dataMap.get("LONGITUDE")), Double.valueOf(dataMap.get("LATITUDE")));
 
+        }
+        //水土地质
+        else if(dataMap.containsKey("PIANQU")){
+            showTypeSearch=4;
+            res = R.mipmap.mark;
+//            sid = dataMap.get("ID");
+            point = new Point(Double.valueOf(dataMap.get("JD")), Double.valueOf(dataMap.get("WD")));
+        }
+        //工程治理
+        else if(dataMap.containsKey("ZHCA01A075")){
+            showTypeSearch=4;
+            res = R.mipmap.mark;
+            sid = dataMap.get("ZHCA01A075");
+            point = new Point(Double.valueOf(dataMap.get("ZHCA01A075")), Double.valueOf(dataMap.get("ZHCA01A076")));
+        }
+        //避险场所
+        else if(dataMap.containsKey("ZHDD02A010")){
+            showTypeSearch=4;
+            res = R.mipmap.mark;
+            sid = dataMap.get("ZHDD02A010");
+            point = new Point(Double.valueOf(dataMap.get("ZHDD02A120")), Double.valueOf(dataMap.get("ZHDD02A130")));
+        }
 
         Map<String, Object> map = new HashMap<>();
-        map.put("id", sid);
-        map.put(InfoType, showTypeSearch);
+//        map.put("id", sid);
+//        map.put(InfoType, showTypeSearch);
         Graphic gp1 = CreateGraphic(point, map, res, 0);
         int uid = getGraphicLayer().addGraphic(gp1);
-        dataMap.put("markerUid", "" + uid);
-        datamap.put(sid, dataMap);
-        showInfoPop(gp1, showTypeSearch);
-        final Point finalPoint = point;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMapView.centerAt(finalPoint, true);
-            }
-        }, 500);
+//        dataMap.put("markerUid", "" + uid);
+//        datamap.put(sid, dataMap);
+//        showInfoPop(gp1, showTypeSearch);
+//        final Point finalPoint = point;
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mMapView.centerAt(finalPoint, true);
+//            }
+//        }, 500);
     }
 
 

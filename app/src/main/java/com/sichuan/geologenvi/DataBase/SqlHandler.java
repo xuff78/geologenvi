@@ -209,7 +209,7 @@ public class SqlHandler {
                 break;
             case 10://全部点位
 //                typeStr=" where ZHAA01A875 = 1";
-                typeStr=" where ZHAA01A875 = 0 or ZHAA01A875 is null";
+                typeStr=" where (ZHAA01A875 = 0 or ZHAA01A875 is null)";
                 formName="SL_ZHAA01A";
                 break;
             case 20://数据采集（地质灾害防治工作检查）
@@ -245,7 +245,7 @@ public class SqlHandler {
                 formName="SL_TXL_SHILD";
                 break;
         }
-        if(type==1||type==7||type==8||type==9||type==20) {
+        if(type==1||type==7||type==8||type==9||type==10||type==20) {
             if (name.length() > 0)
                 typeStr = typeStr + " and ZHAA01A020 like '%" + name + "%'";
             if (disasterTypeCode.length() > 0)
@@ -305,10 +305,8 @@ public class SqlHandler {
 
         ArrayList<Map<String, String>> datas=new ArrayList<>();
         String sqlStr="select * from "+tableName+typeStr;
-        LogUtil.i("SQL", "reques sql---->:  "+sqlStr);
         Cursor c = dbManager.querySQL(sqlStr, new String[]{});
         if(c!=null) {
-            LogUtil.i("SQL", "result num---->:  "+c.getCount());
             String columnNames[]=c.getColumnNames();
             while (c.moveToNext()) {
                 LinkedHashMap<String, String> maps=new LinkedHashMap<>();

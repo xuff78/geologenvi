@@ -48,7 +48,7 @@ public class SelectorAct extends AppFrameAct {
         disasterType.add(new PopupInfoItem("滑坡", "01"));
         disasterType.add(new PopupInfoItem("崩塌", "02"));
         disasterType.add(new PopupInfoItem("泥石流", "03"));
-        disasterType.add(new PopupInfoItem("地名塌陷", "04"));
+        disasterType.add(new PopupInfoItem("地面塌陷", "04"));
         disasterType.add(new PopupInfoItem("地裂缝", "05"));
         disasterType.add(new PopupInfoItem("地面沉降", "06"));
         disasterType.add(new PopupInfoItem("其他", "07"));
@@ -92,6 +92,7 @@ public class SelectorAct extends AppFrameAct {
             case 7:
             case 8:
             case 9:
+            case 10:
             case 20:
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
                 disasterTypeLayout.setVisibility(View.VISIBLE);
@@ -117,10 +118,10 @@ public class SelectorAct extends AppFrameAct {
             case 21:
                 break;
 
-            case 10:
-                findViewById(R.id.areaLayout).setVisibility(View.GONE);
-                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
-                break;
+//            case 10:
+//                findViewById(R.id.areaLayout).setVisibility(View.GONE);
+//                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+//                break;
             case 11:
                 findViewById(R.id.areaLayout).setVisibility(View.GONE);
                 findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
@@ -146,7 +147,7 @@ public class SelectorAct extends AppFrameAct {
                     String name=nameEdt.getText().toString();
                     String disasterName=disasterNameEdt.getText().toString();
                     Intent intent=getIntent();
-                    if(type<10||type>=20)
+                    if(type<=10||type>=20)
                         //intent.setClass(SelectorAct.this, TitleResultListAct.class); //查看线下数据库内容
                     intent=new Intent();
                     else
