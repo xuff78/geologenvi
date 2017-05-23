@@ -1,15 +1,29 @@
 package com.sichuan.geologenvi.act.report;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
@@ -26,14 +40,22 @@ import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
+import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.utils.UploadUtil;
+import com.sichuan.geologenvi.views.Photo9Layout;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -58,6 +80,19 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 
      private String lon="";
     private String lat="";
+
+    private LinearLayout photoLayout;
+    private View addIconView;
+    private LayoutInflater inflater;
+
+    Photo9Layout photo9Layout;
+    private int imgItemWidth = 0;
+    private LinkedHashMap<String, String> imgs=new LinkedHashMap<>();
+    private ProgressDialog dialog;
+    private HorizontalScrollView horiScroller;
+    private String imgpath="";
+
+
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(CJ_DZZHD_XCKP_edit.this){
 
@@ -82,6 +117,20 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 
         _setHeaderTitle("添加记录");
         handler=new SqlHandler(this);
+
+
+
+//add cuikailei 20170522
+        inflater = LayoutInflater.from(this);
+        int scrennWidth = getWindowManager().getDefaultDisplay().getWidth();
+        imgItemWidth = (scrennWidth - ImageUtil.dip2px(this, 20) - 6) / 4;
+
+
+
+
+
+
+
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
@@ -89,10 +138,32 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             //addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
             findViewById(R.id.arrowRight6).setVisibility(View.INVISIBLE);
+
+            if(imgpath!=null&&imgpath.length()>0) {
+                String[] paths=imgpath.split("\\|");
+                final ArrayList<String> imgUrls = new ArrayList<>();
+                for (int i = 0; i < paths.length; i++) {
+                    imgUrls.add(paths[i]);
+                }
+                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+                        Intent intent = new Intent(CJ_DZZHD_XCKP_edit.this, ViewPagerExampleActivity.class);
+                        intent.putExtra("Images", imgUrls);
+                        intent.putExtra("pos", position);
+                        startActivity(intent);
+                    }
+                });
+                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
+            }
+
         }else{
             findViewById(R.id.zdmcLayout).setOnClickListener(listener);
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
+
+            setAddView();
+            photo9Layout.setVisibility(View.GONE);
         }
 
         if(getIntent().hasExtra("Map")) {
@@ -167,9 +238,18 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             dx=dx.replaceAll("I","其它");
             wxdx.setText(h+"户;"+p+"人;"+cc+"万元;"+dx);
             zdid = mapBean.getMap().get("ZHAA01A010");
+
+
+
+
+
         }
 
         initHandler();
+
+
+
+
     }
 
     private void initData() {
@@ -238,6 +318,11 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             yljhdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
         else if(yljhdwfzr.equals("无"))
             yljhdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
+
+
+         imgpath=infoMap.get("path".toUpperCase());
+
+
     }
 
     private void initView() {
@@ -302,7 +387,117 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         findViewById(R.id.ljcdLayout).setOnClickListener(listener);
         findViewById(R.id.jcrqLayout).setOnClickListener(listener);
 
+
+
+
+
+        horiScroller= (HorizontalScrollView) findViewById(R.id.horiScroller);
+        photoLayout= (LinearLayout) findViewById(R.id.photoLayout_dzzh);
+        photo9Layout= (Photo9Layout) findViewById(R.id.photoLayout_dzzh_show);
+
+
+
+
     }
+
+
+    private void setAddView() {
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
+        llp.rightMargin = 2;
+        addIconView = inflater.inflate(R.layout.bill_image_item, null);
+        ImageView img = (ImageView) addIconView.findViewById(R.id.img);
+//        img.setBackgroundResource(R.color.trans_white);
+        img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        img.setImageResource(R.mipmap.tianjia);
+        photoLayout.addView(addIconView, llp);
+
+        addIconView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+//                new PhotoDialog(ReportCreateAct.this).show();
+                Intent intent = new Intent(CJ_DZZHD_XCKP_edit.this, SelectPicActivity.class);
+                startActivityForResult(intent, TO_SELECT_PHOTO);
+            }
+        });
+    }
+    private void seImageView(Bitmap bmp, final String imgkey) {
+//        urls.add(imgUrl);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
+        llp.rightMargin = 2;
+        photoLayout.removeView(addIconView);
+        final View v = inflater.inflate(R.layout.bill_image_item, null);
+        final ImageView img = (ImageView) v.findViewById(R.id.img);
+//        img.setImageResource(R.mipmap.zhaopian);
+//        imageloader.displayImage(imgUrl, img);
+        img.setImageBitmap(bmp);
+        photoLayout.addView(v, llp);
+        View del = v.findViewById(R.id.deleteIcon);
+        del.setVisibility(View.VISIBLE);
+        del.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                DialogUtil.showInfoDialog(CJ_DZZHD_XCKP_edit.this, "确认删除?", "确定" , new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imgs.remove(imgkey);
+                        removeImage(v, imgItemWidth, 0);
+                    }
+                });
+            }
+        });
+        setAddView();
+    }
+
+    private void removeImage(final View item, int start, int end) {
+        item.setVisibility(View.INVISIBLE);
+        ValueAnimator anima = ValueAnimator.ofInt(start, end);
+        anima.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator arg0) {
+                // TODO Auto-generated method stub
+                LinearLayout.LayoutParams llpitem = (LinearLayout.LayoutParams) item.getLayoutParams();
+                llpitem.width = (Integer) arg0.getAnimatedValue();
+                item.setLayoutParams(llpitem);
+            }
+        });
+        anima.addListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator arg0) {
+                // TODO Auto-generated method stub
+                photoLayout.removeView(item);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+        anima.setInterpolator(AnimationUtils.loadInterpolator(this,
+                android.R.anim.decelerate_interpolator));
+        anima.setDuration(300);
+        anima.start();
+    }
+
 
     private View.OnClickListener listener=new View.OnClickListener(){
 
@@ -323,6 +518,11 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                     }else if(jcrq.getText().toString().length()==0) {
                         ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请输入检查日期");
                     }else{
+
+
+
+
+
                         JSONObject jsonObj=new JSONObject();
 //                        JsonUtil.addJsonData(jsonObj, "id", "");//巡查卡片编号
                         JsonUtil.addJsonData(jsonObj, "zhdbh", zdid);//灾害点编号
@@ -355,6 +555,16 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                         JsonUtil.addJsonData(jsonObj, "jcrq", jcrq.getText().toString());
                         JsonUtil.addJsonData(jsonObj,"xzb",lon);
                         JsonUtil.addJsonData(jsonObj,"yzb",lat);
+
+
+                        String imgUrls="";
+                        String urlStr="";
+                        for (String url:imgs.values()){
+                            imgUrls=imgUrls+url+"|";
+                        }
+                        if(imgUrls.length()>0)
+                            urlStr=imgUrls.substring(0, imgUrls.length()-1);
+                        JsonUtil.addJsonData(jsonObj,"path",urlStr);
                         requesType=Add;
                         httpHandler.addCJ_DZZHD_XCKP(jsonObj.toString());
                     }
@@ -457,6 +667,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
                     Intent intent2=new Intent(CJ_DZZHD_XCKP_edit.this, AreaSelectorAct.class);
                     startActivityForResult(intent2, 0x11);
                     break;
+
             }
         }
     };
@@ -471,6 +682,14 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 
     String[] disasterNames={"斜坡", "滑坡", "崩塌", "泥石流", "地面塌陷", "地裂缝", "地面沉降", "其它"};
     String[] sizeName={"特大型", "大型", "中型", "小型"};
+
+
+
+
+    public static final int RequestAddress=0x11;
+    public static final int TO_SELECT_PHOTO=0x12;
+    public static final int TO_SELECT_VIDEO=0x13;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -543,5 +762,79 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             AreaInfo area= (AreaInfo) data.getSerializableExtra("Area");
             zdwz.setText(area.getName());
         }
+
+
+
+
+
+
+
+//add cuikailei 20170522
+
+        else if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
+            final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
+//            imgs.add(picPath);
+            Log.i("Upload", "最终选择的图片=" + picPath);
+            final Bitmap bitmap=ImageUtil.getSmallBitmap(picPath);
+            final String imgkey= String.valueOf(System.currentTimeMillis());
+            seImageView(bitmap, imgkey);
+            horiScroller.scrollBy(imgItemWidth,0);
+            dialog= ProgressDialog.show(CJ_DZZHD_XCKP_edit.this, "", "处理中");
+            dialog.setCancelable(false);
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    int bitmapSize=getBitmapSize(bitmap);
+//                        String result=UploadUtil.uploadFile(new File(picPath), ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+//                    String result= UploadUtil.uploadBitmap(bitmap, zdmc.getText().toString()+".jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String result= UploadUtil.uploadBitmap(bitmap, "upload.jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String url="";
+                    if(result!=null)
+                        url=JsonUtil.getString(result, "data");
+                    if(url.length()>0){
+                        imgs.put(imgkey, url);
+                        handlerUpdate.sendEmptyMessage(1);
+                    }else
+                        handlerUpdate.sendEmptyMessage(0);
+                    LogUtil.i("Upload", "size: " + bitmapSize + "Response: "+result);
+                }
+            }.start();
+        }
+
     }
+
+
+
+    public int getBitmapSize(Bitmap bitmap){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){    //API 19
+            return bitmap.getAllocationByteCount();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1){//API 12
+            return bitmap.getByteCount();
+        }
+        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
+    }
+
+    Handler handlerUpdate=new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "上传失败");
+                    break;
+                case 1:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    break;
+
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+
 }

@@ -832,6 +832,26 @@
                 android:background="@color/light_gray"
                 android:layout_width="match_parent"
                 android:layout_height="1px" />
+            <HorizontalScrollView
+                android:id="@+id/horiScroller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/photoLayout_bxcs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="15dip"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+            <com.sichuan.geologenvi.views.Photo9Layout
+                android:id="@+id/photoLayout_bxcs_show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:orientation="vertical" />
+
         </LinearLayout>
     </ScrollView>
     <LinearLayout

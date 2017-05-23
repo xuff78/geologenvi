@@ -1,13 +1,25 @@
 package com.sichuan.geologenvi.act.report;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
@@ -21,13 +33,19 @@ import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
+import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.utils.UploadUtil;
+import com.sichuan.geologenvi.views.Photo9Layout;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -62,6 +80,21 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
     private String requesType="";
     private String Update="update", Delete="delete", Add="add";
 
+
+
+    private LinearLayout photoLayout;
+    private View addIconView;
+    private LayoutInflater inflater;
+
+    Photo9Layout photo9Layout;
+    private int imgItemWidth = 0;
+    private LinkedHashMap<String, String> imgs=new LinkedHashMap<>();
+    private ProgressDialog dialog;
+    private HorizontalScrollView horiScroller;
+    private String imgpath="";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +102,14 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
 
         _setHeaderTitle("添加记录");
+
+
+        //add cuikailei 20170522
+        inflater = LayoutInflater.from(this);
+        int scrennWidth = getWindowManager().getDefaultDisplay().getWidth();
+        imgItemWidth = (scrennWidth - ImageUtil.dip2px(this, 20) - 6) / 4;
+
+
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
@@ -76,6 +117,28 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 //            addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
             arrowRight9.setVisibility(View.GONE);
+
+
+            if(imgpath!=null&&imgpath.length()>0) {
+                String[] paths=imgpath.split("\\|");
+                final ArrayList<String> imgUrls = new ArrayList<>();
+                for (int i = 0; i < paths.length; i++) {
+                    imgUrls.add(paths[i]);
+                }
+                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+                        Intent intent = new Intent(CJ_BXCS_XCKP_edit.this, ViewPagerExampleActivity.class);
+                        intent.putExtra("Images", imgUrls);
+                        intent.putExtra("pos", position);
+                        startActivity(intent);
+                    }
+                });
+                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
+            }
+
+
+
         }else {
 
             if (getIntent().hasExtra("Map")) {
@@ -93,6 +156,9 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
+
+            setAddView();
+            photo9Layout.setVisibility(View.GONE);
         }
 
         initHandler();
@@ -146,6 +212,9 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
             xlzsp_no.setImageResource(R.mipmap.app_login_remember_sel);
         }
 
+
+        imgpath=infoMap.get("path".toUpperCase());
+
     }
 
     private View.OnClickListener listener=new View.OnClickListener(){
@@ -167,6 +236,7 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
                     }else if(jcdate.getText().toString().length()==0) {
                         ToastUtils.displayTextShort(CJ_BXCS_XCKP_edit.this, "请输入检查日期");
                     }else{
+
                         JSONObject jsonObj=new JSONObject();
                         JsonUtil.addJsonData(jsonObj, "bxcs_guid", bxcs_guid);
                         JsonUtil.addJsonData(jsonObj, "bxcs_name", bxcs_name.getText().toString());
@@ -201,6 +271,22 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
                         JsonUtil.addJsonData(jsonObj, "bz", bz.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "jcry", jcry.getText().toString());
                         JsonUtil.addJsonData(jsonObj, "jcdate", jcdate.getText().toString());
+
+
+
+
+                        String imgUrls="";
+                        String urlStr="";
+                        for (String url:imgs.values()){
+                            imgUrls=imgUrls+url+"|";
+                        }
+                        if(imgUrls.length()>0)
+                            urlStr=imgUrls.substring(0, imgUrls.length()-1);
+                        JsonUtil.addJsonData(jsonObj,"path",urlStr);
+
+
+
+
                         requesType=Add;
                         httpHandler.addCJ_BXCS_XCKP(jsonObj.toString());
                     }
@@ -336,7 +422,120 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         findViewById(R.id.addDataBtn).setOnClickListener(listener);
         findViewById(R.id.updateDataBtn).setOnClickListener(listener);
         findViewById(R.id.delDataBtn).setOnClickListener(listener);
+
+
+
+        horiScroller= (HorizontalScrollView) findViewById(R.id.horiScroller);
+        photoLayout= (LinearLayout) findViewById(R.id.photoLayout_bxcs);
+        photo9Layout= (Photo9Layout) findViewById(R.id.photoLayout_bxcs_show);
     }
+
+    public static final int RequestAddress=0x11;
+    public static final int TO_SELECT_PHOTO=0x12;
+    public static final int TO_SELECT_VIDEO=0x13;
+
+    private void setAddView() {
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
+        llp.rightMargin = 2;
+        addIconView = inflater.inflate(R.layout.bill_image_item, null);
+        ImageView img = (ImageView) addIconView.findViewById(R.id.img);
+//        img.setBackgroundResource(R.color.trans_white);
+        img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        img.setImageResource(R.mipmap.tianjia);
+        photoLayout.addView(addIconView, llp);
+
+        addIconView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+//                new PhotoDialog(ReportCreateAct.this).show();
+                Intent intent = new Intent(CJ_BXCS_XCKP_edit.this, SelectPicActivity.class);
+                startActivityForResult(intent, TO_SELECT_PHOTO);
+            }
+        });
+    }
+    private void seImageView(Bitmap bmp, final String imgkey) {
+//        urls.add(imgUrl);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
+        llp.rightMargin = 2;
+        photoLayout.removeView(addIconView);
+        final View v = inflater.inflate(R.layout.bill_image_item, null);
+        final ImageView img = (ImageView) v.findViewById(R.id.img);
+//        img.setImageResource(R.mipmap.zhaopian);
+//        imageloader.displayImage(imgUrl, img);
+        img.setImageBitmap(bmp);
+        photoLayout.addView(v, llp);
+        View del = v.findViewById(R.id.deleteIcon);
+        del.setVisibility(View.VISIBLE);
+        del.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                DialogUtil.showInfoDialog(CJ_BXCS_XCKP_edit.this, "确认删除?", "确定" , new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imgs.remove(imgkey);
+                        removeImage(v, imgItemWidth, 0);
+                    }
+                });
+            }
+        });
+        setAddView();
+    }
+
+    private void removeImage(final View item, int start, int end) {
+        item.setVisibility(View.INVISIBLE);
+        ValueAnimator anima = ValueAnimator.ofInt(start, end);
+        anima.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator arg0) {
+                // TODO Auto-generated method stub
+                LinearLayout.LayoutParams llpitem = (LinearLayout.LayoutParams) item.getLayoutParams();
+                llpitem.width = (Integer) arg0.getAnimatedValue();
+                item.setLayoutParams(llpitem);
+            }
+        });
+        anima.addListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator arg0) {
+                // TODO Auto-generated method stub
+                photoLayout.removeView(item);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+        anima.setInterpolator(AnimationUtils.loadInterpolator(this,
+                android.R.anim.decelerate_interpolator));
+        anima.setDuration(300);
+        anima.start();
+    }
+
+
+
+
+
+
 
     DatePickerDialog.OnDateSetListener mDateSetListener=new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -384,7 +583,73 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 //            zdid = mapBean.getMap().get("ZHAA01A010");
 
         }
+        //add cuikailei 20170522
+
+        else if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
+            final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
+//            imgs.add(picPath);
+            Log.i("Upload", "最终选择的图片=" + picPath);
+            final Bitmap bitmap=ImageUtil.getSmallBitmap(picPath);
+            final String imgkey= String.valueOf(System.currentTimeMillis());
+            seImageView(bitmap, imgkey);
+            horiScroller.scrollBy(imgItemWidth,0);
+            dialog= ProgressDialog.show(CJ_BXCS_XCKP_edit.this, "", "处理中");
+            dialog.setCancelable(false);
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    int bitmapSize=getBitmapSize(bitmap);
+//                        String result=UploadUtil.uploadFile(new File(picPath), ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+//                    String result= UploadUtil.uploadBitmap(bitmap, bxcs_name.getText().toString()+".jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String result= UploadUtil.uploadBitmap(bitmap, "upload.jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String url="";
+                    if(result!=null)
+                        url=JsonUtil.getString(result, "data");
+                    if(url.length()>0){
+                        imgs.put(imgkey, url);
+                        handlerUpdate.sendEmptyMessage(1);
+                    }else
+                        handlerUpdate.sendEmptyMessage(0);
+                    LogUtil.i("Upload", "size: " + bitmapSize + "Response: "+result);
+                }
+            }.start();
+        }
     }
+
+
+    public int getBitmapSize(Bitmap bitmap){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){    //API 19
+            return bitmap.getAllocationByteCount();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1){//API 12
+            return bitmap.getByteCount();
+        }
+        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
+    }
+
+    Handler handlerUpdate=new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    ToastUtils.displayTextShort(CJ_BXCS_XCKP_edit.this, "上传失败");
+                    break;
+                case 1:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    break;
+
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+
+
 
     private void setLoaction(String lon, String lat){
         if(lon!=null&&lon.contains(".")) {

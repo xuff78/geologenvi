@@ -68,5 +68,6 @@ public class CJ_GCZL_XCKP_edit extends AppFrameAct {
         delDataBtn=(TextView) findViewById(R.id.delDataBtn);
         addDataBtn=(TextView) findViewById(R.id.addDataBtn);
 
+
     }
 }
