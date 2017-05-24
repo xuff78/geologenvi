@@ -1,15 +1,26 @@
 package com.sichuan.geologenvi.frg;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
@@ -17,18 +28,28 @@ import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.geodisaster.TitleResultListAct;
 import com.sichuan.geologenvi.act.report.AreaInputAct;
+import com.sichuan.geologenvi.act.report.SelectPicActivity;
+import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
 import com.sichuan.geologenvi.bean.AreaInfo;
 import com.sichuan.geologenvi.bean.AreaInfos;
 import com.sichuan.geologenvi.bean.MapBean;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
+import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.LogUtil;
+import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.utils.UploadUtil;
+import com.sichuan.geologenvi.views.Photo9Layout;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -50,9 +71,32 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
     private Map<String, String> infoMap=new HashMap<>();
     private SqlHandler handler;
 
+
+
+    private LinearLayout photoLayout;
+    private View addIconView;
+    private LayoutInflater inflater;
+
+    Photo9Layout photo9Layout;
+    private int imgItemWidth = 0;
+    private LinkedHashMap<String, String> imgs=new LinkedHashMap<>();
+    private ProgressDialog dialog;
+    private HorizontalScrollView horiScroller;
+    private String imgpath="";
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gczl_xckp1, container, false);
+
+
+
+//add cuikailei 20170522
+        inflater = LayoutInflater.from(getActivity());
+        int scrennWidth = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        imgItemWidth = (scrennWidth - ImageUtil.dip2px(getActivity(), 20) - 6) / 4;
 
 
         initView(view);
@@ -61,7 +105,33 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
             infoMap=((MapBean)(getActivity().getIntent().getSerializableExtra("InfoMap"))).getMap();
             arrowRight.setVisibility(View.INVISIBLE);
             initData();
+
+
+            if(imgpath!=null&&imgpath.length()>0) {
+                String[] paths=imgpath.split("\\|");
+                final ArrayList<String> imgUrls = new ArrayList<>();
+                for (int i = 0; i < paths.length; i++) {
+                    imgUrls.add(paths[i]);
+                }
+                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+                        Intent intent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+                        intent.putExtra("Images", imgUrls);
+                        intent.putExtra("pos", position);
+                        startActivity(intent);
+                    }
+                });
+                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(getActivity())- ImageUtil.dip2px(getActivity(), 40), imgUrls);
+            }
+
+
         }else{
+
+            setAddView();
+            photo9Layout.setVisibility(View.GONE);
+
+
             if(getActivity().getIntent().hasExtra("Map")){
                 MapBean mapBean = (MapBean) getActivity().getIntent().getSerializableExtra("Map");
                 guid = mapBean.getMap().get("ZHCA01A010");
@@ -89,6 +159,13 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
             }
 
             view.findViewById(R.id.projectNameLayout).setOnClickListener(listener);
+
+
+
+
+
+
+
         }
         return view;
     }
@@ -179,6 +256,12 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
             sfyzlkzwj_no.setImageResource(R.mipmap.app_login_remember_sel);
         }
 
+
+
+        imgpath=infoMap.get("path".toUpperCase());
+
+
+
     }
 
     public void getDataByJson(JSONObject jsonObj){
@@ -217,6 +300,20 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
         JsonUtil.addJsonData(jsonObj, "sfyzlkzwj", sfyzlkzwj);
         JsonUtil.addJsonData(jsonObj, "tsgzry", tsgzry);
 
+
+
+
+
+
+
+        String imgUrls="";
+        String urlStr="";
+        for (String url:imgs.values()){
+            imgUrls=imgUrls+url+"|";
+        }
+        if(imgUrls.length()>0)
+            urlStr=imgUrls.substring(0, imgUrls.length()-1);
+        JsonUtil.addJsonData(jsonObj,"path",urlStr);
     }
 
     private void initView(View v) {
@@ -298,7 +395,123 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
         v.findViewById(R.id.tbrqLayout).setOnClickListener(listener);
 
 
+
+
+
+        horiScroller= (HorizontalScrollView) v.findViewById(R.id.horiScroller);
+        photoLayout= (LinearLayout) v.findViewById(R.id.photoLayout_gczl);
+        photo9Layout= (Photo9Layout) v.findViewById(R.id.photoLayout_gczl_show);
+
+
+
     }
+
+    public static final int RequestAddress=0x11;
+    public static final int TO_SELECT_PHOTO=0x12;
+    public static final int TO_SELECT_VIDEO=0x13;
+
+    private void setAddView() {
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
+        llp.rightMargin = 2;
+        addIconView = inflater.inflate(R.layout.bill_image_item, null);
+        ImageView img = (ImageView) addIconView.findViewById(R.id.img);
+//        img.setBackgroundResource(R.color.trans_white);
+        img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        img.setImageResource(R.mipmap.tianjia);
+        photoLayout.addView(addIconView, llp);
+
+        addIconView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+//                new PhotoDialog(ReportCreateAct.this).show();
+                Intent intent = new Intent(getActivity(), SelectPicActivity.class);
+                startActivityForResult(intent, TO_SELECT_PHOTO);
+            }
+        });
+    }
+    private void seImageView(Bitmap bmp, final String imgkey) {
+//        urls.add(imgUrl);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
+        llp.rightMargin = 2;
+        photoLayout.removeView(addIconView);
+        final View v = inflater.inflate(R.layout.bill_image_item, null);
+        final ImageView img = (ImageView) v.findViewById(R.id.img);
+//        img.setImageResource(R.mipmap.zhaopian);
+//        imageloader.displayImage(imgUrl, img);
+        img.setImageBitmap(bmp);
+        photoLayout.addView(v, llp);
+        View del = v.findViewById(R.id.deleteIcon);
+        del.setVisibility(View.VISIBLE);
+        del.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                DialogUtil.showInfoDialog(getActivity(), "确认删除?", "确定" , new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imgs.remove(imgkey);
+                        removeImage(v, imgItemWidth, 0);
+                    }
+                });
+            }
+        });
+        setAddView();
+    }
+
+    private void removeImage(final View item, int start, int end) {
+        item.setVisibility(View.INVISIBLE);
+        ValueAnimator anima = ValueAnimator.ofInt(start, end);
+        anima.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator arg0) {
+                // TODO Auto-generated method stub
+                LinearLayout.LayoutParams llpitem = (LinearLayout.LayoutParams) item.getLayoutParams();
+                llpitem.width = (Integer) arg0.getAnimatedValue();
+                item.setLayoutParams(llpitem);
+            }
+        });
+        anima.addListener(new Animator.AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator arg0) {
+                // TODO Auto-generated method stub
+                photoLayout.removeView(item);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+        anima.setInterpolator(AnimationUtils.loadInterpolator(getActivity(),
+                android.R.anim.decelerate_interpolator));
+        anima.setDuration(300);
+        anima.start();
+    }
+
+
+
+
+
+
 
     private View.OnClickListener listener=new View.OnClickListener(){
 
@@ -513,7 +726,94 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
             setLoaction(lon, lat);
 
         }
+
+
+
+
+
+
+        //add cuikailei 20170522
+
+        else if (resultCode == -1 && requestCode == TO_SELECT_PHOTO) {
+            final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
+//            String[] p=picPath.split("/");
+//            String temp=p[p.length-1];
+//            temp=temp.substring(0,temp.length()-4);
+//            Date date = new Date();
+//
+//            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+//            String newtemp=zdmc.getText().toString()+sdf.format(date);
+//            String newPath=picPath.replaceAll(temp,newtemp);
+//            File file = new File(picPath);
+//            file.renameTo(new File(newPath));
+
+            String newPath=picPath;
+//            imgs.add(picPath);
+            Log.i("Upload", "最终选择的图片newPath=" + newPath);
+            final Bitmap bitmap=ImageUtil.getSmallBitmap(newPath);
+            final String imgkey= String.valueOf(System.currentTimeMillis());
+            seImageView(bitmap, imgkey);
+            horiScroller.scrollBy(imgItemWidth,0);
+            dialog= ProgressDialog.show(getActivity(), "", "处理中");
+            dialog.setCancelable(false);
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    int bitmapSize=getBitmapSize(bitmap);
+//                        String result=UploadUtil.uploadFile(new File(picPath), ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+//                    String result= UploadUtil.uploadBitmap(bitmap, zdmc.getText().toString()+".jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String result= UploadUtil.uploadBitmap(bitmap, "upload.jpg",ConstantUtil.Api_Url+ConstantUtil.Method.Upload);
+                    String url="";
+                    if(result!=null)
+                        url=JsonUtil.getString(result, "data");
+                    if(url.length()>0){
+                        imgs.put(imgkey, url);
+                        handlerUpdate.sendEmptyMessage(1);
+                    }else
+                        handlerUpdate.sendEmptyMessage(0);
+                    LogUtil.i("Upload", "size: " + bitmapSize + "Response: "+result);
+                }
+            }.start();
+        }
+
+
+
     }
+
+
+
+    public int getBitmapSize(Bitmap bitmap){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){    //API 19
+            return bitmap.getAllocationByteCount();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1){//API 12
+            return bitmap.getByteCount();
+        }
+        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
+    }
+
+    Handler handlerUpdate=new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    ToastUtils.displayTextShort(getActivity(), "上传失败");
+                    break;
+                case 1:
+                    if(dialog!=null)
+                        dialog.dismiss();
+                    break;
+
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+
 
     private void setLoaction(String lon, String lat){
         if(lon!=null&&lon.contains(".")) {

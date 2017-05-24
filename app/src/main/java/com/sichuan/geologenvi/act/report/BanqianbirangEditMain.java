@@ -1,15 +1,24 @@
 package com.sichuan.geologenvi.act.report;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sichuan.geologenvi.DataBase.SqlHandler;
@@ -27,13 +36,17 @@ import com.sichuan.geologenvi.frg.FormInfoFrg;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
+import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.ToastUtils;
+import com.sichuan.geologenvi.views.Photo9Layout;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -55,6 +68,14 @@ public class BanqianbirangEditMain extends AppFrameAct {
     private String requesType="";
     private String Update="update", Delete="delete", Add="add";
 
+
+
+
+
+
+
+
+
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(BanqianbirangEditMain.this){
 
@@ -74,20 +95,29 @@ public class BanqianbirangEditMain extends AppFrameAct {
 
 
         _setHeaderTitle("添加记录");
+
+
+
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             //addDataBtn.setVisibility(View.GONE);
             updateDataBtn.setVisibility(View.GONE);
+
+
         }else{
             updateDataBtn.setVisibility(View.GONE);
             delDataBtn.setVisibility(View.GONE);
+
+
+
         }
         _setHeaderTitle("成都市重大地质灾害防治工程项目现场检查记录表");
         initHandler();
         handler=new SqlHandler(this);
         initView();
     }
+
 
     private void initView() {
         findViewById(R.id.bottomLayout).setVisibility(View.VISIBLE);

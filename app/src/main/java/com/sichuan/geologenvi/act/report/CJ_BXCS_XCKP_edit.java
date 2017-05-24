@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,10 @@ import com.sichuan.geologenvi.views.Photo9Layout;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -587,9 +591,21 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
         else if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
             final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
+//            String[] p=picPath.split("/");
+//            String temp=p[p.length-1];
+//            temp=temp.substring(0,temp.length()-4);
+//            Date date = new Date();
+//
+//            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+//            String newtemp=bxcs_name.getText().toString()+sdf.format(date);
+//            String newPath=picPath.replaceAll(temp,newtemp);
+//            File file = new File(picPath);
+//            file.renameTo(new File(newPath));
+
+                String newPath=picPath;
 //            imgs.add(picPath);
-            Log.i("Upload", "最终选择的图片=" + picPath);
-            final Bitmap bitmap=ImageUtil.getSmallBitmap(picPath);
+            Log.i("Upload", "最终选择的图片=" + newPath);
+            final Bitmap bitmap=ImageUtil.getSmallBitmap(newPath);
             final String imgkey= String.valueOf(System.currentTimeMillis());
             seImageView(bitmap, imgkey);
             horiScroller.scrollBy(imgItemWidth,0);

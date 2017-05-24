@@ -15,6 +15,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -773,9 +774,21 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 
         else if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
             final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
+//            String[] p=picPath.split("/");
+//            String temp=p[p.length-1];
+//            temp=temp.substring(0,temp.length()-4);
+//            Date date = new Date();
+//
+//            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+//            String newtemp=zdmc.getText().toString()+sdf.format(date);
+//            String newPath=picPath.replaceAll(temp,newtemp);
+//            File file = new File(picPath);
+//            file.renameTo(new File(newPath));
+
+            String newPath=picPath;
 //            imgs.add(picPath);
-            Log.i("Upload", "最终选择的图片=" + picPath);
-            final Bitmap bitmap=ImageUtil.getSmallBitmap(picPath);
+            Log.i("Upload", "最终选择的图片newPath=" + newPath);
+            final Bitmap bitmap=ImageUtil.getSmallBitmap(newPath);
             final String imgkey= String.valueOf(System.currentTimeMillis());
             seImageView(bitmap, imgkey);
             horiScroller.scrollBy(imgItemWidth,0);
