@@ -94,7 +94,7 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
 
 
 //add cuikailei 20170522
-        inflater = LayoutInflater.from(getActivity());
+
         int scrennWidth = getActivity().getWindowManager().getDefaultDisplay().getWidth();
         imgItemWidth = (scrennWidth - ImageUtil.dip2px(getActivity(), 20) - 6) / 4;
 
@@ -413,6 +413,7 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
     private void setAddView() {
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
         llp.rightMargin = 2;
+        inflater = LayoutInflater.from(getActivity());
         addIconView = inflater.inflate(R.layout.bill_image_item, null);
         ImageView img = (ImageView) addIconView.findViewById(R.id.img);
 //        img.setBackgroundResource(R.color.trans_white);
