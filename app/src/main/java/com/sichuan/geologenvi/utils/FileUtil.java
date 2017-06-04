@@ -405,4 +405,19 @@ public class FileUtil {
 		intent.setDataAndType(uri, "application/pdf");
 		return intent;
 	}
+
+
+
+	/**
+	 * @Description 得到文件所在路径（即全路径去掉完整文件名）
+	 * @param filepath 文件全路径名称，like mnt/sda/XX.xx
+	 * @return 根路径，like mnt/sda
+	 */
+	public static String getPathFromFilepath(final String filepath) {
+		int pos = filepath.lastIndexOf('/');
+		if (pos != -1) {
+			return filepath.substring(0, pos);
+		}
+		return "";
+	}
 }

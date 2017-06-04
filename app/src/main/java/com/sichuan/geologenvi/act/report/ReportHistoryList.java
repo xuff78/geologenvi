@@ -114,16 +114,16 @@ public class ReportHistoryList extends AppFrameAct {
         handler=new SqlHandler(this);
         onloading=true;
         switch (type) {
-            case 3:
+            case 4:
                 httpHandler.getCJ_GZJL_KS(page+1, id);
                 break;
-            case 4:
+            case 5:
                 httpHandler.getCJ_GZJL_DXS(page+1, id);
                 break;
-            case 5:
+            case 6:
                 httpHandler.getCJ_GZJL_DZYJ(page+1, id);
                 break;
-            case 6:
+            case 7:
                 httpHandler.getCJ_GZJL_BXBQ(page+1, id);
                 break;
         }
@@ -146,10 +146,10 @@ public class ReportHistoryList extends AppFrameAct {
             int tag=(int)view.getTag();
             switch (getIntent().getIntExtra("Type", 0)){
 
-                case 3:
                 case 4:
                 case 5:
                 case 6:
+                case 7:
                     i.setClass(ReportHistoryList.this, HistoryDetailAct.class);
                     i.putExtra(ReportBean.Name, infos.get(tag));
                     break;
@@ -172,16 +172,16 @@ public class ReportHistoryList extends AppFrameAct {
                 if(!onloading&&hasMore){
                     onloading=true;
                     switch (type) {
-                        case 3:
+                        case 4:
                             httpHandler.getCJ_GZJL_KS(page+1, id);
                             break;
-                        case 4:
+                        case 5:
                             httpHandler.getCJ_GZJL_DXS(page+1, id);
                             break;
-                        case 5:
+                        case 6:
                             httpHandler.getCJ_GZJL_DZYJ(page+1, id);
                             break;
-                        case 6:
+                        case 7:
                             httpHandler.getCJ_GZJL_BXBQ(page+1, id);
                             break;
                     }
@@ -205,16 +205,16 @@ public class ReportHistoryList extends AppFrameAct {
             page=0;
             onloading=true;
             switch (type) {
-                case 3:
+                case 4:
                     httpHandler.getCJ_GZJL_KS(page + 1, id);
                     break;
-                case 4:
+                case 5:
                     httpHandler.getCJ_GZJL_DXS(page + 1, id);
                     break;
-                case 5:
+                case 6:
                     httpHandler.getCJ_GZJL_DZYJ(page + 1, id);
                     break;
-                case 6:
+                case 7:
                     httpHandler.getCJ_GZJL_BXBQ(page + 1, id);
                     break;
             }

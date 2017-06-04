@@ -112,6 +112,9 @@
             android:name=".act.report.CJ_DZZHD_XCKP_edit" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
+            android:name=".act.report.CJ_BXBQ_XCKP_edit" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
             android:name=".act.report.CJ_GCZL_XCKP_edit" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity

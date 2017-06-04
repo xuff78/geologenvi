@@ -186,6 +186,21 @@ public class HttpHandler extends Handle {
 		requestDelete(ConstantUtil.Method.CJ_BXCS_XCKP, "/"+id, true);
 	}
 
+	public void addCJ_BXBQ_XCKP(String jsonContent) {
+		requestPost(ConstantUtil.Method.CJ_BXBQ_XCKP, jsonContent, true);
+	}
+
+	public void getCJ_BXBQ_XCKP(int page, String id) {
+		String require="";
+		if(id.length()>0)
+			require=require+"&Guid"+id;
+		requestGet(ConstantUtil.Method.CJ_BXBQ_XCKP, "?pageIndex="+page+require, true);
+	}
+	public void delCJ_BXBQ_XCKP(String id) {
+		requestDelete(ConstantUtil.Method.CJ_BXBQ_XCKP, "/"+id, true);
+	}
+
+
 
 	public void getFiles() {
 		requestGet(ConstantUtil.Method.Files, "", true);

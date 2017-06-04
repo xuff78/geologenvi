@@ -50,7 +50,7 @@ public class ReportTitleList extends AppFrameAct {
 
                 @Override
                 public void onClick(View view) {
-                    if (type == 6) {
+                    if (type == 7) {
                         Intent i = new Intent(ReportTitleList.this, SelectorAct.class);
                         i.putExtra("Type", type);
                         i.putExtra("Title", getIntent().getStringExtra("Title"));
@@ -79,22 +79,22 @@ public class ReportTitleList extends AppFrameAct {
 
         ArrayList<String> list = new ArrayList<>();
         switch (type) {
-            case 3:
+            case 4:
                 tableName = "SL_KS_XX";
                 datalist = handler.getQueryResult("SL_KS_XX", "");
                 titleKey = "KS_NAME";
                 break;
-            case 4:
+            case 5:
                 tableName = "SL_TBLJING";
                 datalist = handler.getQueryResult("SL_TBLJING", "");
                 titleKey = "QUYU";
                 break;
-            case 5:
+            case 6:
                 tableName = "SL_DZYJBH";
                 datalist = handler.getQueryResult("SL_DZYJBH", "");
                 titleKey = "NAME";
                 break;
-            case 6:
+            case 7:
                 tableName = "SL_ZHDD04B";
                 datalist = handler.getGeohazardInfo("", 6, "", "", "", "", "", "", "");
                 titleKey = "ZHDD04B020";
@@ -121,22 +121,22 @@ public class ReportTitleList extends AppFrameAct {
             int tag=(int)view.getTag();
             Intent i=getIntent();
             switch (type) {
-                case 3:
-                    i.setClass(ReportTitleList.this, ReportHistoryList.class);
-                    i.putExtra("Title", datalist.get(tag).get(titleKey));
-                    i.putExtra("Id", datalist.get(tag).get("ID"));
-                    break;
                 case 4:
                     i.setClass(ReportTitleList.this, ReportHistoryList.class);
                     i.putExtra("Title", datalist.get(tag).get(titleKey));
-                    i.putExtra("Id", datalist.get(tag).get("JINGID"));
+                    i.putExtra("Id", datalist.get(tag).get("ID"));
                     break;
                 case 5:
                     i.setClass(ReportTitleList.this, ReportHistoryList.class);
                     i.putExtra("Title", datalist.get(tag).get(titleKey));
-                    i.putExtra("Id", datalist.get(tag).get("ID"));
+                    i.putExtra("Id", datalist.get(tag).get("JINGID"));
                     break;
                 case 6:
+                    i.setClass(ReportTitleList.this, ReportHistoryList.class);
+                    i.putExtra("Title", datalist.get(tag).get(titleKey));
+                    i.putExtra("Id", datalist.get(tag).get("ID"));
+                    break;
+                case 7:
                     i.setClass(ReportTitleList.this, ReportHistoryList.class);
                     i.putExtra("Title", datalist.get(tag).get(titleKey));
                     i.putExtra("Id", datalist.get(tag).get("ZHDD04B010"));

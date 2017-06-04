@@ -63,10 +63,10 @@ public class ReportEditListAct extends AppFrameAct {
                 }else if(method.equals(ConstantUtil.Method.CJ_BXCS_XCKP)){
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"BXCS_NAME","JCDATE"}, listener));
                 }else if(method.equals(ConstantUtil.Method.Yujing)){
-                    LogUtil.i("SQL", "result jsonData---->:  "+jsonData);
+//                    LogUtil.i("SQL", "result jsonData---->:  "+jsonData);
                     String yujingtime="";
                     for(int i=0;i<datalist.size();i++){
-                        LogUtil.i("SQL", "result FBDATE---->:  "+datalist.get(i).get("FBDATE"));
+//                        LogUtil.i("SQL", "result FBDATE---->:  "+datalist.get(i).get("FBDATE"));
                         if(yujingtime.compareTo(datalist.get(i).get("FBDATE"))<0){
                             yujingtime=datalist.get(i).get("FBDATE");
                         }
@@ -75,6 +75,8 @@ public class ReportEditListAct extends AppFrameAct {
 
                     cddhHandler.execSQL("update yujing set yujingtime='"+yujingtime+"' where id=1");
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"TITLE","FBDATE"}, listener));
+                }else if(method.equals(ConstantUtil.Method.CJ_BXBQ_XCKP)){//避险搬迁现场检查
+                    recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"HZXM","JCRQ"}, listener));
                 }
             }
         });
@@ -115,6 +117,9 @@ public class ReportEditListAct extends AppFrameAct {
                             break;
                         case 22:
                             i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
+                            break;
+                        case 23:
+                            i.setClass(ReportEditListAct.this, CJ_BXBQ_XCKP_edit.class);
                             break;
                     }
                     startActivityForResult(i, 0x82);
@@ -162,6 +167,9 @@ public class ReportEditListAct extends AppFrameAct {
             case 22:
                 httpHandler.getCJ_BXCS_XCKP(1, name,id);
                 break;
+            case 23:
+                httpHandler.getCJ_BXBQ_XCKP(1,"");
+                break;
             case 30:
                 if(fbDate!=null&&fbDate!=""){
 
@@ -191,6 +199,9 @@ public class ReportEditListAct extends AppFrameAct {
                     break;
                 case 22:
                     i.setClass(ReportEditListAct.this, CJ_BXCS_XCKP_edit.class);
+                    break;
+                case 23:
+                    i.setClass(ReportEditListAct.this, CJ_BXBQ_XCKP_edit.class);
                     break;
                 case 30://预警
                     i.setClass(ReportEditListAct.this, YujingAct.class);

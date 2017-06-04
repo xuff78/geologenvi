@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.scgis.mmap.commons.Util;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
@@ -34,6 +35,7 @@ import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
 import com.sichuan.geologenvi.utils.DialogUtil;
+import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
@@ -591,18 +593,17 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
         else if (resultCode == RESULT_OK && requestCode == TO_SELECT_PHOTO) {
             final String picPath = data.getStringExtra(ConstantUtil.Photo_Path);
-//            String[] p=picPath.split("/");
-//            String temp=p[p.length-1];
-//            temp=temp.substring(0,temp.length()-4);
-//            Date date = new Date();
-//
-//            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-//            String newtemp=bxcs_name.getText().toString()+sdf.format(date);
-//            String newPath=picPath.replaceAll(temp,newtemp);
-//            File file = new File(picPath);
-//            file.renameTo(new File(newPath));
 
-                String newPath=picPath;
+
+            Date date = new Date();
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+            String rootPath = FileUtil.getPathFromFilepath(picPath); //Util.getPathFromFilepath(String)-自定义方法：得到文件所在路径（即全路径去掉完整文件名）
+            File file = new File(picPath);
+            String newPath=rootPath+"/"+bxcs_name.getText().toString()+sdf.format(date)+".jpg";
+            file.renameTo(new File(newPath));
+
+
+
 //            imgs.add(picPath);
             Log.i("Upload", "最终选择的图片=" + newPath);
             final Bitmap bitmap=ImageUtil.getSmallBitmap(newPath);
@@ -632,6 +633,9 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
             }.start();
         }
     }
+
+
+
 
 
     public int getBitmapSize(Bitmap bitmap){

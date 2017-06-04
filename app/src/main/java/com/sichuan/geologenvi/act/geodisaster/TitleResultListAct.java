@@ -114,13 +114,13 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                         getIntent().getStringExtra("avoidCode"), getIntent().getStringExtra("yearCode"));
                 break;
 
-            case 20://数据采集（地质灾害防治工作检查）
+            case 20://数据采集（地质灾害防治工作督导）
                 datalist = handler.getGeohazardInfo("", type, "", "", "", "", "", "", "");
                 break;
-            case 21://数据采集（重大地质灾害防治工程项目现场检查）
+            case 21://数据采集（重大地质灾害防治工程项目督导）
                 datalist = handler.getGeohazardInfo("", type, "", "", "", "", "", "", "");
                 break;
-            case 22://数据采集（应急避险场所检查）
+            case 22://数据采集（应急避险场所督导）
                 datalist = handler.getGeohazardInfo("", type, "", "", "", "", "", "", "");
                 break;
 
@@ -172,13 +172,14 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                 case 6:
                     list.add(info.get("ZHDD04B020"));
                     break;
-                case 20://数据采集（地质灾害防治工作检查）
+
+                case 20://数据采集（地质灾害防治工作督导）
                     list.add(info.get("ZHAA01A020"));
                     break;
-                case 21://数据采集（重大地质灾害防治工程项目现场检查）
+                case 21://数据采集（重大地质灾害防治工程项目督导）
                     list.add(info.get("ZHCA01A020"));
                     break;
-                case 22://数据采集（应急避险场所检查）
+                case 22://数据采集（应急避险场所督导）
                     list.add(info.get("ZHDD02A020") + "\n" + info.get("ZHDD02A310"));
                     break;
 
@@ -274,17 +275,18 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                 Intent intent = new Intent(TitleResultListAct.this, ReportEditListAct.class);
                 switch (type) {
                     case 20:
-                        intent.putExtra("Title", "地质灾害防治工作检查");
+
+                        intent.putExtra("Title", "地质灾害防治工作督导");
                         intent.putExtra("Name", map.get("ZHAA01A020"));
                         intent.putExtra("ID", map.get("ZHAA01A010"));
                         break;
                     case 21:
-                        intent.putExtra("Title", "重大地质灾害防治工程项目现场检查");
+                        intent.putExtra("Title", "重大地质灾害防治工程项目督导");
                         intent.putExtra("Name", map.get("ZHCA01A020"));
                         intent.putExtra("ID", map.get("ZHCA01A010"));
                         break;
                     case 22:
-                        intent.putExtra("Title", "应急避险场所检查");
+                        intent.putExtra("Title", "应急避险场所督导");
                         intent.putExtra("Name", map.get("ZHDD02A020"));
                         intent.putExtra("ID", map.get("ZHDD02A010"));
                         break;

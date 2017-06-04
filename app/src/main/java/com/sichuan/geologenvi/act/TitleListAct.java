@@ -16,7 +16,9 @@ import com.sichuan.geologenvi.act.geodisaster.SelectorAct;
 import com.sichuan.geologenvi.act.geodisaster.TitleResultListAct;
 import com.sichuan.geologenvi.act.report.BanqianbirangEditMain;
 import com.sichuan.geologenvi.act.report.BanqianbirangList;
+import com.sichuan.geologenvi.act.report.CJ_BXBQ_XCKP_edit;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
+import com.sichuan.geologenvi.act.report.ReportHistoryList;
 import com.sichuan.geologenvi.act.report.ReportTitleList;
 import com.sichuan.geologenvi.act.statistics.ChatAct;
 import com.sichuan.geologenvi.act.statistics.FormAct;
@@ -76,10 +78,11 @@ public class TitleListAct  extends AppFrameAct {
             list.add("地质灾害防治工作督导");
             list.add("重大地质灾害防治工程项目督导");
             list.add("应急避险场所督导");
+            list.add("避险搬迁现场检查记录");
             list.add("矿山工作记录");
             list.add("地下水工作记录");
             list.add("地质遗迹工作记录");
-            list.add("避险搬迁工作记录");
+
         }else if(type.equals("Statistics")){
             list.add("地质灾害点");
             list.add("地下水统计");
@@ -162,12 +165,22 @@ public class TitleListAct  extends AppFrameAct {
                         break;
                 }
             } else if (type.equals("Report")) {
-                if (tag > 2) {
+                if (tag==3){
+                    Intent intent = new Intent(TitleListAct.this, ReportEditListAct.class);
+                    intent.putExtra("Title", "避险搬迁现场检查记录");
+                    intent.putExtra("Type", tag+20);
+                    startActivity(intent);
+
+//                    Intent i = new Intent(TitleListAct.this, CJ_BXBQ_XCKP_edit.class);
+////                    i.putExtra("Title", list.get(tag));
+////                    i.putExtra("Type", tag);
+//                    startActivity(i);
+                }else if (tag > 3) {
                     Intent i = new Intent(TitleListAct.this, ReportTitleList.class);
                     i.putExtra("Title", list.get(tag));
                     i.putExtra("Type", tag);
                     startActivity(i);
-                } else {
+                }else {
                     Intent i = new Intent(TitleListAct.this, TitleResultListAct.class);
                     i.putExtra("Type", tag+20);
                     i.putExtra("Title", ((TextView)view).getText().toString());
