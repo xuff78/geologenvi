@@ -165,17 +165,18 @@ public class TitleListAct  extends AppFrameAct {
                         break;
                 }
             } else if (type.equals("Report")) {
-                if (tag==3){
-                    Intent intent = new Intent(TitleListAct.this, ReportEditListAct.class);
-                    intent.putExtra("Title", "避险搬迁现场检查记录");
-                    intent.putExtra("Type", tag+20);
-                    startActivity(intent);
-
-//                    Intent i = new Intent(TitleListAct.this, CJ_BXBQ_XCKP_edit.class);
-////                    i.putExtra("Title", list.get(tag));
-////                    i.putExtra("Type", tag);
-//                    startActivity(i);
-                }else if (tag > 3) {
+//                if (tag==3){
+//                    Intent intent = new Intent(TitleListAct.this, ReportEditListAct.class);
+//                    intent.putExtra("Title", "避险搬迁现场检查记录");
+//                    intent.putExtra("Type", tag+20);
+//                    startActivity(intent);
+//
+////                    Intent i = new Intent(TitleListAct.this, CJ_BXBQ_XCKP_edit.class);
+//////                    i.putExtra("Title", list.get(tag));
+//////                    i.putExtra("Type", tag);
+////                    startActivity(i);
+//                }else
+                if (tag > 3) {
                     Intent i = new Intent(TitleListAct.this, ReportTitleList.class);
                     i.putExtra("Title", list.get(tag));
                     i.putExtra("Type", tag);

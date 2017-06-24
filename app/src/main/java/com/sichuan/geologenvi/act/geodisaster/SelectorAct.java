@@ -117,7 +117,13 @@ public class SelectorAct extends AppFrameAct {
             case 3:
             case 21:
                 break;
+            case 23:
+                findViewById(R.id.areaLayout).setVisibility(View.GONE);
+                findViewById(R.id.disasterNameLayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);
+                ((TextView)findViewById(R.id.nameTxt)).setText("户主姓名");
 
+                break;
 //            case 10:
 //                findViewById(R.id.areaLayout).setVisibility(View.GONE);
 //                findViewById(R.id.nameLayout).setVisibility(View.VISIBLE);

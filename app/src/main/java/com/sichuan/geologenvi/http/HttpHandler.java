@@ -151,7 +151,7 @@ public class HttpHandler extends Handle {
 		if(name.length()>0)
 			require=require+"&gczlName="+name;
 		if(id.length()>0)
-			require=require+"&gczlGuid"+id;
+			require=require+"&gczlGuid="+id;
 		requestGet(ConstantUtil.Method.CJ_GCZL_XCKP, "?pageIndex="+page+require, true);
 	}
 
@@ -178,7 +178,7 @@ public class HttpHandler extends Handle {
 		if(name.length()>0)
 			require=require+"&bxcsName="+name;
 		if(id.length()>0)
-			require=require+"&bxcsGuid"+id;
+			require=require+"&bxcsGuid="+id;
 		requestGet(ConstantUtil.Method.CJ_BXCS_XCKP, "?pageIndex="+page+require, true);
 	}
 
@@ -190,16 +190,33 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_BXBQ_XCKP, jsonContent, true);
 	}
 
-	public void getCJ_BXBQ_XCKP(int page, String id) {
+	public void getCJ_BXBQ_XCKP(int page,int pagesize, String id) {
 		String require="";
+		if(pagesize!=0)
+			require=require+"&pageSize="+pagesize;
 		if(id.length()>0)
-			require=require+"&Guid"+id;
+			require=require+"&Guid="+id;
+
 		requestGet(ConstantUtil.Method.CJ_BXBQ_XCKP, "?pageIndex="+page+require, true);
 	}
 	public void delCJ_BXBQ_XCKP(String id) {
 		requestDelete(ConstantUtil.Method.CJ_BXBQ_XCKP, "/"+id, true);
 	}
 
+	public void getBXBQ_JBXX(int page,int pagesize,String quxian,String HZXM,String yhdName, String id) {
+		String require="";
+		if(pagesize!=0)
+			require=require+"&pageSize="+pagesize;
+		if(id.length()>0)
+			require=require+"&Guid="+id;
+		if(quxian.length()>0)
+			require=require+"&quxian="+quxian;
+		if(HZXM.length()>0)
+			require=require+"&HZXM="+HZXM;
+		if(yhdName.length()>0)
+			require=require+"&yhdName="+yhdName;
+		requestGet(ConstantUtil.Method.BXBQ_JBXX, "?pageIndex="+page+require, true);
+	}
 
 
 	public void getFiles() {

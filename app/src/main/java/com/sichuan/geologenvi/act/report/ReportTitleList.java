@@ -43,7 +43,7 @@ public class ReportTitleList extends AppFrameAct {
         tableName = getIntent().getStringExtra("TableName");
         handler = new SqlHandler(this);
         _setHeaderTitle(getIntent().getStringExtra("Title"));
-        if (type == 5) {
+        if (type == 6) {
 
         } else {
             _setRightHomeText("筛选", new View.OnClickListener() {
@@ -121,6 +121,7 @@ public class ReportTitleList extends AppFrameAct {
             int tag=(int)view.getTag();
             Intent i=getIntent();
             switch (type) {
+
                 case 4:
                     i.setClass(ReportTitleList.this, ReportHistoryList.class);
                     i.putExtra("Title", datalist.get(tag).get(titleKey));

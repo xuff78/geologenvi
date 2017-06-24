@@ -54,8 +54,13 @@ public class EditItemAdapter1 extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         final TitleHolder holder = (TitleHolder)viewHolder;
         String name=datalist.get(position).get(titleKey[0]);
-        for(int i=1;i<titleKey.length;i++) {
-            name =name+ "\n"+datalist.get(position).get(titleKey[i]);
+        if(titleKey.length==3) {
+            name = name + "\n" + datalist.get(position).get(titleKey[1])+"    "+datalist.get(position).get(titleKey[2]);
+        }
+        else {
+            for (int i = 1; i < titleKey.length; i++) {
+                name = name + "\n" + datalist.get(position).get(titleKey[i]);
+            }
         }
         if(name!=null&&name.length()>0)
             holder.titleTxt.setText(name);

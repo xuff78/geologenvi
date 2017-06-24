@@ -22,7 +22,12 @@ import com.sichuan.geologenvi.act.report.ReportEditListAct;
 import com.sichuan.geologenvi.adapter.MenuListAdapter;
 
 import com.sichuan.geologenvi.bean.MapBean;
+import com.sichuan.geologenvi.http.CallBack;
+import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
+import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.utils.ViewUtil;
 import com.sichuan.geologenvi.views.ContactDialog4;
 import com.sichuan.geologenvi.views.ContactDialog5;
@@ -46,8 +51,25 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
     private String sqlStr = "";
 
     private SqlHandler handler;
+    private HttpHandler httpHandler;
+    private void initHandler() {
+        httpHandler=new HttpHandler(this, new CallBack(TitleResultListAct.this){
 
+            @Override
+            public void doSuccess(String method, String jsonData) {
+                datalist.clear();
+                datalist.addAll(JsonUtil.getDataMap(jsonData));
+                ArrayList<String> list = new ArrayList<>();
 
+                txtcount.setText("共：   " + datalist.size() + "    条记录");
+                stations.clear();
+                for (Map<String, String> info : datalist) {
+                    list.add(info.get("YHDMC") + "\n" + info.get("HZXM"));
+                }
+                recyclerView.setAdapter(new MenuListAdapter(TitleResultListAct.this, list, listener));
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +78,10 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
         type = getIntent().getIntExtra("Type", 0);
         _setHeaderTitle(getIntent().getStringExtra("Title"));
 
-
+        initHandler();
         initView();
         handler = new SqlHandler(this);
+
         requestInfo();
 
         if (type < 30) {
@@ -77,6 +100,10 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
     }
 
     private void requestInfo() {
+        if(type==23) {
+            httpHandler.getBXBQ_JBXX(1,5000,"","", "","");
+            return;
+        }
         switch (type) {
             case 1:
             case 7:
@@ -135,6 +162,7 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
 
 
         }
+
         ArrayList<String> list = new ArrayList<>();
 
         txtcount.setText("共：   " + datalist.size() + "    条记录");
@@ -182,7 +210,6 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                 case 22://数据采集（应急避险场所督导）
                     list.add(info.get("ZHDD02A020") + "\n" + info.get("ZHDD02A310"));
                     break;
-
                 case 30://通讯录  四川省地质灾害防治工作通讯录
                 case 31://通讯录  成都市地质灾害防治工作通讯录
                 case 32://通讯录  成都市国土资源局通讯录
@@ -287,8 +314,14 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                         break;
                     case 22:
                         intent.putExtra("Title", "应急避险场所督导");
-                        intent.putExtra("Name", map.get("ZHDD02A020"));
+                        intent.putExtra("Name", map.get("HZXM"));
                         intent.putExtra("ID", map.get("ZHDD02A010"));
+                        break;
+
+                    case 23:
+                        intent.putExtra("Title", "避险搬迁现场检查记录");
+                        intent.putExtra("Name", map.get("ZHDD02A020"));
+                        intent.putExtra("ID", map.get("ID"));
                         break;
                 }
                 intent.putExtra("InfoMap", mapBean);
@@ -442,6 +475,10 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == 0x11) {
+            if(type==23){
+                httpHandler.getBXBQ_JBXX(1,5000,"",intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),"");
+                return;
+            }
             switch (type) {
                 case 1:
                 case 7:

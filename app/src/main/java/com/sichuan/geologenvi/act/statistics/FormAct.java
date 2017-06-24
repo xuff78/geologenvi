@@ -11,11 +11,17 @@ import android.widget.TextView;
 import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.R;
 import com.sichuan.geologenvi.act.AppFrameAct;
+import com.sichuan.geologenvi.adapter.BXBQAdapte;
 import com.sichuan.geologenvi.adapter.BanQianAdapte;
 import com.sichuan.geologenvi.adapter.DisasterStatisticsAdapter;
+import com.sichuan.geologenvi.adapter.EditItemAdapter1;
 import com.sichuan.geologenvi.adapter.FormAdapter;
 import com.sichuan.geologenvi.adapter.FormBQBRAdapter;
 import com.sichuan.geologenvi.adapter.FormGCZLAdapter;
+import com.sichuan.geologenvi.http.CallBack;
+import com.sichuan.geologenvi.http.HttpHandler;
+import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.JsonUtil;
 import com.sichuan.geologenvi.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -33,6 +39,20 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<Map<String, String>> datalist=new ArrayList<>();
+    private HttpHandler httpHandler;
+
+    private void initHandler() {
+        httpHandler=new HttpHandler(this, new CallBack(FormAct.this){
+
+            @Override
+            public void doSuccess(String method, String jsonData) {
+                datalist.addAll(JsonUtil.getDataMap(jsonData));
+                BXBQAdapte banqian=new BXBQAdapte(FormAct.this, datalist);
+                recyclerView.setAdapter(banqian);
+            }
+        });
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +61,12 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
 
         if(type==102)
             setContentView(R.layout.zaihaidian_tongji);
-        else if(type==103)
-            setContentView(R.layout.banqian_tongji);
+//        else if(type==103)
+//            setContentView(R.layout.banqian_tongji);
+        else if(type==103) {
+            initHandler();
+            setContentView(R.layout.bxbq_tongji);
+        }
         else if(type==104)
             setContentView(R.layout.gczl_tongji);
         else
@@ -99,18 +123,34 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 break;
 
 
+//            case 103://避险搬迁统计
+//                Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+//                int year = c.get(Calendar.YEAR);
+//                datalist=handler.getQueryResult2("NAME,\n"+
+//                                "sum(case when zhdd04B013='"+String.valueOf(year-2)+"' then 1 else 0 end) as year1,\n"+
+//                                "sum(case when zhdd04B013='"+String.valueOf(year-1)+"' then 1 else 0 end) as year2,\n"+
+//                                "sum(case when zhdd04B013='"+String.valueOf(year)+"' then 1 else 0 end) as year3,\n"+
+//                                "sum(case when zhdd04B013>='"+String.valueOf(year-2)+"' then 1 else 0 end) as xiaoji",
+//                        "SL_ZHDD04B as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD04B040=b.CODE) group by ZHDD04B040",
+//                        "");
+//                BanQianAdapte banqian=new BanQianAdapte(this, datalist);
+//                recyclerView.setAdapter(banqian);
+//                break;
             case 103://避险搬迁统计
-                Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
-                int year = c.get(Calendar.YEAR);
-                datalist=handler.getQueryResult2("NAME,\n"+
-                                                "sum(case when zhdd04B013='"+String.valueOf(year-2)+"' then 1 else 0 end) as year1,\n"+
-                                                "sum(case when zhdd04B013='"+String.valueOf(year-1)+"' then 1 else 0 end) as year2,\n"+
-                                                "sum(case when zhdd04B013='"+String.valueOf(year)+"' then 1 else 0 end) as year3,\n"+
-                                                "sum(case when zhdd04B013>='"+String.valueOf(year-2)+"' then 1 else 0 end) as xiaoji",
-                        "SL_ZHDD04B as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD04B040=b.CODE) group by ZHDD04B040",
-                "");
-                BanQianAdapte banqian=new BanQianAdapte(this, datalist);
-                recyclerView.setAdapter(banqian);
+                httpHandler.getBXBQ_JBXX(1,5000,"","","","");
+
+
+//                Calendar c = Calendar.getInstance();//可以对每个时间域单独修改
+//                int year = c.get(Calendar.YEAR);
+//                datalist=handler.getQueryResult2("NAME,\n"+
+//                                "sum(case when zhdd04B013='"+String.valueOf(year-2)+"' then 1 else 0 end) as year1,\n"+
+//                                "sum(case when zhdd04B013='"+String.valueOf(year-1)+"' then 1 else 0 end) as year2,\n"+
+//                                "sum(case when zhdd04B013='"+String.valueOf(year)+"' then 1 else 0 end) as year3,\n"+
+//                                "sum(case when zhdd04B013>='"+String.valueOf(year-2)+"' then 1 else 0 end) as xiaoji",
+//                        "SL_ZHDD04B as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD04B040=b.CODE) group by ZHDD04B040",
+//                        "");
+//                BanQianAdapte banqian=new BanQianAdapte(this, datalist);
+//                recyclerView.setAdapter(banqian);
                 break;
             case 104://工程治理点位统计
                 datalist=handler.getQueryResult2("NAME,\n" +

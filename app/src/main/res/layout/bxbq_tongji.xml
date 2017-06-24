@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:background="@color/whitesmoke"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:text="序号"
+                style="@style/txt_gray_11" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <TextView
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="区（市）县"
+                style="@style/txt_gray_11" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <TextView
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:text="隐患点名称"
+                style="@style/txt_gray_11" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="240dp"
+                android:layout_height="120dp">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:text="避险搬迁农户基本信息"
+                    style="@style/txt_gray_11" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="乡（镇）、村、组"
+                        style="@style/txt_gray_10" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="户主姓名"
+                        style="@style/txt_gray_10" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="身份证号"
+                        style="@style/txt_gray_10" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="户人口"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/txt_gray_10" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="480dp"
+                android:layout_height="120dp">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="挂钩项目"
+                    style="@style/txt_gray_11" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="项目名称"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="95dp" />
+
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="160dp"
+                        android:layout_height="95dp">
+                        <TextView
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:text="集中安置"
+                            style="@style/txt_gray_11" />
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="立项"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="招商"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="签订合同"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="确定补偿方式"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="签订安置协议"
+                                style="@style/txt_gray_11" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="95dp" />
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="160dp"
+                        android:layout_height="95dp">
+                        <TextView
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="货币化安置"
+                            style="@style/txt_gray_11" />
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="补偿资金发放"
+                                style="@style/txt_gray_11" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+
+
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="480dp"
+                android:layout_height="120dp">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="非挂钩项目"
+                    style="@style/txt_gray_11" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp">
+
+
+
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="160dp"
+                        android:layout_height="95dp">
+                        <TextView
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:text="集中安置"
+                            style="@style/txt_gray_11" />
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="民房选址"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="新房修建"
+                                style="@style/txt_gray_11" />
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="95dp" />
+
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="160dp"
+                        android:layout_height="95dp">
+                        <TextView
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:text="自主安置"
+                            style="@style/txt_gray_11" />
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="自主安置协议"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="补偿资金发放"
+                                style="@style/txt_gray_11" />
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="95dp" />
+
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:layout_width="160dp"
+                        android:layout_height="95dp">
+                        <TextView
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:text="集中安置"
+                            style="@style/txt_gray_11" />
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="安置区选址"
+                                style="@style/txt_gray_11" />
+                            <View
+                                android:background="@color/light_gray"
+                                android:layout_width="1px"
+                                android:layout_height="50dp" />
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="施工"
+                                style="@style/txt_gray_11" />
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="480dp"
+                android:layout_height="120dp">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:text="实施进度"
+                    style="@style/txt_gray_11" />
+                <View
+                    android:background="@color/light_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="过渡安置"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="新房建成"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="新房入住"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="旧房拆除"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="宅基地复垦"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="避险搬迁验收"
+                        style="@style/txt_gray_11" />
+                    <View
+                        android:background="@color/light_gray"
+                        android:layout_width="1px"
+                        android:layout_height="50dp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="数据库更新"
+                        style="@style/txt_gray_11" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <TextView
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="存在的问题"
+                style="@style/txt_gray_11" />
+            <View
+                android:background="@color/light_gray"
+                android:layout_width="1px"
+                android:layout_height="120dp" />
+            <TextView
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:text="备注"
+                style="@style/txt_gray_11" />
+        </LinearLayout>
+        <View
+            android:background="@color/light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1px" />
+        <com.sichuan.geologenvi.views.VRecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</HorizontalScrollView>

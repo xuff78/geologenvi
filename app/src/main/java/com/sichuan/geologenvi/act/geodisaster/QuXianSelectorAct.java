@@ -42,12 +42,12 @@ public class QuXianSelectorAct extends AppFrameAct {
 
         type=getIntent().getIntExtra("Type", 0);
         _setHeaderTitle("选择区县");
-        _setLeftBackListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                backList();
-            }
-        });
+//        _setLeftBackListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                backList();
+//            }
+//        });
         initView();
         handler=new SqlHandler(this);
         requestArea();
@@ -111,16 +111,16 @@ public class QuXianSelectorAct extends AppFrameAct {
     };
 
     private void backList(){
-        if(selectId.length()!=0){
-            selectedDistrict.removeLast();
-            if(selectedDistrict.size()>0){
-                selectId=selectedDistrict.getLast();
-                requestArea();
-            }else{
-                selectId="";
-                requestArea();
-            }
-        }else
+//        if(selectId.length()!=0){
+//            selectedDistrict.removeLast();
+//            if(selectedDistrict.size()>0){
+//                selectId=selectedDistrict.getLast();
+//                requestArea();
+//            }else{
+//                selectId="";
+//                requestArea();
+//            }
+//        }else
             finish();
     }
 

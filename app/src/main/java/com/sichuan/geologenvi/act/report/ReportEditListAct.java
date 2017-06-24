@@ -76,7 +76,7 @@ public class ReportEditListAct extends AppFrameAct {
                     cddhHandler.execSQL("update yujing set yujingtime='"+yujingtime+"' where id=1");
                     recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"TITLE","FBDATE"}, listener));
                 }else if(method.equals(ConstantUtil.Method.CJ_BXBQ_XCKP)){//避险搬迁现场检查
-                    recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"HZXM","JCRQ"}, listener));
+                    recyclerView.setAdapter(new EditItemAdapter1(ReportEditListAct.this, datalist, new String[]{"YHDMC","HZXM","JCRQ"}, listener));
                 }
             }
         });
@@ -168,7 +168,7 @@ public class ReportEditListAct extends AppFrameAct {
                 httpHandler.getCJ_BXCS_XCKP(1, name,id);
                 break;
             case 23:
-                httpHandler.getCJ_BXBQ_XCKP(1,"");
+                httpHandler.getCJ_BXBQ_XCKP(1,5000,id);
                 break;
             case 30:
                 if(fbDate!=null&&fbDate!=""){
