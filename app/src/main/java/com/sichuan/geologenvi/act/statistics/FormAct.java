@@ -101,21 +101,21 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(adapter);
                 break;
             case 1://监测水井统计
-                datalist=handler.getQueryResult("QUXIAN,count(1) as ShuLiang,\n" +
+                datalist=handler.getQueryResult2("QUXIAN,count(1) as ShuLiang,\n" +
                                 " SUM(CASE WHEN QIYONG = '01' THEN 1 ELSE 0 END) as QIYONG ",
                         " SL_TBLJING group by QUXIAN",
                         "");
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 3));
                 break;
             case 2://水土地质统计
-                datalist=handler.getQueryResult("QUXIAN as NAME,\n" +
+                datalist=handler.getQueryResult2("QUXIAN as NAME,\n" +
                         "sum(1) as ZongGong" ,
                         " SL_SOILSTASION group by QUXIAN",
                         "");
                 recyclerView.setAdapter(new FormBQBRAdapter(this, datalist, 6));
                 break;
             case 3://矿山统计
-                datalist=handler.getQueryResult("KS_SSQX as NAME,\n"+
+                datalist=handler.getQueryResult2("KS_SSQX as NAME,\n"+
                                 "sum(1) as ZongGong ",
                         "SL_KS_XX  group by KS_SSQX ",
                         "");
@@ -167,7 +167,7 @@ public class FormAct extends AppFrameAct implements View.OnClickListener{
                 recyclerView.setAdapter(new FormGCZLAdapter(this, datalist));
                 break;
             case 105://避险场所信息统计
-                datalist=handler.getQueryResult("NAME,\n"+
+                datalist=handler.getQueryResult2("NAME,\n"+
                         "sum(1) as ZongGong ",
                         "SL_ZHDD02A as a left join SL_TATTR_DZZH_XZQH as b on (a.ZHDD02A040=b.CODE) group by ZHDD02A040 ",
                         "");
