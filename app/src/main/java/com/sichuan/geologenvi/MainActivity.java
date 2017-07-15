@@ -54,19 +54,19 @@ import java.util.Map;
 public class MainActivity extends AppFrameAct {
 
 
-    private String[] names1={"通讯录","地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
-            "地下水","水土地质","雨量监测","预警","更多..."};
-    private String[] names={"通讯录","地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
-            "地下水","水土地质","雨量监测","预警","雷达回波","基础资料","数据同步","值班安排","收回"};
-    private int[] ress={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
+    private String[] names1={"通讯录","二维地图","三维地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+            "地下水","水土地质","预警","更多..."};
+    private String[] names={"通讯录","二维地图","三维地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+            "地下水","水土地质","预警","雨量监测","雷达回波","基础资料","数据同步","值班安排","收回"};
+    private int[] ress={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_3dmap,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
-            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
-             R.mipmap.icon_menu_14,R.mipmap.icon_menu_15,
+            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_14,
+             R.mipmap.icon_menu_12,R.mipmap.icon_menu_15,
             R.mipmap.icon_menu_1,R.mipmap.icon_menu_4,R.mipmap.icon_menu_13, R.mipmap.more1};
 
-    private int[] ress1={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,
+    private int[] ress1={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_3dmap,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
-            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_12,
+            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,
              R.mipmap.icon_menu_14,R.mipmap.more1 };
     private AutoScrollViewPager viewPager;
     private AsycnDialog dialog;
@@ -158,6 +158,7 @@ public class MainActivity extends AppFrameAct {
                 layout.setOrientation(LinearLayout.HORIZONTAL);
             }
 
+
             if(names1[i].equals("预警")){
                 yjView=v;
 //                setNews(v);
@@ -248,6 +249,7 @@ public class MainActivity extends AppFrameAct {
         menuLayout.removeAllViews();
 
         if(k==1) {
+
             for (int i = 0; i < names.length; i++) {
                 View v = inflater.inflate(R.layout.item_main_menu, null);
                 ImageView menuIcon = (ImageView) v.findViewById(R.id.menuIcon);
@@ -265,7 +267,13 @@ public class MainActivity extends AppFrameAct {
 //                layout.setPadding(0,paddtop,0,0);
                     layout.setOrientation(LinearLayout.HORIZONTAL);
                 }
-
+                if(i==names.length-1)
+                {
+                    menuLayout.addView(layout);
+                    layout=new LinearLayout(this);
+//                layout.setPadding(0,paddtop,0,0);
+                    layout.setOrientation(LinearLayout.HORIZONTAL);
+                }
                 if(names[i].equals("预警")){
                     yjView=v;
                     setNews(yjView,yjCount);
@@ -314,24 +322,28 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 2:
+//                    i.setClass(MainActivity.this, Map3DAct.class);
+//                    startActivity(i);
+                    break;
+                case 3:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "地质灾害");
                     i.putExtra("Type", "Disaster");
                     startActivity(i);
                     break;
-                case 3:
+                case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "统计分析");
                     i.putExtra("Type", "Statistics");
                     startActivity(i);
                     break;
-                case 4:
+                case 5:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "数据采集");
                     i.putExtra("Type", "Report");
                     startActivity(i);
                     break;
-                case 5:
+                case 6:
                     //i.setClass(MainActivity.this, MineListAct.class);
                     //i.putExtra("Title", "矿山地质");
                     //i.putExtra("TableName", "SL_KS_DZHJ_XX");
@@ -341,13 +353,13 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "kuangshan");
                     startActivity(i);
                     break;
-                case 6:
+                case 7:
                     i.setClass(MainActivity.this, MineListAct.class);
                     i.putExtra("Title", "地质遗迹");
                     i.putExtra("TableName", "SL_DZYJBH");
                     startActivity(i);
                     break;
-                case 7:
+                case 8:
                     //i.setClass(MainActivity.this, MineListAct.class);
                     //i.putExtra("Title", "地下水");
                     //i.putExtra("TableName", "SL_TBLJING");
@@ -359,17 +371,13 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "Jing");
                     startActivity(i);
                     break;
-                case 8:
+                case 9:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "水土地质");
                     i.putExtra("Type", "soil");
                     startActivity(i);
                     break;
-                case 9:
-                    i.setClass(MainActivity.this, RainAct.class);
-                    i.putExtra("Title", "雨量监测");
-                    startActivity(i);
-                    break;
+
                 case 10:
                     i.setClass(MainActivity.this,ReportEditListAct.class);
                     yjCount=0;
@@ -379,6 +387,11 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 11:
+                    i.setClass(MainActivity.this, RainAct.class);
+                    i.putExtra("Title", "雨量监测");
+                    startActivity(i);
+                    break;
+                case 12:
 //                    i.setClass(MainActivity.this, RadAct.class);
 //                    i.putExtra("Title", "雷达回波");
 //                    startActivity(i);
@@ -392,23 +405,23 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Title", "雷达回波");
                     startActivity(i);
                     break;
-                case 12:
+                case 13:
                     i.setClass(MainActivity.this, SearchAct.class);
                     i.putExtra("Title", "基础资料");
                     i.putExtra("Type","zcfg");
                     startActivity(i);
                     break;
-                case 13:
+                case 14:
                     dialog=new AsycnDialog(MainActivity.this);
                     dialog.show();
                     break;
-                case 14:
+                case 15:
                     i.setClass(MainActivity.this, ZBAPAct.class);
                     i.putExtra("Title", "值班安排");
                     i.putExtra("Type","zhibananpai");
                     startActivity(i);
                     break;
-                case 15:
+                case 16:
                     setImage(0);
                     break;
 
@@ -432,24 +445,28 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 2:
+//                    i.setClass(MainActivity.this, Map3DAct.class);
+//                    startActivity(i);
+                    break;
+                case 3:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "地质灾害");
                     i.putExtra("Type", "Disaster");
                     startActivity(i);
                     break;
-                case 3:
+                case 4:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "统计分析");
                     i.putExtra("Type", "Statistics");
                     startActivity(i);
                     break;
-                case 4:
+                case 5:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "数据采集");
                     i.putExtra("Type", "Report");
                     startActivity(i);
                     break;
-                case 5:
+                case 6:
                     //i.setClass(MainActivity.this, MineListAct.class);
                     //i.putExtra("Title", "矿山地质");
                     //i.putExtra("TableName", "SL_KS_DZHJ_XX");
@@ -459,13 +476,13 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "kuangshan");
                     startActivity(i);
                     break;
-                case 6:
+                case 7:
                     i.setClass(MainActivity.this, MineListAct.class);
                     i.putExtra("Title", "地质遗迹");
                     i.putExtra("TableName", "SL_DZYJBH");
                     startActivity(i);
                     break;
-                case 7:
+                case 8:
                     //i.setClass(MainActivity.this, MineListAct.class);
                     //i.putExtra("Title", "地下水");
                     //i.putExtra("TableName", "SL_TBLJING");
@@ -477,17 +494,17 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type", "Jing");
                     startActivity(i);
                     break;
-                case 8:
+                case 9:
                     i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "水土地质");
                     i.putExtra("Type", "soil");
                     startActivity(i);
                     break;
-                case 9:
-                    i.setClass(MainActivity.this, RainAct.class);
-                    i.putExtra("Title", "雨量监测");
-                    startActivity(i);
-                    break;
+//                case 10:
+//                    i.setClass(MainActivity.this, RainAct.class);
+//                    i.putExtra("Title", "雨量监测");
+//                    startActivity(i);
+//                    break;
                 case 10:
                     i.setClass(MainActivity.this,ReportEditListAct.class);
                     yjCount=0;

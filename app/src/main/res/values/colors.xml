@@ -20,7 +20,7 @@
     <color name="light_blue">#ADD8E6</color><!--亮蓝色 -->
     <color name="normal_blue">#1b93e5</color><!--蓝色 -->
     <color name="verylight_gray">#dadada</color><!--亮浅 -->
-    <color name="light_gray">#C0C0C0</color><!--浅灰 -->
+    <color name="light_gray">#ffffff</color><!--浅灰 -->
     <color name="normal_gray">#818181</color><!--中灰 -->
     <color name="hard_gray">#343434</color><!--深灰 -->
     <color name="coffee">#72452C</color><!--咖啡色 -->

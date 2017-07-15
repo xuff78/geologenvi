@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="scmmapapi">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/scmmapapi.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
