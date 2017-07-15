@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "23.0.1"
 
     useLibrary 'org.apache.http.legacy'
 
@@ -72,5 +72,6 @@ dependencies {
     compile files('libs/jackson-core-1.9.5.jar')
     compile files('libs/jcifs-1.3.17.jar')
     compile files('libs/scmmapapi.jar')
+    compile project(':terraExplorerApp')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

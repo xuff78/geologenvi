@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TutorialActivity"
+     >
+	<ImageView
+	    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+	     android:src="@drawable/bg2_portrait"
+	     android:scaleType="fitXY"
+	     android:contentDescription="@null"
+	    />
+    <LinearLayout 
+            android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/tutorial_title"
+        android:textColor="@color/text_color"
+        android:textSize="25sp"
+        android:id="@+id/tutorial_title" 
+        android:gravity="center" 
+        />
+    
+    <TextView
+        android:id="@+id/tutorial_sub_title" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/tutorial_sub_title"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:gravity="center" 
+        />
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+    <Button
+        android:id="@+id/tutorial_watch"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/control_with_border"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/text_color"
+        android:text="@string/tutorial_watch" />
+
+    <Button
+        android:id="@+id/tutorial_skip"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@+id/tutorial_watch"
+        android:background="@drawable/control_with_border"
+        android:textColor="@color/text_color"
+        android:text="@string/tutorial_skip" />
+
+    </RelativeLayout>
+    
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/tutorial_sub_title2"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:gravity="center" 
+        />
+    </LinearLayout>
+</RelativeLayout>

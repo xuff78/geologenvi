@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TerraExplorer</string>
+    <string name="main_button">Main Button</string>
+    
+<string name="yes">Yes</string>
+<string name="no">No</string>
+<string name="ok">OK</string>
+<string name="cancel">Cancel</string>
+<string name="all">All</string>
+<string name="edit">Edit</string>
+<string name="delete">Delete</string>
+<string name="save">Save</string>
+<string name="none">None</string>
+<string name="loading">Loading project</string>
+<string name="initializing">Initializing application</string>
+<string name="loading_project_error">Failed to load Terraexplorer project %1$s: %2$s</string>
+<string name="loading_error_title">Load Error</string>
+<string name="meters">meters</string>
+<string name="meters_abbr">m</string>
+<string name="km">km</string>
+<string name="km_abbr">km</string>
+<string name="feet">feet</string>
+<string name="feet_abbr">f</string>
+<string name="mile">mile</string>
+<string name="mile_abbr">mile</string>
+<string name="square_meter">meter²</string>
+<string name="square_km">km²</string>
+<string name="square_feet">feet²</string>
+<string name="square_mile">mile²</string>
+<string name="back">Back</string>
+
+<string name="calculating">Calculating...</string>
+<string name="version_string">TerraExplorer v%s</string>
+<string name="retry">Retry</string>
+<string name="rename">Rename</string>
+   
+    
+<string name="mm_menu">Menu</string>
+<string name="mm_analyze">Analyze</string>
+<string name="mm_gps">GPS</string>
+<string name="mm_gps_on">My Location On</string>
+<string name="mm_gps_off">My Location Off</string>
+<string name="mm_more">More</string>
+<string name="mm_more_about">About</string>
+<string name="mm_more_tutorial">Tutorial</string>
+<string name="mm_more_share">Capture &amp; Share</string>
+<string name="mm_analyze_distance">Distance</string>
+<string name="mm_analyze_area">Area</string>
+<string name="mm_analyze_viewshed">Viewshed</string>
+<string name="mm_analyze_line_of_sight">Line of Sight</string>
+<string name="mm_analyze_profile">Profile</string>
+<string name="mm_analyze_shadow">Shadow Analysis</string>
+<string name="mm_whiteboard">White Board</string>
+
+<!-- Tutorial -->
+<string name="tutorial_skip">Skip</string>
+<string name="tutorial_watch">Watch</string>
+<string name="tutorial_title">Welcome to TerraExplorer</string>
+<string name="tutorial_sub_title">We recommend watching short tutorial on\nYouTube before using TerraExplorer</string>
+<string name="tutorial_sub_title2">To watch later go to: Menu>Settings>Tutorial</string>
+
+<!-- About -->
+<string name="about_version">Version %1$s (%2$s)</string>
+<string name="about_patents">Protected by U.S. Patents: 6111583, 6433792, 6704017, 7551172, 8237713. Other patents pending.\nThe Skylne logo and TerraExplorer are trademarks of Skyline Software Systems.\nCopyright: © 2014 Skyline Software Systems, Inc. All rights reserved.\nCopyright: © 2014 GEOS - Geometry Engine Open Source</string>
+<string name="about_info_email">General information: info@skylinesoft.com</string>
+<string name="about_support_email">Technical support: support@skylinesoft.com</string>
+<string name="about_close">Close</string>
+<string name="about_send_email">Send email...</string>
+
+    <!-- Places -->
+
+<string name="title_activity_places">Places</string>
+<string name="places_favorites">Favorites</string>
+<string name="places_locations">Locations</string>
+<string name="places_presentations">Presentations</string>
+<string name="places_delete_location">Delete this location?</string>
+
+
+    <!-- Favorites -->
+
+<string name="title_activity_favorites">Favorites</string>
+<string name="favorites_default_name">My location</string>
+<string name="favorite_icon_none">None</string>
+<string name="favorite_icon_star_red">Red Star</string>
+<string name="favorite_icon_star_green">Green Star</string>
+<string name="favorite_icon_star_purple">Purple Star</string>
+<string name="favorite_icon_star_blue">Blue Star</string>
+<string name="favorite_icon_star_yellow">Yellow Star</string>
+<string name="favorite_name">Name</string>
+<string name="favorite_show_on_3d">Show on 3D View</string>
+<string name="favorite_icon_name">Icon</string>
+<string name="favorite_description">Description</string>
+<string name="favorites_item_not_found">Failed to load data for favorite item</string>
+<!-- Favorites Select Icon -->
+
+<string name="title_activity_favorites_icons">Select icon</string>
+
+
+    <!-- Settings -->
+<string name="title_activity_settings">Settings</string>
+<string name="settings_section_project">Project</string>
+<string name="settings_units">Units</string>
+<string name="settings_units_meters">meters and km/h</string>
+<string name="settings_units_feet">feet and m/h</string>
+<string name="settings_websearch">Internet search</string>
+<string name="settings_websearch_on">Internet search enabled</string>
+<string name="settings_websearch_off">Internet search disabled</string>
+<string name="settings_websearch_url">Internet search url:</string>
+<string name="settings_about">About</string>
+<string name="settings_tutorial">View Tutorial</string>
+
+<string name="settings_section_view">View</string>
+<string name="settings_navigation_buttons">Navigation Buttons</string>
+<string name="settings_navigation_buttons_on">On</string>
+<string name="settings_navigation_buttons_off">Off</string>
+<string name="settings_navigation_buttons_click">On map click</string>
+<string name="settings_underground">Underground</string>
+<string name="settings_underground_button">Underground Mode</string>
+<string name="settings_underground_button_on">On</string>
+<string name="settings_underground_button_off">Off</string>
+<string name="settings_underground_button_click">On map click</string>
+<string name="settings_myposition">My Position</string>
+<string name="settings_myposition_on">Show my position icon</string>
+<string name="settings_myposition_off">Do not show my position icon</string>
+<string name="settings_sunlight">Sunlight</string>
+<string name="settings_sunlight_on">Sunlight enabled</string>
+<string name="settings_sunlight_off">Sunlight disabled</string>
+<string name="settings_gpstrail">Show GPS trail</string>
+<string name="settings_gpstrail_on">Display gps trail on terrain</string>
+<string name="settings_gpstrail_off">Do not show gps trail on terrain</string>
+<string name="settings_gpstrail_save">Save GPS trail</string>
+<string name="settings_gpstrail_save_on">Save GPS trail to disk</string>
+<string name="settings_gpstrail_save_off">Do not save GPS trail to disk</string>
+
+<string name="menuButton_slideRight">Menu button slide right</string>
+<string name="menuButton_slideUp">Menu button slide up</string>
+
+    <!-- Projects -->
+
+<string name="title_activity_projects">Projects</string>
+<string name="projects_sg_usa">SkylineGlobe USA</string>
+<string name="projects_sg_usa_path">http://www.SkylineGlobe.com</string>
+<string name="projects_remove">Remove from list</string>
+<string name="projects_enter_url">Enter full url to load web project...</string>
+<string name="projects_current">[Loaded]</string>
+
+
+    <!-- Layers -->
+
+<string name="title_activity_layers">Layers</string>
+<string name="layers_objects">Modify terrain objects</string>
+<string name="layers_mesh_layers">3D Layers</string>
+<string name="layers_feature_layers">Feature Layers</string>
+<string name="layers_raster_layers">Raster Layers</string>
+<string name="layers_contour_map">Contour Map</string>
+<string name="layers_slope_map">Slope Map</string>
+<string name="layers_up">[UP]</string>
+<string name="layers_show_by_group">Sort by Group</string>
+<string name="layers_show_by_type">Sort by Type</string>
+
+
+
+
+    <!-- Search -->
+
+<string name="title_activity_search">Search</string>
+<string name="search_nodata">No results found</string>
+<string name="search_error">Search failed: %s</string>
+<string name="search_webresults">Address Search</string>
+<string name="search_recents">Recent searches</string>
+<string name="search_searching">Performing search. Please wait.</string>
+<string name="search_layers">Layers</string>
+<string name="search_places">Places</string>
+<string name="websearch_disabled">Web search is disabled</string>
+<string name="search_hint">Search TerraExplorer</string>
+
+
+    <!-- Location tracker -->
+
+<string name="locationTracker_enable">Enable</string>
+<string name="locationTracker_alert_title">Improve your location accuracy</string>
+<string name="locationTracker_alert_message">Turn on Location Services to enable access to your location</string>
+<string name="locationTracker_alert_message_gps_only">Turn on GPS to improve location accuracy</string>
+<string name="locationTracker_alert_nogps_title">GPS not found</string>
+<string name="locationTracker_alert_nogps_message">TerraExplorer requires high accuracy location services.</string>
+
+
+    <!-- Presentation steps -->
+
+<string name="title_activity_presentation_steps">Presentation Steps</string>
+
+
+    <!-- distance and profile tool -->
+
+<string name="title_activity_terrain_profile">Terrain Profile</string>
+<string name="measure_distance_aerial">Total aerial distance: %s</string>
+<string name="measure_distance_horizontal">Total horizontal distance: %s</string>
+<string name="measure_distance_ground">Total ground distance: %s</string>
+<string name="measure_distance_elevation">Elevation difference: %s</string>
+<string name="measure_distance_slope">Slope: %.2f °</string>
+<string name="profile_x">X</string>
+<string name="profile_y">Y</string>
+<string name="profile_elevation">Elevation</string>
+<string name="profile_minSlope">Min. Slope</string>
+<string name="profile_maxSlope">Max. Slope</string>
+<string name="profile_total_aerial_distance">Total aerial distance: %s</string>
+<string name="profile_total_horizontal_distance">Total horizontal distance: %s</string>
+<string name="profile_total_ground_distance">Total ground distance: %s</string>
+<string name="profile_show">Show</string>
+<string name="profile_show_max_slopes">Max Slopes</string>
+<string name="profile_show_max_altitude">Min/Max Altitude</string>
+<string name="profile_show_waypoints">Way Points</string>
+<string name="profile_show_scale_altitude">Scale altitude to full height</string>
+
+    <!--measure area tool -->
+
+<string name="measure_area_area">Area: %s</string>
+<string name="measure_area_perimeter">Perimeter: %s</string>
+<string name="measure_area_ground">Ground surface: %s</string>
+
+
+    <!--viewshed tool -->
+
+<string name="viewshed_tool_fov">Horizontal FOV: %1$.2f °\r\nVertical FOV: %2$.2f °</string>
+<string name="viewshed_tool_fov_horizontal">Horizontal FOV</string>
+<string name="viewshed_tool_fov_vertical">Vertical FOV</string>
+<string name="viewshed_tool_viewer_altitude">Viewer Altitude</string>
+<string name="viewshed_tool_shadow_not_supported_title">Viewshed analysis</string>
+<string name="viewshed_tool_shadow_not_supported">Viewshed analysis is not supported on this device</string>
+<!-- los tool -->
+
+<string name="los_tool_text">Target Altitude: %s</string>
+<string name="los_tool_target_height">Target Altitude</string>
+
+
+    <!-- shadow tool -->
+
+<string name="shadow_tool_choose_date">Choose Date</string>
+<string name="shadow_tool_shadow_not_supported_title">Shadow analysis</string>
+<string name="shadow_tool_shadow_not_supported">Shadow analysis is not supported on this device</string>
+
+    <!-- SGWorld Message -->
+
+<string name="title_activity_message">Message</string>
+
+
+    <!-- layer edit -->
+
+<string name="featurelayer_tool_edit_layer">Edited layer: %s</string>
+<string name="featurelayer_tool_no_gps">Failed to determine GPS location</string>
+<string name="featurelayer_saved_failed">Failed to save layer</string>
+
+    <!-- feature attributes -->
+
+<string name="title_activity_attributes">Attributes</string>
+
+
+    <!-- edit feature -->
+
+<string name="edit_feature_saved_changes">Changes were saved</string>
+<string name="edit_feature_delete_changes">Delete feature from layer?</string>
+<string name="edit_feature_save_changes">Save changes?</string>
+
+
+    <!-- share tool -->
+
+<string name="share_snapshot_failed">Failed to take a snapshot</string>
+<string name="share_snapshot_taken">Snapshot is saved in Gallery</string>
+<string name="share_snapshot_share">Share snapshot</string>
+
+    <!-- whiteboard tool -->
+
+<string name="whiteboard_tooltext">Edit board: %s</string>
+<string name="title_activity_whiteboards">White Boards</string>
+<string name="whiteboard_default_name">Board </string>
+<string name="Whiteboard_delete">Delete white board %s?</string>
+<string name="whiteboard_new">White board name</string>
+<string name="whiteboard_new_row">Click here to add new white board</string>
+<string name="whiteboard_set_color">Select Color</string>
+<string name="whiteboard_set_comment">Comment</string>
+<string name="whiteboard_set_text">Text</string>
+<string name="whiteboard_set_altitude">Altitude</string>
+<string name="whiteboardtool_select_board_title">Create new board?</string>
+<string name="whiteboardtool_select_board_text">Current board is hidden. Do you want to create a new board or make the current board visible?</string>
+<string name="whiteboard_create_new_board">New</string>
+<string name="whiteboard_show_board">Show</string>
+<string name="whiteboard_current">[Current]</string>
+<string name="whiteboard_delete_feature">Remove object from whiteboard?</string>
+
+
+    <!-- gps tool -->
+
+<string name="gpstool_nogps">Failed to acquire location</string> 
+
+
+</resources>

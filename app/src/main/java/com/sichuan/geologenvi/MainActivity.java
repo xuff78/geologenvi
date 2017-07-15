@@ -47,6 +47,8 @@ import com.sichuan.geologenvi.views.AutoScrollViewPager;
 import com.sichuan.geologenvi.views.PSDdialog;
 import com.sichuan.geologenvi.views.UpdateDailog;
 import com.sichuan.geologenvi.views.YujingNotDialog;
+import com.skyline.terraexplorer.TEApp;
+import com.skyline.terraexplorer.controllers.TEMainActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -109,11 +111,12 @@ public class MainActivity extends AppFrameAct {
         }
     }
 
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//
-//    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        TEApp.setAppContext(this);
+
+    }
     LinearLayout.LayoutParams para;
     int itemWidth;
     private void initView() {
@@ -435,7 +438,8 @@ public class MainActivity extends AppFrameAct {
             Intent i=new Intent();
             switch ((int)view.getTag()){
                 case 0:
-                    i.setClass(MainActivity.this, TitleListAct.class);
+//                    i.setClass(MainActivity.this, TitleListAct.class);
+                    i.setClass(MainActivity.this, TEMainActivity.class);
                     i.putExtra("Title", "通讯录");
                     i.putExtra("Type", "Contact");
                     startActivity(i);

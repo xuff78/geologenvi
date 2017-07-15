@@ -1,0 +1,34 @@
+package com.skyline.teapi;
+
+public final class ActionCode {
+    public static final int AC_FLYTO = 0;
+    public static final int AC_CIRCLEPATTERN = 1;
+    public static final int AC_OVALPATTERN = 2;
+    public static final int AC_LINEPATTERN = 3;
+    public static final int AC_ARCPATTERN = 4;
+    public static final int AC_FOLLOWBEHIND = 5;
+    public static final int AC_FOLLOWABOVE = 6;
+    public static final int AC_FOLLOWBELOW = 7;
+    public static final int AC_FOLLOWRIGHT = 8;
+    public static final int AC_FOLLOWLEFT = 9;
+    public static final int AC_FOLLOWBEHINDANDABOVE = 10;
+    public static final int AC_FOLLOWCOCKPIT = 11;
+    public static final int AC_FOLLOWFROMGROUND = 12;
+    public static final int AC_STOP = 13;
+    public static final int AC_JUMP = 14;
+    public static final int AC_DELETE = 15;
+    public static final int AC_EDIT_FINISHED = 16;
+    public static final int AC_OBJECT_ADDED = 17;
+    public static final int AC_PLAY = 18;
+    public static final int AC_SHOW = 19;
+    public static final int AC_EDIT_STARTED = 20;
+    public static final int AC_SELCHANGED = 21;
+    public static final int AC_WAYPOINT_REACHED = 22;
+    public static final int AC_GROUP_ADDED = 23;
+    public static final int AC_LAYER_ADDED = 24;
+    public static final int AC_LAYER_REFRESHED = 25;
+    public static final int AC_ITEM_MOVED = 26;
+    public static final int AC_LAYER_REMOVED = 27;
+    public static final int AC_3DML_ADDED = 28;
+    public static final int AC_3DML_REMOVED = 29;
+};
