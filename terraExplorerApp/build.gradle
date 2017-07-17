@@ -1,5 +1,4 @@
-//apply plugin: 'com.android.application'
-apply plugin: 'android-library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
@@ -7,9 +6,26 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-//        applicationId "com.skyline.terraexplorer"
+        applicationId "com.skyline.terraexplorer"
         minSdkVersion 14
         targetSdkVersion 18
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("D:\\android_self.jks")
+            storePassword "123456"
+            keyAlias "eric_ji"
+            keyPassword "123456"
+
+        }
+
+        release {
+            storeFile file("D:\\android_self.jks")
+            storePassword "123456"
+            keyAlias "eric_ji"
+            keyPassword "123456"
+        }
     }
 
     buildTypes {

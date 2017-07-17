@@ -12,27 +12,97 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 
-public class TEApp{
+public class TEApp extends Application{
 
     private static Context appContext;
-    public static Context activityContext;
-	public static Context mainActivityContext;
+    private static Context activityContext;
+    private static Context mainActivityContext;
 
+    private Thread.UncaughtExceptionHandler androidDefaultUEH;
 
+     private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+         public void uncaughtException(Thread thread, Throwable ex) {
+        	 String path = Environment.getExternalStorageDirectory() + File.separator + "com.skyline.terraexplorer/files";
+        	 File file = new File(path, "errors.txt");
+        	 FileOutputStream stream = null;
+        	 try {
+            	 stream =  new FileOutputStream(file,true);
+        	     stream.write((new Date().toGMTString() + ": ").getBytes());
+        	     ex.printStackTrace(new PrintStream(stream));
+        	 } 
+        	 catch(Exception e)
+        	 {
+        		 e.printStackTrace();
+        	 }
+        	 finally {
+        		 if(stream != null)
+					try {
+						stream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+        	 }
+            //Log.e("TestApplication", "Uncaught exception is: ", ex);
+             androidDefaultUEH.uncaughtException(thread, ex);
+         }
+     };
     
     public void onCreate(){
+        super.onCreate();
+        androidDefaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(handler);
         
-
+        TEApp.appContext = getApplicationContext();
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+			
+			@Override
+			public void onActivityStopped(Activity activity) {
+				// TODO Auto-generated method stub
+				if(TEApp.activityContext == activity)
+					TEApp.activityContext = null;
+			}
+			
+			@Override
+			public void onActivityStarted(Activity activity) {
+				// TODO Auto-generated method stub
+				TEApp.activityContext = activity;				
+			}
+			
+			@Override
+			public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onActivityResumed(Activity activity) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onActivityPaused(Activity activity) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onActivityDestroyed(Activity activity) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
     }
 
     public static Context getAppContext() {
         return TEApp.appContext;
     }
-
-	public static void setAppContext(Context con) {
-        if(appContext==null)
-		    appContext=con;
-	}
     public static Context getCurrentActivityContext() {
     	if(TEApp.activityContext == null)
     		return mainActivityContext;

@@ -1,7 +1,9 @@
 package com.sichuan.geologenvi;
 
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,40 +17,32 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sichuan.geologenvi.DataBase.CDDHSqlHandler;
-import com.sichuan.geologenvi.DataBase.SqlHandler;
 import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.MineListAct;
-import com.sichuan.geologenvi.act.RadAct;
 import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
-import com.sichuan.geologenvi.act.YujingAct;
 import com.sichuan.geologenvi.act.ZBAPAct;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
-import com.sichuan.geologenvi.act.report.ReportHistoryList;
 import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
 import com.sichuan.geologenvi.adapter.TopImgAdapter;
 import com.sichuan.geologenvi.bean.JsonMessage;
-import com.sichuan.geologenvi.bean.MapBean;
-import com.sichuan.geologenvi.bean.VersionBean;
 import com.sichuan.geologenvi.http.CallBack;
 import com.sichuan.geologenvi.http.HttpHandler;
 import com.sichuan.geologenvi.utils.ActUtil;
 import com.sichuan.geologenvi.utils.ConstantUtil;
+import com.sichuan.geologenvi.utils.DialogUtil;
 import com.sichuan.geologenvi.utils.FileUtil;
 import com.sichuan.geologenvi.utils.ImageUtil;
 import com.sichuan.geologenvi.utils.JsonUtil;
-import com.sichuan.geologenvi.utils.LogUtil;
 import com.sichuan.geologenvi.utils.ScreenUtil;
 import com.sichuan.geologenvi.utils.SharedPreferencesUtil;
+import com.sichuan.geologenvi.utils.ToastUtils;
 import com.sichuan.geologenvi.views.AsycnDialog;
 import com.sichuan.geologenvi.views.AutoScrollViewPager;
-import com.sichuan.geologenvi.views.PSDdialog;
 import com.sichuan.geologenvi.views.UpdateDailog;
 import com.sichuan.geologenvi.views.YujingNotDialog;
-import com.skyline.terraexplorer.TEApp;
-import com.skyline.terraexplorer.controllers.TEMainActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -111,12 +105,6 @@ public class MainActivity extends AppFrameAct {
         }
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        TEApp.setAppContext(this);
-
-    }
     LinearLayout.LayoutParams para;
     int itemWidth;
     private void initView() {
@@ -325,8 +313,23 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 2:
-//                    i.setClass(MainActivity.this, Map3DAct.class);
-//                    startActivity(i);
+                    String packageName="com.skyline.terraexplorer";
+                    if(ActUtil.isAppInstalled(MainActivity.this, packageName)){
+                        ComponentName cn = new ComponentName(packageName, packageName+".controllers.TEMainActivity");
+                        i.setComponent(cn);
+                        startActivityForResult(i, RESULT_OK);
+                    } else {
+                        DialogUtil.showActionDialog(MainActivity.this, "提示", "未检测到三维地图，即将开始下载", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Uri uri = Uri.parse("http://223.85.242.114:8090/App/terraExplorerApp-release.apk");//id为包名
+                                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(it);
+                            }
+                        });
+//                        ToastUtils.displayTextShort(MainActivity.this, "未检测到地图，即将开始下载");
+                    }
                     break;
                 case 3:
                     i.setClass(MainActivity.this, TitleListAct.class);
@@ -438,8 +441,7 @@ public class MainActivity extends AppFrameAct {
             Intent i=new Intent();
             switch ((int)view.getTag()){
                 case 0:
-//                    i.setClass(MainActivity.this, TitleListAct.class);
-                    i.setClass(MainActivity.this, TEMainActivity.class);
+                    i.setClass(MainActivity.this, TitleListAct.class);
                     i.putExtra("Title", "通讯录");
                     i.putExtra("Type", "Contact");
                     startActivity(i);
@@ -449,8 +451,23 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 2:
-//                    i.setClass(MainActivity.this, Map3DAct.class);
-//                    startActivity(i);
+                    String packageName="com.skyline.terraexplorer";
+                    if(ActUtil.isAppInstalled(MainActivity.this, packageName)){
+                        ComponentName cn = new ComponentName(packageName, packageName+".controllers.TEMainActivity");
+                        i.setComponent(cn);
+                        startActivityForResult(i, RESULT_OK);
+                    } else {
+                        DialogUtil.showActionDialog(MainActivity.this, "提示", "未检测到三维地图，即将开始下载", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Uri uri = Uri.parse("http://223.85.242.114:8090/App/terraExplorerApp-release.apk");//id为包名
+                                Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(it);
+                            }
+                        });
+//                        ToastUtils.displayTextShort(MainActivity.this, "未检测到地图，即将开始下载");
+                    }
                     break;
                 case 3:
                     i.setClass(MainActivity.this, TitleListAct.class);

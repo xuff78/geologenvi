@@ -79,6 +79,23 @@ public class ActUtil {
         return json.toString();
     }
 
+    public static boolean isAppInstalled(Context context,String packagename){
+        PackageInfo packageInfo;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packagename, 0);
+        }catch (PackageManager.NameNotFoundException e) {
+            packageInfo = null;
+            e.printStackTrace();
+        }
+        if(packageInfo ==null){
+            //System.out.println("没有安装");
+            return false;
+        }else{
+            //System.out.println("已经安装");
+            return true;
+        }
+    }
+
     public static String addStringContent(String[] columnName, Object[] values){
         JSONObject json= new JSONObject();
         try {
