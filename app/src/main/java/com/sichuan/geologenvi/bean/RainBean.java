@@ -12,6 +12,25 @@ public class RainBean implements Serializable{
     private String hour12="0";
     private String hour24="0";
     private String area="";
+    private String qx="";
+    private String bh="";
+
+    public String getQx() {
+        return qx;
+    }
+
+    public void setQx(String QX) {
+        this.qx = QX;
+    }
+
+    public String getBH() {
+        return bh;
+    }
+
+    public void setBH(String BH) {
+        this.bh = BH;
+    }
+
 
     public String getArea() {
         return area;

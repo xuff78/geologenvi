@@ -113,7 +113,7 @@ public class ViewPagerExampleActivity extends AppFrameAct {
     }
 
     private void requestInfo() {
-        httpHandler.getRadUrl();
+        httpHandler.getRadarUrl();
     }
 
 

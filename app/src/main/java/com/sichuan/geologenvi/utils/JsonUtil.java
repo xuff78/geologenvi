@@ -110,18 +110,52 @@ public class JsonUtil {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject item = array.getJSONObject(i);
                     RainBean bean = new RainBean();
-                    if (!item.isNull("name"))
-                        bean.setName(item.getString("name"));
-                    if (!item.isNull("h1"))
-                        bean.setHour1(item.getString("h1"));
-                    if (!item.isNull("h3"))
-                        bean.setHour3(item.getString("h3"));
-                    if (!item.isNull("h12"))
-                        bean.setHour12(item.getString("h12"));
-                    if (!item.isNull("h24"))
-                        bean.setHour24(item.getString("h24"));
-                    if (!item.isNull("area"))
-                        bean.setArea(item.getString("area"));
+
+
+//                    "编号": "S1602",
+//                            "站名": "悦来",
+//                            "经度X": "103°27′12″",
+//                            "纬度Y": "30°37′13″",
+//                            "区域": "路边菜地内",
+//                            "行政区域": "大邑县",
+//                            "一小时雨量": 0.1,
+//                            "十二小时雨量": 1.4,
+//                            "二十四小时雨量": 2.5,
+//                            "周期雨量": 1.4,
+//                            "三小时雨量": 0.3,
+//                            "乡镇": "悦来镇"
+
+                    if(!item.isNull("编号"))
+                        bean.setBH(item.getString("编号"));
+                    if(!item.isNull("行政区域"))
+                        bean.setQx(item.getString("行政区域"));
+                    if (!item.isNull("站名"))
+                        bean.setName(item.getString("站名"));
+                    if (!item.isNull("一小时雨量"))
+                        bean.setHour1(item.getString("一小时雨量"));
+                    if (!item.isNull("三小时雨量"))
+                        bean.setHour3(item.getString("三小时雨量"));
+                    if (!item.isNull("十二小时雨量"))
+                        bean.setHour12(item.getString("十二小时雨量"));
+                    if (!item.isNull("二十四小时雨量"))
+                        bean.setHour24(item.getString("二十四小时雨量"));
+                    if (!item.isNull("区域"))
+                        bean.setArea(item.getString("区域"));
+
+
+
+//                    if (!item.isNull("name"))
+//                        bean.setName(item.getString("name"));
+//                    if (!item.isNull("h1"))
+//                        bean.setHour1(item.getString("h1"));
+//                    if (!item.isNull("h3"))
+//                        bean.setHour3(item.getString("h3"));
+//                    if (!item.isNull("h12"))
+//                        bean.setHour12(item.getString("h12"));
+//                    if (!item.isNull("h24"))
+//                        bean.setHour24(item.getString("h24"));
+//                    if (!item.isNull("area"))
+//                        bean.setArea(item.getString("area"));
                     infos.add(bean);
                 }
         } catch (JSONException e) {

@@ -32,12 +32,12 @@ public class AppLinks {
 
 	public static String getDefaultFlyFile()
 	{
+//	    if(defaultFlyFile == null)
+//	    {
+//	    	defaultFlyFile = resolveAppUrl("default_fly");
+//	    }
 	    if(defaultFlyFile == null)
-	    {
-	    	defaultFlyFile = resolveAppUrl("default_fly");
-	    }
-	    if(defaultFlyFile == null)
-	    	defaultFlyFile =  "http://www.skylineglobe.com/SkylineGlobeLayers/SkylineGlobe Mobile/SkylineGlobe Mobile.fly";
+	    	defaultFlyFile =  "http://218.246.202.44:808/DefaultMobile.FLY";
 	    return defaultFlyFile;
 	}
 

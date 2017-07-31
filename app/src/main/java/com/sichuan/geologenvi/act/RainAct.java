@@ -68,6 +68,7 @@ public class RainAct extends AppFrameAct {
     private ArrayList<RainBean> rainInfo=new ArrayList<>();
     private ListView list;
     private View pressView=hintTxt21;
+    private String QX;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +76,13 @@ public class RainAct extends AppFrameAct {
         setContentView(R.layout.rain_layout);
 
         _setHeaderTitle(getIntent().getStringExtra("Title"));
+        QX=getIntent().getStringExtra("QX");
 
         initHandler();
+
         initView();
         setTopHintTxt(1);
-        handler.getRainInfo();
+        handler.getRainInfo2(QX);
     }
 
     private void initHandler() {

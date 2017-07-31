@@ -199,13 +199,13 @@ imageView.setImageMatrix(m);
 			if(showingMaxSlopes)
 			{
 				overlayPaint.setColor(0xffeeb610);
-				String maxslopeTemplate = String.format("%s: %s\r%s: %s\r%s: %.2f°" 
+				String maxslopeTemplate = String.format("%s: %s\r%s: %s\r%s: %.2f?"
 						, getString(R.string.profile_x),"%.2f"
 						, getString(R.string.profile_y),"%.2f"
 						, getString(R.string.profile_maxSlope),profileData.samplePoints[profileData.maxSlopeIndex * 4 + 3]						
 						);
 				drawVerticalLineForDataPoint(canvas, profileData.maxSlopeIndex, maxslopeTemplate, overlayPaint, scaledWidth, scaledHeight, col, row);
-				String minslopeTemplate = String.format("%s: %s\r%s: %s\r%s: %.2f°" 
+				String minslopeTemplate = String.format("%s: %s\r%s: %s\r%s: %.2f?"
 						, getString(R.string.profile_x),"%.2f"
 						, getString(R.string.profile_y),"%.2f"
 						, getString(R.string.profile_minSlope),profileData.samplePoints[profileData.minSlopeIndex * 4 + 3]						

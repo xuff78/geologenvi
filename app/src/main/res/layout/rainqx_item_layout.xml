@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selectHintLayout"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="40dp">
+    <TextView
+        android:gravity="center"
+        android:layout_weight="4.5"
+        android:layout_width="match_parent"
+        android:text=""
+        android:id="@+id/hintTxt3"
+        style="@style/txt_black_14" />
+    <TextView
+        android:gravity="center"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:text=""
+        android:id="@+id/hintTxt1"
+        style="@style/txt_black_14" />
+    <TextView
+        android:gravity="center"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:text=""
+        android:id="@+id/hintTxt2"
+        style="@style/txt_black_14" />
+</LinearLayout>

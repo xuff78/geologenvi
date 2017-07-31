@@ -22,19 +22,19 @@ public class ToolManager {
 	{
 		if(toolsRegistered)
 			return;		
-	    registerTool(new SearchTool());
+//	    registerTool(new SearchTool());
 	    registerTool(new LayersTool());
 	    registerTool(new ProjectsTool());
-	    registerTool(new PlacesTool());
+//	    registerTool(new PlacesTool());
 	    registerTool(new GpsTool());
-	    registerTool(new CaptureShareTool());
-	    registerTool(new AboutTool());
-	    registerTool(new SettingsTool());
+//	    registerTool(new CaptureShareTool());
+//	    registerTool(new AboutTool());
+//	    registerTool(new SettingsTool());
 	    registerTool(new TutorialTool());
 	    registerTool(new AreaTool());
 	    registerTool(new DistanceTool());
-	    //registerTool(new LosTool());
-	    registerTool(new ShadowTool());
+	    registerTool(new LosTool());
+//	    registerTool(new ShadowTool());
 	    registerTool(new ProfileTool());
 	    registerTool(new ViewshedTool());
 	    registerTool(new EditFavoriteTool());
@@ -44,9 +44,9 @@ public class ToolManager {
 	    registerTool(new EditFeatureLayerTool());
 	    registerTool(new EditFeatureTool());
 	    registerTool(new AddFeatureTool());
-	    registerTool(new WhiteboardTool());
-	    registerTool(new WhiteboardAddFeatureTool());
-	    registerTool(new WhiteboardEditFeatureTool());
+//	    registerTool(new WhiteboardTool());
+//	    registerTool(new WhiteboardAddFeatureTool());
+//	    registerTool(new WhiteboardEditFeatureTool());
 		toolsRegistered = true;
 	}
 	

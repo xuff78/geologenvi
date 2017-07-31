@@ -38,6 +38,14 @@ public class HttpHandler extends Handle {
 		requestGet(ConstantUtil.Method.TIMERAININFO, "", true);
 	}
 
+	public void getRainInfo2() {
+		requestGet(ConstantUtil.Method.TIMERAININFO, "/GetRain", true);
+	}
+
+	public void getRainInfo2(String qx) {
+		requestGet(ConstantUtil.Method.TIMERAININFO, "/GetRain?quxian="+qx, true);
+	}
+
 	public void getRainInfo(String name) {
 		requestGet(ConstantUtil.Method.TIMERAININFO, "?stName="+name, true);
 	}
@@ -117,6 +125,11 @@ public class HttpHandler extends Handle {
 	//获取最新雷达数据列表
 	public void getRadUrl(){
 		requestGet(ConstantUtil.Method.Rad, "", true);
+	}
+
+	//获取最新雷达数据列表
+	public void getRadarUrl(){
+		requestGet(ConstantUtil.Method.Rad, "/GetRadar", true);
 	}
 	//获取值班安排数据列表
 	public void getZBAP(){

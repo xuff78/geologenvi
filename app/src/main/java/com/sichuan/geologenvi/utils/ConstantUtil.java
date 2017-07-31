@@ -49,6 +49,7 @@ public class ConstantUtil {
 
 		public static final String Yujing="Yujing";
 		public static final String Rad="Rad";
+
 		public static final String ZBAP="ZBAP";
 	}
 

@@ -21,6 +21,7 @@ import com.sichuan.geologenvi.act.AppFrameAct;
 import com.sichuan.geologenvi.act.MapAct;
 import com.sichuan.geologenvi.act.MineListAct;
 import com.sichuan.geologenvi.act.RainAct;
+import com.sichuan.geologenvi.act.RainQXAct;
 import com.sichuan.geologenvi.act.SearchAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.ZBAPAct;
@@ -393,7 +394,10 @@ public class MainActivity extends AppFrameAct {
                     startActivity(i);
                     break;
                 case 11:
-                    i.setClass(MainActivity.this, RainAct.class);
+//                    i.setClass(MainActivity.this, RainAct.class);
+//                    i.putExtra("Title", "雨量监测");
+//                    startActivity(i);
+                    i.setClass(MainActivity.this, RainQXAct.class);
                     i.putExtra("Title", "雨量监测");
                     startActivity(i);
                     break;

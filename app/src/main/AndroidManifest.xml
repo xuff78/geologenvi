@@ -58,6 +58,9 @@
             android:name=".act.RainAct" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity
+            android:name=".act.RainQXAct" android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <activity
             android:name=".act.contact.ActivityAddFriends" android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <activity

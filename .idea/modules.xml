@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/geologenvi.iml" filepath="$PROJECT_DIR$/geologenvi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/terraExplorerApp/terraExplorerApp.iml" filepath="$PROJECT_DIR$/terraExplorerApp/terraExplorerApp.iml" />
     </modules>
   </component>
 </project>
