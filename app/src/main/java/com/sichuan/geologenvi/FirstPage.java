@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.sichuan.geologenvi.DataBase.CDDHDBManager;
 import com.sichuan.geologenvi.DataBase.DBManager;
+import com.sichuan.geologenvi.act.report.ViewPagerExampleActivity;
 import com.sichuan.geologenvi.bean.JsonMessage;
 import com.sichuan.geologenvi.bean.VersionBean;
 import com.sichuan.geologenvi.http.CallBack;

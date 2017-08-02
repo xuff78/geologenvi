@@ -172,11 +172,13 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             MapBean mapBean= (MapBean) getIntent().getSerializableExtra("Map");
             zdmc.setText(mapBean.getMap().get("ZHAA01A020"));
             String temp=mapBean.getMap().get("ZHAA01A830");
-            temp=temp.replaceAll("1","地震");
-            temp=temp.replaceAll("2","降雨");
-            temp=temp.replaceAll("3","人为因素");
-            temp=temp.replaceAll("4","其它");
-            yfys.setText(temp);
+            if(temp!=null) {
+                temp = temp.replaceAll("1", "地震");
+                temp = temp.replaceAll("2", "降雨");
+                temp = temp.replaceAll("3", "人为因素");
+                temp = temp.replaceAll("4", "其它");
+                yfys.setText(temp);
+            }
 //            yfys.setText(mapBean.getMap().get("ZHAA01A830"));
             zdwz.setText(mapBean.getMap().get("ZHAA01A150"));
             lon=mapBean.getMap().get("ZHAA01A190");
@@ -191,14 +193,16 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 //            07：其它
 
             String type = mapBean.getMap().get("ZHAA01A210");
-            type=type.replaceAll("00","斜坡");
-            type=type.replaceAll("01","滑坡");
-            type=type.replaceAll("02","崩塌");
-            type=type.replaceAll("03","泥石流");
-            type=type.replaceAll("04","地面塌陷");
-            type=type.replaceAll("05","地裂缝");
-            type=type.replaceAll("06","地面沉降");
-            type=type.replaceAll("07","其它");
+            if(type!=null) {
+                type = type.replaceAll("00", "斜坡");
+                type = type.replaceAll("01", "滑坡");
+                type = type.replaceAll("02", "崩塌");
+                type = type.replaceAll("03", "泥石流");
+                type = type.replaceAll("04", "地面塌陷");
+                type = type.replaceAll("05", "地裂缝");
+                type = type.replaceAll("06", "地面沉降");
+                type = type.replaceAll("07", "其它");
+            }
             String size = mapBean.getMap().get("ZHAA01A890");
 //            if(type!=null)
 //                type=disasterNames[Integer.valueOf(type)];
@@ -229,15 +233,17 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 //            I:其它
 
             String dx=mapBean.getMap().get("ZHAA01A380");//威胁对象
-            dx=dx.replaceAll("A","分散农户");
-            dx=dx.replaceAll("B","聚集区");
-            dx=dx.replaceAll("C","学校");
-            dx=dx.replaceAll("D","场镇");
-            dx=dx.replaceAll("E","县城");
-            dx=dx.replaceAll("F","公路");
-            dx=dx.replaceAll("G","河道");
-            dx=dx.replaceAll("H","景区");
-            dx=dx.replaceAll("I","其它");
+            if(dx!=null) {
+                dx = dx.replaceAll("A", "分散农户");
+                dx = dx.replaceAll("B", "聚集区");
+                dx = dx.replaceAll("C", "学校");
+                dx = dx.replaceAll("D", "场镇");
+                dx = dx.replaceAll("E", "县城");
+                dx = dx.replaceAll("F", "公路");
+                dx = dx.replaceAll("G", "河道");
+                dx = dx.replaceAll("H", "景区");
+                dx = dx.replaceAll("I", "其它");
+            }
             wxdx.setText(h+"户;"+p+"人;"+cc+"万元;"+dx);
             zdid = mapBean.getMap().get("ZHAA01A010");
 

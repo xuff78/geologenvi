@@ -485,8 +485,13 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                 case 8:
                 case 9:
                 case 10:
-                case 20:
                     datalist = handler.getGeohazardInfo(QueryStr.yinhuandian, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                    break;
+                case 20:
+                    datalist = handler.getGeohazardInfo("", type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
                             intent.getStringExtra("disasterTypeCode"),
                             intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
                             intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
@@ -506,6 +511,11 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                     break;
                 case 4:
                 case 5:
+                    datalist = handler.getGeohazardInfo(QueryStr.yhdbixiancs, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
+                            intent.getStringExtra("disasterTypeCode"),
+                            intent.getStringExtra("disasterSizeCode"), intent.getStringExtra("areaCode"),
+                            intent.getStringExtra("avoidCode"), intent.getStringExtra("yearCode"));
+                    break;
                 case 22:
                     datalist = handler.getGeohazardInfo(QueryStr.yhdbixiancs, type, intent.getStringExtra("Name"), intent.getStringExtra("disasterName"),
                             intent.getStringExtra("disasterTypeCode"),

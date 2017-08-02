@@ -115,10 +115,18 @@ public class MainActivity extends AppFrameAct {
         int galleryWidth=ScreenUtil.getScreenWidth(this);
 //        int galleryHeight= (int) (galleryWidth*(380/640f));
         int galleryHeight=height-itemWidth*3-240;
+
+
         TopImgAdapter adapter=new TopImgAdapter(this, new int[]{R.mipmap.test_pic1, R.mipmap.test_pic2});
         viewPager.setAdapter(adapter);
         viewPager.setLayoutParams(new LinearLayout.LayoutParams(galleryWidth, galleryHeight));
+
+
 //        viewPager.startAutoScroll(2000);
+
+
+
+
         LinearLayout menuLayout= (LinearLayout) findViewById(R.id.menuLayout);
 
 
