@@ -232,15 +232,15 @@ public class SqlHandler {
                 typeStr="";
                 formName="SL_TXL_SHI";
                 break;
+//            case 32:
+//                typeStr="";
+//                formName="SL_TXL_SHIGUOTUJU";
+//                break;
             case 32:
-                typeStr="";
-                formName="SL_TXL_SHIGUOTUJU";
-                break;
-            case 33:
                 typeStr="";
                 formName="SL_TXL_SHIDHZ";
                 break;
-            case 34:
+            case 33:
                 typeStr="";
                 formName="SL_TXL_SHILD";
                 break;

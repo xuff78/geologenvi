@@ -142,6 +142,7 @@ public class HttpHandler extends Handle {
 		requestPost(ConstantUtil.Method.CJ_DZZHD_XCKP, jsonContent, true);
 	}
 
+
 	public void getCJ_DZZHD_XCKP(int page, String name,String id) {
 		String require="";
 		if(name.length()>0)

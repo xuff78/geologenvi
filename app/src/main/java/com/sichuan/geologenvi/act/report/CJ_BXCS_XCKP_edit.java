@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +48,9 @@ import com.sichuan.geologenvi.views.Photo9Layout;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -98,8 +102,8 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
     private ProgressDialog dialog;
     private HorizontalScrollView horiScroller;
     private String imgpath="";
-
-
+    private String m_type="添加记录";
+    public final ArrayList<String> imgUrls = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +111,8 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         setContentView(R.layout.bxcs_xckp_jc);
 
 
-        _setHeaderTitle("添加记录");
+        m_type=getIntent().getStringExtra("type");
+        _setHeaderTitle(m_type);
 
 
         //add cuikailei 20170522
@@ -120,28 +125,28 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
-//            addDataBtn.setVisibility(View.GONE);
-            updateDataBtn.setVisibility(View.GONE);
+            addDataBtn.setVisibility(View.GONE);
+//            updateDataBtn.setVisibility(View.GONE);
             arrowRight9.setVisibility(View.GONE);
 
 
-            if(imgpath!=null&&imgpath.length()>0) {
-                String[] paths=imgpath.split("\\|");
-                final ArrayList<String> imgUrls = new ArrayList<>();
-                for (int i = 0; i < paths.length; i++) {
-                    imgUrls.add(paths[i]);
-                }
-                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
-                    @Override
-                    public void onClick(View v, int position) {
-                        Intent intent = new Intent(CJ_BXCS_XCKP_edit.this, ViewPagerExampleActivity.class);
-                        intent.putExtra("Images", imgUrls);
-                        intent.putExtra("pos", position);
-                        startActivity(intent);
-                    }
-                });
-                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
-            }
+//            if(imgpath!=null&&imgpath.length()>0) {
+//                String[] paths=imgpath.split("\\|");
+//                final ArrayList<String> imgUrls = new ArrayList<>();
+//                for (int i = 0; i < paths.length; i++) {
+//                    imgUrls.add(paths[i]);
+//                }
+//                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+//                    @Override
+//                    public void onClick(View v, int position) {
+//                        Intent intent = new Intent(CJ_BXCS_XCKP_edit.this, ViewPagerExampleActivity.class);
+//                        intent.putExtra("Images", imgUrls);
+//                        intent.putExtra("pos", position);
+//                        startActivity(intent);
+//                    }
+//                });
+//                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
+//            }
 
 
 
@@ -220,6 +225,31 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
 
 
         imgpath=infoMap.get("path".toUpperCase());
+        if (imgpath.equals("")) {
+            setAddView();
+        }
+        imgUrls.clear();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (imgpath != null && imgpath.length() > 0) {
+                    String[] paths = imgpath.split("\\|");
+
+                    ArrayList<Bitmap> lstBt=new ArrayList<Bitmap>();
+                    for (int i = 0; i < paths.length; i++) {
+                        imgUrls.add(paths[i]);
+                        // TODO Auto-generated method stub
+                        lstBt.add(getURLimage(paths[i]));
+                    }
+                    //                        Bitmap bmp = getURLimage(paths[i]);
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = lstBt;
+                    handle.sendMessage(msg);
+                }
+            }
+        }).start();
 
     }
 
@@ -298,6 +328,63 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
                     }
                     break;
                 case R.id.updateDataBtn:
+                    if(bxcs_guid==null||bxcs_guid.length()==0){
+                        ToastUtils.displayTextShort(CJ_BXCS_XCKP_edit.this, "请选择一个避难所");
+                    }else if(jcry.getText().toString().length()==0){
+                        ToastUtils.displayTextShort(CJ_BXCS_XCKP_edit.this, "请输入检查人员姓名");
+                    }else if(jcdate.getText().toString().length()==0) {
+                        ToastUtils.displayTextShort(CJ_BXCS_XCKP_edit.this, "请输入检查日期");
+                    }else {
+
+                        JSONObject jsonObj = new JSONObject();
+                        JsonUtil.addJsonData(jsonObj, "id", infoMap.get("ID"));
+                        JsonUtil.addJsonData(jsonObj, "bxcs_guid", bxcs_guid);
+                        JsonUtil.addJsonData(jsonObj, "bxcs_name", bxcs_name.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "bxcs_xzqh", bxcs_xzqh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "lon", lon);
+                        JsonUtil.addJsonData(jsonObj, "lat", lat);
+                        JsonUtil.addJsonData(jsonObj, "azryssyhdname", azryssyhdname.getText().toString());
+                        String jhazrsStr = jhazrs.getText().toString();
+                        if (jhazrsStr.length() > 0)
+                            JsonUtil.addJsonData(jsonObj, "jhazrs", Integer.valueOf(jhazrsStr));
+                        String sjrnrsStr = jhazrs.getText().toString();
+                        if (sjrnrsStr.length() > 0)
+                            JsonUtil.addJsonData(jsonObj, "sjrnrs", Integer.valueOf(sjrnrsStr));
+                        JsonUtil.addJsonData(jsonObj, "fczryazcs", fczryazcs.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "syxpj", syxpj.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "dzzhpgjy", dzzhpgjy.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "fzr", fzr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "fzrphone", fzrphone.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "glry", glry.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "glryphone", glryphone.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zzzyr", zzzyr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zzzyrphone", zzzyrphone.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "sfkztqbr", sfkztqbr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ylkzcs", ylkzcs.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "xxgsp", xxgsp); //
+                        JsonUtil.addJsonData(jsonObj, "xlzsp", xlzsp); //
+                        JsonUtil.addJsonData(jsonObj, "yjsbss", yjsbss.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "shwzcb", shwzcb.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "spcb", spcb.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "czwt", czwt.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zgjy", zgjy.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "bz", bz.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcry", jcry.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcdate", jcdate.getText().toString());
+
+
+                        String imgUrls = "";
+                        String urlStr = "";
+                        for (String url : imgs.values()) {
+                            imgUrls = imgUrls + url + "|";
+                        }
+                        if (imgUrls.length() > 0)
+                            urlStr = imgUrls.substring(0, imgUrls.length() - 1);
+                        JsonUtil.addJsonData(jsonObj, "path", urlStr);
+
+                        requesType = Add;
+                        httpHandler.addCJ_BXCS_XCKP(jsonObj.toString());
+                    }
                     break;
                 case R.id.delDataBtn:
                     DialogUtil.showActionDialog(CJ_BXCS_XCKP_edit.this, "提示", "确认要删除", new DialogInterface.OnClickListener(){
@@ -439,6 +526,49 @@ public class CJ_BXCS_XCKP_edit extends AppFrameAct {
     public static final int RequestAddress=0x11;
     public static final int TO_SELECT_PHOTO=0x12;
     public static final int TO_SELECT_VIDEO=0x13;
+
+
+
+
+    //加载图片
+    public Bitmap getURLimage(String url) {
+        Bitmap bmp = null;
+        try {
+            URL myurl = new URL(url);
+            // 获得连接
+            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+            conn.setConnectTimeout(6000);//设置超时
+            conn.setDoInput(true);
+            conn.setUseCaches(false);//不缓存
+            conn.connect();
+            InputStream is = conn.getInputStream();//获得图片的数据流
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
+
+    //在消息队列中实现对控件的更改
+    private Handler handle = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    ArrayList<Bitmap> lst=(ArrayList<Bitmap>)msg.obj;
+                    for(int i=0;i<lst.size();i++) {
+                        final Bitmap bitmap = lst.get(i);
+                        final String imgkey = String.valueOf(System.currentTimeMillis());
+
+                        seImageView(bitmap, imgkey);
+                        imgs.put(imgkey, imgUrls.get(i));
+                    }
+                    break;
+            }
+        };
+    };
+
 
     private void setAddView() {
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);

@@ -102,11 +102,11 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 				sqlStr="SELECT BANGONGDIANHUA as phone, ZHIWU as name FROM SL_TXL_SHIGUOTUJU";
 				contacts=handler.getPersonInfo(sqlStr);
 				break;
+//			case 4:
+//				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHIDHZ";
+//				contacts=handler.getPersonInfo(sqlStr);
+//				break;
 			case 4:
-				sqlStr="SELECT PHONE as phone, NAME as name FROM SL_TXL_SHIDHZ";
-				contacts=handler.getPersonInfo(sqlStr);
-				break;
-			case 5:
 				sqlStr="SELECT * FROM SL_TXL_DZZHFZPQFG";
 				contacts=handler.getPersonInfo2(sqlStr);
 				break;
@@ -158,7 +158,8 @@ public class ActivityAddFriends extends AppFrameAct implements SectionIndexer {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// 这里要利用adapter.getItem(position)来获取当前position所对应的对象
-				if(type==5){
+//				if(type==5){
+				if(type==4){
 					ContactDialog2 contactDialog2 = new ContactDialog2(ActivityAddFriends.this, (Contact) adapter.getItem(position));
 					contactDialog2.show();
 				}else if(type==6){

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +50,9 @@ import com.sichuan.geologenvi.views.Photo9Layout;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,7 +92,7 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
     private HorizontalScrollView horiScroller;
     private String imgpath="";
 
-
+    public final ArrayList<String> imgUrls = new ArrayList<>();
 
 
     @Override
@@ -105,36 +109,35 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
 
         initView(view);
         handler=new SqlHandler(getActivity());
+
+        setAddView();
+        photo9Layout.setVisibility(View.GONE);
         if(getActivity().getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)(getActivity().getIntent().getSerializableExtra("InfoMap"))).getMap();
             arrowRight.setVisibility(View.INVISIBLE);
             initData();
 
 
-            if(imgpath!=null&&imgpath.length()>0) {
-                String[] paths=imgpath.split("\\|");
-                final ArrayList<String> imgUrls = new ArrayList<>();
-                for (int i = 0; i < paths.length; i++) {
-                    imgUrls.add(paths[i]);
-                }
-                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
-                    @Override
-                    public void onClick(View v, int position) {
-                        Intent intent = new Intent(getActivity(), ViewPagerExampleActivity.class);
-                        intent.putExtra("Images", imgUrls);
-                        intent.putExtra("pos", position);
-                        startActivity(intent);
-                    }
-                });
-                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(getActivity())- ImageUtil.dip2px(getActivity(), 40), imgUrls);
-            }
+//            if(imgpath!=null&&imgpath.length()>0) {
+//                String[] paths=imgpath.split("\\|");
+//                final ArrayList<String> imgUrls = new ArrayList<>();
+//                for (int i = 0; i < paths.length; i++) {
+//                    imgUrls.add(paths[i]);
+//                }
+//                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+//                    @Override
+//                    public void onClick(View v, int position) {
+//                        Intent intent = new Intent(getActivity(), ViewPagerExampleActivity.class);
+//                        intent.putExtra("Images", imgUrls);
+//                        intent.putExtra("pos", position);
+//                        startActivity(intent);
+//                    }
+//                });
+//                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(getActivity())- ImageUtil.dip2px(getActivity(), 40), imgUrls);
+//            }
 
 
         }else{
-
-            setAddView();
-            photo9Layout.setVisibility(View.GONE);
-
 
             if(getActivity().getIntent().hasExtra("Map")){
                 MapBean mapBean = (MapBean) getActivity().getIntent().getSerializableExtra("Map");
@@ -263,13 +266,34 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
 
 
         imgpath=infoMap.get("path".toUpperCase());
+        imgUrls.clear();
+        new Thread(new Runnable() {
 
+            @Override
+            public void run() {
+                if (imgpath != null && imgpath.length() > 0) {
+                    String[] paths = imgpath.split("\\|");
 
-
+                    ArrayList<Bitmap> lstBt=new ArrayList<Bitmap>();
+                    for (int i = 0; i < paths.length; i++) {
+                        imgUrls.add(paths[i]);
+                        // TODO Auto-generated method stub
+                        lstBt.add(getURLimage(paths[i]));
+                    }
+                    //                        Bitmap bmp = getURLimage(paths[i]);
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = lstBt;
+                    handle.sendMessage(msg);
+                }
+            }
+        }).start();
     }
 
     public void getDataByJson(JSONObject jsonObj){
-
+        if(getActivity().getIntent().hasExtra("InfoMap")) {
+            JsonUtil.addJsonData(jsonObj, "id",  infoMap.get("ID"));
+        }
         JsonUtil.addJsonData(jsonObj, "gczl_guid", guid);
         JsonUtil.addJsonData(jsonObj, "gcjzqk", gcjzqk.getText().toString());
         JsonUtil.addJsonData(jsonObj, "qt", qt.getText().toString());
@@ -413,6 +437,48 @@ public class CJ_GCZL_XCKP1 extends BaseFragment{
     public static final int RequestAddress=0x11;
     public static final int TO_SELECT_PHOTO=0x12;
     public static final int TO_SELECT_VIDEO=0x13;
+
+
+
+
+
+    //加载图片
+    public Bitmap getURLimage(String url) {
+        Bitmap bmp = null;
+        try {
+            URL myurl = new URL(url);
+            // 获得连接
+            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+            conn.setConnectTimeout(6000);//设置超时
+            conn.setDoInput(true);
+            conn.setUseCaches(false);//不缓存
+            conn.connect();
+            InputStream is = conn.getInputStream();//获得图片的数据流
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
+    //在消息队列中实现对控件的更改
+    private Handler handle = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    ArrayList<Bitmap> lst=(ArrayList<Bitmap>)msg.obj;
+                    for(int i=0;i<lst.size();i++) {
+                        final Bitmap bitmap = lst.get(i);
+                        final String imgkey = String.valueOf(System.currentTimeMillis());
+
+                        seImageView(bitmap, imgkey);
+                        imgs.put(imgkey, imgUrls.get(i));
+                    }
+                    break;
+            }
+        };
+    };
 
     private void setAddView() {
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);

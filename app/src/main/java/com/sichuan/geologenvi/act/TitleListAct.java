@@ -108,7 +108,7 @@ public class TitleListAct  extends AppFrameAct {
 
             list.add("四川省地质灾害防治工作通讯录");
             list.add("成都市地质灾害防治工作通讯录");
-            list.add("成都市国土资源局通讯录");
+//            list.add("成都市国土资源局通讯录");
             list.add("成都市地质环境监测站通讯录");
             list.add("区（市）县地质灾害防治工作通讯录");
             list.add("地质灾害防治片区分工通讯录");
@@ -249,7 +249,7 @@ public class TitleListAct  extends AppFrameAct {
 //                    startActivity(i);
 //                }
             } else if (type.equals("Contact")) {
-                if(tag==5) {
+                if(tag==4) {
                     Intent i = new Intent(TitleListAct.this, ActivityAddFriends.class);
                     i.putExtra("Type", tag);
                     i.putExtra("Title", list.get(tag));

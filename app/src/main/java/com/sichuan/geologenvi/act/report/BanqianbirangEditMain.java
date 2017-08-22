@@ -69,11 +69,7 @@ public class BanqianbirangEditMain extends AppFrameAct {
     private String Update="update", Delete="delete", Add="add";
 
 
-
-
-
-
-
+    private String m_type="添加记录";
 
 
     private void initHandler() {
@@ -94,15 +90,16 @@ public class BanqianbirangEditMain extends AppFrameAct {
         setContentView(R.layout.info_muti_detal_main);
 
 
-        _setHeaderTitle("添加记录");
+        m_type=getIntent().getStringExtra("type");
+        _setHeaderTitle(m_type);
 
 
 
         initView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
-            //addDataBtn.setVisibility(View.GONE);
-            updateDataBtn.setVisibility(View.GONE);
+            addDataBtn.setVisibility(View.GONE);
+//            updateDataBtn.setVisibility(View.GONE);
 
 
         }else{
@@ -112,10 +109,9 @@ public class BanqianbirangEditMain extends AppFrameAct {
 
 
         }
-        _setHeaderTitle("成都市重大地质灾害防治工程项目现场检查记录表");
+//        _setHeaderTitle("成都市重大地质灾害防治工程项目现场检查记录表");
         initHandler();
         handler=new SqlHandler(this);
-        initView();
     }
 
 
@@ -155,6 +151,14 @@ public class BanqianbirangEditMain extends AppFrameAct {
                     }
                     break;
                 case R.id.updateDataBtn:
+                    if(frg1.canbeCreate()){
+                        JSONObject jsonObj=new JSONObject();
+                        frg1.getDataByJson(jsonObj);
+                        frg2.getDataByJson(jsonObj);
+                        frg3.getDataByJson(jsonObj);
+                        requesType=Add;
+                        httpHandler.addCJ_GCZL_XCKP(jsonObj.toString());
+                    }
                     break;
                 case R.id.delDataBtn:
                     DialogUtil.showActionDialog(BanqianbirangEditMain.this, "提示", "确认要删除", new DialogInterface.OnClickListener(){

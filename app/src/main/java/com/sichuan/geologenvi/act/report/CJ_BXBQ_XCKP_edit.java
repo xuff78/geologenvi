@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,6 +48,9 @@ import com.sichuan.geologenvi.views.Photo9Layout;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +96,8 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
     private HorizontalScrollView horiScroller;
     private String imgpath="",GX_PATH="",BQQ_PATH="",BQH_PATH="";
 
-
+    private String m_type="添加记录";
+    public final ArrayList<String> imgUrls = new ArrayList<>();
 
     private void initHandler() {
         httpHandler=new HttpHandler(this, new CallBack(CJ_BXBQ_XCKP_edit.this){
@@ -116,7 +121,8 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bxbq_fzgz_jc);
 
-        _setHeaderTitle("添加记录");
+        m_type=getIntent().getStringExtra("type");
+        _setHeaderTitle(m_type);
         handler=new SqlHandler(this);
 
 
@@ -131,26 +137,26 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
-            //addDataBtn.setVisibility(View.GONE);
-            updateDataBtn.setVisibility(View.GONE);
+            addDataBtn.setVisibility(View.GONE);
+//            updateDataBtn.setVisibility(View.GONE);
 
-            if(imgpath!=null&&imgpath.length()>0) {
-                String[] paths=imgpath.split("\\|");
-                final ArrayList<String> imgUrls = new ArrayList<>();
-                for (int i = 0; i < paths.length; i++) {
-                    imgUrls.add(paths[i]);
-                }
-                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
-                    @Override
-                    public void onClick(View v, int position) {
-                        Intent intent = new Intent(CJ_BXBQ_XCKP_edit.this, ViewPagerExampleActivity.class);
-                        intent.putExtra("Images", imgUrls);
-                        intent.putExtra("pos", position);
-                        startActivity(intent);
-                    }
-                });
-                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
-            }
+//            if(imgpath!=null&&imgpath.length()>0) {
+//                String[] paths=imgpath.split("\\|");
+//                final ArrayList<String> imgUrls = new ArrayList<>();
+//                for (int i = 0; i < paths.length; i++) {
+//                    imgUrls.add(paths[i]);
+//                }
+//                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+//                    @Override
+//                    public void onClick(View v, int position) {
+//                        Intent intent = new Intent(CJ_BXBQ_XCKP_edit.this, ViewPagerExampleActivity.class);
+//                        intent.putExtra("Images", imgUrls);
+//                        intent.putExtra("pos", position);
+//                        startActivity(intent);
+//                    }
+//                });
+//                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
+//            }
 
         }else{
 //            findViewById(R.id.zdmcLayout).setOnClickListener(listener);
@@ -353,8 +359,7 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
     private void initData() {
 
 
-
-        bxbq_id=infoMap.get("BXBQ_ID".toUpperCase());
+        bxbq_id = infoMap.get("BXBQ_ID".toUpperCase());
 
         bqhbh.setText(infoMap.get("BQHZBH".toUpperCase()));
         hzxm.setText(infoMap.get("hzxm".toUpperCase()));
@@ -371,162 +376,159 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
         wxdx_ren.setText(infoMap.get("RENSHU".toUpperCase()));
         ggxmmc.setText(infoMap.get("GGXMMC".toUpperCase()));
 
-        jzaz=infoMap.get("GGXMJZAZ".toUpperCase());
-        if(jzaz.equals("1")) {
+        jzaz = infoMap.get("GGXMJZAZ".toUpperCase());
+        if (jzaz.equals("1")) {
             jzaz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jzaz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
-        jzaz_lx=infoMap.get("JZAZ_LX".toUpperCase());
-        if(jzaz_lx.equals("1")) {
+        jzaz_lx = infoMap.get("JZAZ_LX".toUpperCase());
+        if (jzaz_lx.equals("1")) {
             jzaz_lx_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jzaz_lx_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        jzaz_zs=infoMap.get("JZAZ_ZS".toUpperCase());
-        if(jzaz_zs.equals("1")) {
+        jzaz_zs = infoMap.get("JZAZ_ZS".toUpperCase());
+        if (jzaz_zs.equals("1")) {
             jzaz_zs_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jzaz_zs_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        jzaz_qdht=infoMap.get("JZAZ_QDHT".toUpperCase());
-        if(jzaz_qdht.equals("1")) {
+        jzaz_qdht = infoMap.get("JZAZ_QDHT".toUpperCase());
+        if (jzaz_qdht.equals("1")) {
             jzaz_qdht_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jzaz_qdht_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        jzaz_qdbcfs=infoMap.get("JZAZ_QDBCFS".toUpperCase());
-        if(jzaz_qdbcfs.equals("1")) {
+        jzaz_qdbcfs = infoMap.get("JZAZ_QDBCFS".toUpperCase());
+        if (jzaz_qdbcfs.equals("1")) {
             jzaz_qdbcfs_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jzaz_qdbcfs_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        jzaz_qdazxy=infoMap.get("JZAZ_QDAZXY".toUpperCase());
-        if(jzaz_qdazxy.equals("1")) {
+        jzaz_qdazxy = infoMap.get("JZAZ_QDAZXY".toUpperCase());
+        if (jzaz_qdazxy.equals("1")) {
             jzaz_qdazxy_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jzaz_qdazxy_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
 
-        hbhaz=infoMap.get("HBHAZ".toUpperCase());
-        if(hbhaz.equals("1")) {
+        hbhaz = infoMap.get("HBHAZ".toUpperCase());
+        if (hbhaz.equals("1")) {
             hbhaz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             hbhaz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        hbhaz_bczjff=infoMap.get("HBHAZ_BCZJFF".toUpperCase());
-        if(hbhaz_bczjff.equals("1")) {
+        hbhaz_bczjff = infoMap.get("HBHAZ_BCZJFF".toUpperCase());
+        if (hbhaz_bczjff.equals("1")) {
             hbhaz_bczjff_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             hbhaz_bczjff_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
 
-
-        fsaz=infoMap.get("FGG_FSAZ".toUpperCase());
-        if(fsaz.equals("1")) {
+        fsaz = infoMap.get("FGG_FSAZ".toUpperCase());
+        if (fsaz.equals("1")) {
             fsaz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             fsaz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        fsaz_mfxz=infoMap.get("FGG_FSAZ_MFXZ".toUpperCase());
-        if(fsaz_mfxz.equals("1")) {
+        fsaz_mfxz = infoMap.get("FGG_FSAZ_MFXZ".toUpperCase());
+        if (fsaz_mfxz.equals("1")) {
             fsaz_mfxz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             fsaz_mfxz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        fsaz_xfxj=infoMap.get("FGG_FSAZ_XFXJ".toUpperCase());
-        if(fsaz_xfxj.equals("1")) {
+        fsaz_xfxj = infoMap.get("FGG_FSAZ_XFXJ".toUpperCase());
+        if (fsaz_xfxj.equals("1")) {
             fsaz_xfxj_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             fsaz_xfxj_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
 
-        zzaz=infoMap.get("FGG_ZZAZ".toUpperCase());
-        if(zzaz.equals("1")) {
+        zzaz = infoMap.get("FGG_ZZAZ".toUpperCase());
+        if (zzaz.equals("1")) {
             zzaz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             zzaz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        zzaz_zzazxy=infoMap.get("FGG_ZZAZ_ZZAZXY".toUpperCase());
-        if(zzaz_zzazxy.equals("1")) {
+        zzaz_zzazxy = infoMap.get("FGG_ZZAZ_ZZAZXY".toUpperCase());
+        if (zzaz_zzazxy.equals("1")) {
             zzaz_zzazxy_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             zzaz_zzazxy_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        zzaz_bczjff=infoMap.get("FGG_ZZAZ_BCZJFF".toUpperCase());
-        if(zzaz_bczjff.equals("1")) {
+        zzaz_bczjff = infoMap.get("FGG_ZZAZ_BCZJFF".toUpperCase());
+        if (zzaz_bczjff.equals("1")) {
             zzaz_bczjff_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             zzaz_bczjff_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
 
-
-        fgg_jzaz=infoMap.get("FGG_JZAZ".toUpperCase());
-        if(fgg_jzaz.equals("1")) {
+        fgg_jzaz = infoMap.get("FGG_JZAZ".toUpperCase());
+        if (fgg_jzaz.equals("1")) {
             fgg_jzaz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             fgg_jzaz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        fgg_jzaz_azqxz=infoMap.get("FGG_JZAZ_AZQXZ".toUpperCase());
-        if(fgg_jzaz_azqxz.equals("1")) {
+        fgg_jzaz_azqxz = infoMap.get("FGG_JZAZ_AZQXZ".toUpperCase());
+        if (fgg_jzaz_azqxz.equals("1")) {
             fgg_jzaz_azqxz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             fgg_jzaz_azqxz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        fgg_jzaz_sg=infoMap.get("FGG_JZAZ_SG".toUpperCase());
-        if(fgg_jzaz_sg.equals("1")) {
+        fgg_jzaz_sg = infoMap.get("FGG_JZAZ_SG".toUpperCase());
+        if (fgg_jzaz_sg.equals("1")) {
             fgg_jzaz_sg_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             fgg_jzaz_sg_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
 
-
-        gdaz=infoMap.get("GDAZ".toUpperCase());
-        if(gdaz.equals("1")) {
+        gdaz = infoMap.get("GDAZ".toUpperCase());
+        if (gdaz.equals("1")) {
             gdaz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             gdaz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        xfjc=infoMap.get("XFJC".toUpperCase());
-        if(xfjc.equals("1")) {
+        xfjc = infoMap.get("XFJC".toUpperCase());
+        if (xfjc.equals("1")) {
             xfjc_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             xfjc_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        xfrz=infoMap.get("XFRZ".toUpperCase());
-        if(xfrz.equals("1")) {
+        xfrz = infoMap.get("XFRZ".toUpperCase());
+        if (xfrz.equals("1")) {
             xfrz_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             xfrz_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        jfcc=infoMap.get("JFCC".toUpperCase());
-        if(jfcc.equals("1")) {
+        jfcc = infoMap.get("JFCC".toUpperCase());
+        if (jfcc.equals("1")) {
             jfcc_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             jfcc_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        zjdfk=infoMap.get("ZJDFK".toUpperCase());
-        if(zjdfk.equals("1")) {
+        zjdfk = infoMap.get("ZJDFK".toUpperCase());
+        if (zjdfk.equals("1")) {
             zjdfk_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             zjdfk_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        bxbqys=infoMap.get("BXBQYS".toUpperCase());
-        if(bxbqys.equals("1")) {
+        bxbqys = infoMap.get("BXBQYS".toUpperCase());
+        if (bxbqys.equals("1")) {
             bxbqys_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             bxbqys_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
-        sjkgx=infoMap.get("SJKGX".toUpperCase());
-        if(sjkgx.equals("1")) {
+        sjkgx = infoMap.get("SJKGX".toUpperCase());
+        if (sjkgx.equals("1")) {
             sjkgx_chk.setImageResource(R.mipmap.app_login_remember_sel);
-        }else {
+        } else {
             sjkgx_chk.setImageResource(R.mipmap.app_login_remember_unsel);
         }
 
@@ -538,14 +540,36 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
         jcrq.setText(infoMap.get("JCRQ".toUpperCase()));
 
 
+        GX_PATH = infoMap.get("GX_PATH".toUpperCase());
+        BQQ_PATH = infoMap.get("BQQ_PATH".toUpperCase());
+        BQH_PATH = infoMap.get("BQH_PATH".toUpperCase());
 
-        GX_PATH=infoMap.get("GX_PATH".toUpperCase());
-        BQQ_PATH=infoMap.get("BQQ_PATH".toUpperCase());
-        BQH_PATH=infoMap.get("BQH_PATH".toUpperCase());
+        imgpath = infoMap.get("GZ_PATH".toUpperCase());
+        if (imgpath.equals("")) {
+            setAddView();
+        }
+        imgUrls.clear();
+        new Thread(new Runnable() {
 
-        imgpath=infoMap.get("GZ_PATH".toUpperCase());
+            @Override
+            public void run() {
+                if (imgpath != null && imgpath.length() > 0) {
+                    String[] paths = imgpath.split("\\|");
 
-
+                    ArrayList<Bitmap> lstBt = new ArrayList<Bitmap>();
+                    for (int i = 0; i < paths.length; i++) {
+                        imgUrls.add(paths[i]);
+                        // TODO Auto-generated method stub
+                        lstBt.add(getURLimage(paths[i]));
+                    }
+                    //                        Bitmap bmp = getURLimage(paths[i]);
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = lstBt;
+                    handle.sendMessage(msg);
+                }
+            }
+        }).start();
 
 
     }
@@ -698,6 +722,46 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
 
 
     }
+
+
+    //加载图片
+    public Bitmap getURLimage(String url) {
+        Bitmap bmp = null;
+        try {
+            URL myurl = new URL(url);
+            // 获得连接
+            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+            conn.setConnectTimeout(6000);//设置超时
+            conn.setDoInput(true);
+            conn.setUseCaches(false);//不缓存
+            conn.connect();
+            InputStream is = conn.getInputStream();//获得图片的数据流
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
+
+    //在消息队列中实现对控件的更改
+    private Handler handle = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    ArrayList<Bitmap> lst=(ArrayList<Bitmap>)msg.obj;
+                    for(int i=0;i<lst.size();i++) {
+                        final Bitmap bitmap = lst.get(i);
+                        final String imgkey = String.valueOf(System.currentTimeMillis());
+
+                        seImageView(bitmap, imgkey);
+                        imgs.put(imgkey, imgUrls.get(i));
+                    }
+                    break;
+            }
+        };
+    };
 
 
     private void setAddView() {
@@ -896,6 +960,87 @@ public class CJ_BXBQ_XCKP_edit extends AppFrameAct {
 //                    handler.addBangqianBaseInfo(jsonContent);
                     break;
                 case R.id.updateDataBtn:
+                    if(jcr.getText().toString().length()==0){
+                        ToastUtils.displayTextShort(CJ_BXBQ_XCKP_edit.this, "请输入检查人员姓名");
+                    }else if(jcrq.getText().toString().length()==0) {
+                        ToastUtils.displayTextShort(CJ_BXBQ_XCKP_edit.this, "请输入检查日期");
+                    }else{
+
+                        JSONObject jsonObj=new JSONObject();
+
+                        JsonUtil.addJsonData(jsonObj, "id",  infoMap.get("ID"));
+
+                        JsonUtil.addJsonData(jsonObj, "bh", infoMap.get("BH"));
+                        JsonUtil.addJsonData(jsonObj, "bxbq_id", bxbq_id);
+
+                        JsonUtil.addJsonData(jsonObj, "BQHZBH", bqhbh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "HZXM", hzxm.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "RK", hzrk.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "SFZHM", sfzhm.getText().toString());
+
+                        JsonUtil.addJsonData(jsonObj, "XIAN", quxian.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "XIANGZHEN", xiangzhen.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "CUN", cun.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ZU", zu.getText().toString());
+
+                        JsonUtil.addJsonData(jsonObj, "YHDMC", yhdmc.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "HUSHU", wxdx_hu.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "RENSHU", wxdx_ren.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "GGXMMC", ggxmmc.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "GGXMJZAZ", jzaz);
+                        JsonUtil.addJsonData(jsonObj, "JZAZ_LX", jzaz_lx);
+                        JsonUtil.addJsonData(jsonObj, "JZAZ_ZS", jzaz_zs);
+                        JsonUtil.addJsonData(jsonObj, "JZAZ_QDHT", jzaz_qdht);
+                        JsonUtil.addJsonData(jsonObj, "JZAZ_QDBCFS", jzaz_qdbcfs);
+                        JsonUtil.addJsonData(jsonObj, "JZAZ_QDAZXY", jzaz_qdazxy);
+                        JsonUtil.addJsonData(jsonObj, "HBHAZ", hbhaz);
+                        JsonUtil.addJsonData(jsonObj, "HBHAZ_BCZJFF", hbhaz_bczjff);
+                        JsonUtil.addJsonData(jsonObj, "FGG_FSAZ", fsaz);
+                        JsonUtil.addJsonData(jsonObj, "FGG_FSAZ_MFXZ", fsaz_mfxz);
+                        JsonUtil.addJsonData(jsonObj, "FGG_FSAZ_XFXJ", fsaz_xfxj);
+
+                        JsonUtil.addJsonData(jsonObj, "FGG_ZZAZ", zzaz);
+                        JsonUtil.addJsonData(jsonObj, "FGG_ZZAZ_ZZAZXY", zzaz_zzazxy);
+                        JsonUtil.addJsonData(jsonObj, "FGG_ZZAZ_BCZJFF", zzaz_bczjff);
+
+                        JsonUtil.addJsonData(jsonObj, "FGG_JZAZ", fgg_jzaz);
+                        JsonUtil.addJsonData(jsonObj, "FGG_JZAZ_AZQXZ", fgg_jzaz_azqxz);
+                        JsonUtil.addJsonData(jsonObj, "FGG_JZAZ_SG", fgg_jzaz_sg);
+
+
+                        JsonUtil.addJsonData(jsonObj, "GDAZ", gdaz);
+                        JsonUtil.addJsonData(jsonObj, "XFJC", xfjc);
+                        JsonUtil.addJsonData(jsonObj, "XFRZ", xfrz);
+                        JsonUtil.addJsonData(jsonObj, "JFCC", jfcc);
+                        JsonUtil.addJsonData(jsonObj, "ZJDFK", zjdfk);
+                        JsonUtil.addJsonData(jsonObj, "BXBQYS", bxbqys);
+                        JsonUtil.addJsonData(jsonObj, "SJKGX", sjkgx);
+
+                        JsonUtil.addJsonData(jsonObj, "CZWT", czwt.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "BZ", bz.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "JCR", jcr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "JCRQ", jcrq.getText().toString());
+
+
+                        JsonUtil.addJsonData(jsonObj, "GX_PATH",GX_PATH);
+                        JsonUtil.addJsonData(jsonObj, "BQQ_PATH", BQQ_PATH);
+                        JsonUtil.addJsonData(jsonObj, "BQH_PATH", BQH_PATH);
+
+
+                        String imgUrls="";
+                        String urlStr="";
+                        for (String url:imgs.values()){
+                            imgUrls=imgUrls+url+"|";
+                        }
+                        if(imgUrls.length()>0)
+                            urlStr=imgUrls.substring(0, imgUrls.length()-1);
+                        JsonUtil.addJsonData(jsonObj, "GZ_PATH", urlStr);
+
+
+
+                        requesType=Add;
+                        httpHandler.addCJ_BXBQ_XCKP(jsonObj.toString());
+                    }
                     break;
                 case R.id.delDataBtn:
                     DialogUtil.showActionDialog(CJ_BXBQ_XCKP_edit.this, "提示", "确认要删除", new DialogInterface.OnClickListener(){

@@ -23,6 +23,7 @@ import com.sichuan.geologenvi.act.MineListAct;
 import com.sichuan.geologenvi.act.RainAct;
 import com.sichuan.geologenvi.act.RainQXAct;
 import com.sichuan.geologenvi.act.SearchAct;
+import com.sichuan.geologenvi.act.SupportAct;
 import com.sichuan.geologenvi.act.TitleListAct;
 import com.sichuan.geologenvi.act.ZBAPAct;
 import com.sichuan.geologenvi.act.report.ReportEditListAct;
@@ -58,8 +59,15 @@ public class MainActivity extends AppFrameAct {
     private int[] ress={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_3dmap,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
             R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_14,
-             R.mipmap.icon_menu_12,R.mipmap.icon_menu_15,
+            R.mipmap.icon_menu_12,R.mipmap.icon_menu_15,
             R.mipmap.icon_menu_1,R.mipmap.icon_menu_4,R.mipmap.icon_menu_13, R.mipmap.more1};
+//    private String[] names={"通讯录","二维地图","三维地图","地质灾害","统计分析","数据采集","矿山地质","地质遗迹",
+//            "地下水","水土地质","预警","雨量监测","雷达回波","基础资料","数据同步","值班安排","技术支持","收回"};
+//    private int[] ress={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_3dmap,
+//            R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
+//            R.mipmap.icon_menu_9,R.mipmap.icon_menu_10,R.mipmap.icon_menu_11,R.mipmap.icon_menu_14,
+//             R.mipmap.icon_menu_12,R.mipmap.icon_menu_15,
+//            R.mipmap.icon_menu_1,R.mipmap.icon_menu_4,R.mipmap.icon_menu_13,R.mipmap.icon_menu_16, R.mipmap.more1};
 
     private int[] ress1={R.mipmap.icon_menu_2,R.mipmap.icon_menu_3,R.mipmap.icon_menu_3dmap,
             R.mipmap.icon_menu_5,R.mipmap.icon_menu_6,R.mipmap.icon_menu_7,R.mipmap.icon_menu_8,
@@ -439,6 +447,11 @@ public class MainActivity extends AppFrameAct {
                     i.putExtra("Type","zhibananpai");
                     startActivity(i);
                     break;
+//                case 16://技术支持
+//                    i.setClass(MainActivity.this, SupportAct.class);
+//                    i.putExtra("Title", "技术支持");
+//                    startActivity(i);
+//                    break;
                 case 16:
                     setImage(0);
                     break;

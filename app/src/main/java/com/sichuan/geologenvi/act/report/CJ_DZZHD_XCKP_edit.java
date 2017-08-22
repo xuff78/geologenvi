@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,11 +54,15 @@ import com.sichuan.geologenvi.views.Photo9Layout;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,6 +98,10 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
     private ProgressDialog dialog;
     private HorizontalScrollView horiScroller;
     private String imgpath="";
+    private String m_type="添加记录";
+
+
+    public final ArrayList<String> imgUrls = new ArrayList<>();
 
 
     private void initHandler() {
@@ -117,55 +126,48 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dzzh_fzgz_jc);
 
-        _setHeaderTitle("添加记录");
+        m_type=getIntent().getStringExtra("type");
+        _setHeaderTitle(m_type);
         handler=new SqlHandler(this);
 
 
 
-//add cuikailei 20170522
+        //add cuikailei 20170522
         inflater = LayoutInflater.from(this);
         int scrennWidth = getWindowManager().getDefaultDisplay().getWidth();
         imgItemWidth = (scrennWidth - ImageUtil.dip2px(this, 20) - 6) / 4;
 
 
-
-
-
-
-
         initView();
+        setAddView();
         if(getIntent().hasExtra("InfoMap")) {
             infoMap=((MapBean)getIntent().getSerializableExtra("InfoMap")).getMap();
             initData();
-            //addDataBtn.setVisibility(View.GONE);
-            updateDataBtn.setVisibility(View.GONE);
-            findViewById(R.id.arrowRight6).setVisibility(View.INVISIBLE);
 
-            if(imgpath!=null&&imgpath.length()>0) {
-                String[] paths=imgpath.split("\\|");
-                final ArrayList<String> imgUrls = new ArrayList<>();
-                for (int i = 0; i < paths.length; i++) {
-                    imgUrls.add(paths[i]);
-                }
-                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
-                    @Override
-                    public void onClick(View v, int position) {
-                        Intent intent = new Intent(CJ_DZZHD_XCKP_edit.this, ViewPagerExampleActivity.class);
-                        intent.putExtra("Images", imgUrls);
-                        intent.putExtra("pos", position);
-                        startActivity(intent);
-                    }
-                });
-                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
-            }
+//            findViewById(R.id.arrowRight6).setVisibility(View.INVISIBLE);
+
+//            if(imgpath!=null&&imgpath.length()>0) {
+//                String[] paths=imgpath.split("\\|");
+//                final ArrayList<String> imgUrls = new ArrayList<>();
+//                for (int i = 0; i < paths.length; i++) {
+//                    imgUrls.add(paths[i]);
+//                }
+//                photo9Layout.setImgCallback(new Photo9Layout.ClickListener() {
+//                    @Override
+//                    public void onClick(View v, int position) {
+//                        Intent intent = new Intent(CJ_DZZHD_XCKP_edit.this, ViewPagerExampleActivity.class);
+//                        intent.putExtra("Images", imgUrls);
+//                        intent.putExtra("pos", position);
+//                        startActivity(intent);
+//                    }
+//                });
+//                photo9Layout.setImageUrl(ScreenUtil.getScreenWidth(this)- ImageUtil.dip2px(this, 40), imgUrls);
+//            }
+
 
         }else{
             findViewById(R.id.zdmcLayout).setOnClickListener(listener);
-            updateDataBtn.setVisibility(View.GONE);
-            delDataBtn.setVisibility(View.GONE);
 
-            setAddView();
-            photo9Layout.setVisibility(View.GONE);
         }
 
         if(getIntent().hasExtra("Map")) {
@@ -247,89 +249,9 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             wxdx.setText(h+"户;"+p+"人;"+cc+"万元;"+dx);
             zdid = mapBean.getMap().get("ZHAA01A010");
 
-
-
-
-
         }
 
         initHandler();
-
-
-
-
-    }
-
-    private void initData() {
-        lon=infoMap.get("xzb".toUpperCase());
-        lat=infoMap.get("yzb".toUpperCase());
-        zdid=infoMap.get("zhdbh".toUpperCase());
-        zdmc.setText(infoMap.get("zdmc".toUpperCase()));
-        yfys.setText(infoMap.get("yfys".toUpperCase()));
-        jcfzr.setText(infoMap.get("jcfzr".toUpperCase()));
-        jcfzrlxdh.setText(infoMap.get("jcfzrlxdh".toUpperCase()));
-        jczyjx.setText(infoMap.get("jczyjx".toUpperCase()));
-        jczysdff.setText(infoMap.get("jczysdff".toUpperCase()));
-        ydbjxh.setText(infoMap.get("ydbjxh".toUpperCase()));
-        ssmlfbr.setText(infoMap.get("ssmlfbr".toUpperCase()));
-        ssmlfbrzbdh.setText(infoMap.get("ssmlfbrzbdh".toUpperCase()));
-        qpxdwfzrzbdh.setText(infoMap.get("qpxdwfzrzbdh".toUpperCase()));
-        zabwddfzrzbdh.setText(infoMap.get("zabwddfzrzbdh".toUpperCase()));
-        yljhdwfzrzbdh.setText(infoMap.get("yljhdwfzrzbdh".toUpperCase()));
-        czzywt.setText(infoMap.get("czzywt".toUpperCase()));
-        remark.setText(infoMap.get("remark".toUpperCase()));
-        zgyj.setText(infoMap.get("zgyj".toUpperCase()));
-        xcry.setText(infoMap.get("xcry".toUpperCase()));
-
-        lxjqgm.setText(infoMap.get("lxjqgm".toUpperCase()));
-        String wzString=infoMap.get("zdwz".toUpperCase());
-        if(wzString!=null) {
-//            zdwz.setText(handler.getDistrictName(wzString));
-            zdwz.setText(wzString);
-        }
-        wxdx.setText(infoMap.get("wxdx".toUpperCase()));
-        ljcd.setText(infoMap.get("ljcd".toUpperCase()));
-        jcrq.setText(ActUtil.getFormatDate(infoMap.get("jcrq".toUpperCase())));
-
-        jcfzrlxdhkt=infoMap.get("jcfzrlxdhkt".toUpperCase());
-        if(jcfzrlxdhkt.equals("是")) {
-            jcfzrlxdhkt_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        }else if(jcfzrlxdhkt.equals("否")) {
-            jcfzrlxdhkt_no.setImageResource(R.mipmap.app_login_remember_sel);
-        }
-        ydpzdd=infoMap.get("ydpzdd".toUpperCase());
-        if(ydpzdd.equals("有"))
-            ydpzdd_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else  if(ydpzdd.equals("无"))
-            ydpzdd_no.setImageResource(R.mipmap.app_login_remember_sel);
-
-        ydsslx=infoMap.get("ydsslx".toUpperCase());
-        if(ydsslx.equals("有"))
-            ydsslx_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else  if(ydsslx.equals("无"))
-            ydsslx_no.setImageResource(R.mipmap.app_login_remember_sel);
-
-        qpxdwfzr=infoMap.get("qpxdwfzr".toUpperCase());
-        if(qpxdwfzr.equals("有"))
-            qpxdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else if(qpxdwfzr.equals("无"))
-            qpxdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
-
-        zabwdwfzr=infoMap.get("zabwdwfzr".toUpperCase());
-        if(zabwdwfzr.equals("有"))
-            zabwdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else if(zabwdwfzr.equals("无"))
-            zabwdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
-
-        yljhdwfzr=infoMap.get("yljhdwfzr".toUpperCase());
-        if(yljhdwfzr.equals("有"))
-            yljhdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
-        else if(yljhdwfzr.equals("无"))
-            yljhdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
-
-
-         imgpath=infoMap.get("path".toUpperCase());
-
 
     }
 
@@ -404,9 +326,117 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         photo9Layout= (Photo9Layout) findViewById(R.id.photoLayout_dzzh_show);
 
 
+        if(m_type.equals("添加记录")){
+            updateDataBtn.setVisibility(View.GONE);
+            delDataBtn.setVisibility(View.GONE);
+            photo9Layout.setVisibility(View.GONE);
+        }
+        else{
+            addDataBtn.setVisibility(View.GONE);
+//            updateDataBtn.setVisibility(View.GONE);
+            photo9Layout.setVisibility(View.GONE);
+        }
 
 
     }
+
+    private void initData() {
+        lon = infoMap.get("xzb".toUpperCase());
+        lat = infoMap.get("yzb".toUpperCase());
+        zdid = infoMap.get("zhdbh".toUpperCase());
+        zdmc.setText(infoMap.get("zdmc".toUpperCase()));
+        yfys.setText(infoMap.get("yfys".toUpperCase()));
+        jcfzr.setText(infoMap.get("jcfzr".toUpperCase()));
+        jcfzrlxdh.setText(infoMap.get("jcfzrlxdh".toUpperCase()));
+        jczyjx.setText(infoMap.get("jczyjx".toUpperCase()));
+        jczysdff.setText(infoMap.get("jczysdff".toUpperCase()));
+        ydbjxh.setText(infoMap.get("ydbjxh".toUpperCase()));
+        ssmlfbr.setText(infoMap.get("ssmlfbr".toUpperCase()));
+        ssmlfbrzbdh.setText(infoMap.get("ssmlfbrzbdh".toUpperCase()));
+        qpxdwfzrzbdh.setText(infoMap.get("qpxdwfzrzbdh".toUpperCase()));
+        zabwddfzrzbdh.setText(infoMap.get("zabwddfzrzbdh".toUpperCase()));
+        yljhdwfzrzbdh.setText(infoMap.get("yljhdwfzrzbdh".toUpperCase()));
+        czzywt.setText(infoMap.get("czzywt".toUpperCase()));
+        remark.setText(infoMap.get("remark".toUpperCase()));
+        zgyj.setText(infoMap.get("zgyj".toUpperCase()));
+        xcry.setText(infoMap.get("xcry".toUpperCase()));
+
+        lxjqgm.setText(infoMap.get("lxjqgm".toUpperCase()));
+        String wzString = infoMap.get("zdwz".toUpperCase());
+        if (wzString != null) {
+//            zdwz.setText(handler.getDistrictName(wzString));
+            zdwz.setText(wzString);
+        }
+        wxdx.setText(infoMap.get("wxdx".toUpperCase()));
+        ljcd.setText(infoMap.get("ljcd".toUpperCase()));
+        jcrq.setText(ActUtil.getFormatDate(infoMap.get("jcrq".toUpperCase())));
+
+        jcfzrlxdhkt = infoMap.get("jcfzrlxdhkt".toUpperCase());
+        if (jcfzrlxdhkt.equals("是")) {
+            jcfzrlxdhkt_yes.setImageResource(R.mipmap.app_login_remember_sel);
+        } else if (jcfzrlxdhkt.equals("否")) {
+            jcfzrlxdhkt_no.setImageResource(R.mipmap.app_login_remember_sel);
+        }
+        ydpzdd = infoMap.get("ydpzdd".toUpperCase());
+        if (ydpzdd.equals("有"))
+            ydpzdd_yes.setImageResource(R.mipmap.app_login_remember_sel);
+        else if (ydpzdd.equals("无"))
+            ydpzdd_no.setImageResource(R.mipmap.app_login_remember_sel);
+
+        ydsslx = infoMap.get("ydsslx".toUpperCase());
+        if (ydsslx.equals("有"))
+            ydsslx_yes.setImageResource(R.mipmap.app_login_remember_sel);
+        else if (ydsslx.equals("无"))
+            ydsslx_no.setImageResource(R.mipmap.app_login_remember_sel);
+
+        qpxdwfzr = infoMap.get("qpxdwfzr".toUpperCase());
+        if (qpxdwfzr.equals("有"))
+            qpxdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
+        else if (qpxdwfzr.equals("无"))
+            qpxdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
+
+        zabwdwfzr = infoMap.get("zabwdwfzr".toUpperCase());
+        if (zabwdwfzr.equals("有"))
+            zabwdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
+        else if (zabwdwfzr.equals("无"))
+            zabwdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
+
+        yljhdwfzr = infoMap.get("yljhdwfzr".toUpperCase());
+        if (yljhdwfzr.equals("有"))
+            yljhdwfzr_yes.setImageResource(R.mipmap.app_login_remember_sel);
+        else if (yljhdwfzr.equals("无"))
+            yljhdwfzr_no.setImageResource(R.mipmap.app_login_remember_sel);
+
+
+        imgpath = infoMap.get("path".toUpperCase());
+        if (imgpath.equals("")) {
+            setAddView();
+        }
+        imgUrls.clear();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (imgpath != null && imgpath.length() > 0) {
+                    String[] paths = imgpath.split("\\|");
+
+                    ArrayList<Bitmap> lstBt=new ArrayList<Bitmap>();
+                    for (int i = 0; i < paths.length; i++) {
+                        imgUrls.add(paths[i]);
+                        // TODO Auto-generated method stub
+                        lstBt.add(getURLimage(paths[i]));
+                    }
+                    //                        Bitmap bmp = getURLimage(paths[i]);
+                    Message msg = new Message();
+                    msg.what = 0;
+                    msg.obj = lstBt;
+                    handle.sendMessage(msg);
+                }
+            }
+        }).start();
+    }
+
+
 
 
     private void setAddView() {
@@ -430,6 +460,46 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
             }
         });
     }
+
+
+    //加载图片
+    public Bitmap getURLimage(String url) {
+        Bitmap bmp = null;
+        try {
+            URL myurl = new URL(url);
+            // 获得连接
+            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+            conn.setConnectTimeout(6000);//设置超时
+            conn.setDoInput(true);
+            conn.setUseCaches(false);//不缓存
+            conn.connect();
+            InputStream is = conn.getInputStream();//获得图片的数据流
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
+    //在消息队列中实现对控件的更改
+    private Handler handle = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    ArrayList<Bitmap> lst=(ArrayList<Bitmap>)msg.obj;
+                    for(int i=0;i<lst.size();i++) {
+                        final Bitmap bitmap = lst.get(i);
+                        final String imgkey = String.valueOf(System.currentTimeMillis());
+
+                        seImageView(bitmap, imgkey);
+                        imgs.put(imgkey, imgUrls.get(i));
+                    }
+                    break;
+            }
+        };
+    };
+
     private void seImageView(Bitmap bmp, final String imgkey) {
 //        urls.add(imgUrl);
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(imgItemWidth, imgItemWidth);
@@ -439,6 +509,7 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
         final ImageView img = (ImageView) v.findViewById(R.id.img);
 //        img.setImageResource(R.mipmap.zhaopian);
 //        imageloader.displayImage(imgUrl, img);
+
         img.setImageBitmap(bmp);
         photoLayout.addView(v, llp);
         View del = v.findViewById(R.id.deleteIcon);
@@ -580,6 +651,65 @@ public class CJ_DZZHD_XCKP_edit extends AppFrameAct {
 //                    handler.addBangqianBaseInfo(jsonContent);
                     break;
                 case R.id.updateDataBtn:
+                    if(zdid==null||zdid.length()==0){
+                        ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请选择一个灾点");
+                    }else if(xcry.getText().toString().length()==0){
+                        ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请输入检查人员姓名");
+                    }else if(jcrq.getText().toString().length()==0) {
+                        ToastUtils.displayTextShort(CJ_DZZHD_XCKP_edit.this, "请输入检查日期");
+                    }else{
+
+                        JSONObject jsonObj=new JSONObject();
+                        JsonUtil.addJsonData(jsonObj, "id", infoMap.get("ID"));//巡查卡片编号
+                        JsonUtil.addJsonData(jsonObj,"fid",infoMap.get("FID"));//
+
+                        JsonUtil.addJsonData(jsonObj, "zhdbh", zdid);//灾害点编号
+                        JsonUtil.addJsonData(jsonObj, "zdmc", zdmc.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "yfys", yfys.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "lxjqgm", lxjqgm.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zdwz", zdwz.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "wxdx", wxdx.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ljcd", ljcd.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcfzr", jcfzr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcfzrlxdh", jcfzrlxdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jczyjx", jczyjx.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jczysdff", jczysdff.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcfzrlxdhkt", jcfzrlxdhkt);  //
+                        JsonUtil.addJsonData(jsonObj, "ydpzdd", ydpzdd);  //
+                        JsonUtil.addJsonData(jsonObj, "ydsslx", ydsslx);  //
+                        JsonUtil.addJsonData(jsonObj, "qpxdwfzr", qpxdwfzr);  //
+                        JsonUtil.addJsonData(jsonObj, "zabwdwfzr", zabwdwfzr);  //
+                        JsonUtil.addJsonData(jsonObj, "yljhdwfzr", yljhdwfzr);  //
+                        JsonUtil.addJsonData(jsonObj, "ydbjxh", ydbjxh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ssmlfbr", ssmlfbr.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "ssmlfbrzbdh", ssmlfbrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "qpxdwfzrzbdh", qpxdwfzrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zabwddfzrzbdh", zabwddfzrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "yljhdwfzrzbdh", yljhdwfzrzbdh.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "czzywt", czzywt.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "zgyj", zgyj.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "remark", remark.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "xcry", xcry.getText().toString());
+                        JsonUtil.addJsonData(jsonObj, "jcrq", jcrq.getText().toString());
+                        JsonUtil.addJsonData(jsonObj,"xzb",lon);
+                        JsonUtil.addJsonData(jsonObj,"yzb",lat);
+
+
+                        String imgUrls="";
+                        String urlStr="";
+                        for (String url:imgs.values()){
+                            imgUrls=imgUrls+url+"|";
+                        }
+                        if(imgUrls.length()>0)
+                            urlStr=imgUrls.substring(0, imgUrls.length()-1);
+                        JsonUtil.addJsonData(jsonObj,"path",urlStr);
+
+
+
+                        requesType=Add;
+                        httpHandler.addCJ_DZZHD_XCKP(jsonObj.toString());
+
+                    }
                     break;
                 case R.id.delDataBtn:
                     DialogUtil.showActionDialog(CJ_DZZHD_XCKP_edit.this, "提示", "确认要删除", new DialogInterface.OnClickListener(){

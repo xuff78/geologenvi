@@ -154,9 +154,9 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
 
             case 30://通讯录  四川省地质灾害防治工作通讯录
             case 31://通讯录  成都市地质灾害防治工作通讯录
-            case 32://通讯录  成都市国土资源局通讯录
-            case 33://通讯录  成都市地质环境监测站通讯录
-            case 34://通讯录  区（市）县地质灾害防治工作通讯录
+//            case 32://通讯录  成都市国土资源局通讯录
+            case 32://通讯录  成都市地质环境监测站通讯录
+            case 33://通讯录  区（市）县地质灾害防治工作通讯录
                 datalist = handler.getGeohazardInfo("", type, "", "", "", "", "", "", "");
                 break;
 
@@ -212,8 +212,8 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                     break;
                 case 30://通讯录  四川省地质灾害防治工作通讯录
                 case 31://通讯录  成都市地质灾害防治工作通讯录
-                case 32://通讯录  成都市国土资源局通讯录
-                case 33://通讯录  成都市地质环境监测站通讯录
+//                case 32://通讯录  成都市国土资源局通讯录
+                case 32://通讯录  成都市地质环境监测站通讯录
                     key = info.get("DANWEI");
                     if (stations.containsKey(key)) {
                         ArrayList<Map<String, String>> data = stations.get(key);
@@ -225,7 +225,7 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                         stations.put(key, data);
                     }
                     break;
-                case 34://通讯录  区（市）县地质灾害防治工作通讯录
+                case 33://通讯录  区（市）县地质灾害防治工作通讯录
                     key = info.get("QX");
                     if (stations.containsKey(key)) {
                         ArrayList<Map<String, String>> data = stations.get(key);
@@ -265,7 +265,7 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
             mapBean.setMap(map);
             if (type >= 30) {
 
-                if (type <= 33) {
+                if (type <= 32) {
                     String title = ((TextView) view).getText().toString();
                     ArrayList<Map<String, String>> points = stations.get(title);
                     if (points.size() > 0) {
@@ -279,7 +279,7 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                             subLayout.removeAllViews();
                         }
                     }
-                } else if (type == 34) {
+                } else if (type == 33) {
                     String title = ((TextView) view).getText().toString();
                     ArrayList<Map<String, String>> points = stations.get(title);
                     LinearLayout subLayout = (LinearLayout) ((View) (view.getParent())).findViewById(R.id.subLayout);
@@ -424,12 +424,12 @@ public class TitleResultListAct extends AppFrameAct implements SectionIndexer {
                 switch (type) {
                     case 30://通讯录  四川省地质灾害防治工作通讯录
                     case 31://通讯录  成都市地质灾害防治工作通讯录
-                    case 32://通讯录  成都市国土资源局通讯录
-                    case 33://通讯录  成都市地质环境监测站通讯录
+//                    case 32://通讯录  成都市国土资源局通讯录
+                    case 32://通讯录  成都市地质环境监测站通讯录
                         ContactDialog4 contactDialog = new ContactDialog4(TitleResultListAct.this, mapBean, type);
                         contactDialog.show();
                         break;
-                    case 34:
+                    case 33:
                         ContactDialog5 contactDialog5 = new ContactDialog5(TitleResultListAct.this, mapBean,title) ;
                         contactDialog5.show();
                         break;

@@ -108,6 +108,7 @@ public class ReportEditListAct extends AppFrameAct {
                 public void onClick(View view) {
                     Intent i = new Intent();
                     i.putExtra("Map", mapBean);
+                    i.putExtra("type","添加记录");
                     switch (type) {
                         case 20:
                             i.setClass(ReportEditListAct.this, CJ_DZZHD_XCKP_edit.class);
@@ -209,6 +210,7 @@ public class ReportEditListAct extends AppFrameAct {
             }
             MapBean mapBean=new MapBean();
             mapBean.setMap(map);
+            i.putExtra("type","修改记录");
             i.putExtra("InfoMap",mapBean);
             i.putExtra("TableName", tableName);
             startActivityForResult(i, 0x81);

@@ -31,7 +31,7 @@ public class Photo9Layout extends LinearLayout {
         this.urls=urls;
         setOrientation(LinearLayout.VERTICAL);
         if(urls.size()==1)
-            imgWith=width/3*2;
+            imgWith = width / 3 * 2;
         else if(urls.size()==2)
             imgWith=width/2-4;
         else
